@@ -1,0 +1,23 @@
+{
+  "name": "it2901",
+  "version": "1.0.0",
+  "description": "Management Tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SondreWold/it2901.git"
+  },
+  "author": "Gr 23",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SondreWold/it2901/issues"
+  },
+  "homepage": "https://github.com/SondreWold/it2901#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
