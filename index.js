@@ -15,7 +15,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/working", (req, res) => {
-  return res.json({ txt: "Yes, its working!!!" });
+  return res.json({ txt: "Yes" });
 });
 
 // The "catchall" handler: for any request that doesn't
