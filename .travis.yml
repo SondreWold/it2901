@@ -6,7 +6,7 @@ cache:
     - node_modules
 script:
   - npm install
-  - npm start
+  - node index.js &
   - $(npm bin)/cypress run
 deploy:
   provider: pages
