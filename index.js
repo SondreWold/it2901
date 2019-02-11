@@ -5,9 +5,17 @@ const app = express();
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
 
-// Put all API endpoints under '/api'
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.get("/working", (req, res) => {
-  return res.end("Api working");
+  return res.json({ txt: "Yes, its working!!!" });
 });
 
 // The "catchall" handler: for any request that doesn't
