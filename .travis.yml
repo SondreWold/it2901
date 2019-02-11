@@ -6,7 +6,7 @@ cache:
     - node_modules
 script:
   - npm install
-  - $(npm bin)/cypress run --record
+  - $(npm bin)/cypress run
 deploy:
   provider: pages
   skip_cleanup: true
