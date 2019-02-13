@@ -9,6 +9,14 @@ class App extends Component {
     fetch("/working")
       .then(response => response.json())
       .then(data => this.setState({ text: data.txt }));
+
+    fetch("/employees")
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          text: this.state.text + " " + data[0].id + ", " + data[0].name
+        })
+      );
   }
 
   render() {
