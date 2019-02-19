@@ -1,12 +1,16 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import ContentContainer from "./containers/ContentContainer";
 
 class App extends Component {
   state = { text: "" };
 
   render() {
-    return <div className="App">Her skal det komme saker og ting</div>;
+    return (
+      <div className="App">
+        <p>Hei</p>
+      </div>
+    );
   }
 }
 
