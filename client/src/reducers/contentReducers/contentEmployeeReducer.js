@@ -1,18 +1,18 @@
 import {
-  GET_BASES_BEGIN,
-  GET_BASES_SUCCESS,
-  GET_BASES_FAILURE
-} from "../actions/contentActions";
+  GET_EMPLOYEES_BEGIN,
+  GET_EMPLOYEES_SUCCESS,
+  GET_EMPLOYEES_FAILURE
+} from "../../actions/contentActions/contentEmployeeActions";
 
 const initialState = {
-  bases: [],
+  employees: [],
   loading: false,
   error: null
 };
 
-export default function productReducer(state = initialState, action) {
+export default function contentReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_BASES_BEGIN:
+    case GET_EMPLOYEES_BEGIN:
       // Mark the state as "loading" so we can show a spinner or something
       // Also, reset any errors. We're starting fresh.
       return {
@@ -21,16 +21,16 @@ export default function productReducer(state = initialState, action) {
         error: null
       };
 
-    case GET_BASES_SUCCESS:
+    case GET_EMPLOYEES_SUCCESS:
       // All done: set loading "false".
       // Also, replace the items with the ones from the server
       return {
         ...state,
         loading: false,
-        bases: action.payload.bases
+        EMPLOYEES: action.payload.employees
       };
 
-    case GET_BASES_FAILURE:
+    case GET_EMPLOYEES_FAILURE:
       // The request failed. It's done. So set loading to "false".
       // Save the error, so we can display it somewhere.
       // Since it failed, we don't have items to display anymore, so set `items` empty.
@@ -41,7 +41,7 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.bases,
+        error: action.payload.employees,
         items: []
       };
 
