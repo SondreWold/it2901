@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const db = require("./server/queries");
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
@@ -13,6 +14,8 @@ app.use(function(req, res, next) {
   );
   next();
 });
+
+app.get("/employees", db.getEmployees);
 
 app.get("/working", (req, res) => {
   return res.json({ txt: "Yes" });
