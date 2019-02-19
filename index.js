@@ -1,11 +1,15 @@
+import employeeRouter from "./routes/employeeRouter.js";
+import baseRouter from "./routes/baseRouter.js";
+import houseRouter from "./routes/houseRouter.js";
+import unitRouter from "./routes/unitRouter.js";
+import absenceRouter from "./routes/absenceRouter.js";
 const express = require("express");
 const path = require("path");
 const app = express();
-const db = require("./server/queries");
+const db = require("./server/ExampleQueries");
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -15,11 +19,15 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/employees", db.getEmployees);
+//Example for testing connection with ease
+app.get("/test", db.getEmployees);
 
-app.get("/working", (req, res) => {
-  return res.json({ txt: "Yes" });
-});
+//End-points ** USE THIS PATTERN FOR GENERATING NEW ROUTERS **
+app.use("/api/employee", employeeRouter);
+app.use("/api/base", baseRouter);
+app.use("/api/house", houseRouter);
+app.use("/api/unit", unitRouter);
+app.use("/api/absence", absenceRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
