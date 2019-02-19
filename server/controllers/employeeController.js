@@ -1,7 +1,7 @@
-var db = require("./db");
+var db = require("../db");
 
 const getEmployees = (request, response) => {
-  db.query("SELECT * FROM employees", (error, results) => {
+  db.query("SELECT * FROM employee", (error, results) => {
     if (error) {
       throw error;
     }

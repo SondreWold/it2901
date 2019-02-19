@@ -1,4 +1,8 @@
-import empRouter from "./routes/employeeRouter.js";
+import employeeRouter from "./routes/employeeRouter.js";
+import baseRouter from "./routes/baseRouter.js";
+import houseRouter from "./routes/houseRouter.js";
+import unitRouter from "./routes/unitRouter.js";
+import absenceRouter from "./routes/absenceRouter.js";
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -15,11 +19,15 @@ app.use(function(req, res, next) {
   next();
 });
 
-//Example
+//Example for testing connection with ease
 app.get("/test", db.getEmployees);
 
-//End-points
-app.get("/api", empRouter);
+//End-points ** USE THIS PATTERN FOR GENERATING NEW ROUTERS **
+app.use("/api/employee", employeeRouter);
+app.use("/api/base", baseRouter);
+app.use("/api/house", houseRouter);
+app.use("/api/unit", unitRouter);
+app.use("/api/absence", absenceRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
