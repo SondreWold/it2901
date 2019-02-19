@@ -18,7 +18,7 @@ const getAbsentEmployees = (request, response) => {
   });
 };
 
-const updateChildren = (request, response) => {
+const updateAbsentChildren = (request, response) => {
   const id = parseInt(request.params.id);
   const { amount } = request.body;
 
@@ -37,5 +37,5 @@ const updateChildren = (request, response) => {
 module.exports = {
   getAbsentEmployees,
   getAbsentChildren,
-  updateChildren
+  updateAbsentChildren
 };
