@@ -1,11 +1,11 @@
+import empRouter from "./routes/employeeRouter.js";
 const express = require("express");
 const path = require("path");
 const app = express();
-const db = require("./server/queries");
+const db = require("./server/ExampleQueries");
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "client/build")));
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -15,11 +15,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/employees", db.getEmployees);
+//Example
+app.get("/test", db.getEmployees);
 
-app.get("/working", (req, res) => {
-  return res.json({ txt: "Yes" });
-});
+//End-points
+app.get("/api", empRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
