@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
-import date from "./dateReducer";
+import contentBase from "./contentReducers/contentBaseReducer";
+import contentEmployee from "./contentReducers/contentEmployeeReducer";
+import contentAbsentEmployees from "./contentReducers/contentAbsenceEmployeeReducer";
+import contentAbsentChildren from "./contentReducers/contentAbsenceChildrenReducer";
 
 export default combineReducers({
   //import in all reducers here
-  date
+  contentBase,
+  contentEmployee,
+  contentAbsentEmployees,
+  contentAbsentChildren
 });

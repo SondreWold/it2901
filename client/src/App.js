@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import DateComponent from "./components/DateComponent";
+import ContentContainer from "./containers/ContentContainer";
 
 class App extends Component {
   state = { text: "" };
@@ -11,6 +11,7 @@ class App extends Component {
       <div className="App">
         Her skal det komme saker og ting
         <DateComponent />
+        <p>Hei</p>
       </div>
     );
   }

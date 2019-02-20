@@ -18,7 +18,24 @@ const getAbsentEmployees = (request, response) => {
   });
 };
 
+const updateAbsentChildren = (request, response) => {
+  const id = parseInt(request.params.id);
+  const { amount } = request.body;
+
+  db.query(
+    "UPDATE absence_children SET children = $1 WHERE base_id = $2",
+    [amount, id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).send(`Absent children modified with ID: ${id}`);
+    }
+  );
+};
+
 module.exports = {
   getAbsentEmployees,
-  getAbsentChildren
+  getAbsentChildren,
+  updateAbsentChildren
 };
