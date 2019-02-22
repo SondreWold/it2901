@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDom from "react-dom";
 import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
 import Employee from "./Employee";
@@ -36,7 +35,8 @@ class Column extends Component {
 			  			{...provided.droppableProps}
 			  			isDraggingOver={snapshot.isDraggingOver}
 			  		>
-			  			{this.props.employees.map((employee, index) => <Employee key={employee.id} employee={employee} index={index}/>)}
+			  			{this.props.employees.map((employee, index) => 
+			  				<Employee key={employee.id} employee={employee} index={index}/>)}
 			  			{provided.placeholder}
 			  		</EmployeeList>
 		  		)}

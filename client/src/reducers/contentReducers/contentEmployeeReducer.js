@@ -27,7 +27,7 @@ export default function contentReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        EMPLOYEES: action.payload.employees
+        employees: action.payload.employees
       };
 
     case GET_EMPLOYEES_FAILURE:

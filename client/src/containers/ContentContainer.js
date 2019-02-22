@@ -5,6 +5,9 @@ import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 
+// components
+import BaseOverview from "../components/BaseOverview";
+
 class contentContainer extends React.Component {
   componentDidMount() {
     this.props.getBases();
@@ -15,7 +18,7 @@ class contentContainer extends React.Component {
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {
-    return <p>Content Container //ToBeRemoved </p>;
+    return <BaseOverview bases={this.props.bases} employees={this.props.employees}/>
   }
 }
 
@@ -32,7 +35,8 @@ const mapStateToProps = state => ({
   bases: state.contentBase.bases,
   employees: state.contentEmployee.employees,
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
-  absentChildren: state.contentAbsentChildren.absentChildren
+  absentChildren: state.contentAbsentChildren.absentChildren,
+  loading: state.contentBase.loading
 });
 
 export default connect(
