@@ -19,17 +19,18 @@ const getAbsentEmployees = (request, response) => {
 };
 
 const updateAbsentChildren = (request, response) => {
-  const id = parseInt(request.params.id);
+  const baseId = parseInt(request.params.baseId);
+  const date = request.params.date;
   const { amount } = request.body;
 
   db.query(
-    "UPDATE absence_children SET children = $1 WHERE base_id = $2",
-    [amount, id],
+    "UPDATE absence_children SET children = $1 WHERE base_id = $2 AND date = $3",
+    [amount, baseId, date],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(200).send(`Absent children modified with ID: ${id}`);
+      response.status(200).send(`Absent children modified with ID: ${baseId}`);
     }
   );
 };
