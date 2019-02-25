@@ -4,16 +4,21 @@ var calendar2 = require("./../images/calendar2.svg");
 
 class DateSelectorComponent extends React.Component {
   render() {
+    let calendarIcon = <img style={calendar} src={calendar2} alt="calendar" />;
+
     return (
       <div style={datepicker}>
-        <img style={calendar} src={calendar2} alt="calendar" />
-        <DatePicker
-          onChange={this.props.changeDate}
-          clearIcon={null}
-          returnValue={"start"}
-          value={this.props.date.date}
-          locale={"nb"}
-        />
+        <div style={datepickerContainer}>
+          <DatePicker
+            style={whop}
+            onChange={this.props.changeDate}
+            clearIcon={null}
+            returnValue={"start"}
+            value={this.props.date.date}
+            locale={"nb"}
+            calendarIcon={calendarIcon}
+          />
+        </div>
       </div>
     );
   }
@@ -22,13 +27,25 @@ class DateSelectorComponent extends React.Component {
 export default DateSelectorComponent;
 
 const calendar = {
-  width: 28,
-  height: 28,
-  marginRight: 10
+  width: 20
+};
+
+const whop = {
+  borderRadius: 3
 };
 
 const datepicker = {
   display: "flex",
   justifyContent: "space-around",
+  alignItems: "center",
   height: 28
+};
+
+const datepickerContainer = {
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  alignItems: "flex-start",
+  margin: 10,
+  padding: 10
 };

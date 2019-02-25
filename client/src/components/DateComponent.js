@@ -1,9 +1,9 @@
 import React from "react";
 import DateSelectorComponent from "./DateSelectorComponent";
+import DateHeaderComponent from "./DateHeaderComponent";
 
 class DateComponent extends React.Component {
   componentDidMount() {
-    console.log("\n\n\ndato:");
     let date = new Date();
     this.props.changeDate(date);
   }
@@ -11,6 +11,7 @@ class DateComponent extends React.Component {
   render() {
     return (
       <div style={dateComponents}>
+        <DateHeaderComponent date={this.props.date} />
         <DateSelectorComponent
           date={this.props.date}
           changeDate={this.props.changeDate}

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 class DateHeaderComponent extends React.Component {
   render() {
@@ -9,18 +8,19 @@ class DateHeaderComponent extends React.Component {
       month: "long",
       day: "numeric"
     };
+    let date = new Date(this.props.date.date);
+    let formatDate = date.toLocaleDateString("nb-NO", options);
+    let formattedDate = formatDate.replace(
+      formatDate[0],
+      formatDate[0].toUpperCase()
+    );
 
     return (
       <div>
-        <h5>{JSON.stringify(this.props.date)}</h5>
-        <h5 />
+        <h2>{formattedDate}</h2>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  date: state.date.selectedDate.date
-});
-
-export default connect(mapStateToProps)(DateHeaderComponent);
+export default DateHeaderComponent;
