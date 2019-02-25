@@ -41,7 +41,7 @@ export default function contentReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.employees,
+        error: action.payload.error,
         items: []
       };
 

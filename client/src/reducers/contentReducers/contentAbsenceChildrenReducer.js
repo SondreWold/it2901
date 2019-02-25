@@ -30,7 +30,7 @@ export default function contentReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.children,
+        error: action.payload.error,
         absentChildren: []
       };
 
