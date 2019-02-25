@@ -1,5 +1,6 @@
 import React from "react";
 import DateSelectorComponent from "./DateSelectorComponent";
+import DateHeaderComponent from "./DateHeaderComponent";
 import { changeDate } from "./../actions/dateAction";
 import { connect } from "react-redux";
 
@@ -12,6 +13,7 @@ class DateComponent extends React.Component {
   render() {
     return (
       <div style={dateComponents}>
+        <DateHeaderComponent />
         <DateSelectorComponent />
       </div>
     );
@@ -19,8 +21,7 @@ class DateComponent extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  date: state.date.selectedDate,
-  dateSet: state.date.dateSet
+  date: state.date.selectedDate
 });
 
 const mapDispatchToProps = dispatch => {
@@ -38,5 +39,5 @@ const dateComponents = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-around",
-  marginTop: 70
+  marginTop: 250
 };

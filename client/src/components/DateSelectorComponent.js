@@ -14,6 +14,7 @@ class DateSelectorComponent extends React.Component {
           clearIcon={null}
           returnValue={"start"}
           value={this.props.date}
+          locale={"nb"}
         />
       </div>
     );
@@ -43,5 +44,6 @@ const calendar = {
 
 const datepicker = {
   display: "flex",
-  justifyContent: "space-around"
+  justifyContent: "space-around",
+  height: 28
 };
