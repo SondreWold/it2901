@@ -3,6 +3,7 @@ import contentBase from "./contentReducers/contentBaseReducer";
 import contentEmployee from "./contentReducers/contentEmployeeReducer";
 import contentAbsentEmployees from "./contentReducers/contentAbsenceEmployeeReducer";
 import contentAbsentChildren from "./contentReducers/contentAbsenceChildrenReducer";
+import movedEmployee from "./movedEmployeeReducer";
 import date from "./dateReducer";
 
 export default combineReducers({
@@ -11,5 +12,6 @@ export default combineReducers({
   contentEmployee,
   contentAbsentEmployees,
   contentAbsentChildren,
-  date
+  date,
+  movedEmployee
 });

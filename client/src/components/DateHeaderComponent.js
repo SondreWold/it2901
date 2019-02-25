@@ -8,7 +8,7 @@ class DateHeaderComponent extends React.Component {
       month: "long",
       day: "numeric"
     };
-    let date = new Date(this.props.date.date);
+    let date = new Date(this.props.date);
     let formatDate = date.toLocaleDateString("nb-NO", options);
     let formattedDate = formatDate.replace(
       formatDate[0],

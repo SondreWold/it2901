@@ -27,5 +27,5 @@ const dateComponents = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-around",
-  marginTop: 250
+  marginTop: 150
 };
