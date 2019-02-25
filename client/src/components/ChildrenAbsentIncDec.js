@@ -2,11 +2,6 @@ import React, { Component } from "react";
 
 class ChildrenAbsentIncDec extends Component {
   componentDidMount() {
-    console.log("inc");
-    console.log(this.props.absent);
-    console.log(this.props.totalChildren);
-    console.log(this.props.base);
-    console.log(this.props.date);
   }
 
   decAbsence = () => {

@@ -27,10 +27,6 @@ export function getAbsentChildren(date) {
 }
 
 export function updateAbsentChildren(amount, baseId, date) {
-  console.log("abc");
-  console.log(amount);
-  console.log(baseId);
-  console.log(date);
   return dispatch => {
     fetch("api/absence/children/baseid/" + baseId + "/date/" + date, {
       method: "PUT",

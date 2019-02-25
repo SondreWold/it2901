@@ -11,14 +11,23 @@ import { changeDate } from "./../actions/dateAction";
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
+import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
 
+// components
+import BaseOverview from "../components/BaseOverview";
+
 class contentContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: "2019-02-25" };
+  }
+
   componentDidMount() {
-    console.log(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getBases();
     this.props.getEmployees();
     this.props.getAbsentEmployees();
+    this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
   }
 
@@ -29,8 +38,6 @@ class contentContainer extends React.Component {
       );
     }
   }
-
-  change;
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {
@@ -56,6 +63,7 @@ class contentContainer extends React.Component {
             </div>
           ))}
 
+        <BaseOverview moved_employees={this.props.moved_employees} bases={this.props.bases} employees={this.props.employees}/>
         <DateComponent
           date={this.props.date}
           dateSet={this.props.dateSet}
@@ -72,6 +80,7 @@ const mapDispatchToProps = dispatch => {
     getEmployees: url => dispatch(getEmployees()),
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
+    getMovedEmployee: date => dispatch(getMovedEmployee(date)),
     changeDate: date => dispatch(changeDate(date)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date))
@@ -83,6 +92,8 @@ const mapStateToProps = state => ({
   employees: state.contentEmployee.employees,
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
   absentChildren: state.contentAbsentChildren.absentChildren,
+  loading: state.contentBase.loading,
+  moved_employees: state.movedEmployee.data,
   date: state.date.selectedDate,
   dateSet: state.date.dateSet
 });

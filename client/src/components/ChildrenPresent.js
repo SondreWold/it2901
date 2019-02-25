@@ -3,7 +3,6 @@ import MaterialIcon from "material-icons-react";
 
 class ChildrenPresent extends Component {
   render() {
-    console.log(this.props.absentChildren);
     return (
       <div>
         {this.props.base + ": "}
