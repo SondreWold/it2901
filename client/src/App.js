@@ -9,8 +9,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        Her skal det komme saker og ting
-        <DateComponent />
+        <p>Hei</p>
+        <ContentContainer />
       </div>
     );
   }

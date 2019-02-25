@@ -3,19 +3,54 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
-import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
+import {
+  getAbsentChildren,
+  updateAbsentChildren
+} from "../actions/contentActions/contentAbsenceChildrenActions";
+import ChildrenPresent from "../components/ChildrenPresent";
+import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
+import DateComponent from "../components/DateComponent";
 
 class contentContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { date: "2019-02-19" };
+  }
+
   componentDidMount() {
     this.props.getBases();
     this.props.getEmployees();
     this.props.getAbsentEmployees();
-    this.props.getAbsentChildren();
+    this.props.getAbsentChildren(this.state.date);
   }
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {
-    return <p>Content Container //ToBeRemoved </p>;
+    return (
+      <div>
+        <p>Content Container //ToBeRemoved </p>
+        {this.props.absentChildren
+          .sort((a, b) => a.base_id - b.base_id)
+          .map(absence => (
+            <div>
+              <ChildrenPresent
+                base={absence.base_id}
+                absent={absence.children}
+                totalChildren={absence.total_children}
+              />
+              <ChildrenAbsentIncDec
+                base={absence.base_id}
+                absent={absence.children}
+                date={absence.date}
+                totalChildren={absence.total_children}
+                update={this.props.updateAbsentChildren}
+              />
+            </div>
+          ))}
+
+        <DateComponent />
+      </div>
+    );
   }
 }
 
@@ -24,7 +59,9 @@ const mapDispatchToProps = dispatch => {
     getBases: url => dispatch(getBases()),
     getEmployees: url => dispatch(getEmployees()),
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
-    getAbsentChildren: url => dispatch(getAbsentChildren())
+    getAbsentChildren: date => dispatch(getAbsentChildren(date)),
+    updateAbsentChildren: (amount, baseId, date) =>
+      dispatch(updateAbsentChildren(amount, baseId, date))
   };
 };
 
