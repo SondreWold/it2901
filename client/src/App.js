@@ -11,7 +11,6 @@ class App extends Component {
       <div className="App">
         Her skal det komme saker og ting
         <DateComponent />
-        <p>Hei</p>
       </div>
     );
   }

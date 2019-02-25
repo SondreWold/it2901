@@ -1,7 +1,8 @@
 import { CHANGE_DATE } from "./../actions/dateAction";
 
 const initialState = {
-  selectedDate: "02.01.2019"
+  selectedDate: new Date(),
+  dateSet: false
 };
 
 export default function reducer(state = initialState, action) {
@@ -9,7 +10,8 @@ export default function reducer(state = initialState, action) {
     case CHANGE_DATE: {
       return {
         ...state,
-        selectedDate: action.payload
+        selectedDate: action.payload,
+        dateSet: true
       };
     }
     default:
