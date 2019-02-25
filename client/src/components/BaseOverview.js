@@ -24,7 +24,6 @@ class BaseOverview extends Component {
   	for (let i = 0; i < moved_employees.length; i++) {
   		for (let j = 0; j < bases.length; j++){
   			if (moved_employees[i].base_id === bases[j].id){ 
-  				// console.log(data.columns)
   				data.columns["column-" + bases[j].id].employeeIds.push("employee-" + moved_employees[i].employee_id)
   			};
   		};
@@ -35,7 +34,6 @@ class BaseOverview extends Component {
 
   render() {
 		const formatted_data = this.formatQuery(this.props.moved_employees, this.props.bases, this.props.employees)
-		console.log("FORMAT IN BASEOVERVIEW", formatted_data)
   	return(
   		<div>
   			<BaseCardHolder data={formatted_data}/>

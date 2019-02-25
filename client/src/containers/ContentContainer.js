@@ -7,10 +7,12 @@ import {
   getAbsentChildren,
   updateAbsentChildren
 } from "../actions/contentActions/contentAbsenceChildrenActions";
+import { changeDate } from "./../actions/dateAction";
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
+import moment from "moment";
 
 // components
 import BaseOverview from "../components/BaseOverview";
@@ -25,8 +27,16 @@ class contentContainer extends React.Component {
     this.props.getBases();
     this.props.getEmployees();
     this.props.getAbsentEmployees();
-    this.props.getAbsentChildren(this.state.date);
-    this.props.getMovedEmployee(this.state.date);
+    this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
+    this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.date !== this.props.date) {
+      this.props.getAbsentChildren(
+        moment(this.props.date).format("YYYY-MM-DD")
+      );
+    }
   }
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
@@ -46,15 +56,19 @@ class contentContainer extends React.Component {
               <ChildrenAbsentIncDec
                 base={absence.base_id}
                 absent={absence.children}
-                date={absence.date}
+                date={moment(absence.date).format("YYYY-MM-DD")}
                 totalChildren={absence.total_children}
                 update={this.props.updateAbsentChildren}
               />
             </div>
           ))}
 
-        <DateComponent />
         <BaseOverview moved_employees={this.props.moved_employees} bases={this.props.bases} employees={this.props.employees}/>
+        <DateComponent
+          date={this.props.date}
+          dateSet={this.props.dateSet}
+          changeDate={this.props.changeDate}
+        />
       </div>
     );
   }
@@ -67,6 +81,7 @@ const mapDispatchToProps = dispatch => {
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
     getMovedEmployee: date => dispatch(getMovedEmployee(date)),
+    changeDate: date => dispatch(changeDate(date)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date))
   };
@@ -78,8 +93,9 @@ const mapStateToProps = state => ({
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
   absentChildren: state.contentAbsentChildren.absentChildren,
   loading: state.contentBase.loading,
-  moved_employees: state.movedEmployee.data
-
+  moved_employees: state.movedEmployee.data,
+  date: state.date.selectedDate,
+  dateSet: state.date.dateSet
 });
 
 export default connect(

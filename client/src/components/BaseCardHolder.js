@@ -19,7 +19,6 @@ class BaseCardHolder extends Component {
 
 	// this is the place to call the API endpoint to notify of reorder after handleDragging() completes
 	onDragEnd = result => {
-		console.log("RESULT", result)
 		this.handleDragging(result);
 	};
 

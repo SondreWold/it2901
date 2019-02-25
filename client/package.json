@@ -10,6 +10,7 @@
     "react-beautiful-dnd": "^10.0.4",
     "react-date-picker": "^7.2.0",
     "react-dom": "^16.8.1",
+    "react-moment": "^0.8.4",
     "react-redux": "^6.0.0",
     "react-router-redux": "^4.0.8",
     "react-scripts": "2.1.3",
