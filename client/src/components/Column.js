@@ -17,7 +17,9 @@ const Container = styled.div`
 const EmployeeList = styled.div`
 	padding: 8px;
 	transition: background-color 0.2s ease;
-	background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
+	background-color: 'white';
+	border: 1px solid white;
+	border-color: ${props => (props.isDraggingOver ? 'blue' : 'white')}
 	flex-grow: 1;
 	min-height: 100px;
 	max-height: 130px;

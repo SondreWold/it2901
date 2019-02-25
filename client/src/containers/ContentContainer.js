@@ -10,6 +10,7 @@ import {
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
+import { getMovedEmployee } from "../actions/movedEmployeeAction";
 
 // components
 import BaseOverview from "../components/BaseOverview";
@@ -17,7 +18,7 @@ import BaseOverview from "../components/BaseOverview";
 class contentContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { date: "2019-02-19" };
+    this.state = { date: "2019-02-25" };
   }
 
   componentDidMount() {
@@ -25,6 +26,7 @@ class contentContainer extends React.Component {
     this.props.getEmployees();
     this.props.getAbsentEmployees();
     this.props.getAbsentChildren(this.state.date);
+    this.props.getMovedEmployee(this.state.date);
   }
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
@@ -52,7 +54,7 @@ class contentContainer extends React.Component {
           ))}
 
         <DateComponent />
-        <BaseOverview bases={this.props.bases} employees={this.props.employees}/>
+        <BaseOverview moved_employees={this.props.moved_employees} bases={this.props.bases} employees={this.props.employees}/>
       </div>
     );
   }
@@ -64,6 +66,7 @@ const mapDispatchToProps = dispatch => {
     getEmployees: url => dispatch(getEmployees()),
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
+    getMovedEmployee: date => dispatch(getMovedEmployee(date)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date))
   };
@@ -74,7 +77,9 @@ const mapStateToProps = state => ({
   employees: state.contentEmployee.employees,
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
   absentChildren: state.contentAbsentChildren.absentChildren,
-  loading: state.contentBase.loading
+  loading: state.contentBase.loading,
+  moved_employees: state.movedEmployee.data
+
 });
 
 export default connect(
