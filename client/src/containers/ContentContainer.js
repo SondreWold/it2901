@@ -9,6 +9,7 @@ import {
 } from "../actions/contentActions/contentAbsenceChildrenActions";
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
+import DateComponent from "../components/DateComponent";
 
 class contentContainer extends React.Component {
   constructor(props) {
@@ -46,6 +47,8 @@ class contentContainer extends React.Component {
               />
             </div>
           ))}
+
+        <DateComponent />
       </div>
     );
   }
