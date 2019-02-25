@@ -11,19 +11,25 @@ import { changeDate } from "./../actions/dateAction";
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
+import moment from "moment";
 
 class contentContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { date: "2019-02-19" };
-  }
-
   componentDidMount() {
     this.props.getBases();
     this.props.getEmployees();
     this.props.getAbsentEmployees();
-    this.props.getAbsentChildren(this.props.date);
+    this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.date !== this.props.date) {
+      this.props.getAbsentChildren(
+        moment(this.props.date).format("YYYY-MM-DD")
+      );
+    }
+  }
+
+  change;
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {

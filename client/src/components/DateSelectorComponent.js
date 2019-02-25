@@ -11,7 +11,7 @@ class DateSelectorComponent extends React.Component {
           onChange={this.props.changeDate}
           clearIcon={null}
           returnValue={"start"}
-          value={this.props.date.date}
+          value={this.props.date}
         />
       </div>
     );
