@@ -11,13 +11,21 @@ class ChildrenAbsentIncDec extends Component {
 
   decAbsence = () => {
     if (this.props.absent > 0) {
-      this.props.update(this.props.absent - 1, this.props.base, "2019-02-19");
+      this.props.update(
+        this.props.absent - 1,
+        this.props.base,
+        this.props.date
+      );
     }
   };
 
   incAbsence = () => {
     if (this.props.absent < this.props.totalChildren) {
-      this.props.update(this.props.absent + 1, this.props.base, "2019-02-19");
+      this.props.update(
+        this.props.absent + 1,
+        this.props.base,
+        this.props.date
+      );
     }
   };
 
