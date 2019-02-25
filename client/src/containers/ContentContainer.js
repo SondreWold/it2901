@@ -44,6 +44,10 @@ class contentContainer extends React.Component {
     return (
       <div>
         <p>Content Container //ToBeRemoved </p>
+        <DateComponent
+          date={this.props.date}
+          changeDate={this.props.changeDate}
+        />
         {this.props.absentChildren
           .sort((a, b) => a.base_id - b.base_id)
           .map(absence => (
@@ -63,11 +67,10 @@ class contentContainer extends React.Component {
             </div>
           ))}
 
-        <BaseOverview moved_employees={this.props.moved_employees} bases={this.props.bases} employees={this.props.employees}/>
-        <DateComponent
-          date={this.props.date}
-          dateSet={this.props.dateSet}
-          changeDate={this.props.changeDate}
+        <BaseOverview
+          moved_employees={this.props.moved_employees}
+          bases={this.props.bases}
+          employees={this.props.employees}
         />
       </div>
     );
