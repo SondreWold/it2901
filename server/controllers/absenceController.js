@@ -1,12 +1,20 @@
 var db = require("../db");
 
 const getAbsentChildren = (request, response) => {
-  db.query("SELECT * FROM absence_children", (error, results) => {
-    if (error) {
-      throw error;
+  db.query(
+    "SELECT absence_children.date, absence_children.children, absence_children.base_id, base.total_children \
+    FROM absence_children \
+    INNER JOIN base ON absence_children.base_id = base.id\
+    WHERE absence_children.date = $1;",
+
+    [request.params.date],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows);
-  });
+  );
 };
 
 const getAbsentEmployees = (request, response) => {
