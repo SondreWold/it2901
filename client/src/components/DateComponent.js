@@ -1,10 +1,9 @@
 import React from "react";
 import DateSelectorComponent from "./DateSelectorComponent";
-import { changeDate } from "./../actions/dateAction";
-import { connect } from "react-redux";
 
 class DateComponent extends React.Component {
   componentDidMount() {
+    console.log("\n\n\ndato:");
     let date = new Date();
     this.props.changeDate(date);
   }
@@ -12,27 +11,16 @@ class DateComponent extends React.Component {
   render() {
     return (
       <div style={dateComponents}>
-        <DateSelectorComponent />
+        <DateSelectorComponent
+          date={this.props.date}
+          changeDate={this.props.changeDate}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  date: state.date.selectedDate,
-  dateSet: state.date.dateSet
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeDate: date => dispatch(changeDate(date))
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DateComponent);
+export default DateComponent;
 
 const dateComponents = {
   display: "flex",

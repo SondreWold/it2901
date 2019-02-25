@@ -7,6 +7,7 @@ import {
   getAbsentChildren,
   updateAbsentChildren
 } from "../actions/contentActions/contentAbsenceChildrenActions";
+import { changeDate } from "./../actions/dateAction";
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
@@ -21,7 +22,7 @@ class contentContainer extends React.Component {
     this.props.getBases();
     this.props.getEmployees();
     this.props.getAbsentEmployees();
-    this.props.getAbsentChildren(this.state.date);
+    this.props.getAbsentChildren(this.props.date);
   }
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
@@ -48,7 +49,11 @@ class contentContainer extends React.Component {
             </div>
           ))}
 
-        <DateComponent />
+        <DateComponent
+          date={this.props.date}
+          dateSet={this.props.dateSet}
+          changeDate={this.props.changeDate}
+        />
       </div>
     );
   }
@@ -60,6 +65,7 @@ const mapDispatchToProps = dispatch => {
     getEmployees: url => dispatch(getEmployees()),
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
+    changeDate: date => dispatch(changeDate(date)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date))
   };
@@ -69,7 +75,9 @@ const mapStateToProps = state => ({
   bases: state.contentBase.bases,
   employees: state.contentEmployee.employees,
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
-  absentChildren: state.contentAbsentChildren.absentChildren
+  absentChildren: state.contentAbsentChildren.absentChildren,
+  date: state.date.selectedDate,
+  dateSet: state.date.dateSet
 });
 
 export default connect(

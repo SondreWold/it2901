@@ -1,7 +1,5 @@
 import React from "react";
 import DatePicker from "react-date-picker";
-import { changeDate } from "./../actions/dateAction";
-import { connect } from "react-redux";
 var calendar2 = require("./../images/calendar2.svg");
 
 class DateSelectorComponent extends React.Component {
@@ -13,27 +11,14 @@ class DateSelectorComponent extends React.Component {
           onChange={this.props.changeDate}
           clearIcon={null}
           returnValue={"start"}
-          value={this.props.date}
+          value={this.props.date.date}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  date: state.date.selectedDate.date
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeDate: date => dispatch(changeDate(date))
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DateSelectorComponent);
+export default DateSelectorComponent;
 
 const calendar = {
   width: 28,
