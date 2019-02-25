@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import DateComponent from "./components/DateComponent";
 import ContentContainer from "./containers/ContentContainer";
 
 class App extends Component {
@@ -8,7 +9,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <p>Hei</p>
+        Her skal det komme saker og ting
+        <DateComponent />
       </div>
     );
   }
