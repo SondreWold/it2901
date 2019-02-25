@@ -15,6 +15,7 @@ import moment from "moment";
 
 class contentContainer extends React.Component {
   componentDidMount() {
+    console.log(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getBases();
     this.props.getEmployees();
     this.props.getAbsentEmployees();
@@ -48,7 +49,7 @@ class contentContainer extends React.Component {
               <ChildrenAbsentIncDec
                 base={absence.base_id}
                 absent={absence.children}
-                date={absence.date}
+                date={moment(absence.date).format("YYYY-MM-DD")}
                 totalChildren={absence.total_children}
                 update={this.props.updateAbsentChildren}
               />
