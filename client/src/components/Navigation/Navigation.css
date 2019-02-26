@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    background-color: white;
     border-bottom: 1px solid #C6C6CC;
 }
 
@@ -77,6 +78,6 @@
         flex-direction: column;
         margin-left: 0;
         margin-right: 0;
-        background-color: rgba(198, 198, 204, 0.5);
+        background-color: rgb(230, 230, 233);
       }
   }
