@@ -28,8 +28,5 @@ const calendar = {
 };
 
 const datepicker = {
-  display: "flex",
-  justifyContent: "space-around",
-  alignItems: "center",
   height: 28
 };

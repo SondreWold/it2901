@@ -1,6 +1,7 @@
 import React from "react";
 import DateSelectorComponent from "./DateSelectorComponent";
 import DateHeaderComponent from "./DateHeaderComponent";
+import "./date.css";
 
 class DateComponent extends React.Component {
   componentDidMount() {
@@ -10,9 +11,10 @@ class DateComponent extends React.Component {
 
   render() {
     return (
-      <div style={dateComponents}>
-        <DateHeaderComponent date={this.props.date} />
+      <div className="dateComponents">
+        <DateHeaderComponent className="dateHeader" date={this.props.date} />
         <DateSelectorComponent
+          className="dateSelector"
           date={this.props.date}
           changeDate={this.props.changeDate}
         />
@@ -22,10 +24,3 @@ class DateComponent extends React.Component {
 }
 
 export default DateComponent;
-
-const dateComponents = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-around",
-  marginTop: 150
-};
