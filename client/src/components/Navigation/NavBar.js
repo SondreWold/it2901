@@ -16,12 +16,14 @@ class NavBar extends Component {
         };
       }
 
+    //Opens and closes the navbar in mobile devices
     toggle() {
         this.setState({
           isOpen: !this.state.isOpen
         });
       }
 
+      //To be deleted
       test() {
           alert("Tar i mot klikk. Skal rute til annen side?")
       }
