@@ -1,32 +1,48 @@
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import BaseCard from "./BaseCard";
-import styled from "styled-components";
+import BaseCard from "../components/BaseCard";
+
+import { formatAndUpdateData } from "../actions/dragDataAction";
 
 import { connect } from "react-redux";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";
+import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
+
+import moment from "moment";
 
 // TODO: Replace this.state with this.props.data and connect with redux
 
-class BaseCardHolder extends Component {
+class BaseCardContainer extends Component {
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.bases !== this.props.bases ||
+      prevProps.moved_employees !== this.props.moved_employees ||
+      prevProps.employees !== this.props.employees
+    ) {
+      console.log(this.props.moved_employees);
+      this.props.formatAndUpdateData(
+        this.props.moved_employees,
+        this.props.bases,
+        this.props.employees
+      );
+    }
+  }
+
   // this is the place to call the API endpoint to notify of reorder after handleDragging() completes
   onDragEnd = result => {
     this.handleDragging(result);
   };
-
   handleDragging = result => {
     const { destination, source, draggableId } = result;
     if (!destination) {
       return;
     }
-
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
       return;
     }
-
     const start = this.props.data.columns[source.droppableId];
     const finish = this.props.data.columns[destination.droppableId];
 
@@ -42,23 +58,20 @@ class BaseCardHolder extends Component {
 				...start,
 				employeeIds: newEmployeeIds,
 			};
-
-
 			const newState = {
 				...this.props.data,
 				columns: {
 					...this.props.data.columns,
 					[newColumn.id]: newColumn,
 				},
-			};
-		
+			};		
 		*/
       return;
     }
     // if dest column is different than source column
     const employeeId = result.draggableId.substr(-1);
     const baseId = result.destination.droppableId.substr(-1);
-    const date = this.props.date;
+    const date = moment(this.props.date).format("YYYY-MM-DD");
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
 
@@ -74,8 +87,20 @@ class BaseCardHolder extends Component {
               employeeId => this.props.data.employees[employeeId]
             );
 
-            return (
-              <BaseCard key={column.id} column={column} employees={employees} />
+            return this.props.absentChildren.length > 0 ? (
+              <BaseCard
+                key={column.id}
+                column={column}
+                employees={employees}
+                absence={
+                  this.props.absentChildren[
+                    this.props.data.columnOrder.indexOf(columnId)
+                  ]
+                }
+                update={this.props.updateAbsentChildren}
+              />
+            ) : (
+              <div>lol</div>
             );
           })}
         </div>
@@ -87,17 +112,29 @@ class BaseCardHolder extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     updateMovedEmployee: (baseId, employeeId, date) =>
-      dispatch(updateMovedEmployee(baseId, employeeId, date))
+      dispatch(updateMovedEmployee(baseId, employeeId, date)),
+    formatAndUpdateData: (moved_employees, bases, employees) =>
+      dispatch(formatAndUpdateData(moved_employees, bases, employees)),
+    updateAbsentChildren: (amount, baseId, date) =>
+      dispatch(updateAbsentChildren(amount, baseId, date))
   };
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  data: state.dragData.data,
+  bases: state.contentBase.bases,
+  moved_employees: state.movedEmployee.data,
+  employees: state.contentEmployee.employees,
+  date: state.date.selectedDate,
+  absentChildren: state.contentAbsentChildren.absentChildren
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BaseCardHolder);
+)(BaseCardContainer);
 
 const Container = {
-  display: "flex"
+  display: "flex",
+  justifyContent: "space-around"
 };
