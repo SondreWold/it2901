@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import BaseCardList from "./BaseCardList";
+import BaseCardHeader from "./BaseCardHeader";
 
 class BaseCard extends Component {
   render() {
     return (
       <div style={Container}>
-        {this.props.column.title}
+        <BaseCardHeader baseName={this.props.column.title} />
         <BaseCardList
           key={this.props.key}
           column={this.props.column}
