@@ -7,11 +7,7 @@
 
 .NavigationHeader {
     padding-top: 16px;
-    font-size: 24px;
-}
-
-.Navbar {
-    color: black;
+    font-size: 38px;
 }
 
 .NavbarItems {
@@ -19,8 +15,13 @@
     flex-direction: row;
 }
 
+.NavButtons {
+    margin: 8px;
+}
+
 .NavbarLink {
-    padding: 8px;
+    color: black;
+    text-decoration: none;
 }
 
 .NavbarLink:hover {
@@ -52,9 +53,16 @@
         display:none;
     }
 
-    .NavbarLink {
+    .NavButtons {
         border: 0.5px solid #C6C6CC;
+        padding: 2px;
+        margin:0;
     }
+
+    .NavbarLink {
+        margin: 0;
+    }
+
     .NavToggle {
         display: initial;
         margin: auto;
