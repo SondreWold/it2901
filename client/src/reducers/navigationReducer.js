@@ -1,16 +1,36 @@
-import { SET_NAME } from "./../actions/navigationAction";
+import {
+  GET_NAME_BEGIN,
+  GET_NAME_SUCCESS,
+  GET_NAME_FAILURE
+} from "./../actions/navigationAction";
 
 //The name of the kindergarten
 const initialState = {
-  name: "Brøset Barnehage"
+  name: "",
+  loading: false,
+  error: []
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_NAME: {
+    case GET_NAME_BEGIN: {
       return {
         ...state,
-        name: action.payload
+        loading: true
+      };
+    }
+    case GET_NAME_SUCCESS: {
+      return {
+        ...state,
+        name: action.payload.name,
+        loading: false
+      };
+    }
+    case GET_NAME_FAILURE: {
+      return {
+        ...state,
+        error: action.payload.error,
+        loading: false
       };
     }
     default:
