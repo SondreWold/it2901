@@ -21,6 +21,7 @@ export default BaseCard;
 
 const Container = {
   border: "1px solid black",
+  borderRadius: "5px",
   margin: "10px",
   minHeight: "300px"
 };
