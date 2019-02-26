@@ -3,6 +3,7 @@ import './Navigation.css';
 import { FaBars } from 'react-icons/fa';
 import {IoIosStats} from 'react-icons/io';
 import {MdHome, MdPeople, MdSettings} from 'react-icons/md';
+import {NavLink} from 'react-router-dom';
 
 
 class NavBar extends Component {
@@ -35,21 +36,29 @@ class NavBar extends Component {
                 <h3 className="NavToggle"><FaBars className="NavToggle" onClick={this.toggle} size={28} /></h3>
                 <div className="Navbar">
                     <nav className={className}>
-                        <div className="NavbarLink">
-                            <MdHome size={30} onClick={this.test} />
-                            <p>Hjem</p>
+                        <div className="NavButtons">
+                            <NavLink className="NavbarLink" exact to="/">
+                                <MdHome size={30}/>
+                                <p>Hjem</p>
+                            </NavLink>
                         </div>
-                        <div className="NavbarLink">
-                            <MdPeople size={30} onClick={this.test}/> 
-                            <p>Ansatte</p>
+                        <div className="NavButtons">
+                            <NavLink className="NavbarLink" exact to="/employees">
+                                <MdPeople size={30}/> 
+                                <p>Ansatte</p>
+                            </NavLink>
                         </div>
-                        <div className="NavbarLink">
-                            <IoIosStats size={30} onClick={this.test}/>
-                            <p>Statistikk</p>
+                        <div className="NavButtons">
+                            <NavLink className="NavbarLink" exact to="/stats">
+                                <IoIosStats size={30}/>
+                                <p>Statistikk</p>
+                            </NavLink>
                         </div>
-                        <div className="NavbarLink">
-                            <MdSettings size={30} onClick={this.test}/>
-                            <p>Innstillinger</p>
+                        <div className="NavButtons">
+                            <NavLink className="NavbarLink" exact to="/settings">
+                                <MdSettings size={30}/>
+                                <p>Innstillinger</p>
+                            </NavLink>
                         </div>
                     </nav>
                 </div>
