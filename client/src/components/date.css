@@ -11,8 +11,6 @@
   .dateComponents {
     display: flex;
     flex-direction: column-reverse;
-    margin-top: 70px;
-    margin-bottom: 150px;
   }
 }
 
@@ -20,12 +18,6 @@
   .dateComponents {
     display: flex;
     justify-self: flex-start;
-    margin-top: 70px;
     margin-bottom: 150px;
-    color: red;
-    margin-left: 0px;
-  }
-  .dateSelector {
-    float: left;
   }
 }
