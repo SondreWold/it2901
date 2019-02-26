@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Column from "./BaseCardList";
+import BaseCardList from "./BaseCardList";
 
 class BaseCard extends Component {
   render() {
     return (
       <div style={Container}>
         {this.props.column.title}
-        <Column
+        <BaseCardList
           key={this.props.key}
           column={this.props.column}
           employees={this.props.employees}

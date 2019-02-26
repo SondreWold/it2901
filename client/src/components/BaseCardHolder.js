@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./BaseCardList.js";
 import BaseCard from "./BaseCard";
 import styled from "styled-components";
 
