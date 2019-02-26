@@ -12,11 +12,9 @@ class App extends Component {
     return (
 
       <div className="App">
-        <StickyContainer header={<NavigationContainer/>} style={{display:"block"}}>
-          <section style={{marginTop:"120px"}}>
-            <DisplayContainer className="displayContent"/>
-          </section>
-        </StickyContainer>
+        <NavigationContainer/>
+        <DisplayContainer/>
+          
       </div>
       
     );
