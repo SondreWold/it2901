@@ -28,6 +28,10 @@ class contentContainer extends React.Component {
     }, 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   fetchDataPoints() {
     this.props.getBases();
     this.props.getEmployees();
