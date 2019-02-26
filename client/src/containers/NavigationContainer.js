@@ -1,23 +1,41 @@
 import React from "react";
-import NavBar from '../components/Navigation/NavBar'
-import NavigationHeader from '../components/Navigation/NavigationHeader'
-import '../components/Navigation/Navigation.css'
+import { connect } from "react-redux";
+import NavBar from "../components/Navigation/NavBar";
+import NavigationHeader from "../components/Navigation/NavigationHeader";
+import { getName } from "../actions/navigationAction";
+import "../components/Navigation/Navigation.css";
 
-/* 
-    * Need to get the name of the kindergarten from the db
-    * Pass it down to NavigationHeader as props
-*/
+/*
+ * Need to get the name of the kindergarten from the db
+ * Pass it down to NavigationHeader as props
+ */
 
 class NavigationContainer extends React.Component {
- s
+  componentDidMount() {
+    this.props.getName();
+  }
+
   render() {
     return (
-        <div className="NavgationContainer">
-            <NavigationHeader/>
-            <NavBar/>
-        </div>
-    ) 
+      <div className="NavgationContainer">
+        <NavigationHeader pageHeader={this.props.pageHeader} />
+        <NavBar />
+      </div>
+    );
   }
 }
 
-export default NavigationContainer;
+const mapDispatchToProps = dispatch => {
+  return {
+    getName: () => dispatch(getName())
+  };
+};
+
+const mapStateToProps = state => ({
+  pageHeader: state.PageNameHeader.name
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavigationContainer);

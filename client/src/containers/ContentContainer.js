@@ -3,19 +3,17 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
-import {
-  getAbsentChildren,
-  updateAbsentChildren
-} from "../actions/contentActions/contentAbsenceChildrenActions";
 import { changeDate } from "./../actions/dateAction";
 import ChildrenPresent from "../components/ChildrenPresent";
 import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
-
-// components
 import BaseOverview from "../components/BaseOverview";
+import {
+  getAbsentChildren,
+  updateAbsentChildren
+} from "../actions/contentActions/contentAbsenceChildrenActions";
 
 class contentContainer extends React.Component {
   constructor(props) {
@@ -36,8 +34,7 @@ class contentContainer extends React.Component {
       this.props.getAbsentChildren(
         moment(this.props.date).format("YYYY-MM-DD")
       );
-      this.props.getMovedEmployee(
-      	moment(this.props.date).format("YYYY-MM-DD"));
+      this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
     }
   }
 
@@ -45,7 +42,6 @@ class contentContainer extends React.Component {
   render() {
     return (
       <div>
-        <p>Content Container //ToBeRemoved </p>
         <DateComponent
           date={this.props.date}
           changeDate={this.props.changeDate}
