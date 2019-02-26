@@ -34,8 +34,7 @@ class contentContainer extends React.Component {
       this.props.getAbsentChildren(
         moment(this.props.date).format("YYYY-MM-DD")
       );
-      this.props.getMovedEmployee(
-      	moment(this.props.date).format("YYYY-MM-DD"));
+      this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
     }
   }
 
