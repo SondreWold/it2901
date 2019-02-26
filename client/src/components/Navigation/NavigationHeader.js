@@ -13,7 +13,7 @@ class NavigationHeader extends Component {
 }
 
 const mapStateToProps = state => ({
-    name: state.name.name
+    name: state.PageNameHeader.name
   });
 
 
