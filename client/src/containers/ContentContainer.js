@@ -4,23 +4,13 @@ import { getBases } from "../actions/contentActions/contentBaseActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "./../actions/dateAction";
-import ChildrenPresent from "../components/ChildrenPresent";
-import ChildrenAbsentIncDec from "../components/ChildrenAbsentIncDec";
 import DateComponent from "../components/DateComponent";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
 import BaseOverview from "../components/BaseOverview";
-import {
-  getAbsentChildren,
-  updateAbsentChildren
-} from "../actions/contentActions/contentAbsenceChildrenActions";
+import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 
 class contentContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { date: "2019-02-25" };
-  }
-
   componentDidMount() {
     this.fetchDataPoints();
     this.interval = setInterval(() => {
@@ -57,24 +47,6 @@ class contentContainer extends React.Component {
           date={this.props.date}
           changeDate={this.props.changeDate}
         />
-        {this.props.absentChildren
-          .sort((a, b) => a.base_id - b.base_id)
-          .map(absence => (
-            <div>
-              <ChildrenPresent
-                base={absence.base_id}
-                absent={absence.children}
-                totalChildren={absence.total_children}
-              />
-              <ChildrenAbsentIncDec
-                base={absence.base_id}
-                absent={absence.children}
-                date={moment(absence.date).format("YYYY-MM-DD")}
-                totalChildren={absence.total_children}
-                update={this.props.updateAbsentChildren}
-              />
-            </div>
-          ))}
 
         <BaseOverview
           moved_employees={this.props.moved_employees}
@@ -94,9 +66,7 @@ const mapDispatchToProps = dispatch => {
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
     getMovedEmployee: date => dispatch(getMovedEmployee(date)),
-    changeDate: date => dispatch(changeDate(date)),
-    updateAbsentChildren: (amount, baseId, date) =>
-      dispatch(updateAbsentChildren(amount, baseId, date))
+    changeDate: date => dispatch(changeDate(date))
   };
 };
 
