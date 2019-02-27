@@ -4,7 +4,6 @@ import { getBases } from "../actions/contentActions/contentBaseActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "./../actions/dateAction";
-import DateComponent from "../components/DateComponent";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
 import BaseOverview from "../components/BaseOverview";
@@ -42,7 +41,7 @@ class contentContainer extends React.Component {
     }
   }
 
-    getTotalPeople = () => {
+    getTotalOverview = () => {
       let totalChildren = 0;
       let totalAbsentChildren = 0;
       let totalAbsentEmployees = this.props.absentEmployees.length;
@@ -57,6 +56,8 @@ class contentContainer extends React.Component {
         })
         return (
       <TotalOverview
+        date={this.props.date}
+        changeDate={this.props.changeDate}
         totalChildren={totalChildren}
         totalAbsentChildren = {totalAbsentChildren}
         totalEmployees = {totalEmployees}
@@ -69,12 +70,7 @@ class contentContainer extends React.Component {
   render() {
     return (
       <div>
-      {this.getTotalPeople()}
-        <DateComponent
-          date={this.props.date}
-          changeDate={this.props.changeDate}
-        />
-
+      {this.getTotalOverview()}
         <BaseOverview
           moved_employees={this.props.moved_employees}
           bases={this.props.bases}
