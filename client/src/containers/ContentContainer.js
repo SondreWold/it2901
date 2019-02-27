@@ -9,8 +9,11 @@ import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
 import BaseOverview from "../components/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
+import TotalOverview from "../components/TotalOverview/TotalOverview";
+
 
 class contentContainer extends React.Component {
+
   componentDidMount() {
     this.fetchDataPoints();
     this.interval = setInterval(() => {
@@ -39,10 +42,34 @@ class contentContainer extends React.Component {
     }
   }
 
+    getTotalPeople = () => {
+      let totalChildren = 0;
+      let totalAbsentChildren = 0;
+      let totalAbsentEmployees = this.props.absentEmployees.length;
+      let totalEmployees = this.props.employees.length;
+      console.log(this.props.employees);
+      //Hvis ikke har med over null så klikker og blir bare undefined
+      if (this.props.absentChildren.length > 0){
+        this.props.absentChildren.map(obj => {
+          const index = this.props.absentChildren.indexOf(obj);
+          totalChildren += this.props.absentChildren[index].total_children;
+          totalAbsentChildren += this.props.absentChildren[index].children;
+        })
+        return (
+      <TotalOverview
+        totalChildren={totalChildren}
+        totalAbsentChildren = {totalAbsentChildren}
+        totalEmployees = {totalEmployees}
+        totalAbsentEmployees = {totalAbsentEmployees}
+      />
+    )}
+    }
+
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {
     return (
       <div>
+      {this.getTotalPeople()}
         <DateComponent
           date={this.props.date}
           changeDate={this.props.changeDate}
