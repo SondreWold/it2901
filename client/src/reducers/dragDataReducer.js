@@ -1,7 +1,7 @@
 import { UPDATE_DRAG_DATA } from "./../actions/dragDataAction";
 
 const initialState = {
-  data: { employees: {}, columns: {}, columnOrder: [] }
+  data: null
 };
 
 export default function reducer(state = initialState, action) {
