@@ -42,6 +42,7 @@ class contentContainer extends React.Component {
   }
 
     getTotalOverview = () => {
+      console.log(this.props.absentEmployees);
       let totalChildren = 0;
       let totalAbsentChildren = 0;
       let totalAbsentEmployees = 0;
@@ -81,6 +82,7 @@ class contentContainer extends React.Component {
           moved_employees={this.props.moved_employees}
           bases={this.props.bases}
           employees={this.props.employees}
+          absentEmployees={this.props.absentEmployees}
           date={moment(this.props.date).format("YYYY-MM-DD")}
         />
       </div>
