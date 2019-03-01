@@ -5,7 +5,7 @@ class EmployeesAtBase extends Component {
   render(){
     return (
       <div>
-      <MaterialIcon icon="people" />
+      <MaterialIcon icon="people" color="black" />
       { this.props.baseEmployees[0] -
         this.props.baseEmployees[1] +
         "/" +

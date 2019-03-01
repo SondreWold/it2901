@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import BaseCardList from "./BaseCardList";
 import BaseCardHeader from "./BaseCardHeader";
 import moment from "moment";
-
 import ChildrenPresent from "./ChildrenPresent";
 import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";

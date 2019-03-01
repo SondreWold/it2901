@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Droppable } from "react-beautiful-dnd";
-import Employee from "./Employee";
+import Employee from "../Employee";
 
 class BaseCardList extends Component {
   render() {

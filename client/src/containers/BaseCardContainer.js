@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
 import moment from "moment";
 
@@ -8,8 +9,6 @@ import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceCh
 
 import { DragDropContext } from "react-beautiful-dnd";
 import BaseCard from "../components/BaseCard";
-
-// TODO: Replace this.state with this.props.data and connect with redux
 
 class BaseCardContainer extends Component {
   componentDidUpdate(prevProps) {
@@ -26,10 +25,10 @@ class BaseCardContainer extends Component {
     }
   }
 
-  // this is the place to call the API endpoint to notify of reorder after handleDragging() completes
   onDragEnd = result => {
     this.handleDragging(result);
   };
+
   handleDragging = result => {
     const { destination, source, draggableId } = result;
     if (!destination) {

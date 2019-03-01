@@ -5,7 +5,7 @@ class EmployeesPresent extends Component{
   render(){
     return(
       <div className="totalEmployees">
-      <MaterialIcon icon="people" />
+      <MaterialIcon icon="people" color="black" />
       {this.props.totalEmployees -
         this.props.totalAbsentEmployees +
         "/" +

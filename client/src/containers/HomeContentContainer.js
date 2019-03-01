@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
-import { changeDate } from "./../actions/dateAction";
+import { changeDate } from "../actions/dateAction";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
-import BaseOverview from "../components/BaseOverview";
+import BaseOverview from "../components/BaseCard/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import TotalOverview from "../components/TotalOverview/TotalOverview";
 
 class contentContainer extends React.Component {
   componentDidMount() {
     this.fetchDataPoints();
+    //DO NOT DELETE
     /* this.interval = setInterval(() => {
       this.fetchDataPoints();
     }, 1000);*/
@@ -30,6 +31,7 @@ class contentContainer extends React.Component {
     this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
   }
 
+  //Rerenders the page when new date is selected
   componentDidUpdate(prevProps) {
     if (prevProps.date !== this.props.date) {
       this.props.getAbsentChildren(
@@ -40,7 +42,6 @@ class contentContainer extends React.Component {
   }
 
   getTotalOverview = () => {
-    console.log(this.props.absentEmployees);
     let totalChildren = 0;
     let totalAbsentChildren = 0;
     let totalAbsentEmployees = 0;
@@ -76,18 +77,11 @@ class contentContainer extends React.Component {
     );
   };
 
-  //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {
     return (
       <div>
         {this.getTotalOverview()}
-        <BaseOverview
-          moved_employees={this.props.moved_employees}
-          bases={this.props.bases}
-          employees={this.props.employees}
-          absentEmployees={this.props.absentEmployees}
-          date={moment(this.props.date).format("YYYY-MM-DD")}
-        />
+        <BaseOverview/>
       </div>
     );
   }

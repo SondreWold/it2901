@@ -6,17 +6,20 @@
 }
 
 .NavigationHeader {
-    padding-top: 16px;
+    padding-top: 4px;
     font-size: 38px;
+    margin-left:20px;
 }
 
 .NavbarItems {
     display: flex;
     flex-direction: row;
+    margin-right: 20px;
 }
 
 .NavButtons {
     margin: 8px;
+    width: 70px;
 }
 
 .NavbarLink {
@@ -40,6 +43,7 @@
 .NavbarToggleShow {
     display:flex;
     flex-direction: row;
+    margin-right: 20px;
   }
 
 
@@ -57,6 +61,7 @@
         border: 0.5px solid #C6C6CC;
         padding: 2px;
         margin:0;
+        width: 100%;
     }
 
     .NavbarLink {
