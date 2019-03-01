@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import BaseCard from "../components/BaseCard";
+import BaseCard from "../components/BaseCard/BaseCard";
 import { formatAndUpdateData } from "../actions/dragDataAction";
 import { connect } from "react-redux";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BaseCardContainer from "../containers/BaseCardContainer";
+import BaseCardContainer from "../../containers/BaseCardContainer";
 
 class BaseOverview extends Component {
   render() {
