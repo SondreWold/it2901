@@ -10,14 +10,12 @@ import BaseOverview from "../components/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import TotalOverview from "../components/TotalOverview/TotalOverview";
 
-
 class contentContainer extends React.Component {
-
   componentDidMount() {
     this.fetchDataPoints();
-    this.interval = setInterval(() => {
+    /* this.interval = setInterval(() => {
       this.fetchDataPoints();
-    }, 1000);
+    }, 1000);*/
   }
 
   componentWillUnmount() {
@@ -41,43 +39,48 @@ class contentContainer extends React.Component {
     }
   }
 
-    getTotalOverview = () => {
-      console.log(this.props.absentEmployees);
-      let totalChildren = 0;
-      let totalAbsentChildren = 0;
-      let totalAbsentEmployees = 0;
-      let totalEmployees = this.props.employees.length;
-      if (this.props.absentChildren.length > 0){
-        this.props.absentChildren.map(obj => {
-          const index = this.props.absentChildren.indexOf(obj);
-          totalChildren += this.props.absentChildren[index].total_children;
-          totalAbsentChildren += this.props.absentChildren[index].children;
-      })}
-      if (this.props.absentEmployees.length > 0){
-        this.props.absentEmployees.map(obj => {
-          const index = this.props.absentEmployees.indexOf(obj);
-          const absentEmployeeDate = this.props.absentEmployees[index].date;
-          if(moment(this.props.date).format("YYYY-MM-DD") == moment(absentEmployeeDate).format("YYYY-MM-DD")) {
-            totalAbsentEmployees ++;
-          }
-      })}
-        return (
+  getTotalOverview = () => {
+    console.log(this.props.absentEmployees);
+    let totalChildren = 0;
+    let totalAbsentChildren = 0;
+    let totalAbsentEmployees = 0;
+    let totalEmployees = this.props.employees.length;
+    if (this.props.absentChildren.length > 0) {
+      this.props.absentChildren.map(obj => {
+        const index = this.props.absentChildren.indexOf(obj);
+        totalChildren += this.props.absentChildren[index].total_children;
+        totalAbsentChildren += this.props.absentChildren[index].children;
+      });
+    }
+    if (this.props.absentEmployees.length > 0) {
+      this.props.absentEmployees.map(obj => {
+        const index = this.props.absentEmployees.indexOf(obj);
+        const absentEmployeeDate = this.props.absentEmployees[index].date;
+        if (
+          moment(this.props.date).format("YYYY-MM-DD") ==
+          moment(absentEmployeeDate).format("YYYY-MM-DD")
+        ) {
+          totalAbsentEmployees++;
+        }
+      });
+    }
+    return (
       <TotalOverview
         date={this.props.date}
         changeDate={this.props.changeDate}
         totalChildren={totalChildren}
-        totalAbsentChildren = {totalAbsentChildren}
-        totalEmployees = {totalEmployees}
-        totalAbsentEmployees = {totalAbsentEmployees}
+        totalAbsentChildren={totalAbsentChildren}
+        totalEmployees={totalEmployees}
+        totalAbsentEmployees={totalAbsentEmployees}
       />
-    )}
-
+    );
+  };
 
   //Her skal komponentene som skal få data fra denne containeren ligge. Send ned den aktuelle dataen via props
   render() {
     return (
       <div>
-      {this.getTotalOverview()}
+        {this.getTotalOverview()}
         <BaseOverview
           moved_employees={this.props.moved_employees}
           bases={this.props.bases}
