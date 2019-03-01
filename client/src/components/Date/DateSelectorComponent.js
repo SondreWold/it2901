@@ -14,6 +14,7 @@ class DateSelectorComponent extends React.Component {
           value={this.props.date}
           locale={"nb"}
           returnValue={"start"}
+          showLeadingZeros={true}
           calendarIcon={calendarIcon}
         />
       </div>
