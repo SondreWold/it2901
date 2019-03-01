@@ -8,7 +8,7 @@ import { updateMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 
 import { DragDropContext } from "react-beautiful-dnd";
-import BaseCard from "../components/BaseCard";
+import BaseCard from "../components/BaseCard/BaseCard";
 
 class BaseCardContainer extends Component {
   componentDidUpdate(prevProps) {
@@ -98,7 +98,7 @@ class BaseCardContainer extends Component {
 
   render() {
     return (
-      this.props.data !== null &&
+      this.props.data &&
       this.props.absentChildren.length > 0 && (
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div style={Container}>
