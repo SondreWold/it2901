@@ -6,15 +6,15 @@ class TotalOverview extends Component {
   render() {
     return (
       <div>
+        <DateComponent
+        date={this.props.date}
+        changeDate={this.props.changeDate}
+        />
         <TotalPresence
         totalChildren={this.props.totalChildren}
         totalAbsentChildren = {this.props.totalAbsentChildren}
         totalEmployees = {this.props.totalEmployees}
         totalAbsentEmployees = {this.props.totalAbsentEmployees}
-        />
-        <DateComponent
-        date={this.props.date}
-        changeDate={this.props.changeDate}
         />
       </div>
     );
