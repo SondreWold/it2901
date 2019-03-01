@@ -1,6 +1,6 @@
 import React from "react";
 import DatePicker from "react-date-picker";
-var calendar2 = require("./../images/calendar2.svg");
+var calendar2 = require("../../images/calendar2.svg");
 
 class DateSelectorComponent extends React.Component {
   render() {

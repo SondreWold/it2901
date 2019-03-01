@@ -5,6 +5,7 @@ import moment from "moment";
 
 import ChildrenPresent from "./ChildrenPresent";
 import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
+import EmployeesAtBase from "./EmployeesAtBase";
 
 class BaseCard extends Component {
   render() {
@@ -22,6 +23,9 @@ class BaseCard extends Component {
           date={moment(this.props.absence.date).format("YYYY-MM-DD")}
           totalChildren={this.props.absence.total_children}
           update={this.props.update}
+        />
+        <EmployeesAtBase
+        baseEmployees={this.props.baseEmployees}
         />
         <BaseCardList
           key={this.props.key}
