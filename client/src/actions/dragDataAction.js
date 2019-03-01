@@ -6,7 +6,6 @@ export const updateDragData = data => ({
 });
 
 export function formatAndUpdateData(moved_employees, bases, employees) {
-  console.log(bases);
   let data = { employees: {}, columns: {}, columnOrder: [] };
 
   employees.forEach(e => {

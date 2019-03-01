@@ -1,25 +1,21 @@
 import React, { Component } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import BaseCard from "../components/BaseCard";
-
 import { formatAndUpdateData } from "../actions/dragDataAction";
-
 import { connect } from "react-redux";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
-
 import moment from "moment";
 
-// TODO: Replace this.state with this.props.data and connect with redux
 
 class BaseCardContainer extends Component {
+
   componentDidUpdate(prevProps) {
     if (
       prevProps.bases !== this.props.bases ||
       prevProps.moved_employees !== this.props.moved_employees ||
       prevProps.employees !== this.props.employees
     ) {
-      console.log(this.props.moved_employees);
       this.props.formatAndUpdateData(
         this.props.moved_employees,
         this.props.bases,
@@ -27,11 +23,11 @@ class BaseCardContainer extends Component {
       );
     }
   }
-
-  // this is the place to call the API endpoint to notify of reorder after handleDragging() completes
+  
   onDragEnd = result => {
     this.handleDragging(result);
   };
+
   handleDragging = result => {
     const { destination, source, draggableId } = result;
     if (!destination) {
