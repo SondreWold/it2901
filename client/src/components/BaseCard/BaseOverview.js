@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import BaseCardHolderContainer from "../containers/BaseCardContainer";
+import BaseCardContainer from "../../containers/BaseCardContainer";
 
 class BaseOverview extends Component {
   render() {
     return (
       <div>
         <div style={baser}>BASER</div>
-        <BaseCardHolderContainer />
+        <BaseCardContainer />
       </div>
     );
   }

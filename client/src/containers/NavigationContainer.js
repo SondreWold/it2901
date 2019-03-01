@@ -5,10 +5,6 @@ import NavigationHeader from "../components/Navigation/NavigationHeader";
 import { getName } from "../actions/navigationAction";
 import "../components/Navigation/Navigation.css";
 
-/*
- * Need to get the name of the kindergarten from the db
- * Pass it down to NavigationHeader as props
- */
 
 class NavigationContainer extends React.Component {
   componentDidMount() {

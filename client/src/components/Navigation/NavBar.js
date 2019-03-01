@@ -24,11 +24,6 @@ class NavBar extends Component {
         });
       }
 
-      //To be deleted
-      test() {
-          alert("Tar i mot klikk. Skal rute til annen side?")
-      }
-
     render() {
         const className = this.state.isOpen ? "NavbarToggleShow" : "NavbarItems";
         return (
