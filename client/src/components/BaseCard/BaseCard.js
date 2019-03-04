@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import BaseCardList from "./BaseCardList";
 import BaseCardHeader from "./BaseCardHeader";
 import moment from "moment";
-
 import ChildrenPresent from "./ChildrenPresent";
 import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";
@@ -24,10 +23,7 @@ class BaseCard extends Component {
           totalChildren={this.props.absence.total_children}
           update={this.props.update}
         />
-        <EmployeesAtBase
-        baseEmployees={this.props.baseEmployees}
-        />
-
+        <EmployeesAtBase baseEmployees={this.props.baseEmployees} />
         <BaseCardList
           key={this.props.dragBase.id}
           dragBase={this.props.dragBase}
