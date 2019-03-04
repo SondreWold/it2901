@@ -6,7 +6,7 @@ import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmpl
 import { changeDate } from "../actions/dateAction";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
-import BaseOverview from "../components/BaseOverview";
+import BaseOverview from "../components/BaseCard/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import TotalOverview from "../components/TotalOverview/TotalOverview";
 

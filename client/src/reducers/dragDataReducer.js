@@ -12,24 +12,6 @@ export default function reducer(state = initialState, action) {
         data: action.payload
       };
     }
-    /*    case UPDATE_DRAG_DATA_EMPLOYEES: {
-      return {
-        ...state,
-        data: { employees: action.payload }
-      };
-    }
-    case UPDATE_DRAG_DATA_COLUMNS: {
-      return {
-        ...state,
-        data: { columns: action.payload }
-      };
-    }
-    case UPDATE_DRAG_DATA_COLUMNORDER: {
-      return {
-        ...state,
-        data: { columnOrder: action.payload }
-      };
-    }*/
     default:
       return state;
   }
