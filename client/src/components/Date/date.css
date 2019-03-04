@@ -24,3 +24,13 @@
     margin-bottom: 150px;
   }
 }
+
+.dateNavigation {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 7px;
+}
+
+.dateNavigationIcon {
+  cursor: pointer;
+}
