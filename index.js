@@ -3,6 +3,9 @@ import baseRouter from "./routes/baseRouter.js";
 import houseRouter from "./routes/houseRouter.js";
 import unitRouter from "./routes/unitRouter.js";
 import absenceRouter from "./routes/absenceRouter.js";
+import movedRouter from "./routes/movedRouter.js";
+import navigationRouter from "./routes/navigationRouter.js";
+import dateRouter from "./routes/dateRouter.js";
 const express = require("express");
 const path = require("path");
 const app = express();
@@ -33,6 +36,9 @@ app.use("/api/base", baseRouter);
 app.use("/api/house", houseRouter);
 app.use("/api/unit", unitRouter);
 app.use("/api/absence", absenceRouter);
+app.use("/api/moved", movedRouter);
+app.use("/api/navigation", navigationRouter);
+app.use("/api/minDate", dateRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

@@ -1,0 +1,87 @@
+.NavgationContainer{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #C6C6CC;
+}
+
+.NavigationHeader {
+    padding-top: 4px;
+    font-size: 38px;
+    margin-left:20px;
+}
+
+.NavbarItems {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+}
+
+.NavButtons {
+    margin: 8px;
+    width: 70px;
+}
+
+.NavbarLink {
+    color: black;
+    text-decoration: none;
+}
+
+.NavbarLink:hover {
+    color: rgba(0, 0, 0, 0.404);
+}
+
+.NavbarLink > p {
+    padding:0;
+    margin: 0;
+}
+
+.NavToggle {
+    display: none;
+}
+
+.NavbarToggleShow {
+    display:flex;
+    flex-direction: row;
+    margin-right: 20px;
+  }
+
+
+@media only screen and (max-width: 768px) {
+
+    .NavgationContainer{
+        flex-direction: column;
+        padding: 0;
+    }
+    .NavbarItems {
+        display:none;
+    }
+
+    .NavButtons {
+        border: 0.5px solid #C6C6CC;
+        padding: 2px;
+        margin:0;
+        width: 100%;
+    }
+
+    .NavbarLink {
+        margin: 0;
+    }
+
+    .NavToggle {
+        display: initial;
+        margin: auto;
+        color: black;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .NavbarToggleShow {
+        display: flex;
+        margin-top: 5px;
+        flex-direction: column;
+        margin-left: 0;
+        margin-right: 0;
+        background-color: rgb(230, 230, 233);
+      }
+  }

@@ -23,6 +23,7 @@
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "material-icons-react": "^1.0.4",
     "nodemon": "^1.18.10",
     "pg": "^7.8.0"
   },

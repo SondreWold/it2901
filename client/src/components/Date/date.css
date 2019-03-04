@@ -1,0 +1,26 @@
+.dateComponents {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.react-date-picker__wrapper {
+  border-radius: 4px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .dateComponents {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .dateComponents {
+    display: flex;
+    justify-self: flex-start;
+    margin-bottom: 150px;
+  }
+}

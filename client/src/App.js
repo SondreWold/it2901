@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
-import ContentContainer from "./containers/ContentContainer";
+import NavigationContainer from "./containers/NavigationContainer";
+import DisplayContainer from './containers/DisplayContainer';
 
 class App extends Component {
-  state = { text: "" };
-
+  
   render() {
     return (
       <div className="App">
-        <p>Hei</p>
+        <NavigationContainer/>
+        <DisplayContainer/>
       </div>
     );
   }

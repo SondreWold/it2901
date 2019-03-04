@@ -16,12 +16,26 @@ export const getAbsentChildrenFailure = error => ({
   payload: { error }
 });
 
-export function getAbsentChildren() {
+export function getAbsentChildren(date) {
   return dispatch => {
     dispatch(getAbsentChildrenBegin());
-    fetch("/api/absence/children")
+    fetch("/api/absence/children/date/" + date)
       .then(response => response.json())
       .then(children => dispatch(getAbsentChildrenSuccess(children)))
       .catch(() => dispatch(getAbsentChildrenFailure));
+  };
+}
+
+export function updateAbsentChildren(amount, baseId, date) {
+  return dispatch => {
+    fetch("api/absence/children/baseid/" + baseId + "/date/" + date, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        amount: amount
+      })
+    }).then(() => dispatch(getAbsentChildren(date)));
   };
 }
