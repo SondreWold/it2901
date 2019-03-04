@@ -6,7 +6,7 @@ class BaseCardList extends Component {
   render() {
     return (
       <div style={Container}>
-        <Droppable droppableId={this.props.column.id}>
+        <Droppable droppableId={this.props.dragBase.id}>
           {(provided, snapshot) => (
             <div
               style={EmployeeList}
@@ -14,7 +14,7 @@ class BaseCardList extends Component {
               {...provided.droppableProps}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {this.props.employees.map((employee, index) => (
+              {this.props.dragEmployees.map((employee, index) => (
                 <Employee key={employee.id} employee={employee} index={index} />
               ))}
               {provided.placeholder}

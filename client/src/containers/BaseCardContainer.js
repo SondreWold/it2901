@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-import BaseCard from "../components/BaseCard/BaseCard";
-import { formatAndUpdateData } from "../actions/dragDataAction";
+
 import { connect } from "react-redux";
-import { updateMovedEmployee } from "../actions/movedEmployeeAction";
-import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import moment from "moment";
 
+import { formatAndUpdateData } from "../actions/dragDataAction";
+import { updateMovedEmployee } from "../actions/movedEmployeeAction";
+import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
+
+import { DragDropContext } from "react-beautiful-dnd";
+import BaseCard from "../components/BaseCard/BaseCard";
 
 class BaseCardContainer extends Component {
-
   componentDidUpdate(prevProps) {
     if (
       prevProps.bases !== this.props.bases ||
@@ -23,7 +24,7 @@ class BaseCardContainer extends Component {
       );
     }
   }
-  
+
   onDragEnd = result => {
     this.handleDragging(result);
   };
@@ -71,8 +72,7 @@ class BaseCardContainer extends Component {
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
 
-
-  calculateBaseId = temporaryValue => {
+calculateBaseId = temporaryValue => {
     let base = temporaryValue+1;
     return base;
   }
