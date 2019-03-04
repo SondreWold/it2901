@@ -1,18 +1,20 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import { updateSelectedEmployee } from "../../actions/EmployeeListActions/EmployeeListActions";
 
 class EmployeeList extends React.Component {
   state = {
     selectedIndex: 0
   };
 
-  handleClick(id) {
-    this.setState({ selectedIndex: id });
+  handleClick(employee) {
+    this.setState({ selectedIndex: employee.id });
+    this.props.updateSelectedEmployee(employee);
   }
 
   render() {
@@ -36,7 +38,7 @@ class EmployeeList extends React.Component {
               }
               button
               key={employee.id}
-              onClick={() => this.handleClick(employee.id)}
+              onClick={() => this.handleClick(employee)}
             >
               <ListItemText
                 primary={employee.first_name + " " + employee.last_name}
@@ -95,5 +97,16 @@ const style = {
 EmployeeList.propTypes = {
   classes: PropTypes.object.isRequired
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    updateSelectedEmployee: employee =>
+      dispatch(updateSelectedEmployee(employee))
+  };
+};
 
-export default withStyles(style)(EmployeeList);
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EmployeeList);
