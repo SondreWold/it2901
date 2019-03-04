@@ -6,6 +6,12 @@
   margin-top: 30px;
 }
 
+.datepicker {
+  height: 28;
+  display: flex;
+  flex-direction: column;
+}
+
 .react-date-picker__wrapper {
   border-radius: 4px;
 }

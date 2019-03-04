@@ -16,7 +16,7 @@ class DateNavigation extends React.Component {
       <div className="dateNavigation">
         <span className="dateNavigationIcon">
           <i
-            class="material-icons"
+            className="material-icons"
             onClick={() => this.props.changeDate(yesterday)}
           >
             arrow_back
@@ -24,7 +24,7 @@ class DateNavigation extends React.Component {
         </span>
         <span className="dateNavigationIcon">
           <i
-            class="material-icons"
+            className="material-icons"
             onClick={() => this.props.changeDate(today)}
           >
             today
@@ -32,7 +32,7 @@ class DateNavigation extends React.Component {
         </span>
         <span className="dateNavigationIcon">
           <i
-            class="material-icons"
+            className="material-icons"
             onClick={() => this.props.changeDate(tomorrow)}
           >
             arrow_forward
