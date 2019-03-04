@@ -7,10 +7,32 @@ import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";
 import EmployeesNeeded from "./EmployeesNeeded";
 
+// the proposed number of employees / children
+const FACTOR =  0.160;
+
 class BaseCard extends Component {
+
+	colorRendering = (value) => {
+		let color = "#FFFB94";
+		if (value >= 0) {
+			color = "#B2F1AF";
+		} else if (value < -1) {
+			color = "#FF8989";
+		}
+		return color;
+
+	}
+
   render() {
+
+  	// calc of needed employees
+  	const employeesPresent = this.props.dragEmployees.length;
+  	const childrenPresent = this.props.absence.total_children - this.props.absence.children;
+  	const neededEmployees = employeesPresent - Math.round(childrenPresent * FACTOR);
+  	const color = this.colorRendering(neededEmployees);
+
     return (
-      <div style={Container}>
+      <div style={Container, {backgroundColor: color}}>
         <BaseCardHeader baseName={this.props.base.name} />
         <ChildrenPresent
           base={this.props.absence.base_id}
@@ -26,9 +48,7 @@ class BaseCard extends Component {
         />
         <EmployeesAtBase baseEmployees={this.props.baseEmployees} />
         <EmployeesNeeded 
-        	absent={this.props.absence.children}
-        	totalChildren={this.props.absence.total_children}
-        	baseEmployees={this.props.dragEmployees}
+	      	neededEmployees={neededEmployees}
         />
         <BaseCardList
           key={this.props.dragBase.id}
@@ -46,5 +66,5 @@ const Container = {
   border: "1px solid black",
   borderRadius: "5px",
   margin: "10px",
-  minHeight: "300px"
+  minHeight: "300px",
 };
