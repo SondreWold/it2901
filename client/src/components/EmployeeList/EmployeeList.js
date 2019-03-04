@@ -25,6 +25,7 @@ class EmployeeList extends React.Component {
       */
     return (
       <div>
+        <h1>Ansatte </h1>
         <Divider />
         <List style={style.list} component="nav">
           {this.props.employees.map(employee => (
@@ -75,7 +76,7 @@ const style = {
     backgroundColor: "#fb8c00"
   },
   list: {
-    width: "45%",
+    width: "90%",
     border: "5px",
     maxHeight: "300px",
     overflow: "auto"
