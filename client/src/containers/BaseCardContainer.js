@@ -72,29 +72,6 @@ class BaseCardContainer extends Component {
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
 
-  calculateEmployeesAtBase = base => {
-    var employees = [];
-    let totalEmployeesAtBase = 0;
-    let absentEmployeesAtBase = 0;
-    this.props.employees.map(employee => {
-      if (employee.base_id === base) {
-        totalEmployeesAtBase++;
-        if (this.props.absentEmployees.length > 0) {
-          this.props.absentEmployees.map(absent => {
-            if (
-              absent.employee_id === employee.id &&
-              moment(this.props.date).format("YYYY-MM-DD") ==
-                moment(absent.date).format("YYYY-MM-DD")
-            ) {
-              absentEmployeesAtBase++;
-            }
-          });
-        }
-      }
-    });
-    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
-    return employees;
-  };
 
   render() {
     return (
@@ -113,7 +90,6 @@ class BaseCardContainer extends Component {
               const dragEmployees = dragBase.employeeIds.map(
                 employeeId => this.props.data.employees[employeeId]
               );
-              const baseEmployees = this.calculateEmployeesAtBase(base.id);
 
               return (
                 <BaseCard
@@ -121,8 +97,10 @@ class BaseCardContainer extends Component {
                   dragBase={dragBase}
                   dragEmployees={dragEmployees}
                   absence={absentChildren}
-                  baseEmployees={baseEmployees}
                   update={this.props.updateAbsentChildren}
+                  date={this.props.date}
+                  employees={this.props.employees}
+                  absentEmployees={this.props.absentEmployees}
                 />
               );
             })}
