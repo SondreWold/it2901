@@ -5,7 +5,6 @@ import NavigationHeader from "../components/Navigation/NavigationHeader";
 import { getName } from "../actions/navigationAction";
 import "../components/Navigation/Navigation.css";
 
-
 class NavigationContainer extends React.Component {
   componentDidMount() {
     this.props.getName();
@@ -28,7 +27,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-  pageHeader: state.PageNameHeader.name
+  pageHeader: state.pageNameHeader.name
 });
 
 export default connect(

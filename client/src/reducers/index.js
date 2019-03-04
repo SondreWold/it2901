@@ -5,8 +5,9 @@ import contentAbsentEmployees from "./contentReducers/contentAbsenceEmployeeRedu
 import contentAbsentChildren from "./contentReducers/contentAbsenceChildrenReducer";
 import movedEmployee from "./movedEmployeeReducer";
 import date from "./dateReducer";
-import PageNameHeader from "./navigationReducer";
+import pageNameHeader from "./navigationReducer";
 import dragData from "./dragDataReducer";
+import employeeList from "./EmployeeListReducers/EmployeeListReducer";
 
 export default combineReducers({
   //import in all reducers here
@@ -16,6 +17,7 @@ export default combineReducers({
   contentAbsentChildren,
   date,
   movedEmployee,
-  PageNameHeader,
-  dragData
+  pageNameHeader,
+  dragData,
+  employeeList
 });
