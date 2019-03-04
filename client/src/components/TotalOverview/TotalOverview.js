@@ -7,14 +7,15 @@ class TotalOverview extends Component {
     return (
       <div>
         <DateComponent
-        date={this.props.date}
-        changeDate={this.props.changeDate}
+          date={this.props.date}
+          changeDate={this.props.changeDate}
+          minDate={this.props.minDate}
         />
         <TotalPresence
-        totalChildren={this.props.totalChildren}
-        totalAbsentChildren = {this.props.totalAbsentChildren}
-        totalEmployees = {this.props.totalEmployees}
-        totalAbsentEmployees = {this.props.totalAbsentEmployees}
+          totalChildren={this.props.totalChildren}
+          totalAbsentChildren={this.props.totalAbsentChildren}
+          totalEmployees={this.props.totalEmployees}
+          totalAbsentEmployees={this.props.totalAbsentEmployees}
         />
       </div>
     );
