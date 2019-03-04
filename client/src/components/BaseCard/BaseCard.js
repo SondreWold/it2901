@@ -10,7 +10,7 @@ class BaseCard extends Component {
   render() {
     return (
       <div style={Container}>
-        <BaseCardHeader baseName={this.props.column.title} />
+        <BaseCardHeader baseName={this.props.base.name} />
         <ChildrenPresent
           base={this.props.absence.base_id}
           absent={this.props.absence.children}
@@ -23,13 +23,11 @@ class BaseCard extends Component {
           totalChildren={this.props.absence.total_children}
           update={this.props.update}
         />
-        <EmployeesAtBase
-        baseEmployees={this.props.baseEmployees}
-        />
+        <EmployeesAtBase baseEmployees={this.props.baseEmployees} />
         <BaseCardList
-          key={this.props.key}
-          column={this.props.column}
-          employees={this.props.employees}
+          key={this.props.dragBase.id}
+          dragBase={this.props.dragBase}
+          dragEmployees={this.props.dragEmployees}
         />
       </div>
     );

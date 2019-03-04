@@ -1,7 +1,7 @@
 import React from "react";
 import DateSelectorComponent from "./DateSelectorComponent";
 import DateHeaderComponent from "./DateHeaderComponent";
-import "./Date.css";
+import "./date.css";
 
 class DateComponent extends React.Component {
   componentDidMount() {
