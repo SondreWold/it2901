@@ -41,46 +41,16 @@ class contentContainer extends React.Component {
     }
   }
 
-  getTotalOverview = () => {
-    let totalChildren = 0;
-    let totalAbsentChildren = 0;
-    let totalAbsentEmployees = 0;
-    let totalEmployees = this.props.employees.length;
-    if (this.props.absentChildren.length > 0) {
-      this.props.absentChildren.map(obj => {
-        const index = this.props.absentChildren.indexOf(obj);
-        totalChildren += this.props.absentChildren[index].total_children;
-        totalAbsentChildren += this.props.absentChildren[index].children;
-      });
-    }
-    if (this.props.absentEmployees.length > 0) {
-      this.props.absentEmployees.map(obj => {
-        const index = this.props.absentEmployees.indexOf(obj);
-        const absentEmployeeDate = this.props.absentEmployees[index].date;
-        if (
-          moment(this.props.date).format("YYYY-MM-DD") ==
-          moment(absentEmployeeDate).format("YYYY-MM-DD")
-        ) {
-          totalAbsentEmployees++;
-        }
-      });
-    }
-    return (
-      <TotalOverview
-        date={this.props.date}
-        changeDate={this.props.changeDate}
-        totalChildren={totalChildren}
-        totalAbsentChildren={totalAbsentChildren}
-        totalEmployees={totalEmployees}
-        totalAbsentEmployees={totalAbsentEmployees}
-      />
-    );
-  };
-
   render() {
     return (
       <div>
-        {this.getTotalOverview()}
+        <TotalOverview
+          date={this.props.date}
+          changeDate={this.props.changeDate}
+          children={this.props.absentChildren}
+          employees={this.props.employees}
+          absentEmployees={this.props.absentEmployees}
+        />
         <BaseOverview/>
       </div>
     );

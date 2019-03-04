@@ -72,63 +72,45 @@ class BaseCardContainer extends Component {
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
 
-  calculateEmployeesAtBase = base => {
-    var employees = [];
-    let totalEmployeesAtBase = 0;
-    let absentEmployeesAtBase = 0;
-    this.props.employees.map(employee => {
-      if (employee.base_id === base) {
-        totalEmployeesAtBase++;
-        if (this.props.absentEmployees.length > 0) {
-          this.props.absentEmployees.map(absent => {
-            if (
-              absent.employee_id === employee.id &&
-              moment(this.props.date).format("YYYY-MM-DD") ==
-                moment(absent.date).format("YYYY-MM-DD")
-            ) {
-              absentEmployeesAtBase++;
-            }
-          });
-        }
-      }
-    });
-    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
-    return employees;
-  };
+calculateBaseId = temporaryValue => {
+    let base = temporaryValue+1;
+    return base;
+  }
 
   render() {
     return (
-      this.props.data &&
-      this.props.absentChildren.length > 0 && (
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <div style={Container}>
-            {/*mapper gjennom baser og lager basecards*/}
-            {this.props.bases.map(base => {
-              const absentChildren = this.props.absentChildren.find(
-                absence => absence.base_id === base.id
-              );
-              const dragBase = Object.values(this.props.data.columns).find(
-                dragBase => dragBase.title === base.name
-              );
-              const dragEmployees = dragBase.employeeIds.map(
-                employeeId => this.props.data.employees[employeeId]
-              );
-              const baseEmployees = this.calculateEmployeesAtBase(base.id);
+      // NB! Advised to wrap entire app in DragDropContext: https://github.com/atlassian/react-beautiful-dnd#dragdropcontext
 
-              return (
-                <BaseCard
-                  base={base}
-                  dragBase={dragBase}
-                  dragEmployees={dragEmployees}
-                  absence={absentChildren}
-                  baseEmployees={baseEmployees}
-                  update={this.props.updateAbsentChildren}
-                />
-              );
-            })}
-          </div>
-        </DragDropContext>
-      )
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <div style={Container}>
+          {this.props.data.columnOrder.map(columnId => {
+            const column = this.props.data.columns[columnId];
+            const employees = column.employeeIds.map(
+              employeeId => this.props.data.employees[employeeId]
+            );
+            const currentBase = this.calculateBaseId(this.props.data.columnOrder.indexOf(columnId));
+
+            return this.props.absentChildren.length > 0 ? (
+              <BaseCard
+                key={column.id}
+                column={column}
+                employees={this.props.employees}
+                absentEmployees={this.props.absentEmployees}
+                base={currentBase}
+                date={this.props.date}
+                absence={
+                  this.props.absentChildren[
+                    this.props.data.columnOrder.indexOf(columnId)
+                  ]
+                }
+                update={this.props.updateAbsentChildren}
+              />
+            ) : (
+              <div>lol</div>
+            );
+          })}
+        </div>
+      </DragDropContext>
     );
   }
 }
