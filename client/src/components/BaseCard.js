@@ -11,7 +11,7 @@ class BaseCard extends Component {
   render() {
     return (
       <div style={Container}>
-        <BaseCardHeader baseName={this.props.base.name} />
+        <BaseCardHeader baseName={this.props.column.title} />
         <ChildrenPresent
           base={this.props.absence.base_id}
           absent={this.props.absence.children}
@@ -27,11 +27,10 @@ class BaseCard extends Component {
         <EmployeesAtBase
         baseEmployees={this.props.baseEmployees}
         />
-
         <BaseCardList
-          key={this.props.dragBase.id}
-          dragBase={this.props.dragBase}
-          dragEmployees={this.props.dragEmployees}
+          key={this.props.key}
+          column={this.props.column}
+          employees={this.props.employees}
         />
       </div>
     );

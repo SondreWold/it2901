@@ -72,9 +72,27 @@ class BaseCardContainer extends Component {
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
 
-calculateBaseId = temporaryValue => {
+
+  calculateEmployeesAtBase = temporaryValue => {
     let base = temporaryValue+1;
-    return base;
+    var employees = [];
+    let totalEmployeesAtBase = 0;
+    let absentEmployeesAtBase = 0;
+    this.props.employees.map(employee => {
+      if(employee.base_id == base) {
+        totalEmployeesAtBase++;
+        if(this.props.absentEmployees.length > 0) {
+        this.props.absentEmployees.map(absent => {
+          if((absent.employee_id == employee.id) &&
+            (moment(this.props.date).format("YYYY-MM-DD") ==
+            moment(absent.date).format("YYYY-MM-DD"))){
+              absentEmployeesAtBase++;
+          }});
+        }
+      }
+    });
+    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
+    return employees;
   }
 
   render() {
@@ -88,16 +106,15 @@ calculateBaseId = temporaryValue => {
             const employees = column.employeeIds.map(
               employeeId => this.props.data.employees[employeeId]
             );
-            const currentBase = this.calculateBaseId(this.props.data.columnOrder.indexOf(columnId));
+            const temporaryValue = this.props.data.columnOrder.indexOf(columnId);
+            const baseEmployees = this.calculateEmployeesAtBase(temporaryValue);
 
             return this.props.absentChildren.length > 0 ? (
               <BaseCard
                 key={column.id}
                 column={column}
-                employees={this.props.employees}
-                absentEmployees={this.props.absentEmployees}
-                base={currentBase}
-                date={this.props.date}
+                baseEmployees={baseEmployees}
+                employees={employees}
                 absence={
                   this.props.absentChildren[
                     this.props.data.columnOrder.indexOf(columnId)
