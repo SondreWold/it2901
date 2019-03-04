@@ -16,7 +16,7 @@ class DateHeaderComponent extends React.Component {
     );
 
     return (
-      <div>
+      <div className="dateHeader">
         <h2>{formattedDate}</h2>
       </div>
     );

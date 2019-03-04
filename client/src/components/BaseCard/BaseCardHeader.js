@@ -1,8 +1,13 @@
 import React from "react";
+import "./BaseCard.css";
 
 class BaseCardHeader extends React.Component {
   render() {
-    return <div>{this.props.baseName}</div>;
+    return (
+    <div className="basecardHeader">
+      <b> {this.props.baseName} </b>
+    </div>
+    )
   }
 }
 

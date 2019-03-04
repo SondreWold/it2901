@@ -15,13 +15,16 @@
     display: flex;
     flex-direction: column-reverse;
   }
+
+  .dateHeader {
+    margin-top: 20px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .dateComponents {
     display: flex;
     justify-self: flex-start;
-    margin-bottom: 150px;
   }
 }
 

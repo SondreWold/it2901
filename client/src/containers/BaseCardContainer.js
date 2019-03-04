@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
 import moment from "moment";
-
 import { formatAndUpdateData } from "../actions/dragDataAction";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
-
 import { DragDropContext } from "react-beautiful-dnd";
 import BaseCard from "../components/BaseCard/BaseCard";
+import "../components/BaseCard/BaseCard.css";
 
 class BaseCardContainer extends Component {
   componentDidUpdate(prevProps) {
@@ -102,7 +100,7 @@ class BaseCardContainer extends Component {
       this.props.data &&
       this.props.absentChildren.length > 0 && (
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <div style={Container}>
+          <div className="baseCardHolder">
             {/*mapper gjennom baser og lager basecards*/}
             {this.props.bases.map(base => {
               const absentChildren = this.props.absentChildren.find(
@@ -160,7 +158,3 @@ export default connect(
   mapDispatchToProps
 )(BaseCardContainer);
 
-const Container = {
-  display: "flex",
-  justifyContent: "space-around"
-};
