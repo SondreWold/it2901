@@ -1,5 +1,6 @@
 import React from "react";
 import DatePicker from "react-date-picker";
+import DateNavigation from "./DateNavigation";
 var calendar2 = require("../../images/calendar2.svg");
 
 class DateSelectorComponent extends React.Component {
@@ -17,6 +18,10 @@ class DateSelectorComponent extends React.Component {
           showLeadingZeros={true}
           calendarIcon={calendarIcon}
           minDate={this.props.minDate}
+        />
+        <DateNavigation
+          changeDate={this.props.changeDate}
+          date={this.props.date}
         />
       </div>
     );
