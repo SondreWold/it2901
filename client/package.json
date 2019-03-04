@@ -4,6 +4,7 @@
   "proxy": "http://localhost:5000",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.2",
     "material-icons-react": "^1.0.4",
     "moment": "^2.24.0",
     "react": "^16.8.1",
