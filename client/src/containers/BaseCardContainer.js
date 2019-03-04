@@ -76,26 +76,9 @@ class BaseCardContainer extends Component {
   };
 
 
-  calculateEmployeesAtBase = temporaryValue => {
+  calculateBaseId = temporaryValue => {
     let base = temporaryValue+1;
-    var employees = [];
-    let totalEmployeesAtBase = 0;
-    let absentEmployeesAtBase = 0;
-    this.props.employees.map(employee => {
-      if(employee.base_id == base) {
-        totalEmployeesAtBase++;
-        if(this.props.absentEmployees.length > 0) {
-        this.props.absentEmployees.map(absent => {
-          if((absent.employee_id == employee.id) &&
-            (moment(this.props.date).format("YYYY-MM-DD") ==
-            moment(absent.date).format("YYYY-MM-DD"))){
-              absentEmployeesAtBase++;
-          }});
-        }
-      }
-    });
-    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
-    return employees;
+    return base;
   }
 
   render() {
@@ -109,15 +92,16 @@ class BaseCardContainer extends Component {
             const employees = column.employeeIds.map(
               employeeId => this.props.data.employees[employeeId]
             );
-            const temporaryValue = this.props.data.columnOrder.indexOf(columnId);
-            const baseEmployees = this.calculateEmployeesAtBase(temporaryValue);
+            const currentBase = this.calculateBaseId(this.props.data.columnOrder.indexOf(columnId));
 
             return this.props.absentChildren.length > 0 ? (
               <BaseCard
                 key={column.id}
                 column={column}
-                baseEmployees={baseEmployees}
-                employees={employees}
+                employees={this.props.employees}
+                absentEmployees={this.props.absentEmployees}
+                base={currentBase}
+                date={this.props.date}
                 absence={
                   this.props.absentChildren[
                     this.props.data.columnOrder.indexOf(columnId)

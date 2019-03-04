@@ -2,13 +2,38 @@ import React, { Component } from "react";
 import BaseCardList from "./BaseCardList";
 import BaseCardHeader from "./BaseCardHeader";
 import moment from "moment";
-
 import ChildrenPresent from "./ChildrenPresent";
 import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";
 
 class BaseCard extends Component {
+
+  calculateEmployeesAtBase = () => {
+    var employees = [];
+    let totalEmployeesAtBase = 0;
+    let absentEmployeesAtBase = 0;
+    this.props.employees.map(employee => {
+      if(employee.base_id == this.props.base) {
+        totalEmployeesAtBase++;
+        if(this.props.absentEmployees.length > 0) {
+        this.props.absentEmployees.map(absent => {
+          if((absent.employee_id == employee.id) &&
+            (moment(this.props.date).format("YYYY-MM-DD") ==
+            moment(absent.date).format("YYYY-MM-DD"))) {
+              console.log(((absent.employee_id == employee.id) &&
+                (moment(this.props.date).format("YYYY-MM-DD") ==
+                moment(absent.date).format("YYYY-MM-DD"))));
+              absentEmployeesAtBase++;
+          }});
+        }
+      }
+    });
+    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
+    return employees;
+  }
+
   render() {
+    let employeesAtBase = this.calculateEmployeesAtBase();
     return (
       <div style={Container}>
         <BaseCardHeader baseName={this.props.column.title} />
@@ -25,7 +50,7 @@ class BaseCard extends Component {
           update={this.props.update}
         />
         <EmployeesAtBase
-        baseEmployees={this.props.baseEmployees}
+        baseEmployees={employeesAtBase}
         />
         <BaseCardList
           key={this.props.key}
