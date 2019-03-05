@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 //heia material ui, må hente inn alt hver for seg, hehe, derfor så mye
 import Button from '@material-ui/core/Button';
+//import RaisedButton from '@material-ui/core/RaisedButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,8 +24,8 @@ const styles = theme => ({
 
 class AddEmployee extends Component {
 
-  constructor() {
-  super();
+  constructor(props) {
+  super(props);
   this.state = {
     open: false,
     employeeType: 'fast',
@@ -32,6 +33,7 @@ class AddEmployee extends Component {
   };
   // This binding is necessary to make `this` work in the callback
 //  this.handleClick = this.handleClick.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
 }
 
   //handle Radio Buttons changes for choose of base
@@ -52,9 +54,12 @@ class AddEmployee extends Component {
     this.setState({open:false});
   }
 
-  onSubmit = () => {
+  handleSubmit (event) {
     console.log(this.state.employeeType);
     console.log(this.state.base);
+    this.handleClickClose();
+    event.preventDefault();
+
   }
 
   render() {
@@ -79,78 +84,39 @@ class AddEmployee extends Component {
         </Button>
         <Dialog
         open={this.state.open}
+        actions={[
+          <Button type="submit" form="my-form-id" label="Submit" >
+          Registrer
+          </Button>
+        ]}
         onClose={this.handleClickClose}
         >
           <DialogTitle> Registrer ny ansatt </DialogTitle>
           <DialogContent>
-          <form action=" /" method= "POST" onSubmit={(e) => { e.preventDefault(); alert('Submitted form!'); this.handleClose(); }}>
+          <form onSubmit={this.handleSubmit}>
               <FormControl>
-                <TextField
-                  margin="dense"
-                  id="firstName"
-                  label="Fornavn"
-                />
-                <TextField
-                  margin="dense"
-                  id="lastName"
-                  label="Etternavn"
-                />
+                <TextField margin="dense" id="firstName" label="Fornavn"/>
+                <TextField margin="dense" id="lastName" label="Etternavn"/>
               </FormControl>
               <FormControl>
                 <FormLabel> Ansettelsesform </FormLabel>
-                  <RadioGroup
-                  value={this.state.value}
-                  onChange={this.handleChangeType}
-                  >
-                    <FormControlLabel
-                    value="fast"
-                    control={<Radio />}
-                    label="Fast ansatt"
-                    />
-                    <FormControlLabel
-                    value="flyttbar"
-                    control={<Radio />}
-                    label="Flyttbar ansatt"
-                    />
-                    <FormControlLabel
-                    value="vikar"
-                    control={<Radio />}
-                    label="Vikar"
-                    />
+                  <RadioGroup value={this.state.value} onChange={this.handleChangeType}>
+                    <FormControlLabel value="fast" control={<Radio />} label="Fast ansatt"/>
+                    <FormControlLabel value="flyttbar" control={<Radio />} label="Flyttbar ansatt"/>
+                    <FormControlLabel value="vikar" control={<Radio />} label="Vikar"/>
                   </RadioGroup>
                 <FormLabel> Avdeling </FormLabel>
-                  <RadioGroup
-                  value={this.state.value}
-                  onChange={this.handleChangeBase}
-                  >
-                    <FormControlLabel
-                    value='1'
-                    control={<Radio />}
-                    label="Grønn"
-                    />
-                    <FormControlLabel
-                    value='2'
-                    control={<Radio />}
-                    label="Blå"
-                    />
-                    <FormControlLabel
-                    value='3'
-                    control={<Radio />}
-                    label="Bla"
-                    />
+                  <RadioGroup value={this.state.value} onChange={this.handleChangeBase}>
+                    <FormControlLabel value='1' control={<Radio />} label="Grønn"/>
+                    <FormControlLabel value='2' control={<Radio />} label="Blå" />
+                    <FormControlLabel value='3' control={<Radio />} label="Bla" />
                   </RadioGroup>
               </FormControl>
-              <div>
-              {actions}
-              </div>
+              <Button type="submit" value="Submit" variant="contained">
+              Registrer
+              </Button>
             </form>
           </DialogContent>
-          <DialogActions>
-            <Button
-            onClick={this.onSubmit}>
-            Registrer
-            </Button>
-          </DialogActions>
         </Dialog>
       </div>
     )
