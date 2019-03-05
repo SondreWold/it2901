@@ -16,12 +16,37 @@ export const getAbsentChildrenFailure = error => ({
   payload: { error }
 });
 
-export function getAbsentChildren(date) {
+export function insertNewRowsForAbsentChildren(date) {
+  return dispatch => {
+    fetch("/api/absence/children/insert/date/" + date, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => dispatch(getAbsentChildrenAfterUpdate(date)));
+  };
+}
+
+export function getAbsentChildrenAfterUpdate(date) {
   return dispatch => {
     dispatch(getAbsentChildrenBegin());
     fetch("/api/absence/children/date/" + date)
       .then(response => response.json())
       .then(children => dispatch(getAbsentChildrenSuccess(children)))
+      .catch(() => dispatch(getAbsentChildrenFailure));
+  };
+}
+
+export function getAbsentChildren(date) {
+  return dispatch => {
+    dispatch(getAbsentChildrenBegin());
+    fetch("/api/absence/children/date/" + date)
+      .then(response => response.json())
+      .then(children =>
+        children.length === 0
+          ? dispatch(insertNewRowsForAbsentChildren(date))
+          : dispatch(getAbsentChildrenSuccess(children))
+      )
       .catch(() => dispatch(getAbsentChildrenFailure));
   };
 }

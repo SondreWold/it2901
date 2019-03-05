@@ -9,52 +9,57 @@ import EmployeesNeeded from "./EmployeesNeeded";
 import "./BaseCard.css";
 
 // the proposed number of employees / children
-const FACTOR =  0.160;
+const FACTOR = 0.16;
 
 class BaseCard extends Component {
-
   calculateEmployeesAtBase = () => {
     var employees = [];
     let totalEmployeesAtBase = 0;
     let absentEmployeesAtBase = 0;
     this.props.employees.map(employee => {
-      if(employee.base_id === this.props.base.id) {
+      if (employee.base_id === this.props.base.id) {
         totalEmployeesAtBase++;
-        if(this.props.absentEmployees.length > 0) {
-        this.props.absentEmployees.map(absent => {
-          if((absent.employee_id === employee.id) &&
-            (moment(this.props.date).format("YYYY-MM-DD") ===
-            moment(absent.date).format("YYYY-MM-DD"))) {
-              console.log(((absent.employee_id === employee.id) &&
-                (moment(this.props.date).format("YYYY-MM-DD") ===
-                moment(absent.date).format("YYYY-MM-DD"))));
+        if (this.props.absentEmployees.length > 0) {
+          this.props.absentEmployees.map(absent => {
+            if (
+              absent.employee_id === employee.id &&
+              moment(this.props.date).format("YYYY-MM-DD") ===
+                moment(absent.date).format("YYYY-MM-DD")
+            ) {
+              console.log(
+                absent.employee_id === employee.id &&
+                  moment(this.props.date).format("YYYY-MM-DD") ===
+                    moment(absent.date).format("YYYY-MM-DD")
+              );
               absentEmployeesAtBase++;
-          }});
+            }
+          });
         }
       }
     });
     employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
     return employees;
-  }
+  };
 
-  colorRendering = (value) => {
-		let color = "#FFFB94";
-		if (value >= 0) {
-			color = "#B2F1AF";
-		} else if (value < -1) {
-			color = "#FF8989";
-		}
-		return color;
-
-	}
+  colorRendering = value => {
+    let color = "#FFFB94";
+    if (value >= 0) {
+      color = "#B2F1AF";
+    } else if (value < -1) {
+      color = "#FF8989";
+    }
+    return color;
+  };
 
   render() {
     let employeesAtBase = this.calculateEmployeesAtBase();
-  	// calc of needed employees
-  	const employeesPresent = this.props.dragEmployees.length;
-  	const childrenPresent = this.props.absence.total_children - this.props.absence.children;
-  	const neededEmployees = employeesPresent - Math.round(childrenPresent * FACTOR);
-  	const color = this.colorRendering(neededEmployees);
+    // calc of needed employees
+    const employeesPresent = this.props.dragEmployees.length;
+    const childrenPresent =
+      this.props.absence.total_children - this.props.absence.children;
+    const neededEmployees =
+      employeesPresent - Math.round(childrenPresent * FACTOR);
+    const color = this.colorRendering(neededEmployees);
 
     return (
       <div className="baseCard" style={{backgroundColor: color}}>
@@ -74,9 +79,7 @@ class BaseCard extends Component {
         />
         </div>
         <EmployeesAtBase baseEmployees={employeesAtBase} />
-        <EmployeesNeeded
-	      	neededEmployees={neededEmployees}
-        />
+        <EmployeesNeeded neededEmployees={neededEmployees} />
         <BaseCardList
           key={this.props.dragBase.id}
           dragBase={this.props.dragBase}
@@ -88,5 +91,4 @@ class BaseCard extends Component {
 }
 
 export default BaseCard;
-
 
