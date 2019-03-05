@@ -7,14 +7,17 @@
     border: 1px solid rgb(63, 63, 63);
     border-radius: 5px;
     margin: 10px;
+    width: 20%;
   }
 
 .baseCardList {
-    margin: 8px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
     border: 1px solid lightgrey;
     background-color: white;
     border-radius: 2px;
-    width: 220px;
+    width: 90%;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -54,7 +57,11 @@
 
 .childAbsentButton {
     height: 15px;
-    margin: 2px;
+    margin-top: 5px;
+}
+
+.childAbsentIcon {
+    font-size: 18px;
 }
 
 .childAbsentIcon:hover {
@@ -105,10 +112,23 @@
 }
 
 @media only screen and (max-width: 1100px) {
+    .baseCard {
+        width: 100%;
+    }
     .baseCardHolder {
         display: inline-grid;
-        grid-template-columns: auto auto;   
+        grid-template-columns: 300px 300px;   
         justify-content: space-evenly;
+        grid-column-gap: 50px;
+    }
+
+    .childAbsentButton {
+        height: 15px;
+        margin-top: 10px;
+    }
+    
+    .childAbsentIcon {
+        font-size: 25px;
     }
 
 }
