@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
 import moment from "moment";
 import DatePicker from "react-date-picker";
 const calendar2 = require("../images/calendar2.svg");
@@ -22,18 +23,18 @@ class EmployeeRegisterAbsence extends React.Component {
   }
 
   handleChangeFrom(event) {
-  	console.log(event.target)
     this.setState({from: event.target.value});
   }
 
   handleChangeTo(event) {
-  	console.log(event.target)
     this.setState({to: event.target.value});
   }
 
   handleSubmit(event) {
-    console.log('Submitted:', this.props.selectedEmployee.first_name + " " + this.props.selectedEmployee.last_name,
-     "\n", this.state.from, "\n", this.state.to);
+    // in case there is no selectedEmployee
+    if (this.props.selectedEmployee) {
+	    this.props.insertAbsentEmployee(this.props.selectedEmployee.id, this.state.to)
+    }
     event.preventDefault();
   }
 
@@ -64,7 +65,9 @@ const style = {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+  	insertAbsentEmployee: (empId, date) => dispatch(insertAbsentEmployee(empId, date))
+  };
 };
 
 const mapStateToProps = state => ({

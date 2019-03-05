@@ -43,8 +43,26 @@ const updateAbsentChildren = (request, response) => {
   );
 };
 
+const insertAbsentEmployee = (request, response) => {
+  const empId = parseInt(request.params.empId);
+  const date = request.params.date;
+
+  db.query(
+  	"INSERT INTO absence_employee VALUES ($1, $2)",
+    [date, empId],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).send(`Inserted absent employee ${empId} on day ${date}`);
+    }
+  );
+};
+
+
 module.exports = {
   getAbsentEmployees,
   getAbsentChildren,
-  updateAbsentChildren
+  updateAbsentChildren,
+  insertAbsentEmployee
 };
