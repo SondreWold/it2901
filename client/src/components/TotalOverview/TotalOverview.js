@@ -11,6 +11,7 @@ class TotalOverview extends Component {
   let totalAbsentChildren = 0;
   let totalAbsentEmployees = 0;
   let totalEmployees = this.props.employees.length;
+  console.log(this.props.employees);
   if (this.props.children.length > 0) {
     this.props.children.map(child => {
       totalChildren += child.total_children;

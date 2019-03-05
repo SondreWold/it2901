@@ -25,11 +25,6 @@ class BaseCard extends Component {
               moment(this.props.date).format("YYYY-MM-DD") ===
                 moment(absent.date).format("YYYY-MM-DD")
             ) {
-              console.log(
-                absent.employee_id === employee.id &&
-                  moment(this.props.date).format("YYYY-MM-DD") ===
-                    moment(absent.date).format("YYYY-MM-DD")
-              );
               absentEmployeesAtBase++;
             }
           });
