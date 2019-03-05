@@ -15,7 +15,7 @@ class BaseCardContainer extends Component {
     if (
       prevProps.bases !== this.props.bases ||
       prevProps.moved_employees !== this.props.moved_employees ||
-      prevProps.employees !== this.props.employees || 
+      prevProps.employees !== this.props.employees ||
       prevProps.absentChildren !== this.props.absentChildren
     ) {
       this.props.formatAndUpdateData(
@@ -72,7 +72,6 @@ class BaseCardContainer extends Component {
     const date = moment(this.props.date).format("YYYY-MM-DD");
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
-
 
   render() {
     return (
