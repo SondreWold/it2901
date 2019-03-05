@@ -11,5 +11,8 @@ router
 router
   .route("/children/baseid/:baseId/date/:date/")
   .put(absenceController.updateAbsentChildren);
+router
+  .route("/employees/:empId/date/:date/")
+  .put(absenceController.insertAbsentEmployee);
 
 export default router;
