@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './Navigation.css';
 import { FaBars } from 'react-icons/fa';
 import {IoIosStats} from 'react-icons/io';
-import {MdHome, MdPeople, MdSettings} from 'react-icons/md';
+import {MdHome,  MdSettings} from 'react-icons/md';
+import { FaUserFriends } from 'react-icons/fa'
 import {NavLink} from 'react-router-dom';
 
 
@@ -39,7 +40,7 @@ class NavBar extends Component {
                         </div>
                         <div className="NavButtons">
                             <NavLink className="NavbarLink" exact to="/employees" onClick={this.toggle}>
-                                <MdPeople size={30}/> 
+                                <FaUserFriends size={30}/> 
                                 <p>Ansatte</p>
                             </NavLink>
                         </div>

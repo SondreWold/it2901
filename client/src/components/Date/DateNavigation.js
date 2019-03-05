@@ -1,5 +1,5 @@
 import React from "react";
-import { arrow_back, arrow_forward, today } from "react-icons/md";
+import { MdArrowBack, MdArrowForward, MdToday } from "react-icons/md";
 import moment from "moment";
 
 class DateNavigation extends React.Component {
@@ -15,28 +15,25 @@ class DateNavigation extends React.Component {
     return (
       <div className="dateNavigation">
         <span className="dateNavigationIcon">
-          <i
+          <MdArrowBack
             className="material-icons"
             onClick={() => this.props.changeDate(yesterday)}
-          >
-            arrow_back
-          </i>
+            size="20px"
+          />
         </span>
         <span className="dateNavigationIcon">
-          <i
+          <MdToday
             className="material-icons"
             onClick={() => this.props.changeDate(today)}
-          >
-            today
-          </i>
+            size="20px"
+          />
         </span>
         <span className="dateNavigationIcon">
-          <i
+          <MdArrowForward
             className="material-icons"
             onClick={() => this.props.changeDate(tomorrow)}
-          >
-            arrow_forward
-          </i>
+            size="20px"
+          />
         </span>
       </div>
     );

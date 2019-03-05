@@ -5,7 +5,7 @@ import EmployeesPresent from "./EmployeesPresent";
 class TotalPresence extends Component{
   render(){
     return(
-      <div>
+      <div className="totalNumbersHolder">
       <ChildrenPresent
       totalChildren={this.props.totalChildren}
       totalAbsentChildren = {this.props.totalAbsentChildren}

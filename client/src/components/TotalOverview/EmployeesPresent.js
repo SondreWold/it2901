@@ -1,15 +1,23 @@
 import React, { Component } from "react";
-import MaterialIcon from "material-icons-react";
+import { FaUserFriends } from 'react-icons/fa';
+import "./TotalOverview.css";
 
 class EmployeesPresent extends Component{
   render(){
     return(
       <div className="totalEmployees">
-      <MaterialIcon icon="people" color="black" />
-      {this.props.totalEmployees -
-        this.props.totalAbsentEmployees +
-        "/" +
-        this.props.totalEmployees + " Voksne tilstede"}
+        <FaUserFriends color="black" size="30px"/>
+        <div className="totalHolder">
+          <p className="totalText">
+            {this.props.totalEmployees -
+            this.props.totalAbsentEmployees +
+            "/" +
+            this.props.totalEmployees}
+          </p>
+          <p className="infoText">
+            Voksne tilstede
+          </p>
+        </div>
       </div>
     );
   }
