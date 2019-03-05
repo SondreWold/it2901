@@ -6,14 +6,14 @@
 }
 
 .dateHeader {
-  margin-left: 60px;
+  margin-left: 5%;
 }
 
 .datepicker {
   height: 28;
   display: flex;
   flex-direction: column;
-  margin-right: 13%;
+  margin-right: 15%;
   margin-top: 10px;
 }
 
@@ -30,6 +30,15 @@
 
 .dateNavigationIcon {
   cursor: pointer;
+}
+
+.dateIcon {
+  font-size: 20px;
+  padding: 4px;
+}
+
+.dateIcon:hover {
+  color:#C6C6CC;
 }
 
 @media only screen and (max-width: 1100px) {
@@ -49,6 +58,11 @@
 
   .datepicker {
     margin-right: 0;
+  }
+
+  .dateIcon {
+    border: 1px solid rgb(58, 58, 58);
+    border-radius: 5px;
   }
 }
 
