@@ -24,8 +24,6 @@ class DetailedEmployee extends React.Component {
 const style = {
   wrapper: {
     marginTop: "10px",
-    height: "400px",
-    width: "90%"
   }
 };
 

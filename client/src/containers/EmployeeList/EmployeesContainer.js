@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EmployeeList from "../../components/EmployeeList/EmployeeList";
 import DetailedEmployee from "../../components/DetailedEmployee/DetailedEmployee";
+import EmployeeRegisterAbsence from "../../components/EmployeeRegisterAbsence";
 
 class EmployeesContainer extends Component {
   render() {
@@ -10,7 +11,8 @@ class EmployeesContainer extends Component {
           <EmployeeList employees={this.props.employees} />
         </div>
         <div style={style.item}>
-          <DetailedEmployee />
+        	<DetailedEmployee />
+          <EmployeeRegisterAbsence/>
         </div>
       </div>
     );
@@ -21,10 +23,11 @@ const style = {
   container: {
     margin: "30px",
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    width: "90%"
   },
   item: {
-    flex: "100%"
+    flex: "1",
   }
 };
 
