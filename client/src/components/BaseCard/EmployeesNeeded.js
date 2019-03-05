@@ -1,22 +1,18 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 class EmployeesNeeded extends Component {
-	
-  render(){
-
-
+  render() {
     return (
       <div>
-  			<p> 
-  				{this.props.neededEmployees ===  0
-  					? "Pris herren"
-  					: this.props.neededEmployees > 0
-	  				? "Forslag: flytt " + this.props.neededEmployees + " herfra" 
-	  				: "Forslag: hent inn " + (-1)*this.props.neededEmployees + " til"
-	  			}
-				</p> 
+        <p>
+          {this.props.neededEmployees === 0
+            ? "OK"
+            : this.props.neededEmployees > 0
+            ? "Forslag: flytt " + this.props.neededEmployees + " herfra"
+            : "Forslag: hent inn " + -1 * this.props.neededEmployees + " til"}
+        </p>
       </div>
-    )
+    );
   }
 }
 
