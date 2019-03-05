@@ -116,4 +116,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(BaseCardContainer);
-
