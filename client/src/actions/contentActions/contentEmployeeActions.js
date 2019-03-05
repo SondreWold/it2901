@@ -16,10 +16,11 @@ export const getEmployeesFailure = error => ({
   payload: { error }
 });
 
-export function getEmployees() {
+export function getEmployees(name) {
+  let fetchString = !name ? "/api/employee/" : "/api/employee/" + name;
   return dispatch => {
     dispatch(getEmployeesBegin());
-    fetch("/api/employee")
+    fetch(fetchString)
       .then(response => response.json())
       .then(employees => dispatch(getEmployeesSuccess(employees)))
       .catch(() => dispatch(getEmployeesFailure));

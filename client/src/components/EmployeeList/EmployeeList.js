@@ -5,6 +5,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { updateSelectedEmployee } from "../../actions/EmployeeListActions/EmployeeListActions";
+import { InputField } from "./SearchBar/InputField";
+import { getEmployees } from "../../actions/contentActions/contentEmployeeActions";
 
 class EmployeeList extends React.Component {
   state = {
@@ -25,6 +27,7 @@ class EmployeeList extends React.Component {
     return (
       <div>
         <h1>Ansatte </h1>
+        <InputField getEmployees={this.props.getEmployees} />
         <List style={style.list} component="nav">
           {this.props.employees.map(employee => (
             <ListItem
@@ -74,7 +77,7 @@ const style = {
     backgroundColor: "#fb8c00"
   },
   list: {
-    width: "90%",
+    width: "100%",
     border: "5px",
     maxHeight: "300px",
     overflow: "auto"
@@ -99,7 +102,8 @@ EmployeeList.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     updateSelectedEmployee: employee =>
-      dispatch(updateSelectedEmployee(employee))
+      dispatch(updateSelectedEmployee(employee)),
+    getEmployees: name => dispatch(getEmployees(name))
   };
 };
 

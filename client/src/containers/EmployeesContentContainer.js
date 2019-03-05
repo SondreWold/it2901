@@ -18,7 +18,7 @@ class EmployeesContentContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getEmployees: url => dispatch(getEmployees())
+    getEmployees: name => dispatch(getEmployees(name))
   };
 };
 
