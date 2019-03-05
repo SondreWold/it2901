@@ -22,6 +22,7 @@ class DateSelectorComponent extends React.Component {
         <DateNavigation
           changeDate={this.props.changeDate}
           date={this.props.date}
+          minDate={this.props.minDate}
         />
       </div>
     );
