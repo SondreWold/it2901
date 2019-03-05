@@ -6,6 +6,7 @@ import ChildrenPresent from "./ChildrenPresent";
 import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";
 import EmployeesNeeded from "./EmployeesNeeded";
+import "./BaseCard.css";
 
 // the proposed number of employees / children
 const FACTOR = 0.16;
@@ -61,20 +62,22 @@ class BaseCard extends Component {
     const color = this.colorRendering(neededEmployees);
 
     return (
-      <div style={(Container, { backgroundColor: color })}>
+      <div className="baseCard" style={{backgroundColor: color}}>
         <BaseCardHeader baseName={this.props.base.name} />
-        <ChildrenPresent
+        <div className="childrenHolder">
+          <ChildrenPresent
           base={this.props.absence.base_id}
           absent={this.props.absence.children}
           totalChildren={this.props.absence.total_children}
-        />
-        <ChildrenAbsentIncDec
+          />
+          <ChildrenAbsentIncDec
           base={this.props.absence.base_id}
           absent={this.props.absence.children}
           date={moment(this.props.absence.date).format("YYYY-MM-DD")}
           totalChildren={this.props.absence.total_children}
           update={this.props.update}
         />
+        </div>
         <EmployeesAtBase baseEmployees={employeesAtBase} />
         <EmployeesNeeded neededEmployees={neededEmployees} />
         <BaseCardList
@@ -89,9 +92,3 @@ class BaseCard extends Component {
 
 export default BaseCard;
 
-const Container = {
-  border: "1px solid black",
-  borderRadius: "5px",
-  margin: "10px",
-  minHeight: "300px"
-};

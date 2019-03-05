@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FaRegPlusSquare, FaRegMinusSquare } from 'react-icons/fa';
+import "./BaseCard.css";
 
 class ChildrenAbsentIncDec extends Component {
   componentDidMount() {
@@ -27,8 +29,12 @@ class ChildrenAbsentIncDec extends Component {
   render() {
     return (
       <div>
-        <div onClick={this.decAbsence}>+</div>
-        <div onClick={this.incAbsence}>-</div>
+        <div className="childAbsentButton" onClick={this.decAbsence}>
+          <FaRegPlusSquare className="childAbsentIcon"/>
+        </div>
+        <div className="childAbsentButton" onClick={this.incAbsence}>
+          <FaRegMinusSquare className="childAbsentIcon"/>
+        </div>
       </div>
     );
   }

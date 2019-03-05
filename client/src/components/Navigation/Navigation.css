@@ -8,7 +8,7 @@
 .NavigationHeader {
     padding-top: 4px;
     font-size: 38px;
-    margin-left:20px;
+    margin-left:40px;
 }
 
 .NavbarItems {
@@ -47,7 +47,7 @@
   }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1100px) {
 
     .NavgationContainer{
         flex-direction: column;
