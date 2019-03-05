@@ -70,7 +70,7 @@ class BaseCardContainer extends Component {
               const dragEmployees = dragBase.employeeIds.map(
                 employeeId => this.props.data.employees[employeeId]
               );
-              
+
               return (
                 <BaseCard
                   base={base}

@@ -16,23 +16,20 @@ class DateNavigation extends React.Component {
       <div className="dateNavigation">
         <span className="dateNavigationIcon">
           <MdArrowBack
-            className="material-icons"
             onClick={() => this.props.changeDate(yesterday)}
-            size="20px"
+            className="dateIcon"
           />
         </span>
         <span className="dateNavigationIcon">
           <MdToday
-            className="material-icons"
             onClick={() => this.props.changeDate(today)}
-            size="20px"
+            className="dateIcon"
           />
         </span>
         <span className="dateNavigationIcon">
           <MdArrowForward
-            className="material-icons"
             onClick={() => this.props.changeDate(tomorrow)}
-            size="20px"
+            className="dateIcon"
           />
         </span>
       </div>

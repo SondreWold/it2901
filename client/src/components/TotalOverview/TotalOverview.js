@@ -25,7 +25,7 @@ class TotalOverview extends Component {
   render() {
     let overviewList = this.getTotalOverview();
     return (
-      <div>
+      <div className="totalOverviewHolder">
         <DateComponent
           date={this.props.date}
           changeDate={this.props.changeDate}
