@@ -11,8 +11,8 @@ class EmployeesContainer extends Component {
           <EmployeeList employees={this.props.employees} />
         </div>
         <div style={style.item}>
-        	<DetailedEmployee />
-          <EmployeeRegisterAbsence/>
+          <DetailedEmployee />
+          <EmployeeRegisterAbsence />
         </div>
       </div>
     );
@@ -27,7 +27,7 @@ const style = {
     width: "90%"
   },
   item: {
-    flex: "1",
+    flex: "1"
   }
 };
 
