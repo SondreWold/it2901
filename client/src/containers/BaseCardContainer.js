@@ -70,7 +70,7 @@ class BaseCardContainer extends Component {
               const dragEmployees = dragBase.employeeIds.map(
                 employeeId => this.props.data.employees[employeeId]
               );
-
+              
               return (
                 <BaseCard
                   base={base}
@@ -80,7 +80,6 @@ class BaseCardContainer extends Component {
                   update={this.props.updateAbsentChildren}
                   date={this.props.date}
                   employees={this.props.employees}
-                  absentEmployees={this.props.absentEmployees}
                 />
               );
             })}
@@ -116,4 +115,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(BaseCardContainer);
-
