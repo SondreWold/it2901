@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import EmployeeListContainer from "./EmployeeList/EmployeesContainer";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
+import AddEmployee from "../components/EmployeeTools/AddEmployee";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -10,6 +11,7 @@ class EmployeesContentContainer extends Component {
   render() {
     return (
       <div>
+        <AddEmployee/>
         <EmployeeListContainer employees={this.props.listOfEmployees} />
       </div>
     );

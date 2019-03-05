@@ -15,7 +15,7 @@ class BaseCardContainer extends Component {
     if (
       prevProps.bases !== this.props.bases ||
       prevProps.moved_employees !== this.props.moved_employees ||
-      prevProps.employees !== this.props.employees || 
+      prevProps.employees !== this.props.employees ||
       prevProps.absentChildren !== this.props.absentChildren
     ) {
       this.props.formatAndUpdateData(
