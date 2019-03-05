@@ -13,7 +13,31 @@ const FACTOR =  0.160;
 
 class BaseCard extends Component {
 
-	colorRendering = (value) => {
+  calculateEmployeesAtBase = () => {
+    var employees = [];
+    let totalEmployeesAtBase = 0;
+    let absentEmployeesAtBase = 0;
+    this.props.employees.map(employee => {
+      if(employee.base_id === this.props.base.id) {
+        totalEmployeesAtBase++;
+        if(this.props.absentEmployees.length > 0) {
+        this.props.absentEmployees.map(absent => {
+          if((absent.employee_id === employee.id) &&
+            (moment(this.props.date).format("YYYY-MM-DD") ===
+            moment(absent.date).format("YYYY-MM-DD"))) {
+              console.log(((absent.employee_id === employee.id) &&
+                (moment(this.props.date).format("YYYY-MM-DD") ===
+                moment(absent.date).format("YYYY-MM-DD"))));
+              absentEmployeesAtBase++;
+          }});
+        }
+      }
+    });
+    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
+    return employees;
+  }
+
+  colorRendering = (value) => {
 		let color = "#FFFB94";
 		if (value >= 0) {
 			color = "#B2F1AF";
@@ -25,7 +49,7 @@ class BaseCard extends Component {
 	}
 
   render() {
-
+    let employeesAtBase = this.calculateEmployeesAtBase();
   	// calc of needed employees
   	const employeesPresent = this.props.dragEmployees.length;
   	const childrenPresent = this.props.absence.total_children - this.props.absence.children;
@@ -47,10 +71,10 @@ class BaseCard extends Component {
           date={moment(this.props.absence.date).format("YYYY-MM-DD")}
           totalChildren={this.props.absence.total_children}
           update={this.props.update}
-          />
+        />
         </div>
-        <EmployeesAtBase baseEmployees={this.props.baseEmployees} />
-        <EmployeesNeeded 
+        <EmployeesAtBase baseEmployees={employeesAtBase} />
+        <EmployeesNeeded
 	      	neededEmployees={neededEmployees}
         />
         <BaseCardList

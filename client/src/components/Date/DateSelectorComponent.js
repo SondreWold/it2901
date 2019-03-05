@@ -8,7 +8,7 @@ class DateSelectorComponent extends React.Component {
     let calendarIcon = <img style={calendar} src={calendar2} alt="calendar" />;
 
     return (
-      <div style={datepicker}>
+      <div className="datepicker">
         <DatePicker
           onChange={this.props.changeDate}
           clearIcon={null}
@@ -22,6 +22,7 @@ class DateSelectorComponent extends React.Component {
         <DateNavigation
           changeDate={this.props.changeDate}
           date={this.props.date}
+          minDate={this.props.minDate}
         />
       </div>
     );
@@ -32,8 +33,4 @@ export default DateSelectorComponent;
 
 const calendar = {
   width: 20
-};
-
-const datepicker = {
-  height: 28
 };

@@ -1,23 +1,54 @@
 .dateComponents {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
+}
+
+.dateHeader {
+  margin-left: 60px;
+}
+
+.datepicker {
+  height: 28;
+  display: flex;
+  flex-direction: column;
+  margin-right: 60px;
+  margin-top: 10px;
 }
 
 .react-date-picker__wrapper {
   border-radius: 4px;
 }
 
+.dateNavigation {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.dateNavigationIcon {
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1100px) {
   .dateComponents {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .dateHeader {
-    margin-top: 20px;
+    margin-left:0;
+    margin-top: 10px;
+  }
+
+  .dateHeaderText {
+    margin-top: 0;
+  }
+
+  .datepicker {
+    margin-right: 0;
   }
 }
 
@@ -26,14 +57,4 @@
     display: flex;
     justify-self: flex-start;
   }
-}
-
-.dateNavigation {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 7px;
-}
-
-.dateNavigationIcon {
-  cursor: pointer;
 }

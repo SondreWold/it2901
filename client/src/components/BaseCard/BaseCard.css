@@ -7,17 +7,18 @@
     border: 1px solid rgb(63, 63, 63);
     border-radius: 5px;
     margin: 10px;
-    min-height: 330px;
   }
 
 .baseCardList {
     margin: 8px;
     border: 1px solid lightgrey;
+    background-color: white;
     border-radius: 2px;
     width: 220px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    height: 250px;
   }
 
 .employeeList {
@@ -26,8 +27,6 @@
     background-color: white;
     border: 1px solid white;
     flex-grow: 1;
-    min-height: 150px;
-    max-height: 330px;
 }
 
 .baseCardOverviewHeader {
@@ -62,12 +61,34 @@
     color: rgb(105, 104, 104); 
 }
 
+.childrenAtBaseHolder {
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.childrenText {
+    margin:0;
+    font-size: 15px;
+}
+
+.employeesHolder {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top:5px;
+    margin-bottom: 15px;
+}
+
+.employeeCountHolder {
+    display: flex;
+    flex-direction: column;
+}
+
 .employeesAtBase {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .employeesAtBaseNumber {
@@ -78,8 +99,23 @@
     font-size: 15px;
 }
 
-@media only screen and (max-width: 768px) {
+.employeesText {
+    font-size: 15px;
+    margin:0;
+}
+
+@media only screen and (max-width: 1100px) {
     .baseCardHolder {
+        display: inline-grid;
+        grid-template-columns: auto auto;   
+        justify-content: space-evenly;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    .baseCardHolder {
+        display: flex;
         flex-direction: column;
         align-items: center;
     }

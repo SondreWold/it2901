@@ -5,7 +5,7 @@ class BaseOverview extends Component {
   render() {
     return (
       <div>
-        <div className="baseCardOverviewHeader"> <h2> Baser </h2></div>
+        <div className="baseCardOverviewHeader"> <h3> Baser </h3></div>
         <BaseCardContainer />
       </div>
     );
