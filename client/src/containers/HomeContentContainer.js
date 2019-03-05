@@ -4,6 +4,7 @@ import { getBases } from "../actions/contentActions/contentBaseActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "../actions/dateAction";
+import { getMinDate } from "../actions/dateAction";
 import { getMovedEmployee } from "../actions/movedEmployeeAction";
 import moment from "moment";
 import BaseOverview from "../components/BaseCard/BaseOverview";
@@ -29,6 +30,7 @@ class contentContainer extends React.Component {
     this.props.getAbsentEmployees();
     this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
+    this.props.getMinDate();
   }
 
   //Rerenders the page when new date is selected
@@ -47,6 +49,7 @@ class contentContainer extends React.Component {
         <TotalOverview
           date={this.props.date}
           changeDate={this.props.changeDate}
+          minDate={this.props.minDate}
           children={this.props.absentChildren}
           employees={this.props.employees}
           absentEmployees={this.props.absentEmployees}
@@ -64,7 +67,8 @@ const mapDispatchToProps = dispatch => {
     getAbsentEmployees: url => dispatch(getAbsentEmployees()),
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
     getMovedEmployee: date => dispatch(getMovedEmployee(date)),
-    changeDate: date => dispatch(changeDate(date))
+    changeDate: date => dispatch(changeDate(date)),
+    getMinDate: () => dispatch(getMinDate())
   };
 };
 
@@ -76,7 +80,8 @@ const mapStateToProps = state => ({
   loading: state.contentBase.loading,
   moved_employees: state.movedEmployee.data,
   date: state.date.selectedDate,
-  dateSet: state.date.dateSet
+  dateSet: state.date.dateSet,
+  minDate: state.date.minDate
 });
 
 export default connect(

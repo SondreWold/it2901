@@ -6,6 +6,16 @@
   margin-top: 30px;
 }
 
+.datepicker {
+  height: 28;
+  display: flex;
+  flex-direction: column;
+}
+
+.react-date-picker__wrapper {
+  border-radius: 4px;
+}
+
 @media only screen and (max-width: 1100px) {
   .dateComponents {
     display: flex;
@@ -19,4 +29,14 @@
     justify-self: flex-start;
     margin-bottom: 150px;
   }
+}
+
+.dateNavigation {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 7px;
+}
+
+.dateNavigationIcon {
+  cursor: pointer;
 }

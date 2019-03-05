@@ -1,7 +1,15 @@
-import { CHANGE_DATE } from "./../actions/dateAction";
+import {
+  CHANGE_DATE,
+  GET_MIN_DATE_BEGIN,
+  GET_MIN_DATE_SUCCESS,
+  GET_MIN_DATE_FAILURE
+} from "./../actions/dateAction";
 
 const initialState = {
-  selectedDate: new Date()
+  selectedDate: new Date(),
+  minDate: "",
+  loading: false,
+  error: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -10,6 +18,26 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selectedDate: action.payload
+      };
+    }
+    case GET_MIN_DATE_BEGIN: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    case GET_MIN_DATE_SUCCESS: {
+      return {
+        ...state,
+        minDate: action.payload.created_date,
+        loading: false
+      };
+    }
+    case GET_MIN_DATE_FAILURE: {
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error
       };
     }
     default:

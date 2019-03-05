@@ -34,8 +34,9 @@ class TotalOverview extends Component {
     return (
       <div>
         <DateComponent
-        date={this.props.date}
-        changeDate={this.props.changeDate}
+          date={this.props.date}
+          changeDate={this.props.changeDate}
+          minDate={this.props.minDate}
         />
         <TotalPresence
         totalChildren={overviewList[0]}
