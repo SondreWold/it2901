@@ -5,7 +5,7 @@ class BaseOverview extends Component {
   render() {
     return (
       <div>
-        <div style={baser}>BASER</div>
+        <div className="baseCardOverviewHeader"> <h3> Baser </h3></div>
         <BaseCardContainer />
       </div>
     );
@@ -13,8 +13,3 @@ class BaseOverview extends Component {
 }
 
 export default BaseOverview;
-
-const baser = {
-  textAlign: "center",
-  marginTop: "50px"
-};

@@ -1,22 +1,21 @@
 import React, {Component} from "react";
+import "./BaseCard.css";
+
 
 class EmployeesNeeded extends Component {
-	
-  render(){
-
-
+  render() {
     return (
       <div>
-  			<p> 
+  			<i className="employeesNeeded"> 
   				{this.props.neededEmployees ===  0
-  					? "Pris herren"
+  					? "OK"
   					: this.props.neededEmployees > 0
 	  				? "Forslag: flytt " + this.props.neededEmployees + " herfra" 
 	  				: "Forslag: hent inn " + (-1)*this.props.neededEmployees + " til"
 	  			}
-				</p> 
+				</i> 
       </div>
-    )
+    );
   }
 }
 

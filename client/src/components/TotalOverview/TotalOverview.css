@@ -1,0 +1,42 @@
+.totalNumbersHolder {
+    display: flex;
+    margin-left: 40px;
+}
+
+.totalChildren, .totalEmployees {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.totalText {
+    margin-bottom: 2px;
+}
+
+.totalHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoText {
+    margin: 0;
+    margin-left: 10px;
+    font-size: 15px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .totalNumbersHolder {
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .totalChildren, .totalEmployees {
+        margin-right: 10px;
+        margin-right: 10px;
+    }
+}
