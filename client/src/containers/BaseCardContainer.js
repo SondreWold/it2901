@@ -73,7 +73,6 @@ class BaseCardContainer extends Component {
     this.props.updateMovedEmployee(baseId, employeeId, date);
   };
 
-
   render() {
     return (
       this.props.data &&

@@ -1,4 +1,8 @@
 var db = require("../db");
+const pgp = require("pg-promise")({
+  /* initialization options */
+  capSQL: true // capitalize all generated SQL
+});
 
 const getAbsentChildren = (request, response) => {
   db.query(
@@ -15,6 +19,30 @@ const getAbsentChildren = (request, response) => {
       response.status(200).json(results.rows);
     }
   );
+};
+
+//If there is no absent children for that day, insert a row with 0 values
+const insertNewAbsentChildrenRow = (request, response) => {
+  let date = request.params.date;
+  const cs = new pgp.helpers.ColumnSet(["date", "children", "base_id"], {
+    table: "absence_children"
+  });
+  const values = [
+    { date: date, children: 0, base_id: 1 },
+    { date: date, children: 0, base_id: 2 },
+    { date: date, children: 0, base_id: 3 },
+    { date: date, children: 0, base_id: 4 }
+  ];
+  const query = pgp.helpers.insert(values, cs);
+  db.query(query)
+    .then(data => {
+      response
+        .status(200)
+        .send("Inserted 4 rows of 0-values for children_absence entities");
+    })
+    .catch(error => {
+      // error;
+    });
 };
 
 const getAbsentEmployees = (request, response) => {
@@ -46,5 +74,6 @@ const updateAbsentChildren = (request, response) => {
 module.exports = {
   getAbsentEmployees,
   getAbsentChildren,
-  updateAbsentChildren
+  updateAbsentChildren,
+  insertNewAbsentChildrenRow
 };
