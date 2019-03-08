@@ -80,7 +80,6 @@ class BaseCardContainer extends Component {
                   update={this.props.updateAbsentChildren}
                   date={this.props.date}
                   employees={this.props.employees}
-                  absentEmployees={this.props.absentEmployees}
                 />
               );
             })}

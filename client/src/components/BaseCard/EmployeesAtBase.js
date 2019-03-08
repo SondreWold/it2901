@@ -3,14 +3,17 @@ import {FaUser, FaRegUser} from 'react-icons/fa';
 
 class EmployeesAtBase extends Component {
   render(){
+    let missingResources = 0;
+    if((this.props.baseEmployees[0] - this.props.employeesPresent) >=0){
+      missingResources= this.props.baseEmployees[0] - this.props.employeesPresent;
+    }
     return (
       <div className="employeesHolder">
         <div className="employeeCountHolder">
           <div className="employeesAtBase">
           <FaUser size="15px"/>
             <p className="employeesAtBaseNumber">
-              {" " + this.props.baseEmployees[0] -
-              this.props.baseEmployees[1] +
+              {" " + this.props.employeesPresent +
               "/" +
               this.props.baseEmployees[0] + " "}
             </p>
@@ -21,7 +24,7 @@ class EmployeesAtBase extends Component {
           <div className="employeesAtBase">
             <FaRegUser size="15px"/>
             <p className="employeesAtBaseNumber">
-              {" " + this.props.baseEmployees[1] + " "}
+              {" " + missingResources + " "}
             </p>
           </div>
           <p className="employeesText">Manglende <br/> ressurser</p>
