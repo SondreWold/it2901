@@ -12,8 +12,10 @@ const getEmployees = (request, response) => {
 const getEmployeesSearch = (request, response) => {
   let searchToken = request.params.name;
   db.query(
-    "SELECT * FROM employee WHERE employee.first_name LIKE $1",
-    [searchToken + "%"],
+    `	SELECT * FROM employee 
+    	WHERE LOWER(employee.first_name) LIKE LOWER($1)
+    	OR LOWER(employee.last_name) LIKE LOWER($1)`,
+    ["%" + searchToken + "%"],
     (error, results) => {
       if (error) {
         throw error;
