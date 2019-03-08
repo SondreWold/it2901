@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import EmployeeListContainer from "./EmployeeList/EmployeesContainer";
+import EmployeesContainer from "./EmployeeList/EmployeesContainer";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
+import AddEmployee from "../components/EmployeeTools/AddEmployee";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -10,7 +11,11 @@ class EmployeesContentContainer extends Component {
   render() {
     return (
       <div>
-        <EmployeeListContainer employees={this.props.listOfEmployees} />
+        <EmployeesContainer
+          employees={this.props.listOfEmployees}
+          selectedEmployee={this.props.selectedEmployee}
+        />
+        <AddEmployee/>
       </div>
     );
   }
@@ -23,7 +28,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => ({
-  listOfEmployees: state.contentEmployee.employees
+  listOfEmployees: state.contentEmployee.employees,
+  selectedEmployee: state.employeeList.selectedEmployee
 });
 
 export default connect(

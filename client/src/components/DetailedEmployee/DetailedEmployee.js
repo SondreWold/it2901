@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 class DetailedEmployee extends React.Component {
   render() {
@@ -23,19 +22,8 @@ class DetailedEmployee extends React.Component {
 
 const style = {
   wrapper: {
-    marginTop: "10px",
+    marginTop: "10px"
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-const mapStateToProps = state => ({
-  selectedEmployee: state.employeeList.selectedEmployee
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DetailedEmployee);
+export default DetailedEmployee;

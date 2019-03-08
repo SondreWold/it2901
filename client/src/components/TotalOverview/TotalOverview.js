@@ -10,7 +10,6 @@ class TotalOverview extends Component {
   var result = [];
   let totalChildren = 0;
   let totalAbsentChildren = 0;
-  let totalAbsentEmployees = 0;
   let totalEmployees = this.props.employees.length;
   if (this.props.children.length > 0) {
     this.props.children.map(child => {
@@ -18,14 +17,7 @@ class TotalOverview extends Component {
       totalAbsentChildren += child.children;
     });
   }
-  if (this.props.absentEmployees.length > 0) {
-    this.props.absentEmployees.map(employee => {
-      if (moment(this.props.date).format("YYYY-MM-DD") ===
-        moment(employee.date).format("YYYY-MM-DD")) {
-        totalAbsentEmployees++;
-      }
-    });
-  }
+  let totalAbsentEmployees = totalEmployees - this.props.moved_employees.length ;
   result.push(totalChildren, totalAbsentChildren, totalAbsentEmployees, totalEmployees);
   return result;
   }

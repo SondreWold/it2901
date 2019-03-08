@@ -11,8 +11,14 @@ class EmployeesContainer extends Component {
           <EmployeeList employees={this.props.employees} />
         </div>
         <div style={style.item}>
-          <DetailedEmployee />
-          <EmployeeRegisterAbsence />
+          {this.props.selectedEmployee && (
+            <div>
+              <DetailedEmployee
+                selectedEmployee={this.props.selectedEmployee}
+              />
+              <EmployeeRegisterAbsence />
+            </div>
+          )}
         </div>
       </div>
     );

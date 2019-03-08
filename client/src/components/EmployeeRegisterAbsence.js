@@ -60,9 +60,6 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div style={style}>
-        <h3>
-        	{"This is inside EmployeeRegisterAbsence"}
-        </h3>
         <form onSubmit={this.handleSubmit}>
           <DatePicker
 	          onChange={this.handleChangeFrom}
