@@ -1,19 +1,14 @@
 .dateComponents {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   margin-top: 10px;
-}
-
-.dateHeader {
-  margin-left: 5%;
 }
 
 .datepicker {
   height: 28;
   display: flex;
   flex-direction: column;
-  margin-right: 15%;
   margin-top: 10px;
 }
 
