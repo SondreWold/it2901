@@ -1,40 +1,27 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
 import EmployeeList from "../components/EmployeeList/EmployeeList";
-import EmployeeDetails from "../components/EmployeeDetails/EmployeeDetails";
-import EmployeeRegisterAbsence from "../components/EmployeeDetails/EmployeeRegisterAbsence";
+
 
 class EmployeesContainer extends Component {
   render() {
     return (
-      <div style={style.container}>
-        <div style={style.item}>
-          <EmployeeList employees={this.props.employees} />
+        <div>
+          <EmployeeList 
+          	employees={this.props.employees}
+          	updateSelectedEmployee={this.props.updateSelectedEmployee}
+          	getEmployees={this.props.getEmployees}
+        	/>
         </div>
-        <div style={style.item}>
-          {this.props.selectedEmployee && (
-            <div>
-              <EmployeeDetails
-                selectedEmployee={this.props.selectedEmployee}
-              />
-              <EmployeeRegisterAbsence />
-            </div>
-          )}
-        </div>
-      </div>
     );
   }
 }
 
-const style = {
-  container: {
-    margin: "30px",
-    display: "flex",
-    flexDirection: "row",
-    width: "90%"
-  },
-  item: {
-    flex: "1"
-  }
-};
+const mapDispatchToProps = dispatch => ({});
 
-export default EmployeesContainer;
+const mapStateToProps = state => ({});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EmployeesContainer);

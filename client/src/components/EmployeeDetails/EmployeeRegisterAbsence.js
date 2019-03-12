@@ -1,6 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { insertAbsentEmployee } from "../../actions/insertAbsentEmployeeAction";
 import moment from "moment";
 import DatePicker from "react-date-picker";
 import Button from '@material-ui/core/Button';
@@ -42,6 +40,7 @@ class EmployeeRegisterAbsence extends React.Component {
     // in case there is no selectedEmployee
     if (this.props.selectedEmployee) {
     	const diff = this.diffDates(this.state.from, this.state.to)
+    	console.log("SHOULD INSERT", diff.length, "ROWS")
 	    diff.forEach( date => this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date))
     }
     event.preventDefault();
@@ -110,18 +109,4 @@ const style = {
 	}
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-  	insertAbsentEmployee: (empId, date) => dispatch(insertAbsentEmployee(empId, date))
-  };
-};
-
-const mapStateToProps = state => ({
-  selectedEmployee: state.employeeList.selectedEmployee,
-  minDate: state.date.minDate
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployeeRegisterAbsence);
+export default EmployeeRegisterAbsence;
