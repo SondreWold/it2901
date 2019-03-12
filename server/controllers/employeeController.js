@@ -10,19 +10,21 @@ const getEmployees = (request, response) => {
 };
 
 const insertNewEmployee = (request, response) => {
-  //TODO: sjekk hvordan employee-tabellen egentlig ser ut mtp felter osv,
-  //slik at qeryen med felter som skal legges til i er riktig (name, position, movable)
   let query = db.prepareStatement(
-    "INSERT INTO Employee " + "(name, position, movable) values (?,?,?)"
+    "INSERT INTO employee " +
+      "(first_name, last_name, base_id, position, movable) values (?,?,?,?,?)"
   );
   //.body? Sender inn et JSON-objekt i request
-  query.setString(1, request.params.name);
-  query.setString(2, request.params.position);
-  query.setNumber(3, request.params.movable);
+  query.setString(1, request.params.firstName);
+  query.setString(2, request.params.lastName);
+  query.setNumber(3, request.params.baseID);
+  query.setNumber(4, request.params.position);
+  query.setNumber(5, request.params.movable);
   db.query(query, error => {
-    if (error) {
+    if ((error, results)) {
       throw error;
     }
+    response.status(200).json(results.rows);
   });
 };
 
@@ -44,5 +46,6 @@ const getEmployeesSearch = (request, response) => {
 
 module.exports = {
   getEmployees,
-  getEmployeesSearch
+  getEmployeesSearch,
+  insertNewEmployee
 };

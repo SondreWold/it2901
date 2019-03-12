@@ -1,6 +1,7 @@
 import React from "react";
 import DateSelectorComponent from "./DateSelectorComponent";
 import DateHeaderComponent from "./DateHeaderComponent";
+import AddNewEmployee from "./../addNewEmployee";
 import "./date.css";
 
 class DateComponent extends React.Component {
@@ -17,6 +18,7 @@ class DateComponent extends React.Component {
 
     return (
       <div className="dateComponents">
+        <AddNewEmployee />
         <DateHeaderComponent className="dateHeader" date={this.props.date} />
         <DateSelectorComponent
           className="dateSelector"
