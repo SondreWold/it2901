@@ -1,6 +1,6 @@
 import React from "react";
 
-class DetailedEmployee extends React.Component {
+class EmployeeDetails extends React.Component {
   render() {
     return (
       <div style={style.wrapper}>
@@ -26,4 +26,4 @@ const style = {
   }
 };
 
-export default DetailedEmployee;
+export default EmployeeDetails;

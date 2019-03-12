@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import EmployeesContainer from "./EmployeeList/EmployeesContainer";
+import EmployeesContainer from "./EmployeesContainer";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import AddEmployee from "../components/EmployeeTools/AddEmployee";
 

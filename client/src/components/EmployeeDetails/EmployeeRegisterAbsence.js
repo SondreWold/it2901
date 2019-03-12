@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
+import { insertAbsentEmployee } from "../../actions/insertAbsentEmployeeAction";
 import moment from "moment";
 import DatePicker from "react-date-picker";
 import Button from '@material-ui/core/Button';
+import "./EmployeeRegisterAbsence.css";
 
-const calendar2 = require("../images/calendar2.svg");
+const calendar2 = require("../../images/calendar2.svg");
 
 class EmployeeRegisterAbsence extends React.Component {
 
@@ -59,10 +60,12 @@ class EmployeeRegisterAbsence extends React.Component {
 
   render() {
     return (
-      <div style={style}>
+      <div className="absenceFormWrapper">
       	<h3> Velg antall dager med fravær </h3>
-        <form noValidate onSubmit={this.handleSubmit}>
-          <DatePicker style={style.datePicker}
+      	<p> Fra og med </p>
+        <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
+          <DatePicker
+						className="absenceFormDatePicker"
 	          onChange={this.handleChangeFrom}
 	          clearIcon={null}
 	          value={this.state.from}
@@ -73,7 +76,9 @@ class EmployeeRegisterAbsence extends React.Component {
 	          placeholderText={"Fra"}
 	          minDate={this.minDateObj}
         	/>
-          <DatePicker style={style.datePicker}
+        	<p> Til og med </p>
+          <DatePicker 
+          	className="absenceFormDatePicker"
 	          onChange={this.handleChangeTo}
 	          clearIcon={null}
 	          value={this.state.to}
@@ -83,15 +88,26 @@ class EmployeeRegisterAbsence extends React.Component {
 	          calendarIcon={this.calendarIcon}
 	          minDate={this.state.from}
         	/>
-          <input type="submit" value="Submit" />
+          <Button 
+          	style={style.submitButton}
+        		type="submit"
+        		variant="contained"
+        		color="primary"> REGISTRER 
+      		</Button>
+        
         </form>
       </div>
     );
   }
 }
 
-const style = {
 
+const style = {
+	// MUI Button doesn't support styling by className
+	submitButton: {
+		"maxWidth": "200px",
+		"margin": "20px auto"
+	}
 };
 
 const mapDispatchToProps = dispatch => {

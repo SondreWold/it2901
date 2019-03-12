@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import EmployeeList from "../../components/EmployeeList/EmployeeList";
-import DetailedEmployee from "../../components/DetailedEmployee/DetailedEmployee";
-import EmployeeRegisterAbsence from "../../components/EmployeeRegisterAbsence";
+import EmployeeList from "../components/EmployeeList/EmployeeList";
+import EmployeeDetails from "../components/EmployeeDetails/EmployeeDetails";
+import EmployeeRegisterAbsence from "../components/EmployeeDetails/EmployeeRegisterAbsence";
 
 class EmployeesContainer extends Component {
   render() {
@@ -13,7 +13,7 @@ class EmployeesContainer extends Component {
         <div style={style.item}>
           {this.props.selectedEmployee && (
             <div>
-              <DetailedEmployee
+              <EmployeeDetails
                 selectedEmployee={this.props.selectedEmployee}
               />
               <EmployeeRegisterAbsence />
