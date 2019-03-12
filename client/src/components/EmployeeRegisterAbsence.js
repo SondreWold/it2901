@@ -3,19 +3,15 @@ import { connect } from "react-redux";
 import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
 import moment from "moment";
 import DatePicker from "react-date-picker";
+import Button from '@material-ui/core/Button';
+
 const calendar2 = require("../images/calendar2.svg");
 
 class EmployeeRegisterAbsence extends React.Component {
 
 	constructor(props) {
     super(props);
-    const calendarIcon = <img style={{width: 20}} src={calendar2} alt="calendar" />;
-
-    // format minDate from string to Date object
-		const year = this.props.minDate.substring(6, 10);
-		const month = this.props.minDate.substring(0, 2) - 1;
-		const day = this.props.minDate.substring(3, 5);
-		const minDateObj = new Date(year, month, day);
+    this.calendarIcon = <img style={{width: 20}} src={calendar2} alt="calendar" />;
 
 		// using tmp to avoid error when copying
 	  const tmp = new Date()
@@ -30,11 +26,15 @@ class EmployeeRegisterAbsence extends React.Component {
   }
 
   handleChangeFrom(date) {
-    this.setState({from: date});
+  	date > this.state.to
+  	? this.setState({from: date, to: date})
+    : this.setState({from: date})
   }
 
   handleChangeTo(date) {
-    this.setState({to: date});
+	 	this.state.from > date
+		? this.setState({from: date, to: date})
+	  : this.setState({from: date})
   }
 
   handleSubmit(event) {
@@ -60,8 +60,9 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div style={style}>
-        <form onSubmit={this.handleSubmit}>
-          <DatePicker
+      	<h3> Velg antall dager med fravær </h3>
+        <form noValidate onSubmit={this.handleSubmit}>
+          <DatePicker style={style.datePicker}
 	          onChange={this.handleChangeFrom}
 	          clearIcon={null}
 	          value={this.state.from}
@@ -69,9 +70,10 @@ class EmployeeRegisterAbsence extends React.Component {
 	          returnValue={"start"}
 	          showLeadingZeros={true}
 	          calendarIcon={this.calendarIcon}
+	          placeholderText={"Fra"}
 	          minDate={this.minDateObj}
         	/>
-          <DatePicker
+          <DatePicker style={style.datePicker}
 	          onChange={this.handleChangeTo}
 	          clearIcon={null}
 	          value={this.state.to}
@@ -89,7 +91,7 @@ class EmployeeRegisterAbsence extends React.Component {
 }
 
 const style = {
-  
+
 };
 
 const mapDispatchToProps = dispatch => {
