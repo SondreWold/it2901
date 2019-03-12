@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -96,9 +95,6 @@ const style = {
   }
 };
 
-EmployeeList.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 const mapDispatchToProps = dispatch => {
   return {
     updateSelectedEmployee: employee =>
