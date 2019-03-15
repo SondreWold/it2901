@@ -1,11 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { updateSelectedEmployee } from "../../actions/EmployeeListActions/EmployeeListActions";
 import { InputField } from "./SearchBar/InputField";
-import { getEmployees } from "../../actions/contentActions/contentEmployeeActions";
 
 class EmployeeList extends React.Component {
   state = {
@@ -95,17 +92,4 @@ const style = {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateSelectedEmployee: employee =>
-      dispatch(updateSelectedEmployee(employee)),
-    getEmployees: name => dispatch(getEmployees(name))
-  };
-};
-
-const mapStateToProps = state => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployeeList);
+export default EmployeeList;
