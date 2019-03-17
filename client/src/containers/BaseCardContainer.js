@@ -4,7 +4,7 @@ import moment from "moment";
 import { formatAndUpdateData } from "../actions/dragDataAction";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
-import { addTempToBase } from "../actions/contentActions/contentEmployeeActions";
+import { addMovedEmployee } from "../actions/movedEmployeeAction";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
@@ -84,7 +84,7 @@ class BaseCardContainer extends Component {
                   date={this.props.date}
                   employees={this.props.employees}
                   freeTemps={this.props.freeTemps}
-                  addTempToBase={this.props.addTempToBase}
+                  addTempToBase={this.props.addMovedEmployee}
                   key={base.id}
                 />
               );
@@ -104,8 +104,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(formatAndUpdateData(moved_employees, bases, employees)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
-    addTempToBase: (date, employeeId, baseId) =>
-      dispatch(addTempToBase(date, employeeId, baseId))
+      addMovedEmployee: (date, employeeId, baseId) =>
+      dispatch(addMovedEmployee(date, employeeId, baseId))
   };
 };
 

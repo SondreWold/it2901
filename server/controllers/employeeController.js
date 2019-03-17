@@ -50,31 +50,9 @@ const getFreeTemp = (request, response) => {
   );
 };
 
-const addTempToBase = (request, response) => {
-  const { date, employeeId, baseId } = request.body;
-
-  console.log(date);
-  console.log(employeeId);
-  console.log(baseId);
-
-  db.query(
-    "INSERT INTO moved_employee (date, employee_id, base_id) VALUES ($1, $2, $3)",
-    [date, employeeId, baseId],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response
-        .status(200)
-        .send(`Inserted employee ${employeeId} on day ${date}`);
-    }
-  );
-};
-
 module.exports = {
   getEmployees,
   deleteEmployee,
   getEmployeesSearch,
-  getFreeTemp,
-  addTempToBase
+  getFreeTemp
 };
