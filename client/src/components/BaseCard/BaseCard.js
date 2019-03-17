@@ -21,7 +21,7 @@ class BaseCard extends Component {
   calculateEmployeesAtBase = () => {
     var employees = [];
     let totalEmployeesAtBase = 0;
-    this.props.employees.map(employee => {
+    this.props.employees.forEach(employee => {
       if (employee.base_id === this.props.base.id) {
         totalEmployeesAtBase++;
       }

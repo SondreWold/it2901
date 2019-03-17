@@ -85,6 +85,7 @@ class BaseCardContainer extends Component {
                   employees={this.props.employees}
                   freeTemps={this.props.freeTemps}
                   addTempToBase={this.props.addTempToBase}
+                  key={base.id}
                 />
               );
             })}

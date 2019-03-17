@@ -37,6 +37,7 @@
   margin-top: 20px;
 }
 
+dev
 .basecardHeader {
   margin: 8px;
 }
@@ -173,17 +174,14 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .baseCardHolder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    .baseCardHolder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-  .baseCard {
-    width: 250px;
-  }
-
-  .baseCardList {
-    margin-left: 13px;
-  }
+    .baseCard {
+        width: 250px;
+    }
 }

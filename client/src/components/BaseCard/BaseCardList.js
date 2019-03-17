@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import Employee from "../Employee";
 
+// pass snapshot.isDraggingOver as a prop to make conditional animations
 class BaseCardList extends Component {
   render() {
     return (
@@ -12,7 +13,6 @@ class BaseCardList extends Component {
               className="employeeList"
               ref={provided.innerRef}
               {...provided.droppableProps}
-              isDraggingOver={snapshot.isDraggingOver}
             >
               {this.props.dragEmployees.map((employee, index) => (
                 <Employee key={employee.id} employee={employee} index={index} />

@@ -1,6 +1,7 @@
 import {
   INSERT_ABSENT_EMPLOYEE_BEGIN,
   INSERT_ABSENT_EMPLOYEE_SUCCESS,
+  INSERT_ABSENT_EMPLOYEE_EXISTING,
   INSERT_ABSENT_EMPLOYEE_FAILURE
 } from "../actions/insertAbsentEmployeeAction";
 
@@ -23,7 +24,14 @@ export default function insertAbsentEmployeeReducer(state = initialState, action
       return {
         ...state,
         loading: false,
-        data: action.payload.data
+        status: action.payload.status
+      };
+
+    case INSERT_ABSENT_EMPLOYEE_EXISTING:
+      return {
+        ...state,
+        loading: false,
+        status: action.payload.status
       };
 
     case INSERT_ABSENT_EMPLOYEE_FAILURE:
