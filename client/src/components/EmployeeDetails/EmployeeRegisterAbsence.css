@@ -1,0 +1,16 @@
+.absenceFormWrapper {
+		display: flex;
+		flex-direction: column;
+		max-width: 75	%;
+		margin: auto
+	}
+
+.absenceForm {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
+
+.absenceFormDatePicker {
+		margin: auto;
+}

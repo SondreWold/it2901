@@ -1,21 +1,16 @@
 import React from "react";
-import { connect } from "react-redux";
-import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
 import moment from "moment";
 import DatePicker from "react-date-picker";
-const calendar2 = require("../images/calendar2.svg");
+import Button from '@material-ui/core/Button';
+import "./EmployeeRegisterAbsence.css";
+
+const calendar2 = require("../../images/calendar2.svg");
 
 class EmployeeRegisterAbsence extends React.Component {
 
 	constructor(props) {
     super(props);
-    const calendarIcon = <img style={{width: 20}} src={calendar2} alt="calendar" />;
-
-    // format minDate from string to Date object
-		const year = this.props.minDate.substring(6, 10);
-		const month = this.props.minDate.substring(0, 2) - 1;
-		const day = this.props.minDate.substring(3, 5);
-		const minDateObj = new Date(year, month, day);
+    this.calendarIcon = <img style={{width: 20}} src={calendar2} alt="calendar" />;
 
 		// using tmp to avoid error when copying
 	  const tmp = new Date()
@@ -30,17 +25,22 @@ class EmployeeRegisterAbsence extends React.Component {
   }
 
   handleChangeFrom(date) {
-    this.setState({from: date});
+  	date > this.state.to
+  	? this.setState({from: date, to: date})
+    : this.setState({from: date})
   }
 
   handleChangeTo(date) {
-    this.setState({to: date});
+	 	this.state.from > date
+		? this.setState({from: date, to: date})
+	  : this.setState({from: date})
   }
 
   handleSubmit(event) {
     // in case there is no selectedEmployee
     if (this.props.selectedEmployee) {
     	const diff = this.diffDates(this.state.from, this.state.to)
+    	console.log("SHOULD INSERT", diff.length, "ROWS")
 	    diff.forEach( date => this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date))
     }
     event.preventDefault();
@@ -59,9 +59,12 @@ class EmployeeRegisterAbsence extends React.Component {
 
   render() {
     return (
-      <div style={style}>
-        <form onSubmit={this.handleSubmit}>
+      <div className="absenceFormWrapper">
+      	<h3> Velg antall dager med fravær </h3>
+      	<p> Fra og med </p>
+        <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
           <DatePicker
+						className="absenceFormDatePicker"
 	          onChange={this.handleChangeFrom}
 	          clearIcon={null}
 	          value={this.state.from}
@@ -69,9 +72,12 @@ class EmployeeRegisterAbsence extends React.Component {
 	          returnValue={"start"}
 	          showLeadingZeros={true}
 	          calendarIcon={this.calendarIcon}
+	          placeholderText={"Fra"}
 	          minDate={this.minDateObj}
         	/>
-          <DatePicker
+        	<p> Til og med </p>
+          <DatePicker 
+          	className="absenceFormDatePicker"
 	          onChange={this.handleChangeTo}
 	          clearIcon={null}
 	          value={this.state.to}
@@ -81,29 +87,26 @@ class EmployeeRegisterAbsence extends React.Component {
 	          calendarIcon={this.calendarIcon}
 	          minDate={this.state.from}
         	/>
-          <input type="submit" value="Submit" />
+          <Button 
+          	style={style.submitButton}
+        		type="submit"
+        		variant="contained"
+        		color="primary"> REGISTRER 
+      		</Button>
+        
         </form>
       </div>
     );
   }
 }
 
+
 const style = {
-  
+	// MUI Button doesn't support styling by className
+	submitButton: {
+		"maxWidth": "200px",
+		"margin": "20px auto"
+	}
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-  	insertAbsentEmployee: (empId, date) => dispatch(insertAbsentEmployee(empId, date))
-  };
-};
-
-const mapStateToProps = state => ({
-  selectedEmployee: state.employeeList.selectedEmployee,
-  minDate: state.date.minDate
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployeeRegisterAbsence);
+export default EmployeeRegisterAbsence;

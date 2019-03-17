@@ -5,10 +5,6 @@ import AddNewEmployee from "./../addNewEmployee";
 import "./date.css";
 
 class DateComponent extends React.Component {
-  componentDidMount() {
-    let date = new Date();
-    this.props.changeDate(date);
-  }
 
   render() {
     let year = this.props.minDate.substring(6, 10);
