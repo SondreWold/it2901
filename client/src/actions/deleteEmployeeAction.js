@@ -7,7 +7,6 @@ export const deleteEmployee = message => ({
 });
 
 export function deleteEmployeeFromDb(id) {
-  console.log("ID: " + id);
   return dispatch => {
     fetch("api/employee/" + id, {
       method: "DELETE",
@@ -15,7 +14,10 @@ export function deleteEmployeeFromDb(id) {
         "Content-Type": "application/json"
       }
     })
-      .then(dispatch(deleteEmployee()))
-      .then(dispatch(getEmployees()));
+      .then(response => response.json())
+      .then(message => dispatch(deleteEmployee(message)))
+      .then(() => {
+        dispatch(getEmployees());
+      });
   };
 }

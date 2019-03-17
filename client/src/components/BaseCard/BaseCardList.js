@@ -27,4 +27,3 @@ class BaseCardList extends Component {
 }
 
 export default BaseCardList;
-
