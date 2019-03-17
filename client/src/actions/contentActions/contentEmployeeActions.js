@@ -47,7 +47,7 @@ export function getFreeTemps(date) {
 
 export function addTempToBase(date, employeeId, baseId) {
   return dispatch => {
-    fetch("api/employee/", {
+    fetch("api/employee/temp/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
