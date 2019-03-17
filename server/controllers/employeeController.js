@@ -9,6 +9,17 @@ const getEmployees = (request, response) => {
   });
 };
 
+const deleteEmployee = (request, response) => {
+  let id = request.params.id;
+  db.query("DELETE FROM employee where id = $1", [id], (error, results) => {
+    if (error) {
+      response.status(200).send("0");
+      throw error;
+    }
+    response.status(200).send("1");
+  });
+};
+
 const getEmployeesSearch = (request, response) => {
   let searchToken = request.params.name;
   db.query(
@@ -62,6 +73,7 @@ const addTempToBase = (request, response) => {
 
 module.exports = {
   getEmployees,
+  deleteEmployee,
   getEmployeesSearch,
   getFreeTemp,
   addTempToBase
