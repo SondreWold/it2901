@@ -37,19 +37,19 @@ class Employee extends Component {
         index={this.props.index}
       >
         {(provided, snapshot) => (
-          <Container
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            {this.props.employee.moveable === "1" ? (
-              <HandleMoveable />
-            ) : (
-              <HandleUnMoveable />
-            )}
-            {this.props.employee.content}
-          </Container>
+        		<Container
+	            {...provided.draggableProps}
+	            {...provided.dragHandleProps}
+	            ref={provided.innerRef}
+	            isDragging={snapshot.isDragging}
+	          >
+	            {this.props.employee.moveable === "1" ? (
+	              <HandleMoveable />
+	            ) : (
+	              <HandleUnMoveable />
+	            )}
+	            {this.props.employee.content}
+	          </Container>
         )}
       </Draggable>
     );

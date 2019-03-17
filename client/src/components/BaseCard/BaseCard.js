@@ -50,8 +50,6 @@ class BaseCard extends Component {
       employeesPresent - Math.round(childrenPresent * FACTOR);
     const color = this.colorRendering(neededEmployees);
 
-    console.log(this.props.dragEmployees);
-
     return (
       <div className="baseCard" style={{ backgroundColor: color }}>
         <BaseCardHeader baseName={this.props.base.name} />

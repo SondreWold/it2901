@@ -40,11 +40,8 @@ class EmployeeRegisterAbsence extends React.Component {
   handleSubmit(event) {
     // in case there is no selectedEmployee
     if (this.props.selectedEmployee) {
-      const diff = this.diffDates(this.state.from, this.state.to);
-      console.log("SHOULD INSERT", diff.length, "ROWS");
-      diff.forEach(date =>
-        this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date)
-      );
+    	const diff = this.diffDates(this.state.from, this.state.to)
+	    diff.forEach( date => this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date))
     }
     event.preventDefault();
   }

@@ -49,7 +49,6 @@ export default function contentReducer(state = initialState, action) {
       };
 
     case UPDATE_FREE_TEMPS:
-      console.log(action.payload);
       return { ...state, freeTemps: action.payload.temps };
 
     default:
