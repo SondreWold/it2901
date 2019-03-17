@@ -34,7 +34,7 @@ class EmployeeRegisterAbsence extends React.Component {
   handleChangeTo(date) {
     this.state.from > date
       ? this.setState({ from: date, to: date })
-      : this.setState({ from: date });
+      : this.setState({ to: date });
   }
 
   handleSubmit(event) {
