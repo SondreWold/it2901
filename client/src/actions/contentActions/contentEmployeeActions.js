@@ -57,6 +57,11 @@ export function addTempToBase(date, employeeId, baseId) {
         employeeId: employeeId,
         baseId: baseId
       })
-    }).then(() => dispatch(getMovedEmployee(date)));
+    })
+      .then(() => {
+        dispatch(getMovedEmployee(date));
+        dispatch(getFreeTemps(date));
+      })
+      .catch(() => console.log("fail"));
   };
 }
