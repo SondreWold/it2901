@@ -3,7 +3,7 @@ import MaterialIcon from "material-icons-react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import AddEmployee from "../EmployeeTools/AddEmployee";
+import AddEmployee from "../EmployeeList/AddEmployee";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 
@@ -96,15 +96,16 @@ class Adder extends Component {
                   </ListItem>
                 ))}
               </List>
-              {this.state.selectedIndex && (
+              {
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={this.addTemp}
+                  disabled={this.state.selectedIndex.length === 0}
                 >
                   Legg til
                 </Button>
-              )}
+              }
             </div>
           </DialogContent>
         </Dialog>

@@ -8,7 +8,7 @@ import EmployeesAtBase from "./EmployeesAtBase";
 import EmployeesNeeded from "./EmployeesNeeded";
 import "./BaseCard.css";
 import Adder from "./Adder";
-import Colors from "../../constants/Colors"
+import Colors from "../../constants/Colors";
 
 // the proposed number of employees / children
 const FACTOR = 0.16;
@@ -50,6 +50,7 @@ class BaseCard extends Component {
     const neededEmployees =
       employeesPresent - Math.round(childrenPresent * FACTOR);
     const color = this.colorRendering(neededEmployees);
+    console.log(neededEmployees);
 
     return (
       <div className="baseCard" style={{ backgroundColor: color }}>
