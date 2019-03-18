@@ -53,9 +53,8 @@ class AddEmployee extends Component {
     this.setState({ open: false });
   };
 
-  handleSubmit(event) {
-    console.log(this.state.employeeType);
-    console.log(this.state.base);
+
+  handleSubmit (event) {
     this.handleClickClose();
     event.preventDefault();
   }

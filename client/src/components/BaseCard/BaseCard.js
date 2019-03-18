@@ -8,6 +8,7 @@ import EmployeesAtBase from "./EmployeesAtBase";
 import EmployeesNeeded from "./EmployeesNeeded";
 import "./BaseCard.css";
 import Adder from "./Adder";
+import Colors from "../../constants/Colors"
 
 // the proposed number of employees / children
 const FACTOR = 0.16;
@@ -31,11 +32,11 @@ class BaseCard extends Component {
   };
 
   colorRendering = value => {
-    let color = "#FFFB94";
+    let color = Colors.BaseColors.ok;
     if (value >= 0) {
-      color = "#B2F1AF";
+      color = Colors.BaseColors.good;
     } else if (value < -1) {
-      color = "#FF8989";
+      color = Colors.BaseColors.bad;
     }
     return color;
   };
@@ -49,8 +50,6 @@ class BaseCard extends Component {
     const neededEmployees =
       employeesPresent - Math.round(childrenPresent * FACTOR);
     const color = this.colorRendering(neededEmployees);
-
-    console.log(this.props.dragEmployees);
 
     return (
       <div className="baseCard" style={{ backgroundColor: color }}>
