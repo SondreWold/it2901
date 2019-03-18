@@ -34,25 +34,25 @@ class NavBar extends Component {
                     <nav className={className}>
                         <div className="NavButtons">
                             <NavLink className="NavbarLink" exact to="/" onClick={this.toggle}>
-                                <MdHome size={30}/>
+                                <MdHome size={24}/>
                                 <p>Hjem</p>
                             </NavLink>
                         </div>
                         <div className="NavButtons">
                             <NavLink className="NavbarLink" exact to="/employees" onClick={this.toggle}>
-                                <FaUserFriends size={30}/> 
+                                <FaUserFriends size={24}/> 
                                 <p>Ansatte</p>
                             </NavLink>
                         </div>
                         <div className="NavButtons">
                             <NavLink className="NavbarLink" exact to="/stats" onClick={this.toggle}>
-                                <IoIosStats size={30}/>
+                                <IoIosStats size={24}/>
                                 <p>Statistikk</p>
                             </NavLink>
                         </div>
                         <div className="NavButtons">
                             <NavLink className="NavbarLink" exact to="/settings" onClick={this.toggle}>
-                                <MdSettings size={30}/>
+                                <MdSettings size={24}/>
                                 <p>Innstillinger</p>
                             </NavLink>
                         </div>

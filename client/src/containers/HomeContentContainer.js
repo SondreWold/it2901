@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import {
   getEmployees,
-  getFreeTemps
+  getFreeTemps,
+  getWorkingEmployees
 } from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "../actions/dateAction";
@@ -35,6 +36,9 @@ class contentContainer extends React.Component {
     this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getMinDate();
     this.props.getFreeTemps(moment(this.props.date).format("YYYY-MM-DD"));
+    this.props.getWorkingEmployees(
+      moment(this.props.date).format("YYYY-MM-DD")
+    );
   }
 
   //Rerenders the page when new date is selected
@@ -45,6 +49,9 @@ class contentContainer extends React.Component {
       );
       this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
       this.props.getFreeTemps(moment(this.props.date).format("YYYY-MM-DD"));
+      this.props.getWorkingEmployees(
+        moment(this.props.date).format("YYYY-MM-DD")
+      );
     }
   }
 
@@ -75,7 +82,8 @@ const mapDispatchToProps = dispatch => {
     getMovedEmployee: date => dispatch(getMovedEmployee(date)),
     changeDate: date => dispatch(changeDate(date)),
     getMinDate: () => dispatch(getMinDate()),
-    getFreeTemps: date => dispatch(getFreeTemps(date))
+    getFreeTemps: date => dispatch(getFreeTemps(date)),
+    getWorkingEmployees: date => dispatch(getWorkingEmployees(date))
   };
 };
 

@@ -11,5 +11,6 @@ router
   .post(employeeController.insertNewEmployee)
   .get(employeeController.insertNewEmployee);
 router.route("/date/:date").get(employeeController.getFreeTemp);
+router.route("/work/date/:date").get(employeeController.getWorkingEmployees);
 
 export default router;

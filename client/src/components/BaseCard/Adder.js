@@ -3,7 +3,7 @@ import MaterialIcon from "material-icons-react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import AddEmployee from "../EmployeeTools/AddEmployee";
+import AddEmployee from "../EmployeeList/AddEmployee";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 
@@ -13,16 +13,30 @@ import ListItemText from "@material-ui/core/ListItemText";
 class Adder extends Component {
   constructor(props) {
     super(props);
-    this.state = { icon: true, open: false, selectedIndex: null };
+    this.state = { icon: true, open: false, selectedIndex: [] };
   }
 
   addTemp = () => {
     this.setState({ open: false });
-    this.props.addTempToBase(
-      this.props.date,
-      this.state.selectedIndex,
-      this.props.base.id
-    );
+    for (let i = 0; i < this.state.selectedIndex.length; i++) {
+      this.props.addTempToBase(
+        this.props.date,
+        this.state.selectedIndex[i],
+        this.props.base.id
+      );
+    }
+  };
+
+  selectTemp = id => {
+    if (this.state.selectedIndex.includes(id)) {
+      var array = [...this.state.selectedIndex];
+      array.splice(array.indexOf(id), 1);
+      this.setState({ selectedIndex: array });
+    } else {
+      this.setState(prevState => ({
+        selectedIndex: [...prevState.selectedIndex, id]
+      }));
+    }
   };
 
   render() {
@@ -66,7 +80,7 @@ class Adder extends Component {
                 {this.props.freeTemps.map(employee => (
                   <ListItem
                     style={
-                      employee.id === this.state.selectedIndex
+                      this.state.selectedIndex.includes(employee.id)
                         ? style.listItemSelected
                         : employee.position === 1
                         ? style.listItemRegular
@@ -74,9 +88,7 @@ class Adder extends Component {
                     }
                     button
                     key={employee.id}
-                    onClick={() =>
-                      this.setState({ selectedIndex: employee.id })
-                    }
+                    onClick={() => this.selectTemp(employee.id)}
                   >
                     <ListItemText
                       primary={employee.first_name + " " + employee.last_name}
@@ -84,15 +96,16 @@ class Adder extends Component {
                   </ListItem>
                 ))}
               </List>
-              {this.state.selectedIndex && (
+              {
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={this.addTemp}
+                  disabled={this.state.selectedIndex.length === 0}
                 >
                   Legg til
                 </Button>
-              )}
+              }
             </div>
           </DialogContent>
         </Dialog>

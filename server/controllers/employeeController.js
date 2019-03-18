@@ -50,6 +50,24 @@ const getFreeTemp = (request, response) => {
   );
 };
 
+const getWorkingEmployees = (request, response) => {
+  let date = request.params.date;
+  db.query(
+    "SELECT m.employee_id, m.base_id FROM moved_employee m WHERE date=$1 \
+    UNION \
+      SELECT e.id, e.base_id FROM employee e WHERE e.position = 1 AND e.id \
+      NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
+        UNION SELECT employee_id FROM absence_employee WHERE date = $1);",
+    [date],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
 const insertNewEmployee = (request, response) => {
   let { firstName, lastName, baseID, moveable, position } = request.body;
 
@@ -79,5 +97,6 @@ module.exports = {
   insertNewEmployee,
   deleteEmployee,
   getEmployeesSearch,
-  getFreeTemp
+  getFreeTemp,
+  getWorkingEmployees
 };

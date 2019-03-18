@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
 import { updateSelectedEmployee } from "../actions/EmployeeListActions/EmployeeListActions";
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
-import EmployeesContainer from "./EmployeesContainer";
+import EmployeeListContainer from "./EmployeeListContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
 
 class EmployeesContentContainer extends Component {
@@ -15,7 +15,7 @@ class EmployeesContentContainer extends Component {
     return (
       <div style={style.container}>
       	<div style={style.item}>
-	        <EmployeesContainer
+	        <EmployeeListContainer
 	          employees={this.props.listOfEmployees}
 	          getEmployees={this.props.getEmployees}
 	          selectedEmployee={this.props.selectedEmployee}
