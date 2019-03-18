@@ -7,5 +7,6 @@ router.route("/").get(employeeController.getEmployees);
 router.route("/:id").delete(employeeController.deleteEmployee);
 router.route("/:name").get(employeeController.getEmployeesSearch);
 router.route("/date/:date").get(employeeController.getFreeTemp);
+router.route("/work/date/:date").get(employeeController.getWorkingEmployees);
 
 export default router;
