@@ -96,15 +96,16 @@ class Adder extends Component {
                   </ListItem>
                 ))}
               </List>
-              {this.state.selectedIndex && (
+              {
                 <Button
                   variant="contained"
                   color="primary"
                   onClick={this.addTemp}
+                  disabled={this.state.selectedIndex.length === 0}
                 >
                   Legg til
                 </Button>
-              )}
+              }
             </div>
           </DialogContent>
         </Dialog>
