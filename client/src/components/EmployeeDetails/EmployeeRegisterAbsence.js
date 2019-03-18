@@ -94,32 +94,36 @@ class EmployeeRegisterAbsence extends React.Component {
           <DialogContent>
             <div className="absenceFormWrapper">
               <h4> Velg antall dager med fravær </h4>
-              <p> Fra og med </p>
               <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
-                <DatePicker
-                  className="absenceFormDatePicker"
-                  onChange={this.handleChangeFrom}
-                  clearIcon={null}
-                  value={this.state.from}
-                  locale={"nb"}
-                  returnValue={"start"}
-                  showLeadingZeros={true}
-                  calendarIcon={this.calendarIcon}
-                  placeholderText={"Fra"}
-                  minDate={this.minDateObj}
-                />
-                <p> Til og med </p>
-                <DatePicker
-                  className="absenceFormDatePicker"
-                  onChange={this.handleChangeTo}
-                  clearIcon={null}
-                  value={this.state.to}
-                  locale={"nb"}
-                  returnValue={"start"}
-                  showLeadingZeros={true}
-                  calendarIcon={this.calendarIcon}
-                  minDate={this.state.from}
-                />
+                <div className="dateHolder">
+                  <b> Fra og med </b>
+                  <DatePicker
+                    className="absenceFormDatePicker"
+                    onChange={this.handleChangeFrom}
+                    clearIcon={null}
+                    value={this.state.from}
+                    locale={"nb"}
+                    returnValue={"start"}
+                    showLeadingZeros={true}
+                    calendarIcon={this.calendarIcon}
+                    placeholderText={"Fra"}
+                    minDate={this.minDateObj}
+                  />
+                </div>
+                <div className="dateHolder">
+                  <b> Til og med </b>
+                  <DatePicker
+                    className="absenceFormDatePicker"
+                    onChange={this.handleChangeTo}
+                    clearIcon={null}
+                    value={this.state.to}
+                    locale={"nb"}
+                    returnValue={"start"}
+                    showLeadingZeros={true}
+                    calendarIcon={this.calendarIcon}
+                    minDate={this.state.from}
+                  />
+                </div>
                 <Button
                   style={style.submitButton}
                   type="submit"
@@ -142,7 +146,8 @@ const style = {
   // MUI Button doesn't support styling by className
   submitButton: {
     maxWidth: "200px",
-    margin: "20px auto"
+    margin: "20px auto",
+    marginTop: "45px"
   },
   addAbsenceButton: {
     maxWidth: "200px",
