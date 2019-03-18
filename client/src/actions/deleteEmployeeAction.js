@@ -1,4 +1,9 @@
 import { getSearchEmployees } from "./contentActions/contentEmployeeActions";
+import {
+  getEmployees,
+  getWorkingEmployees
+} from "./contentActions/contentEmployeeActions";
+
 export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
 
 export const deleteEmployee = message => ({
@@ -6,7 +11,7 @@ export const deleteEmployee = message => ({
   message: message
 });
 
-export function deleteEmployeeFromDb(id) {
+export function deleteEmployeeFromDb(id, date) {
   return dispatch => {
     fetch("api/employee/" + id, {
       method: "DELETE",
@@ -18,6 +23,8 @@ export function deleteEmployeeFromDb(id) {
       .then(message => dispatch(deleteEmployee(message)))
       .then(() => {
         dispatch(getSearchEmployees());
+        dispatch(getEmployees());
+        dispatch(getWorkingEmployees(date));
       });
   };
 }
