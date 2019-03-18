@@ -15,12 +15,13 @@ class BaseCardContainer extends Component {
   componentDidUpdate(prevProps) {
     if (
       prevProps.bases !== this.props.bases ||
-      prevProps.moved_employees !== this.props.moved_employees ||
+      prevProps.working_employees !== this.props.working_employees ||
       prevProps.employees !== this.props.employees ||
-      prevProps.absentChildren !== this.props.absentChildren
+      prevProps.absentChildren !== this.props.absentChildren ||
+      prevProps.moved_employees !== this.props.moved_employees
     ) {
       this.props.formatAndUpdateData(
-        this.props.moved_employees,
+        this.props.working_employees,
         this.props.bases,
         this.props.employees
       );
@@ -53,7 +54,15 @@ class BaseCardContainer extends Component {
     const employeeId = result.draggableId.split("-")[1];
     const baseId = result.destination.droppableId.split("-")[1];
     const date = moment(this.props.date).format("YYYY-MM-DD");
-    this.props.updateMovedEmployee(baseId, employeeId, date);
+    if (
+      this.props.moved_employees
+        .map(mov => mov.employee_id)
+        .includes(parseInt(employeeId))
+    ) {
+      this.props.updateMovedEmployee(baseId, employeeId, date);
+    } else {
+      this.props.addMovedEmployee(date, parseInt(employeeId), parseInt(baseId));
+    }
   };
 
   render() {
@@ -104,7 +113,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(formatAndUpdateData(moved_employees, bases, employees)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
-      addMovedEmployee: (date, employeeId, baseId) =>
+    addMovedEmployee: (date, employeeId, baseId) =>
       dispatch(addMovedEmployee(date, employeeId, baseId))
   };
 };
@@ -113,6 +122,7 @@ const mapStateToProps = state => ({
   data: state.dragData.data,
   bases: state.contentBase.bases,
   moved_employees: state.movedEmployee.data,
+  working_employees: state.workingEmployees.data,
   employees: state.contentEmployee.employees,
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
   date: state.date.selectedDate,

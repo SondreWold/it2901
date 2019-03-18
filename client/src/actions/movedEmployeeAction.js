@@ -1,4 +1,5 @@
 import { getFreeTemps } from "./contentActions/contentEmployeeActions";
+import { getWorkingEmployees } from "./contentActions/contentEmployeeActions";
 
 export const GET_MOVED_EMPLOYEE_BEGIN = "GET_MOVED_EMPLOYEE_BEGIN";
 export const GET_MOVED_EMPLOYEE_SUCCESS = "GET_MOVED_EMPLOYEE_SUCCESS";
@@ -31,9 +32,11 @@ export const getMovedEmployeeFailure = error => ({
 export function getMovedEmployee(date) {
   return dispatch => {
     dispatch(getMovedEmployeeBegin());
-    fetch("/api/moved/" + date)
+    fetch("api/moved/" + date)
       .then(response => response.json())
-      .then(data => dispatch(getMovedEmployeeSuccess(data)))
+      .then(data => {
+        dispatch(getMovedEmployeeSuccess(data));
+      })
       .catch(() => dispatch(getMovedEmployeeFailure));
   };
 }
@@ -47,7 +50,10 @@ export function updateMovedEmployee(baseId, employeeId, date) {
         "Content-Type": "application/json"
       }
     })
-      .then(dispatch(updateMovedEmployeeSuccess()))
+      .then(() => {
+        dispatch(updateMovedEmployeeSuccess());
+        dispatch(getWorkingEmployees(date));
+      })
       .then(() => dispatch(getMovedEmployee(date)));
   };
 }
@@ -68,6 +74,7 @@ export function addMovedEmployee(date, employeeId, baseId) {
       .then(() => {
         dispatch(getMovedEmployee(date));
         dispatch(getFreeTemps(date));
+        dispatch(getWorkingEmployees(date));
       })
       .catch(() => console.log("fail"));
   };

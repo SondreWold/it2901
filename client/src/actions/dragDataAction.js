@@ -5,7 +5,7 @@ export const updateDragData = data => ({
   payload: data
 });
 
-export function formatAndUpdateData(moved_employees, bases, employees) {
+export function formatAndUpdateData(working_employees, bases, employees) {
   let data = { employees: {}, columns: {}, columnOrder: [] };
 
   employees.forEach(e => {
@@ -23,11 +23,11 @@ export function formatAndUpdateData(moved_employees, bases, employees) {
     data.columns[id] = { id: id, title: b.name, employeeIds: [] };
   });
 
-  for (let i = 0; i < moved_employees.length; i++) {
+  for (let i = 0; i < working_employees.length; i++) {
     for (let j = 0; j < bases.length; j++) {
-      if (moved_employees[i].base_id === bases[j].id) {
+      if (working_employees[i].base_id === bases[j].id) {
         data.columns["column-" + bases[j].id].employeeIds.push(
-          "employee-" + moved_employees[i].employee_id
+          "employee-" + working_employees[i].employee_id
         );
       }
     }
