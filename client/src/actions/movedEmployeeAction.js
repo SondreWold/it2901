@@ -1,6 +1,5 @@
 import { getFreeTemps } from "./contentActions/contentEmployeeActions";
 import { getWorkingEmployees } from "./contentActions/contentEmployeeActions";
-
 export const GET_MOVED_EMPLOYEE_BEGIN = "GET_MOVED_EMPLOYEE_BEGIN";
 export const GET_MOVED_EMPLOYEE_SUCCESS = "GET_MOVED_EMPLOYEE_SUCCESS";
 export const GET_MOVED_EMPLOYEE_FAILURE = "GET_MOVED_EMPLOYEE_FAILURE";

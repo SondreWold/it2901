@@ -17,7 +17,7 @@ class Adder extends Component {
   }
 
   addTemp = () => {
-    this.setState({ open: false });
+    this.close();
     for (let i = 0; i < this.state.selectedIndex.length; i++) {
       this.props.addTempToBase(
         this.props.date,
@@ -25,6 +25,10 @@ class Adder extends Component {
         this.props.base.id
       );
     }
+  };
+
+  close = () => {
+    this.setState({ open: false, selectedIndex: [] });
   };
 
   selectTemp = id => {
@@ -66,8 +70,8 @@ class Adder extends Component {
         )}
         <Dialog
           open={this.state.open}
-          onEscapeKeyDown={() => this.setState({ open: false })}
-          onBackdropClick={() => this.setState({ open: false })}
+          onEscapeKeyDown={this.close}
+          onBackdropClick={this.close}
         >
           <DialogTitle> Legg til vikar på {this.props.base.name} </DialogTitle>
           <DialogContent>
