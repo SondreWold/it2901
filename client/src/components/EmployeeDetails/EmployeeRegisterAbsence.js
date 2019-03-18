@@ -3,6 +3,9 @@ import moment from "moment";
 import DatePicker from "react-date-picker";
 import Button from "@material-ui/core/Button";
 import "./EmployeeRegisterAbsence.css";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -17,13 +20,18 @@ class EmployeeRegisterAbsence extends React.Component {
     const tmp = new Date();
     this.state = {
       from: new Date(),
-      to: new Date(tmp.setDate(tmp.getDate() + 1))
+      to: new Date(tmp.setDate(tmp.getDate() + 1)),
+      open: false
     };
 
     this.handleChangeFrom = this.handleChangeFrom.bind(this);
     this.handleChangeTo = this.handleChangeTo.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
 
   handleChangeFrom(date) {
     date > this.state.to
@@ -46,6 +54,7 @@ class EmployeeRegisterAbsence extends React.Component {
         this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date)
       );
     }
+    this.setState({ open: false });
     event.preventDefault();
   }
 
@@ -62,44 +71,69 @@ class EmployeeRegisterAbsence extends React.Component {
 
   render() {
     return (
-      <div className="absenceFormWrapper">
-        <h3> Velg antall dager med fravær </h3>
-        <p> Fra og med </p>
-        <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
-          <DatePicker
-            className="absenceFormDatePicker"
-            onChange={this.handleChangeFrom}
-            clearIcon={null}
-            value={this.state.from}
-            locale={"nb"}
-            returnValue={"start"}
-            showLeadingZeros={true}
-            calendarIcon={this.calendarIcon}
-            placeholderText={"Fra"}
-            minDate={this.minDateObj}
-          />
-          <p> Til og med </p>
-          <DatePicker
-            className="absenceFormDatePicker"
-            onChange={this.handleChangeTo}
-            clearIcon={null}
-            value={this.state.to}
-            locale={"nb"}
-            returnValue={"start"}
-            showLeadingZeros={true}
-            calendarIcon={this.calendarIcon}
-            minDate={this.state.from}
-          />
-          <Button
-            style={style.submitButton}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            {" "}
-            REGISTRER
-          </Button>
-        </form>
+      <div>
+        <Button variant="contained" onClick={this.handleClickOpen}>
+          <p>Legg til fravær</p>
+        </Button>
+        <Dialog
+          open={this.state.open}
+          actions={[
+            <Button
+                  style={style.submitButton}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  {" "}
+                  REGISTRER
+                </Button>
+          ]}
+          onEscapeKeyDown={() => this.setState({ open: false })}
+          onBackdropClick={() => this.setState({ open: false })}
+        >
+          <DialogTitle className="registerAbsenceHeader"> Registrer fravær </DialogTitle>
+          <DialogContent>
+            <div className="absenceFormWrapper">
+              <h4> Velg antall dager med fravær </h4>
+              <p> Fra og med </p>
+              <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
+                <DatePicker
+                  className="absenceFormDatePicker"
+                  onChange={this.handleChangeFrom}
+                  clearIcon={null}
+                  value={this.state.from}
+                  locale={"nb"}
+                  returnValue={"start"}
+                  showLeadingZeros={true}
+                  calendarIcon={this.calendarIcon}
+                  placeholderText={"Fra"}
+                  minDate={this.minDateObj}
+                />
+                <p> Til og med </p>
+                <DatePicker
+                  className="absenceFormDatePicker"
+                  onChange={this.handleChangeTo}
+                  clearIcon={null}
+                  value={this.state.to}
+                  locale={"nb"}
+                  returnValue={"start"}
+                  showLeadingZeros={true}
+                  calendarIcon={this.calendarIcon}
+                  minDate={this.state.from}
+                />
+                <Button
+                  style={style.submitButton}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                >
+                  {" "}
+                  REGISTRER
+                </Button>
+              </form>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }
