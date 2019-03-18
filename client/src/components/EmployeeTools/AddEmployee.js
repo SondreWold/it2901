@@ -51,7 +51,7 @@ class AddEmployee extends Component {
     first_name: "",
     last_name: "",
     base_id: '1',
-    moveable: false,
+    moveable: true,
     position: '1',
   };
   // This binding is necessary to make `this` work in the callback
@@ -72,8 +72,10 @@ class AddEmployee extends Component {
 
   handleChange = name => event => {
     event.preventDefault();
-    if (name=="moveable"){
+    if (name==="moveable"){
       this.setState({moveable: !this.state.moveable});
+    } else if(name==="position" && event.target.value==="2"){
+      this.setState({moveable: true})
     } else {
     this.setState({ [name]: event.target.value });
   }
@@ -125,18 +127,19 @@ validate =() => {
           <DialogTitle> Registrer ny ansatt </DialogTitle>
           <DialogContent>
           <form onSubmit={this.handleSubmit}>
-                <TextField required margin="dense" id="firstName" onChange={this.handleChange('first_name')} label="Fornavn" variant="outlined" className={classes.textField} />
-                <TextField required margin="dense" id="lastName" onChange={this.handleChange('last_name')} label="Etternavn" variant="outlined"/>
+                <TextField inputProps={{ pattern: "[a-z]+[,.]?[ ]?|[a-z]+['-]?+$" }} margin="dense" id="firstName" onChange={this.handleChange('first_name')} label="Fornavn" variant="outlined" className={classes.textField} />
+                <TextField inputProps={{ pattern: "[a-zA-ZæøåÆØÅ]{2,}" }} margin="dense" id="lastName" onChange={this.handleChange('last_name')} label="Etternavn" variant="outlined"/>
               <FormControl className={classes.formControl}>
                 <FormLabel > Ansettelsesform </FormLabel>
                   <RadioGroup value={this.state.value} onChange={this.handleChange('position')}>
-                    <FormControlLabel value='2' control={<Radio color="primary" />} label="Fast ansatt"/>
-                    <FormControlLabel value='1' control={<Radio color="primary"/>} label="Vikar"/>
+                    <FormControlLabel value='1' control={<Radio color="primary" />} label="Fast ansatt"/>
+                    <FormControlLabel value='2' control={<Radio color="primary"/>} label="Vikar"/>
                   </RadioGroup>
                   <FormLabel > Skal ansatt være flyttbar? </FormLabel>
                   <FormControlLabel
                     control={
                        <Checkbox
+
                         color="primary"
                         checked={this.state.moveable}
                         onClick={this.handleChange('moveable')}
