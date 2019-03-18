@@ -4,7 +4,10 @@ import moment from "moment";
 import { formatAndUpdateData } from "../actions/dragDataAction";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
+import { addMovedEmployee } from "../actions/movedEmployeeAction";
+
 import { DragDropContext } from "react-beautiful-dnd";
+
 import BaseCard from "../components/BaseCard/BaseCard";
 import "../components/BaseCard/BaseCard.css";
 
@@ -12,12 +15,13 @@ class BaseCardContainer extends Component {
   componentDidUpdate(prevProps) {
     if (
       prevProps.bases !== this.props.bases ||
-      prevProps.moved_employees !== this.props.moved_employees ||
+      prevProps.working_employees !== this.props.working_employees ||
       prevProps.employees !== this.props.employees ||
-      prevProps.absentChildren !== this.props.absentChildren
+      prevProps.absentChildren !== this.props.absentChildren ||
+      prevProps.moved_employees !== this.props.moved_employees
     ) {
       this.props.formatAndUpdateData(
-        this.props.moved_employees,
+        this.props.working_employees,
         this.props.bases,
         this.props.employees
       );
@@ -50,7 +54,15 @@ class BaseCardContainer extends Component {
     const employeeId = result.draggableId.split("-")[1];
     const baseId = result.destination.droppableId.split("-")[1];
     const date = moment(this.props.date).format("YYYY-MM-DD");
-    this.props.updateMovedEmployee(baseId, employeeId, date);
+    if (
+      this.props.moved_employees
+        .map(mov => mov.employee_id)
+        .includes(parseInt(employeeId))
+    ) {
+      this.props.updateMovedEmployee(baseId, employeeId, date);
+    } else {
+      this.props.addMovedEmployee(date, parseInt(employeeId), parseInt(baseId));
+    }
   };
 
   render() {
@@ -71,6 +83,17 @@ class BaseCardContainer extends Component {
                 employeeId => this.props.data.employees[employeeId]
               );
 
+              console.log(dragEmployees);
+              dragEmployees.sort(function(a, b) {
+                return (
+                  a.position - b.position ||
+                  a.moveable - b.moveable ||
+                  a.content.charCodeAt(0) - b.content.charCodeAt(0) ||
+                  a.content.charCodeAt(1) - b.content.charCodeAt(1) ||
+                  a.content.charCodeAt(2) - b.content.charCodeAt(2)
+                );
+              });
+
               return (
                 <BaseCard
                   base={base}
@@ -80,7 +103,9 @@ class BaseCardContainer extends Component {
                   update={this.props.updateAbsentChildren}
                   date={this.props.date}
                   employees={this.props.employees}
-                  absentEmployees={this.props.absentEmployees}
+                  freeTemps={this.props.freeTemps}
+                  addTempToBase={this.props.addMovedEmployee}
+                  key={base.id}
                 />
               );
             })}
@@ -98,7 +123,9 @@ const mapDispatchToProps = dispatch => {
     formatAndUpdateData: (moved_employees, bases, employees) =>
       dispatch(formatAndUpdateData(moved_employees, bases, employees)),
     updateAbsentChildren: (amount, baseId, date) =>
-      dispatch(updateAbsentChildren(amount, baseId, date))
+      dispatch(updateAbsentChildren(amount, baseId, date)),
+    addMovedEmployee: (date, employeeId, baseId) =>
+      dispatch(addMovedEmployee(date, employeeId, baseId))
   };
 };
 
@@ -106,14 +133,15 @@ const mapStateToProps = state => ({
   data: state.dragData.data,
   bases: state.contentBase.bases,
   moved_employees: state.movedEmployee.data,
+  working_employees: state.workingEmployees.data,
   employees: state.contentEmployee.employees,
   absentEmployees: state.contentAbsentEmployees.absentEmployees,
   date: state.date.selectedDate,
-  absentChildren: state.contentAbsentChildren.absentChildren
+  absentChildren: state.contentAbsentChildren.absentChildren,
+  freeTemps: state.contentEmployee.freeTemps
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(BaseCardContainer);
-

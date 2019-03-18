@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
-import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
+import {
+  getEmployees,
+  getFreeTemps,
+  getWorkingEmployees
+} from "../actions/contentActions/contentEmployeeActions";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "../actions/dateAction";
 import { getMinDate } from "../actions/dateAction";
@@ -31,6 +35,10 @@ class contentContainer extends React.Component {
     this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getAbsentChildren(moment(this.props.date).format("YYYY-MM-DD"));
     this.props.getMinDate();
+    this.props.getFreeTemps(moment(this.props.date).format("YYYY-MM-DD"));
+    this.props.getWorkingEmployees(
+      moment(this.props.date).format("YYYY-MM-DD")
+    );
   }
 
   //Rerenders the page when new date is selected
@@ -40,6 +48,10 @@ class contentContainer extends React.Component {
         moment(this.props.date).format("YYYY-MM-DD")
       );
       this.props.getMovedEmployee(moment(this.props.date).format("YYYY-MM-DD"));
+      this.props.getFreeTemps(moment(this.props.date).format("YYYY-MM-DD"));
+      this.props.getWorkingEmployees(
+        moment(this.props.date).format("YYYY-MM-DD")
+      );
     }
   }
 
@@ -53,8 +65,9 @@ class contentContainer extends React.Component {
           children={this.props.absentChildren}
           employees={this.props.employees}
           absentEmployees={this.props.absentEmployees}
+          working_employees={this.props.working_employees}
         />
-        <BaseOverview/>
+        <BaseOverview />
       </div>
     );
   }
@@ -68,7 +81,9 @@ const mapDispatchToProps = dispatch => {
     getAbsentChildren: date => dispatch(getAbsentChildren(date)),
     getMovedEmployee: date => dispatch(getMovedEmployee(date)),
     changeDate: date => dispatch(changeDate(date)),
-    getMinDate: () => dispatch(getMinDate())
+    getMinDate: () => dispatch(getMinDate()),
+    getFreeTemps: date => dispatch(getFreeTemps(date)),
+    getWorkingEmployees: date => dispatch(getWorkingEmployees(date))
   };
 };
 
@@ -81,7 +96,9 @@ const mapStateToProps = state => ({
   moved_employees: state.movedEmployee.data,
   date: state.date.selectedDate,
   dateSet: state.date.dateSet,
-  minDate: state.date.minDate
+  minDate: state.date.minDate,
+  data: state.dragData.data,
+  working_employees: state.workingEmployees.data
 });
 
 export default connect(

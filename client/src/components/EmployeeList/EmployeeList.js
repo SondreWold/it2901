@@ -1,10 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { updateSelectedEmployee } from "../../actions/EmployeeListActions/EmployeeListActions";
+import { InputField } from "./SearchBar/InputField";
+import AddEmployee from "./AddEmployee";
+import Colors from "../../constants/Colors";
+import "./EmployeeList.css";
 
 class EmployeeList extends React.Component {
   state = {
@@ -18,20 +19,24 @@ class EmployeeList extends React.Component {
 
   render() {
     /*
-       - Renders a ListItem pr employee 
+       - Renders a ListItem pr employee
         - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
         - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
       */
     return (
       <div>
-        <h1>Ansatte </h1>
+        <h3>Ansatte </h3>
+        <div className="employeeListTop">
+          <InputField getSearchEmployees={this.props.getSearchEmployees} />
+          <AddEmployee />
+        </div>
         <List style={style.list} component="nav">
           {this.props.employees.map(employee => (
             <ListItem
               style={
                 employee.id === this.state.selectedIndex
                   ? style.listItemSelected
-                  : employee.position === "1"
+                  : employee.position === 1
                   ? style.listItemRegular
                   : style.listItemTemporary
               }
@@ -66,46 +71,31 @@ const style = {
   detailsBoxRegular: {
     width: "10px",
     height: "10px",
-    backgroundColor: "#43a047"
+    backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   detailsBoxTemporary: {
     width: "10px",
     height: "10px",
-    backgroundColor: "#fb8c00"
+    backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   list: {
-    width: "90%",
+    width: "100%",
     border: "5px",
     maxHeight: "300px",
     overflow: "auto"
   },
   listItemRegular: {
     margin: "2px",
-    backgroundColor: "#43a047"
+    backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   listItemTemporary: {
     margin: "2px",
-    backgroundColor: "#fb8c00"
+    backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   listItemSelected: {
     margin: "2px",
-    backgroundColor: "#0091ea"
+    backgroundColor: Colors.EmployeeColors.selectedEmployee
   }
 };
 
-EmployeeList.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    updateSelectedEmployee: employee =>
-      dispatch(updateSelectedEmployee(employee))
-  };
-};
-
-const mapStateToProps = state => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployeeList);
+export default EmployeeList;

@@ -12,10 +12,13 @@ class BaseCardList extends Component {
               className="employeeList"
               ref={provided.innerRef}
               {...provided.droppableProps}
-              isDraggingOver={snapshot.isDraggingOver}
             >
               {this.props.dragEmployees.map((employee, index) => (
-                <Employee key={employee.id} employee={employee} index={index} />
+                <Employee 
+                	key={employee.id}
+                	employee={employee}
+                	index={index} 
+              	/>
               ))}
               {provided.placeholder}
             </div>
@@ -27,4 +30,3 @@ class BaseCardList extends Component {
 }
 
 export default BaseCardList;
-

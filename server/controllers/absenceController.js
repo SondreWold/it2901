@@ -76,17 +76,23 @@ const insertAbsentEmployee = (request, response) => {
   const date = request.params.date;
 
   db.query(
-  	"INSERT INTO absence_employee VALUES ($1, $2)",
+    "INSERT INTO absence_employee VALUES ($1, $2)",
     [date, empId],
     (error, results) => {
       if (error) {
-        throw error;
+        if (error.code === "23505") {
+          response.status(202).send(`Already existing entry in the DB`);
+        } else {
+          throw error;
+        }
+      } else {
+        response
+          .status(200)
+          .send(`Inserted absent employee ${empId} on day ${date}`);
       }
-      response.status(200).send(`Inserted absent employee ${empId} on day ${date}`);
     }
   );
 };
-
 
 module.exports = {
   getAbsentEmployees,

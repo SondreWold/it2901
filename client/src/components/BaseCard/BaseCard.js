@@ -7,46 +7,36 @@ import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";
 import EmployeesNeeded from "./EmployeesNeeded";
 import "./BaseCard.css";
+import Adder from "./Adder";
+import Colors from "../../constants/Colors";
 
 // the proposed number of employees / children
 const FACTOR = 0.16;
 
 class BaseCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { icon: true };
+  }
+
   calculateEmployeesAtBase = () => {
     var employees = [];
     let totalEmployeesAtBase = 0;
-    let absentEmployeesAtBase = 0;
-    this.props.employees.map(employee => {
+    this.props.employees.forEach(employee => {
       if (employee.base_id === this.props.base.id) {
         totalEmployeesAtBase++;
-        if (this.props.absentEmployees.length > 0) {
-          this.props.absentEmployees.map(absent => {
-            if (
-              absent.employee_id === employee.id &&
-              moment(this.props.date).format("YYYY-MM-DD") ===
-                moment(absent.date).format("YYYY-MM-DD")
-            ) {
-              console.log(
-                absent.employee_id === employee.id &&
-                  moment(this.props.date).format("YYYY-MM-DD") ===
-                    moment(absent.date).format("YYYY-MM-DD")
-              );
-              absentEmployeesAtBase++;
-            }
-          });
-        }
       }
     });
-    employees.push(totalEmployeesAtBase, absentEmployeesAtBase);
+    employees.push(totalEmployeesAtBase);
     return employees;
   };
 
   colorRendering = value => {
-    let color = "#FFFB94";
+    let color = Colors.BaseColors.ok;
     if (value >= 0) {
-      color = "#B2F1AF";
+      color = Colors.BaseColors.good;
     } else if (value < -1) {
-      color = "#FF8989";
+      color = Colors.BaseColors.bad;
     }
     return color;
   };
@@ -60,30 +50,40 @@ class BaseCard extends Component {
     const neededEmployees =
       employeesPresent - Math.round(childrenPresent * FACTOR);
     const color = this.colorRendering(neededEmployees);
+    console.log(neededEmployees);
 
     return (
-      <div className="baseCard" style={{backgroundColor: color}}>
+      <div className="baseCard" style={{ backgroundColor: color }}>
         <BaseCardHeader baseName={this.props.base.name} />
         <div className="childrenHolder">
           <ChildrenPresent
-          base={this.props.absence.base_id}
-          absent={this.props.absence.children}
-          totalChildren={this.props.absence.total_children}
+            base={this.props.absence.base_id}
+            absent={this.props.absence.children}
+            totalChildren={this.props.absence.total_children}
           />
           <ChildrenAbsentIncDec
-          base={this.props.absence.base_id}
-          absent={this.props.absence.children}
-          date={moment(this.props.absence.date).format("YYYY-MM-DD")}
-          totalChildren={this.props.absence.total_children}
-          update={this.props.update}
-        />
+            base={this.props.absence.base_id}
+            absent={this.props.absence.children}
+            date={moment(this.props.absence.date).format("YYYY-MM-DD")}
+            totalChildren={this.props.absence.total_children}
+            update={this.props.update}
+          />
         </div>
-        <EmployeesAtBase baseEmployees={employeesAtBase} />
+        <EmployeesAtBase
+          baseEmployees={employeesAtBase}
+          employeesPresent={employeesPresent}
+        />
         <EmployeesNeeded neededEmployees={neededEmployees} />
         <BaseCardList
           key={this.props.dragBase.id}
           dragBase={this.props.dragBase}
           dragEmployees={this.props.dragEmployees}
+        />
+        <Adder
+          freeTemps={this.props.freeTemps}
+          base={this.props.base}
+          addTempToBase={this.props.addTempToBase}
+          date={moment(this.props.absence.date).format("YYYY-MM-DD")}
         />
       </div>
     );
@@ -91,4 +91,3 @@ class BaseCard extends Component {
 }
 
 export default BaseCard;
-

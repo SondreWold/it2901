@@ -1,13 +1,17 @@
 import {
   GET_EMPLOYEES_BEGIN,
   GET_EMPLOYEES_SUCCESS,
-  GET_EMPLOYEES_FAILURE
+  GET_EMPLOYEES_FAILURE,
+  UPDATE_FREE_TEMPS,
+  GET_SEARCHED_EMPLOYEE_SUCCESS
 } from "../../actions/contentActions/contentEmployeeActions";
 
 const initialState = {
   employees: [],
+  searchData: [],
   loading: false,
-  error: null
+  error: null,
+  freeTemps: [1, 2, 3]
 };
 
 export default function contentReducer(state = initialState, action) {
@@ -30,6 +34,13 @@ export default function contentReducer(state = initialState, action) {
         employees: action.payload.employees
       };
 
+    case GET_SEARCHED_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        searchData: action.payload.data
+      };
+
     case GET_EMPLOYEES_FAILURE:
       // The request failed. It's done. So set loading to "false".
       // Save the error, so we can display it somewhere.
@@ -38,12 +49,16 @@ export default function contentReducer(state = initialState, action) {
       // This is all up to you and your app though:
       // maybe you want to keep the items around!
       // Do whatever seems right for your use case.
+
       return {
         ...state,
         loading: false,
         error: action.payload.error,
         items: []
       };
+
+    case UPDATE_FREE_TEMPS:
+      return { ...state, freeTemps: action.payload.temps };
 
     default:
       // ALWAYS have a default case in a reducer
