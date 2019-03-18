@@ -7,6 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import { TiPlus } from 'react-icons/ti';
+import Alert from 'react-s-alert';
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -54,6 +55,11 @@ class EmployeeRegisterAbsence extends React.Component {
     }
     this.setState({ open: false });
     event.preventDefault();
+    Alert.success('Fravær registrert', {
+      position: 'bottom-right',
+      effect: 'jelly',
+      timeout: 3000
+    });
   }
 
   diffDates(date1, date2) {

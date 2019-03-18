@@ -97,7 +97,7 @@ class AddEmployee extends Component {
                 label="Etternavn"
                 variant="outlined"
               />
-              <FormControl className={classes.formControl}>
+              <FormControl className={classes.formControl}>	
                 <FormLabel> Ansettelsesform </FormLabel>
                 <RadioGroup
                   value={this.state.value}
