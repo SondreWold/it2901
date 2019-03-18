@@ -94,7 +94,6 @@ const style = {
   listItemSelected: {
     margin: "2px",
     backgroundColor: Colors.EmployeeColors.selectedEmployee
-    backgroundColor: "#0091ea"
   },
   topField: {
     display: "flex",

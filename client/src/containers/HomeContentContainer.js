@@ -49,7 +49,6 @@ class contentContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.employees);
     return (
       <div>
         <TotalOverview

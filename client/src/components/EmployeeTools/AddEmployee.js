@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 //heia material ui, må hente inn alt hver for seg, hehe, derfor så mye
 //import RaisedButton from '@material-ui/core/RaisedButton';
 import {
@@ -20,6 +21,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import {FaUserPlus} from "react-icons/fa";
+import {insertNewEmployee} from "../../actions/newEmployeeAction";
 
 const styles = theme => ({
   container: {
@@ -101,15 +103,13 @@ validate =() => {
   handleSubmit (event) {
     event.preventDefault();
     //const err = this.validate();
-
-      const newEmployee = {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        base_id: this.state.base_id,
-        moveable: this.state.moveable,
-        position: this.state.position
-      }
-      console.log(newEmployee);
+      this.props.insertNewEmployee(
+        this.state.first_name,
+        this.state.last_name,
+        this.state.base_id,
+        this.state.moveable,
+        this.state.position
+      );
       this.handleClickClose();
 
   }
@@ -125,8 +125,8 @@ validate =() => {
           <DialogTitle> Registrer ny ansatt </DialogTitle>
           <DialogContent>
           <form onSubmit={this.handleSubmit}>
-                <TextField required margin="dense" id="firstName" onChange={this.handleChange('first_name')} label="Fornavn" variant="outlined" className={classes.textField} errorText={this.state.nameError}/>
-                <TextField required margin="dense" id="lastName" onChange={this.handleChange('last_name')} label="Etternavn" variant="outlined" errorText={this.state.nameError}/>
+                <TextField required margin="dense" id="firstName" onChange={this.handleChange('first_name')} label="Fornavn" variant="outlined" className={classes.textField} />
+                <TextField required margin="dense" id="lastName" onChange={this.handleChange('last_name')} label="Etternavn" variant="outlined"/>
               <FormControl className={classes.formControl}>
                 <FormLabel > Ansettelsesform </FormLabel>
                   <RadioGroup value={this.state.value} onChange={this.handleChange('position')}>
@@ -156,7 +156,7 @@ validate =() => {
                 <Button type="submit" value="Submit" variant="contained" className={classes.textField}>
                 Registrer
                 </Button>
-                <Button variant="contained" onClick={this.onClose}>
+                <Button variant="contained" onClick={this.handleClickClose}>
                 Avbryt
                 </Button>
               </div>
@@ -168,11 +168,12 @@ validate =() => {
   }
 }
 
-/*const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => {
   return{
-    insertNewEmployee:()
-  }
-});
-*/
+    insertNewEmployee:(firstName, lastName, baseID, moveable, position) =>
+    dispatch(insertNewEmployee(firstName, lastName, baseID, moveable, position)),
+  };
+};
 
-export default withStyles(styles) (AddEmployee);
+const styledComponent = withStyles(styles) (AddEmployee);
+export default  connect (null, mapDispatchToProps) (styledComponent);
