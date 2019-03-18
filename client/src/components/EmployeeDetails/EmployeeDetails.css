@@ -1,3 +1,8 @@
+.employeeButtonsHolder {
+	display: flex;
+	justify-content: space-evenly;
+}
+
 .absenceFormWrapper {
 		display: flex;
 		flex-direction: column;
@@ -21,9 +26,13 @@
 	padding-top: 50px;
 }
 
-.MuiDialog-paperWidthSm-151 {
-	width: 50%;
+.MuiDialog-paperWidthSm-92 {
+	width: 100%;
 	height: 100%;
+}
+
+.deleteIcon {
+	margin: 2px;
 }
 
 @media only screen and (max-width: 1100px){
@@ -48,5 +57,10 @@
 	.absenceFormWrapper {
 		margin-top: 10px;
 		padding-top: 5px;
+	}
+
+	.employeeButtonsHolder {
+		flex-direction: column;
+		
 	}
 }

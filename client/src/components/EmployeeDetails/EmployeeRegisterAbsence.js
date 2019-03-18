@@ -1,11 +1,12 @@
 import React from "react";
 import moment from "moment";
 import DatePicker from "react-date-picker";
-import Button from "@material-ui/core/Button";
-import "./EmployeeRegisterAbsence.css";
+import { Button } from "@material-ui/core";
+import "./EmployeeDetails.css";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
+import { TiPlus } from 'react-icons/ti';
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -69,8 +70,9 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="contained" onClick={this.handleClickOpen}>
-          <p>Legg til fravær</p>
+        <Button color="primary" onClick={this.handleClickOpen} style={style.addAbsenceButton}>
+          <TiPlus/>
+          Legg til fravær
         </Button>
         <Dialog
           open={this.state.open}
@@ -141,6 +143,12 @@ const style = {
   submitButton: {
     maxWidth: "200px",
     margin: "20px auto"
+  },
+  addAbsenceButton: {
+    maxWidth: "200px",
+    minWidth:"150px",
+    margin: "20px auto",
+    border: "1px solid #C6C6CC"
   }
 };
 
