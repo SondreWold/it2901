@@ -5,7 +5,6 @@ import { updateSelectedEmployee } from "../actions/EmployeeListActions/EmployeeL
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import EmployeesContainer from "./EmployeesContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
-import AddEmployee from "../components/EmployeeTools/AddEmployee";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -14,22 +13,21 @@ class EmployeesContentContainer extends Component {
   render() {
     return (
       <div style={style.container}>
-        <div style={style.item}>
-          <EmployeesContainer
-            employees={this.props.listOfEmployees}
-            getEmployees={this.props.getEmployees}
-            selectedEmployee={this.props.selectedEmployee}
-            updateSelectedEmployee={this.props.updateSelectedEmployee}
-          />
-        </div>
-        <div style={style.item}>
-          <EmployeeDetailContainer
-            selectedEmployee={this.props.selectedEmployee}
-            insertAbsentEmployee={this.props.insertAbsentEmployee}
-            minDate={this.props.minDate}
-          />
-        </div>
-        <AddEmployee />
+      	<div style={style.item}>
+	        <EmployeesContainer
+	          employees={this.props.listOfEmployees}
+	          getEmployees={this.props.getEmployees}
+	          selectedEmployee={this.props.selectedEmployee}
+	          updateSelectedEmployee={this.props.updateSelectedEmployee}
+	        />
+	      </div>
+	      <div style={style.item}>
+	      	<EmployeeDetailContainer
+	      		selectedEmployee={this.props.selectedEmployee}
+	      		insertAbsentEmployee={this.props.insertAbsentEmployee}
+	      		minDate={this.props.minDate}
+	      	/>
+	      </div>
       </div>
     );
   }
