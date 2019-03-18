@@ -1,132 +1,165 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 //heia material ui, må hente inn alt hver for seg, hehe, derfor så mye
-import Button from "@material-ui/core/Button";
 //import RaisedButton from '@material-ui/core/RaisedButton';
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import DialogActions from "@material-ui/core/DialogActions";
-import { withStyles } from "@material-ui/core/styles";
-import { FaUserPlus } from "react-icons/fa";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  TextField,
+  DialogContent,
+  FormControl,
+  FormLabel,
+  FormGroup,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  DialogActions,
+  MuiThemeProvider,
+  getMuiTheme,
+  Checkbox,
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import {FaUserPlus} from "react-icons/fa";
+import {insertNewEmployee} from "../../actions/newEmployeeAction";
 
 const styles = theme => ({
   container: {
-    display: "flex",
-    flexWrap: "wrap"
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: 16,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  textField: {
+    marginRight:10,
+  },
+  buttons: {
+    'text-align': 'center',
   }
+
 });
 
 class AddEmployee extends Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      employeeType: "fast",
-      base: 1
-    };
-    // This binding is necessary to make `this` work in the callback
-    //  this.handleClick = this.handleClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  //handle Radio Buttons changes for choose of base
-  handleChangeBase = event => {
-    this.setState({ base: event.target.value });
+  super(props);
+  this.state = {
+    open: false,
+    nameError: "",
+    first_name: "",
+    last_name: "",
+    base_id: '1',
+    moveable: false,
+    position: '1',
   };
-
-  //handle Radio Buttons changes for choose of type of employee
-  handleChangeType = event => {
-    this.setState({ employeeType: event.target.value });
-  };
+  // This binding is necessary to make `this` work in the callback
+//  this.handleClick = this.handleClick.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
+}
 
   handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+    this.setState({open:true});
+  }
 
-  handleClickClose = () => {
-    this.setState({ open: false });
-  };
+  handleClickClose = () =>{
+    this.setState({
+      open:false,
+      moveable: false,
+    });
+  }
 
-  handleSubmit(event) {
-    console.log(this.state.employeeType);
-    console.log(this.state.base);
-    this.handleClickClose();
+  handleChange = name => event => {
     event.preventDefault();
+    if (name=="moveable"){
+      this.setState({moveable: !this.state.moveable});
+    } else {
+    this.setState({ [name]: event.target.value });
+  }
+ };
+
+/*
+validate =() => {
+  //const letters = /^[a-zA-Z]+$/;
+  let name = this.state.first_name;
+  let isError = false;
+  const errors = {};
+  if(name.match(/[a-z]/i)){
+    isError = true;
+    errors.nameError = "Brukernavn kan bare inneholde bokstaver"
+  }
+  if (isError){
+    this.setState({
+      ...this.state,
+      ...errors
+    });
+  }
+  return isError;
+}
+*/
+
+//Note til INGRID! moveable er blitt til true/false nå!
+  handleSubmit (event) {
+    event.preventDefault();
+    //const err = this.validate();
+      this.props.insertNewEmployee(
+        this.state.first_name,
+        this.state.last_name,
+        this.state.base_id,
+        this.state.moveable,
+        this.state.position
+      );
+      this.handleClickClose();
+
   }
 
   render() {
-    //presenting alternatives of actions in the popup
-    const actions = [
-      <Button label="Abryt" onClick={this.handleClickClose} />,
-      <Button type="submit" label="Registrer" />
-    ];
-
-    return (
+    const { classes } = this.props;
+    return(
       <div>
-        <Button variant="contained" onClick={this.handleClickOpen}>
-          <FaUserPlus />
+        <Button variant="contained" onClick={this.handleClickOpen} size="large">
+          <FaUserPlus/>
         </Button>
-        <Dialog
-          open={this.state.open}
-          actions={[
-            <Button type="submit" form="my-form-id" label="Submit">
-              Registrer
-            </Button>
-          ]}
-          onClose={this.handleClickClose}
-        >
+        <Dialog open={this.state.open} onClose={this.handleClickClose}>
           <DialogTitle> Registrer ny ansatt </DialogTitle>
           <DialogContent>
-            <form onSubmit={this.handleSubmit}>
-              <FormControl>
-                <TextField margin="dense" id="firstName" label="Fornavn" />
-                <TextField margin="dense" id="lastName" label="Etternavn" />
-              </FormControl>
-              <FormControl>
-                <FormLabel> Ansettelsesform </FormLabel>
-                <RadioGroup
-                  value={this.state.value}
-                  onChange={this.handleChangeType}
-                >
+          <form onSubmit={this.handleSubmit}>
+                <TextField required margin="dense" id="firstName" onChange={this.handleChange('first_name')} label="Fornavn" variant="outlined" className={classes.textField} />
+                <TextField required margin="dense" id="lastName" onChange={this.handleChange('last_name')} label="Etternavn" variant="outlined"/>
+              <FormControl className={classes.formControl}>
+                <FormLabel > Ansettelsesform </FormLabel>
+                  <RadioGroup value={this.state.value} onChange={this.handleChange('position')}>
+                    <FormControlLabel value='2' control={<Radio color="primary" />} label="Fast ansatt"/>
+                    <FormControlLabel value='1' control={<Radio color="primary"/>} label="Vikar"/>
+                  </RadioGroup>
+                  <FormLabel > Skal ansatt være flyttbar? </FormLabel>
                   <FormControlLabel
-                    value="fast"
-                    control={<Radio />}
-                    label="Fast ansatt"
+                    control={
+                       <Checkbox
+                        color="primary"
+                        checked={this.state.moveable}
+                        onClick={this.handleChange('moveable')}
+                      />
+                    }
+                      label="Ja"
                   />
-                  <FormControlLabel
-                    value="flyttbar"
-                    control={<Radio />}
-                    label="Flyttbar ansatt"
-                  />
-                  <FormControlLabel
-                    value="vikar"
-                    control={<Radio />}
-                    label="Vikar"
-                  />
-                </RadioGroup>
                 <FormLabel> Avdeling </FormLabel>
-                <RadioGroup
-                  value={this.state.value}
-                  onChange={this.handleChangeBase}
-                >
-                  <FormControlLabel
-                    value="1"
-                    control={<Radio />}
-                    label="Grønn"
-                  />
-                  <FormControlLabel value="2" control={<Radio />} label="Blå" />
-                  <FormControlLabel value="3" control={<Radio />} label="Bla" />
-                </RadioGroup>
+                  <RadioGroup value={this.state.value} onChange={this.handleChange('base_id')}>
+                    <FormControlLabel value='1' control={<Radio color="primary"/>} label="Gåsedammen"/>
+                    <FormControlLabel value='2' control={<Radio color="primary"/>} label="Bekkdalen" />
+                    <FormControlLabel value='3' control={<Radio color="primary"/>} label="Steinbruddet" />
+                    <FormControlLabel value='4' control={<Radio color="primary"/>} label="Gårdsbruket" />
+                  </RadioGroup>
               </FormControl>
-              <Button type="submit" value="Submit" variant="contained">
+              <div className={classes.buttons}>
+                <Button type="submit" value="Submit" variant="contained" className={classes.textField}>
                 Registrer
-              </Button>
+                </Button>
+                <Button variant="contained" onClick={this.handleClickClose}>
+                Avbryt
+                </Button>
+              </div>
             </form>
           </DialogContent>
         </Dialog>
@@ -135,4 +168,12 @@ class AddEmployee extends Component {
   }
 }
 
-export default withStyles(styles)(AddEmployee);
+const mapDispatchToProps = dispatch => {
+  return{
+    insertNewEmployee:(firstName, lastName, baseID, moveable, position) =>
+    dispatch(insertNewEmployee(firstName, lastName, baseID, moveable, position)),
+  };
+};
+
+const styledComponent = withStyles(styles) (AddEmployee);
+export default  connect (null, mapDispatchToProps) (styledComponent);
