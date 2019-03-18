@@ -2,11 +2,13 @@ import {
   GET_EMPLOYEES_BEGIN,
   GET_EMPLOYEES_SUCCESS,
   GET_EMPLOYEES_FAILURE,
-  UPDATE_FREE_TEMPS
+  UPDATE_FREE_TEMPS,
+  GET_SEARCHED_EMPLOYEE_SUCCESS
 } from "../../actions/contentActions/contentEmployeeActions";
 
 const initialState = {
   employees: [],
+  searchData: [],
   loading: false,
   error: null,
   freeTemps: [1, 2, 3]
@@ -30,6 +32,13 @@ export default function contentReducer(state = initialState, action) {
         ...state,
         loading: false,
         employees: action.payload.employees
+      };
+
+    case GET_SEARCHED_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        searchData: action.payload.data
       };
 
     case GET_EMPLOYEES_FAILURE:
