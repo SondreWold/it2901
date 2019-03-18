@@ -8,7 +8,7 @@ import date from "./dateReducer";
 import pageNameHeader from "./navigationReducer";
 import dragData from "./dragDataReducer";
 import employeeList from "./EmployeeListReducers/EmployeeListReducer";
-import insertAbsentEmployee from "./insertAbsentEmployeeReducer"
+import insertAbsentEmployee from "./insertAbsentEmployeeReducer";
 
 export default combineReducers({
   //import in all reducers here

@@ -1,13 +1,15 @@
 import {
   GET_EMPLOYEES_BEGIN,
   GET_EMPLOYEES_SUCCESS,
-  GET_EMPLOYEES_FAILURE
+  GET_EMPLOYEES_FAILURE,
+  UPDATE_FREE_TEMPS
 } from "../../actions/contentActions/contentEmployeeActions";
 
 const initialState = {
   employees: [],
   loading: false,
-  error: null
+  error: null,
+  freeTemps: [1, 2, 3]
 };
 
 export default function contentReducer(state = initialState, action) {
@@ -38,12 +40,17 @@ export default function contentReducer(state = initialState, action) {
       // This is all up to you and your app though:
       // maybe you want to keep the items around!
       // Do whatever seems right for your use case.
+
       return {
         ...state,
         loading: false,
         error: action.payload.error,
         items: []
       };
+
+    case UPDATE_FREE_TEMPS:
+      console.log(action.payload);
+      return { ...state, freeTemps: action.payload.temps };
 
     default:
       // ALWAYS have a default case in a reducer

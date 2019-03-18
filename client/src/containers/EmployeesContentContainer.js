@@ -14,22 +14,22 @@ class EmployeesContentContainer extends Component {
   render() {
     return (
       <div style={style.container}>
-      	<div style={style.item}>
-	        <EmployeesContainer
-	          employees={this.props.listOfEmployees}
-	          getEmployees={this.props.getEmployees}
-	          selectedEmployee={this.props.selectedEmployee}
-	          updateSelectedEmployee={this.props.updateSelectedEmployee}
-	        />
-	      </div>
-	      <div style={style.item}>
-	      	<EmployeeDetailContainer
-	      		selectedEmployee={this.props.selectedEmployee}
-	      		insertAbsentEmployee={this.props.insertAbsentEmployee}
-	      		minDate={this.props.minDate}
-	      	/>
-	      </div>
-        <AddEmployee/>
+        <div style={style.item}>
+          <EmployeesContainer
+            employees={this.props.listOfEmployees}
+            getEmployees={this.props.getEmployees}
+            selectedEmployee={this.props.selectedEmployee}
+            updateSelectedEmployee={this.props.updateSelectedEmployee}
+          />
+        </div>
+        <div style={style.item}>
+          <EmployeeDetailContainer
+            selectedEmployee={this.props.selectedEmployee}
+            insertAbsentEmployee={this.props.insertAbsentEmployee}
+            minDate={this.props.minDate}
+          />
+        </div>
+        <AddEmployee />
       </div>
     );
   }
@@ -50,8 +50,10 @@ const style = {
 const mapDispatchToProps = dispatch => {
   return {
     getEmployees: name => dispatch(getEmployees(name)),
-    updateSelectedEmployee: employee => dispatch(updateSelectedEmployee(employee)),
-    insertAbsentEmployee: (empId, date) => dispatch(insertAbsentEmployee(empId, date))
+    updateSelectedEmployee: employee =>
+      dispatch(updateSelectedEmployee(employee)),
+    insertAbsentEmployee: (empId, date) =>
+      dispatch(insertAbsentEmployee(empId, date))
   };
 };
 

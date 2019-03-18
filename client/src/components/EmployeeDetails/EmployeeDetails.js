@@ -1,4 +1,5 @@
 import React from "react";
+import DeleteEmployee from "./DeleteEmployee";
 
 class EmployeeDetails extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class EmployeeDetails extends React.Component {
             ? "Fast Ansatt"
             : "Vikar"}
         </p>
+        <DeleteEmployee />
       </div>
     );
   }
