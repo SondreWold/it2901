@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
+import Colors from "../constants/Colors";
 
 const Container = styled.div`
   border: 1px solid lightgrey;
@@ -15,7 +16,7 @@ const Container = styled.div`
 const HandleUnMoveable = styled.div`
   width: 20px;
   height: 20px;
-  background-color: black;
+  background-color: ${Colors.EmployeeColors.unMoveableEmployee};
   border-radius: 10px;
   margin-right: 8px;
 `;
@@ -23,7 +24,7 @@ const HandleUnMoveable = styled.div`
 const HandleMoveable = styled.div`
   width: 20px;
   height: 20px;
-  background-color: orange;
+  background-color: ${Colors.EmployeeColors.moveableEmployee};
   border-radius: 10px;
   margin-right: 8px;
 `;
@@ -31,7 +32,7 @@ const HandleMoveable = styled.div`
 const HandleTemp = styled.div`
   width: 20px;
   height: 20px;
-  background-color: #0091ea;
+  background-color: ${Colors.EmployeeColors.tempEmployee};
   border-radius: 10px;
   margin-right: 8px;
 `;
