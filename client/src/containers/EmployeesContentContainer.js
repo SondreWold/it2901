@@ -5,7 +5,6 @@ import { updateSelectedEmployee } from "../actions/EmployeeListActions/EmployeeL
 import { getEmployees } from "../actions/contentActions/contentEmployeeActions";
 import EmployeesContainer from "./EmployeesContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
-import AddEmployee from "../components/EmployeeTools/AddEmployee";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -29,7 +28,6 @@ class EmployeesContentContainer extends Component {
 	      		minDate={this.props.minDate}
 	      	/>
 	      </div>
-        <AddEmployee/>
       </div>
     );
   }
