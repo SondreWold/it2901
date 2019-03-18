@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import AddEmployee from "../EmployeeList/AddEmployee";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
+import Colors from "../../constants/Colors";
 
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -142,15 +143,19 @@ const style = {
   },
   listItemRegular: {
     margin: "2px",
-    backgroundColor: "#43a047"
+    backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   listItemTemporary: {
     margin: "2px",
-    backgroundColor: "#fb8c00"
+    backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   listItemSelected: {
     margin: "2px",
-    backgroundColor: "#0091ea"
+    backgroundColor: Colors.EmployeeColors.selectedEmployee
+  },
+  new: {
+    display: "flex",
+    justifyContent: "space-around"
   }
 };
 
