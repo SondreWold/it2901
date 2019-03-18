@@ -13,7 +13,7 @@ class App extends Component {
       <div className="App">
         <NavigationContainer />
         <DisplayContainer />
-        <Alert stack={{ limit: 3 }} timeout={3000} />
+        <Alert stack={{ limit: 3 }} />
       </div>
     );
   }
