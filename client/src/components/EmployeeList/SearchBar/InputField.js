@@ -27,20 +27,20 @@ export class InputField extends React.Component {
 
   render() {
     return (
-      <TextField
-        id="outlined-full-width"
-        label="Søk i ansatte"
-        style={{ margin: 8 }}
-        placeholder="Feks: Børge Brende"
-        helperText=""
-        fullWidth
-        onChange={this.handleTextChange}
-        margin="normal"
-        variant="outlined"
-        InputLabelProps={{
-          shrink: true
-        }}
-      />
+        <TextField
+          id="outlined-full-width"
+          label="Søk i ansatte"
+          style={{ margin: 8 }}
+          placeholder="Feks: Børge Brende"
+          helperText=""
+          fullWidth
+          onChange={this.handleTextChange}
+          margin="normal"
+          variant="outlined"
+          InputLabelProps={{
+            shrink: true
+          }}
+        />
     );
   }
 }
