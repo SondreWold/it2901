@@ -10,37 +10,14 @@ import {
   DialogContent,
   FormControl,
   FormLabel,
-  FormGroup,
   FormControlLabel,
   RadioGroup,
   Radio,
-  DialogActions,
-  MuiThemeProvider,
-  getMuiTheme,
   Checkbox,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import {FaUserPlus} from "react-icons/fa";
 import {insertNewEmployee} from "../../actions/newEmployeeAction";
-
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: 16,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  textField: {
-    marginRight:10,
-  },
-  buttons: {
-    'text-align': 'center',
-  }
-
-});
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -118,7 +95,7 @@ validate =() => {
     const { classes } = this.props;
     return(
       <div>
-        <Button variant="contained" onClick={this.handleClickOpen} size="large">
+        <Button variant="contained" onClick={this.handleClickOpen} size="large" style={styles.addButton}>
           <FaUserPlus/>
         </Button>
         <Dialog open={this.state.open} onClose={this.handleClickClose}>
@@ -177,3 +154,25 @@ const mapDispatchToProps = dispatch => {
 
 const styledComponent = withStyles(styles) (AddEmployee);
 export default  connect (null, mapDispatchToProps) (styledComponent);
+
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: 16,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  textField: {
+    marginRight:10,
+  },
+  buttons: {
+    'text-align': 'center',
+  },
+  addButton: {
+    marginBottom:"10px"
+  }
+
+});

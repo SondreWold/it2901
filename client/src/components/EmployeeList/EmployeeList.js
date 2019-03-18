@@ -3,8 +3,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { InputField } from "./SearchBar/InputField";
-import AddEmployee from "../EmployeeTools/AddEmployee";
+import AddEmployee from "./AddEmployee";
 import Colors from "../../constants/Colors";
+import "./EmployeeList.css";
 
 class EmployeeList extends React.Component {
   state = {
@@ -24,8 +25,8 @@ class EmployeeList extends React.Component {
       */
     return (
       <div>
-        <h1>Ansatte </h1>
-        <div style={style.topField}>
+        <h3>Ansatte </h3>
+        <div className="employeeListTop">
           <InputField getEmployees={this.props.getEmployees}/>
           <AddEmployee/>
         </div>
@@ -94,11 +95,6 @@ const style = {
   listItemSelected: {
     margin: "2px",
     backgroundColor: Colors.EmployeeColors.selectedEmployee
-  },
-  topField: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: 'center',
   }
 };
 
