@@ -5,6 +5,9 @@ import * as employeeController from "../server/controllers/employeeController";
 const router = express.Router();
 router.route("/").get(employeeController.getEmployees);
 router.route("/:name").get(employeeController.getEmployeesSearch);
-router.route("/addEmployee").get(employeeController.insertNewEmployee);
+router
+  .route("/addEmployee/")
+  .post(employeeController.insertNewEmployee)
+  .get(employeeController.insertNewEmployee);
 
 export default router;
