@@ -87,8 +87,6 @@ class BaseCardContainer extends Component {
                 return a.position - b.position || a.moveable - b.moveable;
               });
 
-              console.log(dragEmployees);
-
               return (
                 <BaseCard
                   base={base}
