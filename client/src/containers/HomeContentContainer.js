@@ -65,7 +65,7 @@ class contentContainer extends React.Component {
           children={this.props.absentChildren}
           employees={this.props.employees}
           absentEmployees={this.props.absentEmployees}
-          moved_employees={this.props.moved_employees}
+          working_employees={this.props.working_employees}
         />
         <BaseOverview />
       </div>
@@ -97,7 +97,8 @@ const mapStateToProps = state => ({
   date: state.date.selectedDate,
   dateSet: state.date.dateSet,
   minDate: state.date.minDate,
-  data: state.dragData.data
+  data: state.dragData.data,
+  working_employees: state.workingEmployees.data
 });
 
 export default connect(
