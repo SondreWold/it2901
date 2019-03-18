@@ -53,7 +53,6 @@ export function getAbsentChildren(date) {
 
 export function updateAbsentChildren(amount, baseId, date) {
   return dispatch => {
-    console.log(date);
     fetch("api/absence/children/baseid/" + baseId + "/date/" + date, {
       method: "PUT",
       headers: {

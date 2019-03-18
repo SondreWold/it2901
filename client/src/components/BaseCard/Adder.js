@@ -40,8 +40,6 @@ class Adder extends Component {
   };
 
   render() {
-    console.log("123");
-    console.log(this.state.selectedIndex);
     return (
       <div>
         {" "}

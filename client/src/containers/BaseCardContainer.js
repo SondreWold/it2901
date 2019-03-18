@@ -54,17 +54,13 @@ class BaseCardContainer extends Component {
     const employeeId = result.draggableId.split("-")[1];
     const baseId = result.destination.droppableId.split("-")[1];
     const date = moment(this.props.date).format("YYYY-MM-DD");
-    console.log(this.props.moved_employees);
-    console.log(employeeId);
     if (
       this.props.moved_employees
         .map(mov => mov.employee_id)
         .includes(parseInt(employeeId))
     ) {
-      console.log("finnes");
       this.props.updateMovedEmployee(baseId, employeeId, date);
     } else {
-      console.log("finnes ikke");
       this.props.addMovedEmployee(date, parseInt(employeeId), parseInt(baseId));
     }
   };
@@ -86,11 +82,6 @@ class BaseCardContainer extends Component {
               const dragEmployees = dragBase.employeeIds.map(
                 employeeId => this.props.data.employees[employeeId]
               );
-
-              console.log("asds");
-              console.log(this.props.dragBase);
-              console.log(dragBase);
-              console.log(dragEmployees);
 
               return (
                 <BaseCard
