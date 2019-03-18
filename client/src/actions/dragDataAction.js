@@ -13,7 +13,8 @@ export function formatAndUpdateData(moved_employees, bases, employees) {
     data.employees[id] = {
       id: id,
       content: e.first_name,
-      moveable: e.moveable
+      moveable: e.moveable,
+      position: e.position
     };
   });
   bases.forEach(b => {

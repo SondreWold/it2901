@@ -3,6 +3,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { InputField } from "./SearchBar/InputField";
+import Colors from "../../constants/Colors";
 
 class EmployeeList extends React.Component {
   state = {
@@ -30,7 +31,7 @@ class EmployeeList extends React.Component {
               style={
                 employee.id === this.state.selectedIndex
                   ? style.listItemSelected
-                  : employee.position === "1"
+                  : employee.position === 1
                   ? style.listItemRegular
                   : style.listItemTemporary
               }
@@ -65,12 +66,12 @@ const style = {
   detailsBoxRegular: {
     width: "10px",
     height: "10px",
-    backgroundColor: "#43a047"
+    backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   detailsBoxTemporary: {
     width: "10px",
     height: "10px",
-    backgroundColor: "#fb8c00"
+    backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   list: {
     width: "100%",
@@ -80,15 +81,15 @@ const style = {
   },
   listItemRegular: {
     margin: "2px",
-    backgroundColor: "#43a047"
+    backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   listItemTemporary: {
     margin: "2px",
-    backgroundColor: "#fb8c00"
+    backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   listItemSelected: {
     margin: "2px",
-    backgroundColor: "#0091ea"
+    backgroundColor: Colors.EmployeeColors.selectedEmployee
   }
 };
 

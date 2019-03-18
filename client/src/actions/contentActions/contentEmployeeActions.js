@@ -34,7 +34,6 @@ export const updateFreeTemps = temps => ({
 });
 
 export function getFreeTemps(date) {
-  console.log("getfreetemps");
   return dispatch => {
     fetch("/api/employee/date/" + date)
       .then(response => response.json())
