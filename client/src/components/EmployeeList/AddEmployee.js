@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-//heia material ui, må hente inn alt hver for seg, hehe, derfor så mye
-//import RaisedButton from '@material-ui/core/RaisedButton';
 import {
   Button,
   Dialog,
@@ -13,9 +11,9 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  Checkbox
+  Checkbox,
+  withStyles
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import { FaUserPlus } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
 
@@ -28,11 +26,9 @@ class AddEmployee extends Component {
       first_name: "",
       last_name: "",
       base_id: "1",
-      moveable: false,
+      moveable: true,
       position: "1"
     };
-    // This binding is necessary to make `this` work in the callback
-    //  this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -43,7 +39,7 @@ class AddEmployee extends Component {
   handleClickClose = () => {
     this.setState({
       open: false,
-      moveable: false
+      moveable: true
     });
   };
 
@@ -56,30 +52,8 @@ class AddEmployee extends Component {
     }
   };
 
-  /*
-validate =() => {
-  //const letters = /^[a-zA-Z]+$/;
-  let name = this.state.first_name;
-  let isError = false;
-  const errors = {};
-  if(name.match(/[a-z]/i)){
-    isError = true;
-    errors.nameError = "Brukernavn kan bare inneholde bokstaver"
-  }
-  if (isError){
-    this.setState({
-      ...this.state,
-      ...errors
-    });
-  }
-  return isError;
-}
-*/
-
-  //Note til INGRID! moveable er blitt til true/false nå!
   handleSubmit(event) {
     event.preventDefault();
-    //const err = this.validate();
     this.props.insertNewEmployee(
       this.state.first_name,
       this.state.last_name,
@@ -208,12 +182,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const styledComponent = withStyles(styles)(AddEmployee);
-export default connect(
-  null,
-  mapDispatchToProps
-)(styledComponent);
-
 const styles = theme => ({
   container: {
     display: "flex",
@@ -234,3 +202,9 @@ const styles = theme => ({
     marginBottom: "10px"
   }
 });
+
+const styledComponent = withStyles(styles)(AddEmployee);
+export default connect(
+  null,
+  mapDispatchToProps
+)(styledComponent);
