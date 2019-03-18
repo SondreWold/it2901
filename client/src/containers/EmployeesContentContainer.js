@@ -48,8 +48,10 @@ const style = {
 const mapDispatchToProps = dispatch => {
   return {
     getEmployees: name => dispatch(getEmployees(name)),
-    updateSelectedEmployee: employee => dispatch(updateSelectedEmployee(employee)),
-    insertAbsentEmployee: (empId, date) => dispatch(insertAbsentEmployee(empId, date))
+    updateSelectedEmployee: employee =>
+      dispatch(updateSelectedEmployee(employee)),
+    insertAbsentEmployee: (empId, date) =>
+      dispatch(insertAbsentEmployee(empId, date))
   };
 };
 

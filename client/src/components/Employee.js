@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
+import Colors from "../constants/Colors";
 
 const Container = styled.div`
   border: 1px solid lightgrey;
@@ -15,7 +16,7 @@ const Container = styled.div`
 const HandleUnMoveable = styled.div`
   width: 20px;
   height: 20px;
-  background-color: black;
+  background-color: ${Colors.EmployeeColors.unMoveableEmployee};
   border-radius: 10px;
   margin-right: 8px;
 `;
@@ -23,7 +24,15 @@ const HandleUnMoveable = styled.div`
 const HandleMoveable = styled.div`
   width: 20px;
   height: 20px;
-  background-color: orange;
+  background-color: ${Colors.EmployeeColors.moveableEmployee};
+  border-radius: 10px;
+  margin-right: 8px;
+`;
+
+const HandleTemp = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: ${Colors.EmployeeColors.tempEmployee};
   border-radius: 10px;
   margin-right: 8px;
 `;
@@ -37,19 +46,20 @@ class Employee extends Component {
         index={this.props.index}
       >
         {(provided, snapshot) => (
-          <Container
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-            isDragging={snapshot.isDragging}
-          >
-            {this.props.employee.moveable === "1" ? (
-              <HandleMoveable />
-            ) : (
-              <HandleUnMoveable />
-            )}
-            {this.props.employee.content}
-          </Container>
+        		<Container
+	            {...provided.draggableProps}
+	            {...provided.dragHandleProps}
+	            ref={provided.innerRef}
+	            isDragging={snapshot.isDragging}
+	          >
+	            {this.props.employee.position === 2
+	            	? <HandleTemp />
+	            	:	this.props.employee.moveable === "1" 
+	            	? ( <HandleMoveable /> ) 
+	            	: ( <HandleUnMoveable /> )
+	            }
+	            {this.props.employee.content}
+	          </Container>
         )}
       </Draggable>
     );

@@ -7,11 +7,18 @@ import ChildrenAbsentIncDec from "./ChildrenAbsentIncDec";
 import EmployeesAtBase from "./EmployeesAtBase";
 import EmployeesNeeded from "./EmployeesNeeded";
 import "./BaseCard.css";
+import Adder from "./Adder";
+import Colors from "../../constants/Colors"
 
 // the proposed number of employees / children
 const FACTOR = 0.16;
 
 class BaseCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { icon: true };
+  }
+
   calculateEmployeesAtBase = () => {
     var employees = [];
     let totalEmployeesAtBase = 0;
@@ -25,11 +32,11 @@ class BaseCard extends Component {
   };
 
   colorRendering = value => {
-    let color = "#FFFB94";
+    let color = Colors.BaseColors.ok;
     if (value >= 0) {
-      color = "#B2F1AF";
+      color = Colors.BaseColors.good;
     } else if (value < -1) {
-      color = "#FF8989";
+      color = Colors.BaseColors.bad;
     }
     return color;
   };
@@ -45,31 +52,37 @@ class BaseCard extends Component {
     const color = this.colorRendering(neededEmployees);
 
     return (
-      <div className="baseCard" style={{backgroundColor: color}}>
+      <div className="baseCard" style={{ backgroundColor: color }}>
         <BaseCardHeader baseName={this.props.base.name} />
         <div className="childrenHolder">
           <ChildrenPresent
-          base={this.props.absence.base_id}
-          absent={this.props.absence.children}
-          totalChildren={this.props.absence.total_children}
+            base={this.props.absence.base_id}
+            absent={this.props.absence.children}
+            totalChildren={this.props.absence.total_children}
           />
           <ChildrenAbsentIncDec
-          base={this.props.absence.base_id}
-          absent={this.props.absence.children}
-          date={moment(this.props.absence.date).format("YYYY-MM-DD")}
-          totalChildren={this.props.absence.total_children}
-          update={this.props.update}
-        />
+            base={this.props.absence.base_id}
+            absent={this.props.absence.children}
+            date={moment(this.props.absence.date).format("YYYY-MM-DD")}
+            totalChildren={this.props.absence.total_children}
+            update={this.props.update}
+          />
         </div>
         <EmployeesAtBase
-         baseEmployees={employeesAtBase}
-         employeesPresent={employeesPresent}
-          />
+          baseEmployees={employeesAtBase}
+          employeesPresent={employeesPresent}
+        />
         <EmployeesNeeded neededEmployees={neededEmployees} />
         <BaseCardList
           key={this.props.dragBase.id}
           dragBase={this.props.dragBase}
           dragEmployees={this.props.dragEmployees}
+        />
+        <Adder
+          freeTemps={this.props.freeTemps}
+          base={this.props.base}
+          addTempToBase={this.props.addTempToBase}
+          date={moment(this.props.absence.date).format("YYYY-MM-DD")}
         />
       </div>
     );

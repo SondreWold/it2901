@@ -1,3 +1,5 @@
+import { getFreeTemps } from "./contentActions/contentEmployeeActions";
+
 export const GET_MOVED_EMPLOYEE_BEGIN = "GET_MOVED_EMPLOYEE_BEGIN";
 export const GET_MOVED_EMPLOYEE_SUCCESS = "GET_MOVED_EMPLOYEE_SUCCESS";
 export const GET_MOVED_EMPLOYEE_FAILURE = "GET_MOVED_EMPLOYEE_FAILURE";
@@ -47,5 +49,26 @@ export function updateMovedEmployee(baseId, employeeId, date) {
     })
       .then(dispatch(updateMovedEmployeeSuccess()))
       .then(() => dispatch(getMovedEmployee(date)));
+  };
+}
+
+export function addMovedEmployee(date, employeeId, baseId) {
+  return dispatch => {
+    fetch("api/moved/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        date: date,
+        employeeId: employeeId,
+        baseId: baseId
+      })
+    })
+      .then(() => {
+        dispatch(getMovedEmployee(date));
+        dispatch(getFreeTemps(date));
+      })
+      .catch(() => console.log("fail"));
   };
 }
