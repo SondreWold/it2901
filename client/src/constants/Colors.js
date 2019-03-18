@@ -1,8 +1,13 @@
+const AlertColors = {
+	success: "#27AE60"
+}
+
 const BaseColors = {
   ok: "#fffb94",
   good: "#b2f1af",
   bad: "#ff8989"
 };
+
 
 const EmployeeColors = {
   tempEmployee: "#b6e0e2",

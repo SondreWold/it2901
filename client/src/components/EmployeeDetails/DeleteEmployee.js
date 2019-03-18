@@ -3,15 +3,27 @@ import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
 import {FaTrash} from "react-icons/fa";
+import Alert from 'react-s-alert';
+
+
 
 class DeleteEmployee extends React.Component {
+
+	handleClick = () => {
+		this.props.deleteEmployee(this.props.selectedEmployee.id)
+		Alert.error('Ansatt slettet', {
+      position: 'bottom-right',
+      effect: 'jelly',
+      timeout: 3000
+    });
+
+	}
+
   render() {
     return (
       <div>
         <Button
-          onClick={() =>
-            this.props.deleteEmployee(this.props.selectedEmployee.id)
-          }
+          onClick={this.handleClick}
           style={style.deleteButton}
           className="deleteButton"
           color="secondary"
