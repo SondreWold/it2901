@@ -3,6 +3,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { InputField } from "./SearchBar/InputField";
+import AddEmployee from "../EmployeeTools/AddEmployee";
 import Colors from "../../constants/Colors";
 
 class EmployeeList extends React.Component {
@@ -17,14 +18,17 @@ class EmployeeList extends React.Component {
 
   render() {
     /*
-       - Renders a ListItem pr employee 
+       - Renders a ListItem pr employee
         - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
         - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
       */
     return (
       <div>
         <h1>Ansatte </h1>
-        <InputField getEmployees={this.props.getEmployees} />
+        <div style={style.topField}>
+          <InputField getEmployees={this.props.getEmployees}/>
+          <AddEmployee/>
+        </div>
         <List style={style.list} component="nav">
           {this.props.employees.map(employee => (
             <ListItem
@@ -90,6 +94,11 @@ const style = {
   listItemSelected: {
     margin: "2px",
     backgroundColor: Colors.EmployeeColors.selectedEmployee
+  },
+  topField: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: 'center',
   }
 };
 

@@ -4,7 +4,6 @@ import DateHeaderComponent from "./DateHeaderComponent";
 import "./date.css";
 
 class DateComponent extends React.Component {
-
   render() {
     let year = this.props.minDate.substring(6, 10);
     let month = this.props.minDate.substring(0, 2) - 1;

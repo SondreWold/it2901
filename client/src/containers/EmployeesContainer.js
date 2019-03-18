@@ -7,7 +7,7 @@ class EmployeesContainer extends Component {
   render() {
     return (
         <div>
-          <EmployeeList 
+          <EmployeeList
           	employees={this.props.employees}
           	updateSelectedEmployee={this.props.updateSelectedEmployee}
           	getEmployees={this.props.getEmployees}
@@ -17,7 +17,8 @@ class EmployeesContainer extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+});
 
 const mapStateToProps = state => ({});
 
