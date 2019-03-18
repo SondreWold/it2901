@@ -37,7 +37,7 @@
   margin-top: 20px;
 }
 
-dev .basecardHeader {
+.basecardHeader {
   margin: 8px;
 }
 
@@ -49,6 +49,7 @@ dev .basecardHeader {
 
 .childrenPresent {
   margin-right: 10px;
+  font-weight: bold;
 }
 
 .childPresentIcon {
@@ -100,6 +101,7 @@ dev .basecardHeader {
 
 .employeesAtBaseNumber {
   margin: 4px;
+  font-weight: bold;
 }
 
 .employeesNeeded {
