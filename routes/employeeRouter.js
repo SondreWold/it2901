@@ -6,6 +6,10 @@ const router = express.Router();
 router.route("/").get(employeeController.getEmployees);
 router.route("/:id").delete(employeeController.deleteEmployee);
 router.route("/:name").get(employeeController.getEmployeesSearch);
+router
+  .route("/addEmployee/")
+  .post(employeeController.insertNewEmployee)
+  .get(employeeController.insertNewEmployee);
 router.route("/date/:date").get(employeeController.getFreeTemp);
 
 export default router;
