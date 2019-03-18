@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
+import moment from "moment";
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class AddEmployee extends Component {
       last_name: "",
       base_id: "1",
       moveable: true,
-      position: "1"
+      position: "2"
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -59,7 +60,8 @@ class AddEmployee extends Component {
       this.state.last_name,
       this.state.base_id,
       this.state.moveable,
-      this.state.position
+      this.state.position,
+      moment(this.props.date).format("YYYY-MM-DD")
     );
     this.handleClickClose();
   }
@@ -77,7 +79,10 @@ class AddEmployee extends Component {
           <FaUserPlus />
         </Button>
         <Dialog open={this.state.open} onClose={this.handleClickClose}>
-          <DialogTitle> Registrer ny ansatt </DialogTitle>
+          <DialogTitle>
+            {" "}
+            Registrer ny {this.props.tempOnly ? "vikar" : "ansatt"}{" "}
+          </DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField
@@ -97,61 +102,76 @@ class AddEmployee extends Component {
                 label="Etternavn"
                 variant="outlined"
               />
-              <FormControl className={classes.formControl}>	
-                <FormLabel> Ansettelsesform </FormLabel>
-                <RadioGroup
-                  value={this.state.value}
-                  onChange={this.handleChange("position")}
-                >
-                  <FormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="Fast ansatt"
-                  />
-                  <FormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="Vikar"
-                  />
-                </RadioGroup>
-                <FormLabel> Skal ansatt være flyttbar? </FormLabel>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      color="primary"
-                      checked={this.state.moveable}
-                      onClick={this.handleChange("moveable")}
+              {!this.props.tempOnly && (
+                <div>
+                  <FormControl className={classes.formControl}>
+                    <FormLabel> Ansettelsesform </FormLabel>
+                    <RadioGroup
+                      value={this.state.position}
+                      onChange={this.handleChange("position")}
+                    >
+                      <FormControlLabel
+                        value="2"
+                        control={<Radio color="primary" />}
+                        label="Vikar"
+                      />
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio color="primary" />}
+                        label="Fast ansatt"
+                      />
+                    </RadioGroup>
+                    <FormLabel disabled={this.state.position === "2"}>
+                      {" "}
+                      Skal ansatt være flyttbar?{" "}
+                    </FormLabel>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          color="primary"
+                          checked={this.state.moveable}
+                          onClick={this.handleChange("moveable")}
+                          disabled={this.state.position === "2"}
+                        />
+                      }
+                      label="Ja"
                     />
-                  }
-                  label="Ja"
-                />
-                <FormLabel> Avdeling </FormLabel>
-                <RadioGroup
-                  value={this.state.value}
-                  onChange={this.handleChange("base_id")}
-                >
-                  <FormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="Gåsedammen"
-                  />
-                  <FormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="Bekkdalen"
-                  />
-                  <FormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="Steinbruddet"
-                  />
-                  <FormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="Gårdsbruket"
-                  />
-                </RadioGroup>
-              </FormControl>
+                    <FormLabel disabled={this.state.position === "2"}>
+                      {" "}
+                      Avdeling{" "}
+                    </FormLabel>
+                    <RadioGroup
+                      value={this.state.position === "1" && this.state.base_id}
+                      onChange={this.handleChange("base_id")}
+                    >
+                      <FormControlLabel
+                        value="1"
+                        control={<Radio color="primary" />}
+                        label="Gåsedammen"
+                        disabled={this.state.position === "2"}
+                      />
+                      <FormControlLabel
+                        value="2"
+                        control={<Radio color="primary" />}
+                        label="Bekkdalen"
+                        disabled={this.state.position === "2"}
+                      />
+                      <FormControlLabel
+                        value="3"
+                        control={<Radio color="primary" />}
+                        label="Steinbruddet"
+                        disabled={this.state.position === "2"}
+                      />
+                      <FormControlLabel
+                        value="4"
+                        control={<Radio color="primary" />}
+                        label="Gårdsbruket"
+                        disabled={this.state.position === "2"}
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+              )}
               <div className={classes.buttons}>
                 <Button
                   type="submit"
@@ -173,11 +193,22 @@ class AddEmployee extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  date: state.date.selectedDate
+});
+
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (firstName, lastName, baseID, moveable, position) =>
+    insertNewEmployee: (
+      firstName,
+      lastName,
+      baseID,
+      moveable,
+      position,
+      date
+    ) =>
       dispatch(
-        insertNewEmployee(firstName, lastName, baseID, moveable, position)
+        insertNewEmployee(firstName, lastName, baseID, moveable, position, date)
       )
   };
 };
@@ -205,6 +236,6 @@ const styles = theme => ({
 
 const styledComponent = withStyles(styles)(AddEmployee);
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(styledComponent);

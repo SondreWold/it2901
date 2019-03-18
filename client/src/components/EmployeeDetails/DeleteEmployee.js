@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
 import { FaTrash } from "react-icons/fa";
 import Alert from "react-s-alert";
+
 import moment from "moment";
 
 class DeleteEmployee extends React.Component {
@@ -13,9 +14,7 @@ class DeleteEmployee extends React.Component {
       moment(this.props.date).format("YYYY-MM-DD")
     );
     Alert.error("Ansatt slettet", {
-      position: "bottom-right",
-      effect: "jelly",
-      timeout: 3000
+      position: "bottom-right"
     });
   };
 

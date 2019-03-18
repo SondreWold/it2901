@@ -76,9 +76,9 @@ class Adder extends Component {
           <DialogTitle> Legg til vikar på {this.props.base.name} </DialogTitle>
           <DialogContent>
             <div style={style.window}>
-              <div style={style.new}>
+              <div style={style.doubleItem}>
                 <div>Legg til ny: </div>
-                <AddEmployee />
+                <AddEmployee tempOnly />
               </div>
               <List style={style.list} component="nav">
                 {this.props.freeTemps.map(employee => (
@@ -100,16 +100,23 @@ class Adder extends Component {
                   </ListItem>
                 ))}
               </List>
-              {
+              <div style={style.doubleItem}>
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="inherit"
                   onClick={this.addTemp}
                   disabled={this.state.selectedIndex.length === 0}
                 >
                   Legg til
                 </Button>
-              }
+                <Button
+                  variant="contained"
+                  color="inherit"
+                  onClick={this.close}
+                >
+                  Avbryt
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
@@ -119,6 +126,10 @@ class Adder extends Component {
 }
 
 const style = {
+  doubleItem: {
+    display: "flex",
+    justifyContent: "space-around"
+  },
   window: {
     padding: "5%"
   },
@@ -126,7 +137,8 @@ const style = {
     width: "100%",
     border: "5px",
     maxHeight: "300px",
-    overflow: "auto"
+    overflow: "auto",
+    margin: "10px"
   },
   listItemRegular: {
     margin: "2px",
@@ -139,10 +151,6 @@ const style = {
   listItemSelected: {
     margin: "2px",
     backgroundColor: "#0091ea"
-  },
-  new: {
-    display: "flex",
-    justifyContent: "space-around"
   }
 };
 
