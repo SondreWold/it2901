@@ -30,7 +30,7 @@ class EmployeeList extends React.Component {
               style={
                 employee.id === this.state.selectedIndex
                   ? style.listItemSelected
-                  : employee.position === "1"
+                  : employee.position === 1
                   ? style.listItemRegular
                   : style.listItemTemporary
               }
