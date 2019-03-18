@@ -1,11 +1,16 @@
 import { getFreeTemps } from "./contentActions/contentEmployeeActions";
 import { getWorkingEmployees } from "./contentActions/contentEmployeeActions";
-
 export const GET_MOVED_EMPLOYEE_BEGIN = "GET_MOVED_EMPLOYEE_BEGIN";
 export const GET_MOVED_EMPLOYEE_SUCCESS = "GET_MOVED_EMPLOYEE_SUCCESS";
 export const GET_MOVED_EMPLOYEE_FAILURE = "GET_MOVED_EMPLOYEE_FAILURE";
 export const UPDATE_MOVED_EMPLOYEE_BEGIN = "UPDATE_MOVED_EMPLOYEE_BEGIN";
 export const UPDATE_MOVED_EMPLOYEE_SUCCESS = "UPDATE_MOVED_EMPLOYEE_SUCCESS";
+export const UPDATE_SINGLE_WORKING_EMPLOYEE = "UPDATE_SINGLE_WORKING_EMPLOYEE";
+
+export const updateSingleWorking = (employeeId, baseId) => ({
+  type: UPDATE_SINGLE_WORKING_EMPLOYEE,
+  payload: { employee_id: parseInt(employeeId), base_id: parseInt(baseId) }
+});
 
 export const getMovedEmployeeBegin = () => ({
   type: GET_MOVED_EMPLOYEE_BEGIN
@@ -44,6 +49,7 @@ export function getMovedEmployee(date) {
 export function updateMovedEmployee(baseId, employeeId, date) {
   return dispatch => {
     dispatch(updateMovedEmployeeBegin());
+    dispatch(updateSingleWorking(employeeId, baseId));
     fetch("api/moved/" + baseId + "/" + employeeId + "/" + date, {
       method: "PUT",
       headers: {
@@ -60,6 +66,7 @@ export function updateMovedEmployee(baseId, employeeId, date) {
 
 export function addMovedEmployee(date, employeeId, baseId) {
   return dispatch => {
+    dispatch(updateSingleWorking(employeeId, baseId));
     fetch("api/moved/", {
       method: "POST",
       headers: {

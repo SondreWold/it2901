@@ -26,6 +26,9 @@ class BaseCardContainer extends Component {
         this.props.employees
       );
     }
+    if (prevProps.working_employees !== this.props.working_employees) {
+      console.log(this.props.working_employees);
+    }
   }
 
   onDragEnd = result => {
@@ -84,7 +87,11 @@ class BaseCardContainer extends Component {
               );
 
               dragEmployees.sort(function(a, b) {
-                return a.position - b.position || a.moveable - b.moveable;
+                return (
+                  a.id - b.id ||
+                  a.position - b.position ||
+                  a.moveable - b.moveable
+                );
               });
 
               return (
