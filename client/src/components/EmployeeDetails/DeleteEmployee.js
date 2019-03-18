@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
+import {FaTrash} from "react-icons/fa";
 
 class DeleteEmployee extends React.Component {
   render() {
@@ -12,7 +13,10 @@ class DeleteEmployee extends React.Component {
             this.props.deleteEmployee(this.props.selectedEmployee.id)
           }
           style={style.deleteButton}
+          className="deleteButton"
+          color="secondary"
         >
+          <FaTrash className="deleteIcon"/>
           Slett ansatt
         </Button>
       </div>
@@ -23,8 +27,9 @@ class DeleteEmployee extends React.Component {
 const style = {
   deleteButton: {
     maxWidth: "200px",
+    minWidth:"150px",
     margin: "20px auto",
-    backgroundColor: "red"
+    border: "1px solid #C6C6CC",
   }
 };
 

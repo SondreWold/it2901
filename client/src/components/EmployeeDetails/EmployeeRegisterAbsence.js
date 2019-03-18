@@ -1,11 +1,12 @@
 import React from "react";
 import moment from "moment";
 import DatePicker from "react-date-picker";
-import Button from "@material-ui/core/Button";
-import "./EmployeeRegisterAbsence.css";
+import { Button } from "@material-ui/core";
+import "./EmployeeDetails.css";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
+import { TiPlus } from 'react-icons/ti';
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -69,8 +70,9 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="contained" onClick={this.handleClickOpen}>
-          <p>Legg til fravær</p>
+        <Button color="primary" onClick={this.handleClickOpen} style={style.addAbsenceButton}>
+          <TiPlus/>
+          Legg til fravær
         </Button>
         <Dialog
           open={this.state.open}
@@ -92,32 +94,36 @@ class EmployeeRegisterAbsence extends React.Component {
           <DialogContent>
             <div className="absenceFormWrapper">
               <h4> Velg antall dager med fravær </h4>
-              <p> Fra og med </p>
               <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
-                <DatePicker
-                  className="absenceFormDatePicker"
-                  onChange={this.handleChangeFrom}
-                  clearIcon={null}
-                  value={this.state.from}
-                  locale={"nb"}
-                  returnValue={"start"}
-                  showLeadingZeros={true}
-                  calendarIcon={this.calendarIcon}
-                  placeholderText={"Fra"}
-                  minDate={this.minDateObj}
-                />
-                <p> Til og med </p>
-                <DatePicker
-                  className="absenceFormDatePicker"
-                  onChange={this.handleChangeTo}
-                  clearIcon={null}
-                  value={this.state.to}
-                  locale={"nb"}
-                  returnValue={"start"}
-                  showLeadingZeros={true}
-                  calendarIcon={this.calendarIcon}
-                  minDate={this.state.from}
-                />
+                <div className="dateHolder">
+                  <b> Fra og med </b>
+                  <DatePicker
+                    className="absenceFormDatePicker"
+                    onChange={this.handleChangeFrom}
+                    clearIcon={null}
+                    value={this.state.from}
+                    locale={"nb"}
+                    returnValue={"start"}
+                    showLeadingZeros={true}
+                    calendarIcon={this.calendarIcon}
+                    placeholderText={"Fra"}
+                    minDate={this.minDateObj}
+                  />
+                </div>
+                <div className="dateHolder">
+                  <b> Til og med </b>
+                  <DatePicker
+                    className="absenceFormDatePicker"
+                    onChange={this.handleChangeTo}
+                    clearIcon={null}
+                    value={this.state.to}
+                    locale={"nb"}
+                    returnValue={"start"}
+                    showLeadingZeros={true}
+                    calendarIcon={this.calendarIcon}
+                    minDate={this.state.from}
+                  />
+                </div>
                 <Button
                   style={style.submitButton}
                   type="submit"
@@ -140,7 +146,14 @@ const style = {
   // MUI Button doesn't support styling by className
   submitButton: {
     maxWidth: "200px",
-    margin: "20px auto"
+    margin: "20px auto",
+    marginTop: "45px"
+  },
+  addAbsenceButton: {
+    maxWidth: "200px",
+    minWidth:"150px",
+    margin: "20px auto",
+    border: "1px solid #C6C6CC"
   }
 };
 

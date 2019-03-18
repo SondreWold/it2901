@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EmployeeDetails from "../components/EmployeeDetails/EmployeeDetails";
 import EmployeeRegisterAbsence from "../components/EmployeeDetails/EmployeeRegisterAbsence";
+import DeleteEmployee from "../components/EmployeeDetails/DeleteEmployee";
 
 
 class EmployeeDetailContainer extends Component {
@@ -11,26 +12,17 @@ class EmployeeDetailContainer extends Component {
 		        <EmployeeDetails
 		          selectedEmployee={this.props.selectedEmployee}
 		        />
-		        <EmployeeRegisterAbsence 
-		        	selectedEmployee={this.props.selectedEmployee}
-		        	insertAbsentEmployee={this.props.insertAbsentEmployee}
-		        />
-		      </div>
+						<div className="employeeButtonsHolder">
+		        	<EmployeeRegisterAbsence 
+		        		selectedEmployee={this.props.selectedEmployee}
+		        		insertAbsentEmployee={this.props.insertAbsentEmployee}
+		        	/>
+            	<DeleteEmployee />
+						</div>
+					</div>
 		    )
     );
   }
 }
-
-const style = {
-  container: {
-    margin: "30px",
-    display: "flex",
-    flexDirection: "row",
-    width: "90%"
-  },
-  item: {
-    flex: "1"
-  }
-};
 
 export default EmployeeDetailContainer;
