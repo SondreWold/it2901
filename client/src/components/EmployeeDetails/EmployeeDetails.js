@@ -11,9 +11,7 @@ class EmployeeDetails extends React.Component {
         </h3>
         <p>
           Stillingstype:{" "}
-          {this.props.selectedEmployee.position === "1"
-            ? "Fast Ansatt"
-            : "Vikar"}
+          {this.props.selectedEmployee.position === 1 ? "Fast Ansatt" : "Vikar"}
         </p>
       </div>
     );
