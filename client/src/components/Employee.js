@@ -28,6 +28,14 @@ const HandleMoveable = styled.div`
   margin-right: 8px;
 `;
 
+const HandleTemp = styled.div`
+  width: 20px;
+  height: 20px;
+  background-color: #0091ea;
+  border-radius: 10px;
+  margin-right: 8px;
+`;
+
 class Employee extends Component {
   render() {
     return (
@@ -43,11 +51,12 @@ class Employee extends Component {
 	            ref={provided.innerRef}
 	            isDragging={snapshot.isDragging}
 	          >
-	            {this.props.employee.moveable === "1" ? (
-	              <HandleMoveable />
-	            ) : (
-	              <HandleUnMoveable />
-	            )}
+	            {this.props.employee.position === 2
+	            	? <HandleTemp />
+	            	:	this.props.employee.moveable === "1" 
+	            	? ( <HandleMoveable /> ) 
+	            	: ( <HandleUnMoveable /> )
+	            }
 	            {this.props.employee.content}
 	          </Container>
         )}
