@@ -14,6 +14,7 @@ import moment from "moment";
 import BaseOverview from "../components/BaseCard/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import TotalOverview from "../components/TotalOverview/TotalOverview";
+import { Divider } from "@material-ui/core";
 
 class contentContainer extends React.Component {
   componentDidMount() {

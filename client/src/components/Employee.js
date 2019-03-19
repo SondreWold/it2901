@@ -8,7 +8,8 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  background-color: ${props =>
+    props.isDragging ? Colors.EmployeeColors.selectedEmployee : "white"};
   display: flex;
 `;
 
@@ -40,26 +41,23 @@ const HandleTemp = styled.div`
 class Employee extends Component {
   render() {
     return (
-      <Draggable
-        isDragDisabled={this.props.employee.moveable === "1" ? false : true}
-        draggableId={this.props.employee.id}
-        index={this.props.index}
-      >
+      <Draggable draggableId={this.props.employee.id} index={this.props.index}>
         {(provided, snapshot) => (
-        		<Container
-	            {...provided.draggableProps}
-	            {...provided.dragHandleProps}
-	            ref={provided.innerRef}
-	            isDragging={snapshot.isDragging}
-	          >
-	            {this.props.employee.position === 2
-	            	? <HandleTemp />
-	            	:	this.props.employee.moveable === "1" 
-	            	? ( <HandleMoveable /> ) 
-	            	: ( <HandleUnMoveable /> )
-	            }
-	            {this.props.employee.content}
-	          </Container>
+          <Container
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            isDragging={snapshot.isDragging}
+          >
+            {this.props.employee.position === 2 ? (
+              <HandleTemp />
+            ) : this.props.employee.moveable === "1" ? (
+              <HandleMoveable />
+            ) : (
+              <HandleUnMoveable />
+            )}
+            {this.props.employee.content}
+          </Container>
         )}
       </Draggable>
     );

@@ -5,7 +5,7 @@
 
 .baseCard {
   border: 1px solid rgb(63, 63, 63);
-  border-radius: 5px;
+  border-radius: 40px;
   margin: 10px;
   width: 20%;
 }
@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  height: 250px;
+  height: 300px;
 }
 
 .employeeList {
@@ -38,6 +38,7 @@
 }
 
 .basecardHeader {
+  font-size: 25px;
   margin: 8px;
 }
 
@@ -118,7 +119,7 @@
   display: inline-block;
   left: 39%;
   bottom: 5px;
-  background-color: #2196f3;
+  background-color: #207d92;
   height: 36px;
   width: 36px;
   border-radius: 20px;
@@ -132,7 +133,7 @@
   display: inline-block;
   left: 0;
   bottom: 5px;
-  background-color: #2196f3;
+  background-color: #207d92;
   height: 36px;
   width: 90%;
   border-radius: 20px;

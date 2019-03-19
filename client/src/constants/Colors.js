@@ -1,13 +1,16 @@
 const AlertColors = {
-	success: "#27AE60"
-}
-
-const BaseColors = {
-  ok: "#fffb94",
-  good: "#b2f1af",
-  bad: "#ff8989"
+  success: "#27AE60"
 };
 
+const BaseColors = {
+  ok: "#FFF79A",
+  good: "#82CA9D",
+  bad: "#F7977A"
+};
+
+const paletteColors = {
+  primary: "#207d92"
+};
 
 const EmployeeColors = {
   tempEmployee: "#b6e0e2",
@@ -16,4 +19,4 @@ const EmployeeColors = {
   selectedEmployee: "#E76F50"
 };
 
-export default { EmployeeColors, BaseColors };
+export default { EmployeeColors, BaseColors, paletteColors };
