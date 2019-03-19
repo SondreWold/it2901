@@ -1,27 +1,31 @@
 import React from "react";
+import "./EmployeeDetails.css";
 
 class EmployeeDetails extends React.Component {
+
+  componentDidMount(){
+    this.props.getSelectedBase(this.props.selectedEmployee.base_id);
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.selectedEmployee !== this.props.selectedEmployee)
+    this.props.getSelectedBase(this.props.selectedEmployee.base_id);
+  }
+
   render() {
     return (
-      <div style={style.wrapper}>
-        <h3>
+      <div className="detailsInfoContainer">
+        <h2 className="employeesHeadline"> 
           {this.props.selectedEmployee.first_name +
             " " +
             this.props.selectedEmployee.last_name}
-        </h3>
+        </h2>
         <p>
-          Stillingstype:{" "}
-          {this.props.selectedEmployee.position === 1 ? "Fast Ansatt" : "Vikar"}
+          {this.props.selectedEmployee.position === 1 ? "Fast ansatt på " + this.props.selectedBase : "Vikar"}
         </p>
       </div>
     );
   }
 }
-
-const style = {
-  wrapper: {
-    marginTop: "10px"
-  }
-};
 
 export default EmployeeDetails;

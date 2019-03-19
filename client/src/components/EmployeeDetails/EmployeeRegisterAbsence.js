@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import { TiPlus } from 'react-icons/ti';
 import Alert from 'react-s-alert';
+import Colors from "../../constants/Colors";
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -76,7 +77,7 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.handleClickOpen} style={style.addAbsenceButton}>
+        <Button onClick={this.handleClickOpen} style={style.addAbsenceButton}>
           <TiPlus/>
           Legg til fravær
         </Button>
@@ -159,8 +160,11 @@ const style = {
     maxWidth: "200px",
     minWidth:"150px",
     margin: "20px auto",
-    border: "1px solid #C6C6CC"
-  }
+    marginTop: "5px",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
+  },
 };
 
 export default EmployeeRegisterAbsence;
