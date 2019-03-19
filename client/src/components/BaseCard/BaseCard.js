@@ -10,8 +10,6 @@ import "./BaseCard.css";
 import Adder from "./Adder";
 import Colors from "../../constants/Colors";
 
-// the proposed number of employees / children
-const FACTOR = 0.16;
 
 class BaseCard extends Component {
   constructor(props) {
@@ -39,10 +37,9 @@ class BaseCard extends Component {
     const employeesPresent = this.props.dragEmployees.length;
     const childrenPresent =
       this.props.absence.total_children - this.props.absence.children;
-    const neededEmployees =
-      employeesPresent - Math.round(childrenPresent * FACTOR);
+
+    const neededEmployees = Number((employeesPresent - childrenPresent * this.props.base.ratio).toFixed(2));
     const color = this.colorRendering(neededEmployees);
-    console.log(neededEmployees);
 
     return (
       <div className="baseCard" style={{ backgroundColor: color }}>
