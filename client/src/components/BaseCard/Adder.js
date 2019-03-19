@@ -62,7 +62,7 @@ class Adder extends Component {
             onMouseLeave={() => this.setState({ icon: true })}
             onClick={() => this.setState({ open: true })}
           >
-            <div className="txt">Legg til vikar på base</div>
+            <div className="txt">Legg til vikar</div>
             <div className="ic" key="2">
               <MaterialIcon icon="add" color="white" size={18} />
             </div>
