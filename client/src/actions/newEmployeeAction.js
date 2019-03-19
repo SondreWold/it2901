@@ -1,4 +1,8 @@
-import { getEmployees } from "./contentActions/contentEmployeeActions";
+import {
+  getEmployees,
+  getSearchEmployees,
+  getFreeTemps
+} from "./contentActions/contentEmployeeActions";
 
 export const INSERT_EMPLOYEE_BEGIN = "INSERT_EMPLOYEE_BEGIN";
 export const INSERT_EMPLOYEE_SUCCESS = "INSERT_EMPLOYEE_SUCCESS";
@@ -29,7 +33,8 @@ export function insertNewEmployee(
   lastName,
   baseID,
   moveable,
-  position
+  position,
+  date
 ) {
   let moveableBit;
   if (moveable) {
@@ -56,6 +61,8 @@ export function insertNewEmployee(
       .then(response => {
         dispatch(insertEmployeeSuccess("inserted"));
         dispatch(getEmployees());
+        dispatch(getSearchEmployees());
+        dispatch(getFreeTemps(date));
       })
       .catch(() => console.log("whups"));
   };
