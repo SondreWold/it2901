@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { FaRegPlusSquare, FaRegMinusSquare } from 'react-icons/fa';
+import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import "./BaseCard.css";
 
 class ChildrenAbsentIncDec extends Component {
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   decAbsence = () => {
     if (this.props.absent > 0) {
@@ -30,10 +29,10 @@ class ChildrenAbsentIncDec extends Component {
     return (
       <div>
         <div className="childAbsentButton" onClick={this.decAbsence}>
-          <FaRegPlusSquare className="childAbsentIcon"/>
+          <FaPlusCircle className="childAbsentIcon" />
         </div>
         <div className="childAbsentButton" onClick={this.incAbsence}>
-          <FaRegMinusSquare className="childAbsentIcon"/>
+          <FaMinusCircle className="childAbsentIcon" />
         </div>
       </div>
     );

@@ -9,6 +9,7 @@ import EmployeesNeeded from "./EmployeesNeeded";
 import "./BaseCard.css";
 import Adder from "./Adder";
 import Colors from "../../constants/Colors";
+import { Divider } from "@material-ui/core";
 
 
 class BaseCard extends Component {
@@ -42,8 +43,18 @@ class BaseCard extends Component {
     const color = this.colorRendering(neededEmployees);
 
     return (
-      <div className="baseCard" style={{ backgroundColor: color }}>
+      <div className="baseCard">
         <BaseCardHeader baseName={this.props.base.name} />
+        <div
+          style={{
+            margin: "auto",
+            borderRadius: "2px",
+            backgroundColor: color,
+            width: "100%",
+            height: "10px"
+          }}
+        />
+        <Divider />
         <div className="childrenHolder">
           <ChildrenPresent
             base={this.props.absence.base_id}
