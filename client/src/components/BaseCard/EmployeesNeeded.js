@@ -9,9 +9,9 @@ class EmployeesNeeded extends Component {
   			<i className="employeesNeeded"> 
   				{this.props.neededEmployees ===  0
   					? "OK"
-  					: this.props.neededEmployees > 0
-	  				? "Forslag: flytt " + this.props.neededEmployees + " herfra" 
-	  				: "Forslag: hent inn " + (-1)*this.props.neededEmployees + " til"
+  					: this.props.neededEmployees >= 0
+	  				? "Overbemanning: " + this.props.neededEmployees 
+	  				: "Underbemanning: " + (-1)*this.props.neededEmployees
 	  			}
 				</i> 
       </div>

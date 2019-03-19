@@ -10,8 +10,6 @@ import "./BaseCard.css";
 import Adder from "./Adder";
 import Colors from "../../constants/Colors";
 
-// the proposed number of employees / children
-const FACTOR = 0.16;
 
 class BaseCard extends Component {
   constructor(props) {
@@ -20,15 +18,7 @@ class BaseCard extends Component {
   }
 
   calculateEmployeesAtBase = () => {
-    var employees = [];
-    let totalEmployeesAtBase = 0;
-    this.props.employees.forEach(employee => {
-      if (employee.base_id === this.props.base.id) {
-        totalEmployeesAtBase++;
-      }
-    });
-    employees.push(totalEmployeesAtBase);
-    return employees;
+  	return this.props.base.total_children * this.props.base.ratio;
   };
 
   colorRendering = value => {
@@ -42,15 +32,14 @@ class BaseCard extends Component {
   };
 
   render() {
-    let employeesAtBase = this.calculateEmployeesAtBase();
+    const employeesAtBase = this.calculateEmployeesAtBase();
     // calc of needed employees
     const employeesPresent = this.props.dragEmployees.length;
     const childrenPresent =
       this.props.absence.total_children - this.props.absence.children;
-    const neededEmployees =
-      employeesPresent - Math.round(childrenPresent * FACTOR);
+
+    const neededEmployees = Number((employeesPresent - childrenPresent * this.props.base.ratio).toFixed(2));
     const color = this.colorRendering(neededEmployees);
-    console.log(neededEmployees);
 
     return (
       <div className="baseCard" style={{ backgroundColor: color }}>
@@ -72,6 +61,10 @@ class BaseCard extends Component {
         <EmployeesAtBase
           baseEmployees={employeesAtBase}
           employeesPresent={employeesPresent}
+          absentEmployees={this.props.absentEmployees}
+          base={this.props.base}
+          employees={this.props.employees}
+          date={this.props.date}
         />
         <EmployeesNeeded neededEmployees={neededEmployees} />
         <BaseCardList
