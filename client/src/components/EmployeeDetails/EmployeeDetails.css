@@ -1,3 +1,17 @@
+.detailsContainer {
+	border: 1px solid #207d92;
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 10px;
+	padding: 10px;
+	height: 100%;
+}
+
+.employeesHeadline {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 .employeeButtonsHolder {
 	display: flex;
 	justify-content: space-evenly;
