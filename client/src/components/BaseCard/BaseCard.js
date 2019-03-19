@@ -61,6 +61,10 @@ class BaseCard extends Component {
         <EmployeesAtBase
           baseEmployees={employeesAtBase}
           employeesPresent={employeesPresent}
+          absentEmployees={this.props.absentEmployees}
+          base={this.props.base}
+          employees={this.props.employees}
+          date={this.props.date}
         />
         <EmployeesNeeded neededEmployees={neededEmployees} />
         <BaseCardList

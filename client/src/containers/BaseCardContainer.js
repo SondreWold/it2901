@@ -99,6 +99,7 @@ class BaseCardContainer extends Component {
                   dragBase={dragBase}
                   dragEmployees={dragEmployees}
                   absence={absentChildren}
+                  absentEmployees={this.props.absentEmployees}
                   update={this.props.updateAbsentChildren}
                   date={this.props.date}
                   employees={this.props.employees}

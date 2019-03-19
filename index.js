@@ -6,6 +6,7 @@ import absenceRouter from "./routes/absenceRouter.js";
 import movedRouter from "./routes/movedRouter.js";
 import navigationRouter from "./routes/navigationRouter.js";
 import dateRouter from "./routes/dateRouter.js";
+
 const express = require("express");
 const path = require("path");
 const app = express();
