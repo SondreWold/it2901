@@ -3,9 +3,9 @@ const AlertColors = {
 };
 
 const BaseColors = {
-  ok: "#FFF79A",
-  good: "#82CA9D",
-  bad: "#F7977A"
+  ok: "#ffe200",
+  good: "#37df11",
+  bad: "#ff3b3b"
 };
 
 const paletteColors = {

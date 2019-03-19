@@ -44,6 +44,7 @@ class Employee extends Component {
       <Draggable draggableId={this.props.employee.id} index={this.props.index}>
         {(provided, snapshot) => (
           <Container
+            className="employeeCard"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
