@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import AddEmployee from "../EmployeeList/AddEmployee";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
+import Colors from "../../constants/Colors";
 
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -76,9 +77,9 @@ class Adder extends Component {
           <DialogTitle> Legg til vikar på {this.props.base.name} </DialogTitle>
           <DialogContent>
             <div style={style.window}>
-              <div style={style.new}>
+              <div style={style.doubleItem}>
                 <div>Legg til ny: </div>
-                <AddEmployee />
+                <AddEmployee tempOnly />
               </div>
               <List style={style.list} component="nav">
                 {this.props.freeTemps.map(employee => (
@@ -100,16 +101,23 @@ class Adder extends Component {
                   </ListItem>
                 ))}
               </List>
-              {
+              <div style={style.doubleItem}>
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="inherit"
                   onClick={this.addTemp}
                   disabled={this.state.selectedIndex.length === 0}
                 >
                   Legg til
                 </Button>
-              }
+                <Button
+                  variant="contained"
+                  color="inherit"
+                  onClick={this.close}
+                >
+                  Avbryt
+                </Button>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
@@ -119,6 +127,10 @@ class Adder extends Component {
 }
 
 const style = {
+  doubleItem: {
+    display: "flex",
+    justifyContent: "space-around"
+  },
   window: {
     padding: "5%"
   },
@@ -126,19 +138,20 @@ const style = {
     width: "100%",
     border: "5px",
     maxHeight: "300px",
-    overflow: "auto"
+    overflow: "auto",
+    margin: "10px"
   },
   listItemRegular: {
     margin: "2px",
-    backgroundColor: "#43a047"
+    backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   listItemTemporary: {
     margin: "2px",
-    backgroundColor: "#fb8c00"
+    backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   listItemSelected: {
     margin: "2px",
-    backgroundColor: "#0091ea"
+    backgroundColor: Colors.EmployeeColors.selectedEmployee
   },
   new: {
     display: "flex",

@@ -54,10 +54,11 @@ const getWorkingEmployees = (request, response) => {
   let date = request.params.date;
   db.query(
     "SELECT m.employee_id, m.base_id FROM moved_employee m WHERE date=$1 \
-    UNION \
-      SELECT e.id, e.base_id FROM employee e WHERE e.position = 1 AND e.id \
-      NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
-        UNION SELECT employee_id FROM absence_employee WHERE date = $1);",
+    AND m.employee_id NOT IN (SELECT employee_id FROM absence_employee WHERE date=$1) \
+      UNION \
+        SELECT e.id, e.base_id FROM employee e WHERE e.position = 1 AND e.id \
+        NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
+          UNION SELECT employee_id FROM absence_employee WHERE date = $1);",
     [date],
     (error, results) => {
       if (error) {

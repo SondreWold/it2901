@@ -2,22 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
 import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
-import {FaTrash} from "react-icons/fa";
-import Alert from 'react-s-alert';
-
-
+import { FaTrash } from "react-icons/fa";
+import Alert from "react-s-alert";
+import moment from "moment";
 
 class DeleteEmployee extends React.Component {
-
-	handleClick = () => {
-		this.props.deleteEmployee(this.props.selectedEmployee.id)
-		Alert.error('Ansatt slettet', {
-      position: 'bottom-right',
-      effect: 'jelly',
+  handleClick = () => {
+    this.props.deleteEmployee(
+      this.props.selectedEmployee.id,
+      moment(this.props.date).format("YYYY-MM-DD")
+    );
+    Alert.error("Ansatt slettet", {
+      position: "bottom-right",
+      effect: "jelly",
       timeout: 3000
     });
-
-	}
+  };
 
   render() {
     return (
@@ -28,7 +28,7 @@ class DeleteEmployee extends React.Component {
           className="deleteButton"
           color="secondary"
         >
-          <FaTrash className="deleteIcon"/>
+          <FaTrash className="deleteIcon" />
           Slett ansatt
         </Button>
       </div>
@@ -39,20 +39,21 @@ class DeleteEmployee extends React.Component {
 const style = {
   deleteButton: {
     maxWidth: "200px",
-    minWidth:"150px",
+    minWidth: "150px",
     margin: "20px auto",
-    border: "1px solid #C6C6CC",
+    border: "1px solid #C6C6CC"
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteEmployee: id => dispatch(deleteEmployeeFromDb(id))
+    deleteEmployee: (id, date) => dispatch(deleteEmployeeFromDb(id, date))
   };
 };
 
 const mapStateToProps = state => ({
-  selectedEmployee: state.employeeList.selectedEmployee
+  selectedEmployee: state.employeeList.selectedEmployee,
+  date: state.date.selectedDate
 });
 
 export default connect(

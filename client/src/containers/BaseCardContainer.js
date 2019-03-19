@@ -83,8 +83,15 @@ class BaseCardContainer extends Component {
                 employeeId => this.props.data.employees[employeeId]
               );
 
+              console.log(dragEmployees);
               dragEmployees.sort(function(a, b) {
-                return a.position - b.position || a.moveable - b.moveable;
+                return (
+                  a.position - b.position ||
+                  a.moveable - b.moveable ||
+                  a.content.charCodeAt(0) - b.content.charCodeAt(0) ||
+                  a.content.charCodeAt(1) - b.content.charCodeAt(1) ||
+                  a.content.charCodeAt(2) - b.content.charCodeAt(2)
+                );
               });
 
               return (
