@@ -11,7 +11,6 @@ class EmployeesContentContainer extends Component {
     this.props.getSearchEmployees();
   }
   render() {
-    console.log(this.props.listOfEmployees);
     return (
       <div style={style.container}>
         <div style={style.item}>
