@@ -20,15 +20,7 @@ class BaseCard extends Component {
   }
 
   calculateEmployeesAtBase = () => {
-    var employees = [];
-    let totalEmployeesAtBase = 0;
-    this.props.employees.forEach(employee => {
-      if (employee.base_id === this.props.base.id) {
-        totalEmployeesAtBase++;
-      }
-    });
-    employees.push(totalEmployeesAtBase);
-    return employees;
+  	return this.props.base.total_children * this.props.base.ratio;
   };
 
   colorRendering = value => {
@@ -42,7 +34,7 @@ class BaseCard extends Component {
   };
 
   render() {
-    let employeesAtBase = this.calculateEmployeesAtBase();
+    const employeesAtBase = this.calculateEmployeesAtBase();
     // calc of needed employees
     const employeesPresent = this.props.dragEmployees.length;
     const childrenPresent =

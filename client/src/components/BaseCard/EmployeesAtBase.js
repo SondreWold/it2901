@@ -15,7 +15,7 @@ class EmployeesAtBase extends Component {
             <p className="employeesAtBaseNumber">
               {" " + this.props.employeesPresent +
               "/" +
-              this.props.baseEmployees[0] + " "}
+              this.props.baseEmployees + " "}
             </p>
           </div>
           <p className="employeesText">Voksne <br/> tilstede</p>
@@ -27,7 +27,7 @@ class EmployeesAtBase extends Component {
               {" " + missingResources + " "}
             </p>
           </div>
-          <p className="employeesText">Manglende <br/> ressurser</p>
+          <p className="employeesText">Fraværende <br/> voksne</p>
         </div>
       </div>
     )
