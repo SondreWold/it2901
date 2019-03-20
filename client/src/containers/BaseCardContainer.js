@@ -1,73 +1,61 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { formatAndUpdateData } from "../actions/dragDataAction";
 import { updateMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { addMovedEmployee } from "../actions/movedEmployeeAction";
-
 import { DragDropContext } from "react-beautiful-dnd";
-
 import BaseCard from "../components/BaseCard/BaseCard";
 import "../components/BaseCard/BaseCard.css";
 
 class BaseCardContainer extends Component {
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.bases !== this.props.bases ||
-      prevProps.working_employees !== this.props.working_employees ||
-      prevProps.employees !== this.props.employees ||
-      prevProps.absentChildren !== this.props.absentChildren ||
-      prevProps.moved_employees !== this.props.moved_employees
-    ) {
-      this.props.formatAndUpdateData(
-        this.props.working_employees,
-        this.props.bases,
-        this.props.employees
-      );
-    }
-  }
-
   onDragEnd = result => {
-    this.handleDragging(result);
-  };
-
-  handleDragging = result => {
     const { destination, source, draggableId } = result;
+
+    //Dropp utenfor baser
     if (!destination) {
       return;
     }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-    const start = this.props.data.columns[source.droppableId];
-    const finish = this.props.data.columns[destination.droppableId];
 
-    // when an item is dropped in the same column
-    if (start === finish) {
+    //Dropp nedover i samme base
+    else if (
+      destination.droppableId === source.droppableId &&
+      destination.index !== source.index
+    ) {
       return;
     }
-    // if dest column is different than source column, gets correct id from DnD result object
-    const employeeId = result.draggableId.split("-")[1];
-    const baseId = result.destination.droppableId.split("-")[1];
-    const date = moment(this.props.date).format("YYYY-MM-DD");
-    if (
-      this.props.moved_employees
-        .map(mov => mov.employee_id)
-        .includes(parseInt(employeeId))
-    ) {
-      this.props.updateMovedEmployee(baseId, employeeId, date);
-    } else {
-      this.props.addMovedEmployee(date, parseInt(employeeId), parseInt(baseId));
+
+    //Dropp i annen base
+    else {
+      const name = this.props.employees.find(
+        employee => employee.id === draggableId
+      ).first_name;
+      const date = moment(this.props.date).format("YYYY-MM-DD");
+      if (
+        this.props.moved_employees
+          .map(mov => mov.employee_id)
+          .includes(draggableId)
+      ) {
+        this.props.updateMovedEmployee(
+          draggableId,
+          destination.droppableId,
+          date,
+          name
+        );
+      } else {
+        this.props.addMovedEmployee(
+          draggableId,
+          destination.droppableId,
+          date,
+          name
+        );
+      }
     }
   };
 
   render() {
+    console.log(this.props.working_employees);
     return (
-      this.props.data &&
       this.props.absentChildren.length > 0 && (
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="baseCardHolder">
@@ -76,28 +64,18 @@ class BaseCardContainer extends Component {
               const absentChildren = this.props.absentChildren.find(
                 absence => absence.base_id === base.id
               );
-              const dragBase = Object.values(this.props.data.columns).find(
-                dragBase => dragBase.title === base.name
-              );
-              const dragEmployees = dragBase.employeeIds.map(
-                employeeId => this.props.data.employees[employeeId]
-              );
 
-              dragEmployees.sort(function(a, b) {
-                return (
-                  a.position - b.position ||
-                  a.moveable - b.moveable ||
-                  a.content.charCodeAt(0) - b.content.charCodeAt(0) ||
-                  a.content.charCodeAt(1) - b.content.charCodeAt(1) ||
-                  a.content.charCodeAt(2) - b.content.charCodeAt(2)
-                );
+              const employeesAtBase = this.props.working_employees.filter(
+                employee => employee.base_id === base.id
+              );
+              employeesAtBase.sort(function(a, b) {
+                return a.position - b.position || a.employee_id - b.employee_id;
               });
 
               return (
                 <BaseCard
                   base={base}
-                  dragBase={dragBase}
-                  dragEmployees={dragEmployees}
+                  employeesAtBase={employeesAtBase}
                   absence={absentChildren}
                   absentEmployees={this.props.absentEmployees}
                   update={this.props.updateAbsentChildren}
@@ -118,19 +96,16 @@ class BaseCardContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMovedEmployee: (baseId, employeeId, date) =>
-      dispatch(updateMovedEmployee(baseId, employeeId, date)),
-    formatAndUpdateData: (moved_employees, bases, employees) =>
-      dispatch(formatAndUpdateData(moved_employees, bases, employees)),
+    updateMovedEmployee: (employeeId, baseId, date, name) =>
+      dispatch(updateMovedEmployee(employeeId, baseId, date, name)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
-    addMovedEmployee: (date, employeeId, baseId) =>
-      dispatch(addMovedEmployee(date, employeeId, baseId))
+    addMovedEmployee: (employeeId, baseId, date, name) =>
+      dispatch(addMovedEmployee(employeeId, baseId, date, name))
   };
 };
 
 const mapStateToProps = state => ({
-  data: state.dragData.data,
   bases: state.contentBase.bases,
   moved_employees: state.movedEmployee.data,
   working_employees: state.workingEmployees.data,

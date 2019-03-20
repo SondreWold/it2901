@@ -98,7 +98,6 @@ const mapStateToProps = state => ({
   date: state.date.selectedDate,
   dateSet: state.date.dateSet,
   minDate: state.date.minDate,
-  data: state.dragData.data,
   working_employees: state.workingEmployees.data
 });
 

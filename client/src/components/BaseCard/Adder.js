@@ -20,9 +20,9 @@ class Adder extends Component {
     this.close();
     for (let i = 0; i < this.state.selectedIndex.length; i++) {
       this.props.addTempToBase(
-        this.props.date,
         this.state.selectedIndex[i],
-        this.props.base.id
+        this.props.base.id,
+        this.props.date
       );
     }
   };

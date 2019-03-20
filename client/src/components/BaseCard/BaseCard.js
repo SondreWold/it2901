@@ -11,7 +11,6 @@ import Adder from "./Adder";
 import Colors from "../../constants/Colors";
 import { Divider } from "@material-ui/core";
 
-
 class BaseCard extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +18,7 @@ class BaseCard extends Component {
   }
 
   calculateEmployeesAtBase = () => {
-  	return this.props.base.total_children * this.props.base.ratio;
+    return this.props.base.total_children * this.props.base.ratio;
   };
 
   colorRendering = value => {
@@ -35,11 +34,13 @@ class BaseCard extends Component {
   render() {
     const employeesAtBase = this.calculateEmployeesAtBase();
     // calc of needed employees
-    const employeesPresent = this.props.dragEmployees.length;
+    const employeesPresent = this.props.employeesAtBase.length;
     const childrenPresent =
       this.props.absence.total_children - this.props.absence.children;
 
-    const neededEmployees = Number((employeesPresent - childrenPresent * this.props.base.ratio).toFixed(2));
+    const neededEmployees = Number(
+      (employeesPresent - childrenPresent * this.props.base.ratio).toFixed(2)
+    );
     const color = this.colorRendering(neededEmployees);
 
     return (
@@ -78,10 +79,11 @@ class BaseCard extends Component {
           date={this.props.date}
         />
         <EmployeesNeeded neededEmployees={neededEmployees} />
+
         <BaseCardList
-          key={this.props.dragBase.id}
-          dragBase={this.props.dragBase}
-          dragEmployees={this.props.dragEmployees}
+          key={this.props.base.id}
+          base={this.props.base}
+          employeesAtBase={this.props.employeesAtBase}
         />
         <Adder
           freeTemps={this.props.freeTemps}

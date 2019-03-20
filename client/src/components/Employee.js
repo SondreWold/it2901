@@ -14,16 +14,7 @@ const Container = styled.div`
   transition: 0.15s;
 `;
 
-// use avatar with image from db
-const HandleUnMoveable = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: ${Colors.EmployeeColors.unMoveableEmployee};
-  border-radius: 10px;
-  margin-right: 8px;
-`;
-
-const HandleMoveable = styled.div`
+const HandleRegular = styled.div`
   width: 20px;
   height: 20px;
   background-color: ${Colors.EmployeeColors.moveableEmployee};
@@ -42,7 +33,10 @@ const HandleTemp = styled.div`
 class Employee extends Component {
   render() {
     return (
-      <Draggable draggableId={this.props.employee.id} index={this.props.index}>
+      <Draggable
+        draggableId={this.props.employee.employee_id}
+        index={this.props.index}
+      >
         {(provided, snapshot) => (
           <Container
             className="employeeCard"
@@ -53,12 +47,10 @@ class Employee extends Component {
           >
             {this.props.employee.position === 2 ? (
               <HandleTemp />
-            ) : this.props.employee.moveable === "1" ? (
-              <HandleMoveable />
             ) : (
-              <HandleUnMoveable />
+              <HandleRegular />
             )}
-            {this.props.employee.content}
+            {this.props.employee.first_name}
           </Container>
         )}
       </Draggable>

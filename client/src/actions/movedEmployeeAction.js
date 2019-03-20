@@ -7,9 +7,9 @@ export const UPDATE_MOVED_EMPLOYEE_BEGIN = "UPDATE_MOVED_EMPLOYEE_BEGIN";
 export const UPDATE_MOVED_EMPLOYEE_SUCCESS = "UPDATE_MOVED_EMPLOYEE_SUCCESS";
 export const UPDATE_SINGLE_WORKING_EMPLOYEE = "UPDATE_SINGLE_WORKING_EMPLOYEE";
 
-export const updateSingleWorking = (employeeId, baseId) => ({
+export const updateSingleWorking = (employeeId, baseId, name) => ({
   type: UPDATE_SINGLE_WORKING_EMPLOYEE,
-  payload: { employee_id: parseInt(employeeId), base_id: parseInt(baseId) }
+  payload: { employee_id: employeeId, base_id: baseId, first_name: name }
 });
 
 export const getMovedEmployeeBegin = () => ({
@@ -46,10 +46,12 @@ export function getMovedEmployee(date) {
   };
 }
 
-export function updateMovedEmployee(baseId, employeeId, date) {
+export function updateMovedEmployee(employeeId, baseId, date, name) {
   return dispatch => {
+    if (name) {
+      dispatch(updateSingleWorking(employeeId, baseId, name));
+    }
     dispatch(updateMovedEmployeeBegin());
-    dispatch(updateSingleWorking(employeeId, baseId));
     fetch("api/moved/" + baseId + "/" + employeeId + "/" + date, {
       method: "PUT",
       headers: {
@@ -64,9 +66,11 @@ export function updateMovedEmployee(baseId, employeeId, date) {
   };
 }
 
-export function addMovedEmployee(date, employeeId, baseId) {
+export function addMovedEmployee(employeeId, baseId, date, name) {
   return dispatch => {
-    dispatch(updateSingleWorking(employeeId, baseId));
+    if (name) {
+      dispatch(updateSingleWorking(employeeId, baseId, name));
+    }
     fetch("api/moved/", {
       method: "POST",
       headers: {
