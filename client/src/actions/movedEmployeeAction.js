@@ -113,3 +113,42 @@ export function deleteMovedEmployee(employeeId, date) {
       .catch(() => console.log("fail"));
   };
 }
+
+export function changeMovedEmployee(result, employees, moved_employees, date) {
+  return dispatch => {
+    const { destination, source, draggableId } = result;
+
+    //Droppet utenfor baser
+    if (!destination) {
+      const emp = employees.find(
+        employee => employee.id === draggableId && employee.position === 2
+      );
+      if (emp) {
+        deleteMovedEmployee(emp.id, date);
+      }
+    }
+
+    //Droppet nedover i samme base
+    else if (
+      destination.droppableId === source.droppableId &&
+      destination.index !== source.index
+    ) {
+      return;
+    }
+
+    //Droppet i annen base
+    else {
+      const name = employees.find(employee => employee.id === draggableId)
+        .first_name;
+      if (moved_employees.map(mov => mov.employee_id).includes(draggableId)) {
+        dispatch(
+          updateMovedEmployee(draggableId, destination.droppableId, date, name)
+        );
+      } else {
+        dispatch(
+          addMovedEmployee(draggableId, destination.droppableId, date, name)
+        );
+      }
+    }
+  };
+}

@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import {
-  updateMovedEmployee,
-  deleteMovedEmployee
-} from "../actions/movedEmployeeAction";
+import { changeMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
-import { addMovedEmployee } from "../actions/movedEmployeeAction";
 import { DragDropContext } from "react-beautiful-dnd";
 import BaseCard from "../components/BaseCard/BaseCard";
 import "../components/BaseCard/BaseCard.css";
@@ -31,55 +27,12 @@ class BaseCardContainer extends Component {
   };
 
   onDragEnd = result => {
-    const { destination, source, draggableId } = result;
-
-    //Dropp utenfor baser
-    if (!destination) {
-      const emp = this.props.employees.find(
-        employee => employee.id === draggableId && employee.position === 2
-      );
-      if (emp) {
-        this.props.deleteMovedEmployee(
-          emp.id,
-          moment(this.props.date).format("YYYY-MM-DD")
-        );
-      }
-    }
-
-    //Dropp nedover i samme base
-    else if (
-      destination.droppableId === source.droppableId &&
-      destination.index !== source.index
-    ) {
-      return;
-    }
-
-    //Dropp i annen base
-    else {
-      const name = this.props.employees.find(
-        employee => employee.id === draggableId
-      ).first_name;
-      const date = moment(this.props.date).format("YYYY-MM-DD");
-      if (
-        this.props.moved_employees
-          .map(mov => mov.employee_id)
-          .includes(draggableId)
-      ) {
-        this.props.updateMovedEmployee(
-          draggableId,
-          destination.droppableId,
-          date,
-          name
-        );
-      } else {
-        this.props.addMovedEmployee(
-          draggableId,
-          destination.droppableId,
-          date,
-          name
-        );
-      }
-    }
+    this.props.changeMovedEmployee(
+      result,
+      this.props.employees,
+      this.props.moved_employees,
+      moment(this.props.date).format("YYYY-MM-DD")
+    );
   };
 
   render() {
@@ -154,14 +107,10 @@ class BaseCardContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMovedEmployee: (employeeId, baseId, date, name) =>
-      dispatch(updateMovedEmployee(employeeId, baseId, date, name)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
-    addMovedEmployee: (employeeId, baseId, date, name) =>
-      dispatch(addMovedEmployee(employeeId, baseId, date, name)),
-    deleteMovedEmployee: (employeeId, date) =>
-      dispatch(deleteMovedEmployee(employeeId, date))
+    changeMovedEmployee: (result, employees, moved_employees, date) =>
+      dispatch(changeMovedEmployee(result, employees, moved_employees, date))
   };
 };
 
