@@ -4,8 +4,9 @@
 }
 
 .baseCard {
+  background-color: white;
   border: 1px solid rgb(63, 63, 63);
-  border-radius: 5px;
+  border-radius: 40px;
   margin: 10px;
   width: 20%;
 }
@@ -15,13 +16,13 @@
   margin-bottom: 10px;
   margin-top: 10px;
   border: 1px solid lightgrey;
-  background-color: white;
-  border-radius: 2px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
   width: 90%;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  height: 250px;
+  height: 300px;
 }
 
 .employeeList {
@@ -32,12 +33,23 @@
   flex-grow: 1;
 }
 
+.employeeCard {
+  border-radius: 5px;
+  border: 0px;
+}
+.employeeCard:hover {
+  background-color: #e76f50;
+  border-radius: 5px;
+  border: 0px;
+}
+
 .baseCardOverviewHeader {
   margin-bottom: 10px;
   margin-top: 20px;
 }
 
 .basecardHeader {
+  font-size: 25px;
   margin: 8px;
 }
 
@@ -80,6 +92,7 @@
 }
 
 .employeesHolder {
+  border-radius: 10px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -118,7 +131,7 @@
   display: inline-block;
   left: 39%;
   bottom: 5px;
-  background-color: #2196f3;
+  background-color: #207d92;
   height: 36px;
   width: 36px;
   border-radius: 20px;
@@ -132,7 +145,7 @@
   display: inline-block;
   left: 0;
   bottom: 5px;
-  background-color: #2196f3;
+  background-color: #207d92;
   height: 36px;
   width: 90%;
   border-radius: 20px;

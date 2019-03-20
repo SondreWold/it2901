@@ -5,6 +5,7 @@ import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
 import { FaTrash } from "react-icons/fa";
 import Alert from "react-s-alert";
 import moment from "moment";
+import Colors from "../../constants/Colors"
 
 class DeleteEmployee extends React.Component {
   handleClick = () => {
@@ -26,7 +27,6 @@ class DeleteEmployee extends React.Component {
           onClick={this.handleClick}
           style={style.deleteButton}
           className="deleteButton"
-          color="secondary"
         >
           <FaTrash className="deleteIcon" />
           Slett ansatt
@@ -41,7 +41,9 @@ const style = {
     maxWidth: "200px",
     minWidth: "150px",
     margin: "20px auto",
-    border: "1px solid #C6C6CC"
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.selectedEmployee,
+    color: Colors.EmployeeColors.selectedEmployee
   }
 };
 

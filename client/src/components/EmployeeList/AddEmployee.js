@@ -17,6 +17,7 @@ import {
 import { FaUserPlus } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
 import moment from "moment";
+import Colors from "../../constants/Colors";
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class AddEmployee extends Component {
           size="large"
           style={styles.addButton}
         >
-          <FaUserPlus />
+          <FaUserPlus color={Colors.EmployeeColors.moveableEmployee} />
         </Button>
         <Dialog open={this.state.open} onClose={this.handleClickClose}>
           <DialogTitle>

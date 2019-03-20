@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import TotalPresence from "./TotalPresence";
 import DateComponent from "../Date/DateComponent";
-import moment from "moment";
 import "./TotalOverview.css";
+import { Divider } from "@material-ui/core";
 
 class TotalOverview extends Component {
   getTotalOverview = () => {
@@ -36,6 +36,7 @@ class TotalOverview extends Component {
           changeDate={this.props.changeDate}
           minDate={this.props.minDate}
         />
+        <Divider />
         <TotalPresence
           totalChildren={overviewList[0]}
           totalAbsentChildren={overviewList[1]}

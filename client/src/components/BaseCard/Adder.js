@@ -7,7 +7,6 @@ import AddEmployee from "../EmployeeList/AddEmployee";
 import List from "@material-ui/core/List";
 import Button from "@material-ui/core/Button";
 import Colors from "../../constants/Colors";
-
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 

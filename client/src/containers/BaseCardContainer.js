@@ -77,6 +77,7 @@ class BaseCardContainer extends Component {
                   base={base}
                   employeesAtBase={employeesAtBase}
                   absence={absentChildren}
+                  absentEmployees={this.props.absentEmployees}
                   update={this.props.updateAbsentChildren}
                   date={this.props.date}
                   employees={this.props.employees}

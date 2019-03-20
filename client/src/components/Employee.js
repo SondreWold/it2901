@@ -8,7 +8,8 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: ${props => (props.isDragging ? "lightgreen" : "white")};
+  background-color: ${props =>
+    props.isDragging ? Colors.EmployeeColors.selectedEmployee : "white"};
   display: flex;
 `;
 
@@ -32,12 +33,12 @@ class Employee extends Component {
   render() {
     return (
       <Draggable
-        isDragDisabled={this.props.employee.moveable === 0}
         draggableId={this.props.employee.employee_id}
         index={this.props.index}
       >
         {(provided, snapshot) => (
           <Container
+            className="employeeCard"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
