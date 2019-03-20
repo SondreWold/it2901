@@ -13,7 +13,7 @@ class BaseCardList extends Component {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {this.props.employeesAtBase.map((employee, index) => (
+              {this.props.employeeListAtBase.map((employee, index) => (
                 <Employee
                   key={employee.employee_id}
                   employee={employee}

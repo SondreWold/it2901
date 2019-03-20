@@ -1,56 +1,38 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { updateMovedEmployee } from "../actions/movedEmployeeAction";
+import { changeMovedEmployee } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
-import { addMovedEmployee } from "../actions/movedEmployeeAction";
 import { DragDropContext } from "react-beautiful-dnd";
 import BaseCard from "../components/BaseCard/BaseCard";
 import "../components/BaseCard/BaseCard.css";
 
+import BaseCardList from "../components/BaseCard/BaseCardList";
+import ChildrenCounter from "../components/BaseCard/ChildrenCounter";
+import EmployeesAtBase from "../components/BaseCard/EmployeesAtBase";
+import EmployeesNeeded from "../components/BaseCard/EmployeesNeeded";
+import "../components/BaseCard/BaseCard.css";
+import Adder from "../components/BaseCard/Adder";
+import Colors from "../constants/Colors";
+
 class BaseCardContainer extends Component {
+  colorRendering = value => {
+    let color = Colors.BaseColors.ok;
+    if (value >= 0) {
+      color = Colors.BaseColors.good;
+    } else if (value < -1) {
+      color = Colors.BaseColors.bad;
+    }
+    return color;
+  };
+
   onDragEnd = result => {
-    const { destination, source, draggableId } = result;
-
-    //Dropp utenfor baser
-    if (!destination) {
-      return;
-    }
-
-    //Dropp nedover i samme base
-    else if (
-      destination.droppableId === source.droppableId &&
-      destination.index !== source.index
-    ) {
-      return;
-    }
-
-    //Dropp i annen base
-    else {
-      const name = this.props.employees.find(
-        employee => employee.id === draggableId
-      ).first_name;
-      const date = moment(this.props.date).format("YYYY-MM-DD");
-      if (
-        this.props.moved_employees
-          .map(mov => mov.employee_id)
-          .includes(draggableId)
-      ) {
-        this.props.updateMovedEmployee(
-          draggableId,
-          destination.droppableId,
-          date,
-          name
-        );
-      } else {
-        this.props.addMovedEmployee(
-          draggableId,
-          destination.droppableId,
-          date,
-          name
-        );
-      }
-    }
+    this.props.changeMovedEmployee(
+      result,
+      this.props.employees,
+      this.props.moved_employees,
+      moment(this.props.date).format("YYYY-MM-DD")
+    );
   };
 
   render() {
@@ -65,26 +47,55 @@ class BaseCardContainer extends Component {
                 absence => absence.base_id === base.id
               );
 
-              const employeesAtBase = this.props.working_employees.filter(
-                employee => employee.base_id === base.id
+              const employeeListAtBase = this.props.working_employees
+                .filter(employee => employee.base_id === base.id)
+                .sort(function(a, b) {
+                  return (
+                    a.position - b.position || a.employee_id - b.employee_id
+                  );
+                });
+
+              // calc of needed employees
+              const employeesPresent = employeeListAtBase.length;
+              const childrenPresent =
+                absentChildren.total_children - absentChildren.children;
+              const neededEmployees = Number(
+                (employeesPresent - childrenPresent * base.ratio).toFixed(2)
               );
-              employeesAtBase.sort(function(a, b) {
-                return a.position - b.position || a.employee_id - b.employee_id;
-              });
+              const baseEmployeeNumber = base.total_children * base.ratio;
+              const color = this.colorRendering(neededEmployees);
 
               return (
-                <BaseCard
-                  base={base}
-                  employeesAtBase={employeesAtBase}
-                  absence={absentChildren}
-                  absentEmployees={this.props.absentEmployees}
-                  update={this.props.updateAbsentChildren}
-                  date={this.props.date}
-                  employees={this.props.employees}
-                  freeTemps={this.props.freeTemps}
-                  addTempToBase={this.props.addMovedEmployee}
-                  key={base.id}
-                />
+                <BaseCard title={base.name} color={color}>
+                  <ChildrenCounter
+                    base={absentChildren.base_id}
+                    absent={absentChildren.children}
+                    total={absentChildren.total_children}
+                    date={moment(absentChildren.date).format("YYYY-MM-DD")}
+                    update={this.props.updateAbsentChildren}
+                  />
+                  <EmployeesAtBase
+                    baseEmployees={baseEmployeeNumber}
+                    employeesPresent={employeesPresent}
+                    absentEmployees={this.props.absentEmployees}
+                    base={base}
+                    employees={this.props.employees}
+                    date={this.props.date}
+                  />
+                  <EmployeesNeeded neededEmployees={neededEmployees} />
+
+                  <BaseCardList
+                    key={base.id}
+                    base={base}
+                    employeeListAtBase={employeeListAtBase}
+                  />
+                  <Adder
+                    freeTemps={this.props.freeTemps}
+                    base={base}
+                    addTempToBase={this.props.addMovedEmployee}
+                    date={moment(absentChildren.date).format("YYYY-MM-DD")}
+                  />
+                </BaseCard>
               );
             })}
           </div>
@@ -96,12 +107,10 @@ class BaseCardContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateMovedEmployee: (employeeId, baseId, date, name) =>
-      dispatch(updateMovedEmployee(employeeId, baseId, date, name)),
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
-    addMovedEmployee: (employeeId, baseId, date, name) =>
-      dispatch(addMovedEmployee(employeeId, baseId, date, name))
+    changeMovedEmployee: (result, employees, moved_employees, date) =>
+      dispatch(changeMovedEmployee(result, employees, moved_employees, date))
   };
 };
 
