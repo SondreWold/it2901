@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
+import StatsGraph from "../components/Stats/StatsGraph"
 
 class StatsContentContainer extends Component {
 
     render(){
         return(
             <div>
-                <h1> Stats-siden kommer her :)) </h1>
+								<StatsGraph />
             </div>
         )
     }
