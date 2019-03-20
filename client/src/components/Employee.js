@@ -11,6 +11,7 @@ const Container = styled.div`
   background-color: ${props =>
     props.isDragging ? Colors.EmployeeColors.selectedEmployee : "white"};
   display: flex;
+  transition: 0.15s;
 `;
 
 // use avatar with image from db

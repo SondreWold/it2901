@@ -75,10 +75,12 @@
 
 .childAbsentIcon {
   font-size: 18px;
+  transition: 0.15s;
 }
 
 .childAbsentIcon:hover {
   color: rgb(105, 104, 104);
+  cursor: pointer;
 }
 
 .childrenAtBaseHolder {
@@ -137,6 +139,7 @@
   border-radius: 20px;
   cursor: pointer;
   box-shadow: 0px 1px 5px black;
+  transition: 0.25s;
 }
 
 .addText {
