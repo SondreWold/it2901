@@ -43,8 +43,9 @@ class BaseCard extends Component {
 
   render() {
     let employeesAtBase = this.calculateEmployeesAtBase();
+
     // calc of needed employees
-    const employeesPresent = this.props.dragEmployees.length;
+    const employeesPresent = this.props.employeesAtBase.length;
     const childrenPresent =
       this.props.absence.total_children - this.props.absence.children;
     const neededEmployees =
@@ -74,10 +75,11 @@ class BaseCard extends Component {
           employeesPresent={employeesPresent}
         />
         <EmployeesNeeded neededEmployees={neededEmployees} />
+
         <BaseCardList
-          key={this.props.dragBase.id}
-          dragBase={this.props.dragBase}
-          dragEmployees={this.props.dragEmployees}
+          key={this.props.base.id}
+          base={this.props.base}
+          employeesAtBase={this.props.employeesAtBase}
         />
         <Adder
           freeTemps={this.props.freeTemps}

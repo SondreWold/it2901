@@ -6,19 +6,20 @@ class BaseCardList extends Component {
   render() {
     return (
       <div className="baseCardList">
-        <Droppable droppableId={this.props.dragBase.id}>
+        <Droppable droppableId={this.props.base.id}>
           {(provided, snapshot) => (
             <div
               className="employeeList"
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {this.props.dragEmployees.map((employee, index) => (
-                <Employee 
-                	key={employee.id}
-                	employee={employee}
-                	index={index} 
-              	/>
+              {this.props.employeesAtBase.map((employee, index) => (
+                <Employee
+                  key={employee.employee_id}
+                  employee={employee}
+                  index={index}
+                  name={"123"}
+                />
               ))}
               {provided.placeholder}
             </div>
