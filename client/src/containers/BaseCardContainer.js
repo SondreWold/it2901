@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { updateMovedEmployee } from "../actions/movedEmployeeAction";
+import {
+  updateMovedEmployee,
+  deleteMovedEmployee
+} from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { addMovedEmployee } from "../actions/movedEmployeeAction";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -32,7 +35,15 @@ class BaseCardContainer extends Component {
 
     //Dropp utenfor baser
     if (!destination) {
-      return;
+      const emp = this.props.employees.find(
+        employee => employee.id === draggableId && employee.position === 2
+      );
+      if (emp) {
+        this.props.deleteMovedEmployee(
+          emp.id,
+          moment(this.props.date).format("YYYY-MM-DD")
+        );
+      }
     }
 
     //Dropp nedover i samme base
@@ -148,7 +159,9 @@ const mapDispatchToProps = dispatch => {
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
     addMovedEmployee: (employeeId, baseId, date, name) =>
-      dispatch(addMovedEmployee(employeeId, baseId, date, name))
+      dispatch(addMovedEmployee(employeeId, baseId, date, name)),
+    deleteMovedEmployee: (employeeId, date) =>
+      dispatch(deleteMovedEmployee(employeeId, date))
   };
 };
 

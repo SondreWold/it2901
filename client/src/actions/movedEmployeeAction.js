@@ -6,10 +6,16 @@ export const GET_MOVED_EMPLOYEE_FAILURE = "GET_MOVED_EMPLOYEE_FAILURE";
 export const UPDATE_MOVED_EMPLOYEE_BEGIN = "UPDATE_MOVED_EMPLOYEE_BEGIN";
 export const UPDATE_MOVED_EMPLOYEE_SUCCESS = "UPDATE_MOVED_EMPLOYEE_SUCCESS";
 export const UPDATE_SINGLE_WORKING_EMPLOYEE = "UPDATE_SINGLE_WORKING_EMPLOYEE";
+export const REMOVE_WORKING_EMPLOYEE = "REMOVE_WORKING_EMPLOYEE";
 
 export const updateSingleWorking = (employeeId, baseId, name) => ({
   type: UPDATE_SINGLE_WORKING_EMPLOYEE,
   payload: { employee_id: employeeId, base_id: baseId, first_name: name }
+});
+
+export const removeWorkingEmployee = employeeId => ({
+  type: REMOVE_WORKING_EMPLOYEE,
+  payload: employeeId
 });
 
 export const getMovedEmployeeBegin = () => ({
@@ -85,6 +91,23 @@ export function addMovedEmployee(employeeId, baseId, date, name) {
       .then(() => {
         dispatch(getMovedEmployee(date));
         dispatch(getFreeTemps(date));
+        dispatch(getWorkingEmployees(date));
+      })
+      .catch(() => console.log("fail"));
+  };
+}
+
+export function deleteMovedEmployee(employeeId, date) {
+  return dispatch => {
+    dispatch(removeWorkingEmployee(employeeId));
+    fetch("api/moved/employeeId/" + employeeId + "/date/" + date, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(() => {
+        dispatch(getMovedEmployee(date));
         dispatch(getWorkingEmployees(date));
       })
       .catch(() => console.log("fail"));

@@ -8,4 +8,7 @@ router.route("/").post(movedController.addMovedEmployee);
 router
   .route("/:baseId/:employeeId/:date")
   .put(movedController.updateMovedEmployee);
+router
+  .route("/employeeId/:employeeId/date/:date")
+  .delete(movedController.deleteMovedEmployee);
 export default router;
