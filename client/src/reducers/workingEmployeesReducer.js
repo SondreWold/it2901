@@ -23,7 +23,6 @@ export default function movedReducer(state = initialState, action) {
         )
       };
     case REMOVE_WORKING_EMPLOYEE:
-      console.log(action.payload);
       return {
         ...state,
         data: state.data.filter(emp => emp.employee_id !== action.payload)

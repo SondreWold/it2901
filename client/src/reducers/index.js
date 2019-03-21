@@ -9,6 +9,7 @@ import pageNameHeader from "./navigationReducer";
 import employeeList from "./EmployeeListReducers/EmployeeListReducer";
 import insertAbsentEmployee from "./insertAbsentEmployeeReducer";
 import workingEmployees from "./workingEmployeesReducer";
+import absentEmpsPerMonth from "./statsReducers/absentEmpsPerMonthReducer";
 
 export default combineReducers({
   //import in all reducers here
@@ -21,5 +22,6 @@ export default combineReducers({
   pageNameHeader,
   employeeList,
   insertAbsentEmployee,
-  workingEmployees
+  workingEmployees,
+  absentEmpsPerMonth
 });

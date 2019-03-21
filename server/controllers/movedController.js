@@ -53,7 +53,6 @@ const addMovedEmployee = (request, response) => {
 const deleteMovedEmployee = (request, response) => {
   const employeeId = parseInt(request.params.employeeId);
   const date = request.params.date;
-  console.log("wtf");
   db.query(
     "DELETE FROM moved_employee WHERE employee_id = $1 AND date = $2",
     [employeeId, date],
