@@ -36,7 +36,6 @@ class BaseCardContainer extends Component {
   };
 
   render() {
-    console.log(this.props.working_employees);
     return (
       this.props.absentChildren.length > 0 && (
         <DragDropContext onDragEnd={this.onDragEnd}>
