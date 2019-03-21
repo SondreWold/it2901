@@ -124,7 +124,7 @@ export function changeMovedEmployee(result, employees, moved_employees, date) {
         employee => employee.id === draggableId && employee.position === 2
       );
       if (emp) {
-        deleteMovedEmployee(emp.id, date);
+        dispatch(deleteMovedEmployee(emp.id, date));
       }
     }
 

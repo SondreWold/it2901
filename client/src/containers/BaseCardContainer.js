@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { changeMovedEmployee } from "../actions/movedEmployeeAction";
+import {
+  changeMovedEmployee,
+  addMovedEmployee
+} from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { DragDropContext } from "react-beautiful-dnd";
-import BaseCard from "../components/BaseCard/BaseCard";
-import "../components/BaseCard/BaseCard.css";
 
+import "../components/BaseCard/BaseCard.css";
+import BaseCard from "../components/BaseCard/BaseCard";
 import BaseCardList from "../components/BaseCard/BaseCardList";
 import ChildrenCounter from "../components/BaseCard/ChildrenCounter";
 import EmployeesAtBase from "../components/BaseCard/EmployeesAtBase";
@@ -110,7 +113,9 @@ const mapDispatchToProps = dispatch => {
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
     changeMovedEmployee: (result, employees, moved_employees, date) =>
-      dispatch(changeMovedEmployee(result, employees, moved_employees, date))
+      dispatch(changeMovedEmployee(result, employees, moved_employees, date)),
+    addMovedEmployee: (employeeId, baseId, date, name) =>
+      dispatch(addMovedEmployee(employeeId, baseId, date, name))
   };
 };
 
