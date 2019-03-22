@@ -6,8 +6,9 @@ import "./EmployeeDetails.css";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import { TiPlus } from 'react-icons/ti';
-import Alert from 'react-s-alert';
+import { TiPlus } from "react-icons/ti";
+import Alert from "react-s-alert";
+import Colors from "../../constants/Colors";
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -50,14 +51,16 @@ class EmployeeRegisterAbsence extends React.Component {
   handleSubmit(event) {
     // in case there is no selectedEmployee
     if (this.props.selectedEmployee) {
-    	const diff = this.diffDates(this.state.from, this.state.to)
-	    diff.forEach( date => this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date))
+      const diff = this.diffDates(this.state.from, this.state.to);
+      diff.forEach(date =>
+        this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date)
+      );
     }
     this.setState({ open: false });
     event.preventDefault();
-    Alert.success('Fravær registrert', {
-      position: 'bottom-right',
-      effect: 'jelly',
+    Alert.success("Fravær registrert", {
+      position: "bottom-right",
+      effect: "jelly",
       timeout: 3000
     });
   }
@@ -76,31 +79,38 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.handleClickOpen} style={style.addAbsenceButton}>
-          <TiPlus/>
+        <Button onClick={this.handleClickOpen} style={style.addAbsenceButton}>
+          <TiPlus />
           Legg til fravær
         </Button>
         <Dialog
           open={this.state.open}
           actions={[
             <Button
-                  style={style.submitButton}
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                >
-                  {" "}
-                  REGISTRER
-                </Button>
+              style={style.submitButton}
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              {" "}
+              REGISTRER
+            </Button>
           ]}
           onEscapeKeyDown={() => this.setState({ open: false })}
           onBackdropClick={() => this.setState({ open: false })}
         >
-          <DialogTitle className="registerAbsenceHeader"> Registrer fravær </DialogTitle>
+          <DialogTitle className="registerAbsenceHeader">
+            {" "}
+            Registrer fravær{" "}
+          </DialogTitle>
           <DialogContent>
             <div className="absenceFormWrapper">
               <h4> Velg antall dager med fravær </h4>
-              <form className="absenceForm" noValidate onSubmit={this.handleSubmit}>
+              <form
+                className="absenceForm"
+                noValidate
+                onSubmit={this.handleSubmit}
+              >
                 <div className="dateHolder">
                   <b> Fra og med </b>
                   <DatePicker
@@ -157,9 +167,12 @@ const style = {
   },
   addAbsenceButton: {
     maxWidth: "200px",
-    minWidth:"150px",
+    minWidth: "150px",
     margin: "20px auto",
-    border: "1px solid #C6C6CC"
+    marginTop: "5px",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
   }
 };
 

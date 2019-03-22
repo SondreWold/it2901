@@ -6,6 +6,7 @@ import { InputField } from "./SearchBar/InputField";
 import AddEmployee from "./AddEmployee";
 import Colors from "../../constants/Colors";
 import "./EmployeeList.css";
+import { FaFileExcel } from "react-icons/fa";
 
 class EmployeeList extends React.Component {
   state = {
@@ -25,7 +26,7 @@ class EmployeeList extends React.Component {
       */
     return (
       <div>
-        <h3>Ansatte </h3>
+        <h2 className="employeesHeadline">Ansatte </h2>
         <div className="employeeListTop">
           <InputField getSearchEmployees={this.props.getSearchEmployees} />
           <AddEmployee />
@@ -46,21 +47,20 @@ class EmployeeList extends React.Component {
             >
               <ListItemText
                 primary={employee.first_name + " " + employee.last_name}
+                secondary={"Klikk for mer informasjon"}
               />
             </ListItem>
           ))}
         </List>
-        <div>
-          <List>
-            <ListItem>
-              <div style={style.detailsBoxRegular} />
-              <ListItemText primary={"Fast ansatt"} />
-            </ListItem>
-            <ListItem>
-              <div style={style.detailsBoxTemporary} />
-              <ListItemText primary={"Vikar"} />
-            </ListItem>
-          </List>
+        <div style={style.colorInfoComp}>
+          <div style={style.infos}>
+            <div style={style.detailsBoxRegular} />
+            <p>Fast ansatt</p>
+          </div>
+          <div style={style.infos}>
+            <div style={style.detailsBoxTemporary} />
+            <p> Vikar </p>
+          </div>
         </div>
       </div>
     );
@@ -71,30 +71,51 @@ const style = {
   detailsBoxRegular: {
     width: "10px",
     height: "10px",
+    marginRight: "4px",
+    marginTop: "4px",
     backgroundColor: Colors.EmployeeColors.moveableEmployee
   },
   detailsBoxTemporary: {
     width: "10px",
     height: "10px",
+    marginRight: "4px",
+    marginTop: "4px",
     backgroundColor: Colors.EmployeeColors.tempEmployee
   },
   list: {
     width: "100%",
     border: "5px",
-    maxHeight: "300px",
+    maxHeight: "260px",
     overflow: "auto"
   },
   listItemRegular: {
+    width: "99%",
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.moveableEmployee
+    backgroundColor: Colors.EmployeeColors.moveableEmployee,
+    borderRadius: "10px"
   },
   listItemTemporary: {
+    width: "99%",
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.tempEmployee
+    backgroundColor: Colors.EmployeeColors.tempEmployee,
+    borderRadius: "10px"
   },
   listItemSelected: {
+    width: "99%",
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.selectedEmployee
+    backgroundColor: Colors.EmployeeColors.selectedEmployee,
+    borderRadius: "10px"
+  },
+  colorInfoComp: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginRight: "25px"
+  },
+  infos: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 };
 

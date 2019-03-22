@@ -1,88 +1,91 @@
-.NavgationContainer{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #C6C6CC;
+.NavgationContainer {
+  background-color: rgb(16, 62, 73);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #c6c6cc;
 }
 
 .NavigationHeader {
-    font-size: 33px;
-    margin-left:4%;
+  color: white;
+  font-size: 33px;
+  margin-left: 4%;
 }
 
 .NavbarItems {
-    display: flex;
-    flex-direction: row;
-    margin-right: 20px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
 }
 
 .NavButtons {
-    margin: 8px;
-    width: 70px;
+  margin: 8px;
+  width: 70px;
 }
 
 .NavbarLink {
-    color: black;
-    text-decoration: none;
+  color: rgb(225, 225, 225);
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 .NavbarLink:hover {
-    color: rgba(0, 0, 0, 0.404);
+  color: rgb(255, 255, 255);
+  text-shadow: 0px 0px 1px rgba(255, 255, 255, 0.5);
 }
 
 .NavbarLink > p {
-    padding:0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .NavToggle {
-    display: none;
+  display: none;
 }
 
 .NavbarToggleShow {
-    display:flex;
-    flex-direction: row;
-    margin-right: 20px;
-  }
-
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
 
 @media only screen and (max-width: 1100px) {
-
-    .NavgationContainer{
-        flex-direction: column;
-        padding: 0;
-        align-items: stretch;
-    }
-    .NavbarItems {
-        display:none;
-    }
-
-    .NavButtons {
-        border: 0.5px solid #C6C6CC;
-        padding: 2px;
-        margin:0;
-        width: 100%;
-    }
-
-    .NavbarLink {
-        margin: 0;
-    }
-
-    .NavToggle {
-        display: initial;
-        margin: auto;
-        color: black;
-        position: relative;
-        margin-top: 10px;
-    }
-
-    .NavbarToggleShow {
-        display: flex;
-        margin-top: 5px;
-        flex-direction: column;
-        margin-left: 0;
-        margin-right: 0;
-        background-color: rgb(230, 230, 233);
-      }
+  .NavgationContainer {
+    flex-direction: column;
+    padding: 0;
+    align-items: stretch;
   }
+  .NavbarItems {
+    display: none;
+  }
+
+  .NavButtons {
+    border: 1px solid white;
+    padding: 2px;
+    margin: 0;
+    width: 100%;
+  }
+
+  .NavbarLink {
+    margin: 0;
+  }
+
+  .NavToggle {
+    display: initial;
+    margin: auto;
+    color: black;
+    position: relative;
+    margin-top: 10px;
+  }
+
+  .NavbarToggleShow {
+    display: flex;
+    margin-top: 5px;
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #207d92;
+  }
+}

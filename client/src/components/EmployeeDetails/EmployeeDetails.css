@@ -1,43 +1,57 @@
+.detailsContainer {
+  border: 1px solid #207d92;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  height: 100%;
+}
+
+.employeesHeadline {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .employeeButtonsHolder {
-	display: flex;
-	justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .absenceFormWrapper {
-		display: flex;
-		flex-direction: column;
-		width: 560px;
-		margin: auto;
-		text-align: center;
-		height: 500px;
-	}
+  display: flex;
+  flex-direction: column;
+  width: 560px;
+  margin: auto;
+  text-align: center;
+  height: 500px;
+}
 
 .absenceForm {
-		display: flex;
-		align-items: center;
-		justify-content: space-evenly;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .dateHolder {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .absenceFormDatePicker {
-		margin: auto;
-		margin-top: 5px;
-		margin-right: 25px;
-		margin-left: 25px;
+  margin: auto;
+  margin-top: 5px;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .registerAbsenceHeader {
-	text-align: center;
-	padding-top: 50px;
+  text-align: center;
+  padding-top: 50px;
 }
 
 .deleteIcon {
-	margin: 2px;
+  margin: 2px;
 }
 /*
 .s-alert-success {
@@ -46,32 +60,31 @@
 */
 
 .s-alert-box {
-	border-radius: 7px;
+  border-radius: 7px;
 }
 
-@media only screen and (max-width: 1100px){
-
-	.absenceFormWrapper {
-		width: 500px;
-		padding-top: 160px;
-	}
+@media only screen and (max-width: 1100px) {
+  .absenceFormWrapper {
+    width: 500px;
+    padding-top: 160px;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-	.absenceFormWrapper {
-		margin-top: 10px;
-		padding-top: 5px;
-	}
+  .absenceFormWrapper {
+    margin-top: 10px;
+    padding-top: 5px;
+  }
 
-	.employeeButtonsHolder {
-		flex-direction: column;
-	}
+  .employeeButtonsHolder {
+    flex-direction: column;
+  }
 
-	.absenceFormWrapper {
-		width: 300px;
-	}
+  .absenceFormWrapper {
+    width: 300px;
+  }
 
-	.absenceForm {
-		flex-direction: column;
-	}
+  .absenceForm {
+    flex-direction: column;
+  }
 }

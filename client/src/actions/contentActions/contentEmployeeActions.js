@@ -56,7 +56,7 @@ export function getFreeTemps(date) {
     fetch("/api/employee/date/" + date)
       .then(response => response.json())
       .then(temps => dispatch(updateFreeTemps(temps)))
-      .catch(() => console.log("fail"));
+      .catch(() => console.log("Failed retrieval of free temps"));
   };
 }
 
@@ -70,6 +70,6 @@ export function getWorkingEmployees(date) {
     fetch("/api/employee/work/date/" + date)
       .then(response => response.json())
       .then(employees => dispatch(updateWorkingEmployees(employees)))
-      .catch(() => console.log("fail"));
+      .catch(() => console.log("Failed retrieval of working employees"));
   };
 }

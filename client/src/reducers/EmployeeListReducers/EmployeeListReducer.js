@@ -1,9 +1,13 @@
-import { UPDATE_SELECTED_EMPLOYEE } from "../../actions/EmployeeListActions/EmployeeListActions";
+import {
+  UPDATE_SELECTED_EMPLOYEE,
+  UPDATE_SELECTED_BASE
+} from "../../actions/EmployeeListActions/EmployeeListActions";
 import { DELETE_EMPLOYEE } from "../../actions/deleteEmployeeAction";
 
 const initialState = {
   selectedEmployee: "",
-  message: ""
+  message: "",
+  selectedBase: ""
 };
 
 export default function reducer(state = initialState, action) {
@@ -19,6 +23,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         message: action.message,
         selectedEmployee: ""
+      };
+    case UPDATE_SELECTED_BASE:
+      return {
+        ...state,
+        selectedBase: action.payload
       };
     default:
       return state;

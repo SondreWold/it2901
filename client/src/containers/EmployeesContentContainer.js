@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
-import { updateSelectedEmployee } from "../actions/EmployeeListActions/EmployeeListActions";
+import {
+  updateSelectedEmployee,
+  getSelectedBase
+} from "../actions/EmployeeListActions/EmployeeListActions";
 import { getSearchEmployees } from "../actions/contentActions/contentEmployeeActions";
 import EmployeeListContainer from "./EmployeeListContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
@@ -26,6 +29,8 @@ class EmployeesContentContainer extends Component {
             selectedEmployee={this.props.selectedEmployee}
             insertAbsentEmployee={this.props.insertAbsentEmployee}
             minDate={this.props.minDate}
+            getSelectedBase={this.props.getSelectedBase}
+            selectedBase={this.props.selectedBase}
           />
         </div>
       </div>
@@ -37,7 +42,6 @@ const style = {
   container: {
     margin: "30px",
     display: "flex",
-    flexDirection: "row",
     width: "90%"
   },
   item: {
@@ -51,14 +55,16 @@ const mapDispatchToProps = dispatch => {
     updateSelectedEmployee: employee =>
       dispatch(updateSelectedEmployee(employee)),
     insertAbsentEmployee: (empId, date) =>
-      dispatch(insertAbsentEmployee(empId, date))
+      dispatch(insertAbsentEmployee(empId, date)),
+    getSelectedBase: id => dispatch(getSelectedBase(id))
   };
 };
 
 const mapStateToProps = state => ({
   listOfEmployees: state.contentEmployee.searchData,
   selectedEmployee: state.employeeList.selectedEmployee,
-  minDate: state.date.minDate
+  minDate: state.date.minDate,
+  selectedBase: state.employeeList.selectedBase
 });
 
 export default connect(

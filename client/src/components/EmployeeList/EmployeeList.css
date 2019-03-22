@@ -1,12 +1,12 @@
 .employeeListTop {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 @media only screen and (max-width: 600px) {
-    .employeeListTop {
-        flex-direction: column;
-        justify-content: space-evenly;
-    }
+  .employeeListTop {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 }

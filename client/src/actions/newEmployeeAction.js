@@ -64,6 +64,6 @@ export function insertNewEmployee(
         dispatch(getSearchEmployees());
         dispatch(getFreeTemps(date));
       })
-      .catch(() => console.log("whups"));
+      .catch(() => console.log("Insertion of new employee failed"));
   };
 }

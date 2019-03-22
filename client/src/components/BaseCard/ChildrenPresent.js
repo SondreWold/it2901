@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaChild } from 'react-icons/fa';
+import { FaChild } from "react-icons/fa";
 import "./BaseCard.css";
 
 class ChildrenPresent extends Component {
@@ -8,7 +8,7 @@ class ChildrenPresent extends Component {
       <div className="childrenAtBaseHolder">
         <div className="childrenPresent">
           {/*this.props.base + ": "*/}
-          <FaChild className="childPresentIcon" size="20px"/>
+          <FaChild className="childPresentIcon" size="20px" />
           {this.props.totalChildren -
             this.props.absent +
             "/" +

@@ -11,7 +11,10 @@ const initialState = {
   error: null
 };
 
-export default function insertAbsentEmployeeReducer(state = initialState, action) {
+export default function insertAbsentEmployeeReducer(
+  state = initialState,
+  action
+) {
   switch (action.type) {
     case INSERT_ABSENT_EMPLOYEE_BEGIN:
       return {
@@ -38,7 +41,7 @@ export default function insertAbsentEmployeeReducer(state = initialState, action
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
+        error: action.payload.error
       };
 
     default:
