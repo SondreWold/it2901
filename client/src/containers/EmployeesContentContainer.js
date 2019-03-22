@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
-import { updateSelectedEmployee, getSelectedBase } from "../actions/EmployeeListActions/EmployeeListActions";
+import {
+  updateSelectedEmployee,
+  getSelectedBase
+} from "../actions/EmployeeListActions/EmployeeListActions";
 import { getSearchEmployees } from "../actions/contentActions/contentEmployeeActions";
 import EmployeeListContainer from "./EmployeeListContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";

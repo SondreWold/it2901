@@ -11,7 +11,6 @@ export const updateSelectedBase = base => ({
   payload: base[0].name
 });
 
-
 export function getSelectedBase(id) {
   return dispatch => {
     fetch("api/base/" + id)

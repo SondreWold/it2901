@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import EmployeeList from "../components/EmployeeList/EmployeeList";
-import "../components/EmployeeDetails/EmployeeDetails.css"
+import "../components/EmployeeDetails/EmployeeDetails.css";
 
 class EmployeesContainer extends Component {
   render() {

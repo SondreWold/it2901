@@ -31,13 +31,13 @@ export function insertAbsentEmployee(empId, date) {
         "Content-Type": "application/json"
       }
     })
-			.then((response) => {
-				if (response.status === 202) {
-					dispatch(insertAbsentEmployeeExisting("existing"))
-				} else {
-					dispatch(insertAbsentEmployeeSuccess("inserted"))
-				}
-			})
-    	.catch((error) => dispatch(insertAbsentEmployeeFailure(error)));
+      .then(response => {
+        if (response.status === 202) {
+          dispatch(insertAbsentEmployeeExisting("existing"));
+        } else {
+          dispatch(insertAbsentEmployeeSuccess("inserted"));
+        }
+      })
+      .catch(error => dispatch(insertAbsentEmployeeFailure(error)));
   };
 }

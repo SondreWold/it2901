@@ -5,7 +5,7 @@ import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
 import { FaTrash } from "react-icons/fa";
 import Alert from "react-s-alert";
 import moment from "moment";
-import Colors from "../../constants/Colors"
+import Colors from "../../constants/Colors";
 
 class DeleteEmployee extends React.Component {
   handleClick = () => {
