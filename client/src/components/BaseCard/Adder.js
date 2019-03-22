@@ -46,28 +46,29 @@ class Adder extends Component {
   render() {
     return (
       <div>
-        {" "}
-        {this.state.icon ? (
-          <div
-            className="addButton"
-            onMouseOver={() => this.setState({ icon: false })}
-          >
-            <div className="ic" key="1">
-              <MaterialIcon icon="add" color="white" size={18} />
+        <div className="add">
+          {this.state.icon ? (
+            <div
+              className="addButton"
+              onMouseOver={() => this.setState({ icon: false })}
+            >
+              <div className="ic" key="1">
+                <MaterialIcon icon="add" color="white" size={18} />
+              </div>
             </div>
-          </div>
-        ) : (
-          <div
-            className="addText"
-            onMouseLeave={() => this.setState({ icon: true })}
-            onClick={() => this.setState({ open: true })}
-          >
-            <div className="txt">Legg til vikar</div>
-            <div className="ic" key="2">
-              <MaterialIcon icon="add" color="white" size={18} />
+          ) : (
+            <div
+              className="addText"
+              onMouseLeave={() => this.setState({ icon: true })}
+              onClick={() => this.setState({ open: true })}
+            >
+              <div className="txt">Legg til vikar</div>
+              <div className="ic" key="2">
+                <MaterialIcon icon="add" color="white" size={18} />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
         <Dialog
           open={this.state.open}
           onEscapeKeyDown={this.close}
