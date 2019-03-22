@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from "react-redux";
-
+import moment from "moment";
+import * as fn from "../constants/Functions"
 import { getAbsentEmpsPerMonth } from "../actions/statsActions/absentEmpsPerMonthAction";
+import { getWorkingEmpsAbsChildren } from "../actions/statsActions/workingEmpsAbsChildrenAction";
 
 import Dropdown from "./../components/Stats/Dropdown";
 import AbsenseGraph from "./../components/Stats/AbsenseGraph";
@@ -9,8 +11,19 @@ import AbsencePerMonthGraph from "./../components/Stats/AbsencePerMonthGraph";
 
 class StatsContentContainer extends Component {
 	componentDidMount() {
-		// march = 3
 		this.props.getAbsentEmpsPerMonth(3)
+		const fromDate = moment().startOf('week').add(1, 'days');
+		const toDate = moment().endOf('week').add(1, 'days');
+		const week = fn.diffDates(fromDate, toDate);
+		const data = [];
+
+		// THIS DOESNT WORK YET - BUT WHY???
+  	week.forEach( date => {
+  		this.props.getWorkingEmpsAbsChildren(date);
+  		data.push(this.props.workingEmpsAbsChildren);
+  	});
+
+  	console.log("DATA", data);
 	}
 
   render() {
@@ -47,6 +60,8 @@ class StatsContentContainer extends Component {
         />
         <AbsencePerMonthGraph 
         	absentEmps={this.props.absentEmps}
+        	workingEmpsAbsChildren={this.props.workingEmpsAbsChildren}
+        	getWorkingEmpsAbsChildren={this.props.getWorkingEmpsAbsChildren}
         />
       </div>
     );
@@ -55,12 +70,14 @@ class StatsContentContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAbsentEmpsPerMonth: month => dispatch(getAbsentEmpsPerMonth(month))
+    getAbsentEmpsPerMonth: month => dispatch(getAbsentEmpsPerMonth(month)),
+    getWorkingEmpsAbsChildren: date => dispatch(getWorkingEmpsAbsChildren(date))
   };
 };
 
 const mapStateToProps = state => ({
-  absentEmps: state.absentEmpsPerMonth.data
+  absentEmps: state.absentEmpsPerMonth.data,
+  workingEmpsAbsChildren: state.workingEmpsAbsChildren.data
 });
 
 export default connect(

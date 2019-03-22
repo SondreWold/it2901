@@ -4,7 +4,6 @@ import moment from "moment";
 import "./graph.css";
 
 class AbsencePerMonthGraph extends Component {
-	// TO DO: format data from props and convert to nice and smooth graph
 
   render() {
     let chartData = {
