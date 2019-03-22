@@ -6,10 +6,10 @@ import contentAbsentChildren from "./contentReducers/contentAbsenceChildrenReduc
 import movedEmployee from "./movedEmployeeReducer";
 import date from "./dateReducer";
 import pageNameHeader from "./navigationReducer";
-import dragData from "./dragDataReducer";
 import employeeList from "./EmployeeListReducers/EmployeeListReducer";
 import insertAbsentEmployee from "./insertAbsentEmployeeReducer";
 import workingEmployees from "./workingEmployeesReducer";
+import absentEmpsPerMonth from "./statsReducers/absentEmpsPerMonthReducer";
 
 export default combineReducers({
   //import in all reducers here
@@ -20,8 +20,8 @@ export default combineReducers({
   date,
   movedEmployee,
   pageNameHeader,
-  dragData,
   employeeList,
   insertAbsentEmployee,
-  workingEmployees
+  workingEmployees,
+  absentEmpsPerMonth
 });

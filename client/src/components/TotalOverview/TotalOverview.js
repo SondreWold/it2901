@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TotalPresence from "./TotalPresence";
 import DateComponent from "../Date/DateComponent";
-import moment from "moment";
 import "./TotalOverview.css";
 
 class TotalOverview extends Component {
