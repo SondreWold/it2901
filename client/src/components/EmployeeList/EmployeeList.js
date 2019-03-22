@@ -52,16 +52,16 @@ class EmployeeList extends React.Component {
             </ListItem>
           ))}
         </List>
-          <div style={style.colorInfoComp}>
-            <div style={style.infos}>
-              <div style={style.detailsBoxRegular} />
-              <p>Fast ansatt</p>
-            </div>
-            <div style={style.infos}>
-              <div style={style.detailsBoxTemporary} />
-              <p> Vikar </p>
-            </div>
+        <div style={style.colorInfoComp}>
+          <div style={style.infos}>
+            <div style={style.detailsBoxRegular} />
+            <p>Fast ansatt</p>
           </div>
+          <div style={style.infos}>
+            <div style={style.detailsBoxTemporary} />
+            <p> Vikar </p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -106,13 +106,13 @@ const style = {
     backgroundColor: Colors.EmployeeColors.selectedEmployee,
     borderRadius: "10px"
   },
-  colorInfoComp : {
+  colorInfoComp: {
     display: "flex",
-    justifyContent : "space-evenly",
+    justifyContent: "space-evenly",
     alignItems: "center",
     marginRight: "25px"
   },
-  infos : {
+  infos: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center"
