@@ -19,6 +19,12 @@ import Adder from "../components/BaseCard/Adder";
 import Colors from "../constants/Colors";
 
 class BaseCardContainer extends Component {
+  componentDidUpdate(prevProps) {
+    if (prevProps.working_employees !== this.props.working_employees) {
+      console.log(this.props.working_employees);
+    }
+  }
+
   colorRendering = value => {
     let color = Colors.BaseColors.ok;
     if (value >= 0) {
@@ -32,7 +38,7 @@ class BaseCardContainer extends Component {
   onDragEnd = result => {
     this.props.changeMovedEmployee(
       result,
-      this.props.employees,
+      this.props.working_employees,
       this.props.moved_employees,
       moment(this.props.date).format("YYYY-MM-DD")
     );
@@ -49,13 +55,9 @@ class BaseCardContainer extends Component {
                 absence => absence.base_id === base.id
               );
 
-              const employeeListAtBase = this.props.working_employees
-                .filter(employee => employee.base_id === base.id)
-                .sort(function(a, b) {
-                  return (
-                    a.position - b.position || a.employee_id - b.employee_id
-                  );
-                });
+              const employeeListAtBase = this.props.working_employees.filter(
+                employee => employee.base_id === base.id
+              );
 
               // calc of needed employees
               const employeesPresent = employeeListAtBase.length;

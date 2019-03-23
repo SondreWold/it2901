@@ -58,11 +58,23 @@ const getWorkingEmployees = (request, response) => {
       UNION \
         SELECT e2.base_id, e2.id, e2.first_name, e2.position FROM employee e2 WHERE e2.position = 1 AND e2.id \
         NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
-          UNION SELECT employee_id FROM absence_employee WHERE date = $1);",
+          UNION SELECT employee_id FROM absence_employee WHERE date = $1) ORDER BY base_id, position, first_name;",
     [date],
     (error, results) => {
       if (error) {
         throw error;
+      }
+      let i = 0;
+      for (let a = 0; a < results.rows.length; a++) {
+        results.rows[a].index = i;
+        if (
+          a < results.rows.length - 1 &&
+          results.rows[a + 1].base_id !== results.rows[a].base_id
+        ) {
+          i = 0;
+        } else {
+          i++;
+        }
       }
       response.status(200).json(results.rows);
     }

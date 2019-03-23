@@ -18,7 +18,6 @@ class BaseCardList extends Component {
                   key={employee.employee_id}
                   employee={employee}
                   index={index}
-                  name={"123"}
                 />
               ))}
               {provided.placeholder}

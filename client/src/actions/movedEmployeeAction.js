@@ -8,9 +8,13 @@ export const UPDATE_MOVED_EMPLOYEE_SUCCESS = "UPDATE_MOVED_EMPLOYEE_SUCCESS";
 export const UPDATE_SINGLE_WORKING_EMPLOYEE = "UPDATE_SINGLE_WORKING_EMPLOYEE";
 export const REMOVE_WORKING_EMPLOYEE = "REMOVE_WORKING_EMPLOYEE";
 
-export const updateSingleWorking = (employeeId, baseId, name) => ({
+export const updateSingleWorkingEmployee = (
+  working_employee_old,
+  working_employee_new
+) => ({
   type: UPDATE_SINGLE_WORKING_EMPLOYEE,
-  payload: { employee_id: employeeId, base_id: baseId, first_name: name }
+  old: working_employee_old,
+  new: working_employee_new
 });
 
 export const removeWorkingEmployee = employeeId => ({
@@ -52,11 +56,8 @@ export function getMovedEmployee(date) {
   };
 }
 
-export function updateMovedEmployee(employeeId, baseId, date, name) {
+export function updateMovedEmployee(employeeId, baseId, date) {
   return dispatch => {
-    if (name) {
-      dispatch(updateSingleWorking(employeeId, baseId, name));
-    }
     dispatch(updateMovedEmployeeBegin());
     fetch("api/moved/" + baseId + "/" + employeeId + "/" + date, {
       method: "PUT",
@@ -66,17 +67,17 @@ export function updateMovedEmployee(employeeId, baseId, date, name) {
     })
       .then(() => {
         dispatch(updateMovedEmployeeSuccess());
-        dispatch(getWorkingEmployees(date));
+        dispatch(getMovedEmployee(date));
       })
-      .then(() => dispatch(getMovedEmployee(date)));
+      .catch(() => {
+        console.log("failed to update moved_employees");
+        dispatch(getWorkingEmployees(date));
+      });
   };
 }
 
-export function addMovedEmployee(employeeId, baseId, date, name) {
+export function addMovedEmployee(employeeId, baseId, date) {
   return dispatch => {
-    if (name) {
-      dispatch(updateSingleWorking(employeeId, baseId, name));
-    }
     fetch("api/moved/", {
       method: "POST",
       headers: {
@@ -93,13 +94,14 @@ export function addMovedEmployee(employeeId, baseId, date, name) {
         dispatch(getFreeTemps(date));
         dispatch(getWorkingEmployees(date));
       })
-      .catch(() => console.log("fail"));
+      .catch(() => {
+        console.log("failed to add moved_employee");
+      });
   };
 }
 
 export function deleteMovedEmployee(employeeId, date) {
   return dispatch => {
-    dispatch(removeWorkingEmployee(employeeId));
     fetch("api/moved/employeeId/" + employeeId + "/date/" + date, {
       method: "DELETE",
       headers: {
@@ -108,45 +110,62 @@ export function deleteMovedEmployee(employeeId, date) {
     })
       .then(() => {
         dispatch(getMovedEmployee(date));
-        dispatch(getWorkingEmployees(date));
       })
-      .catch(() => console.log("fail"));
+      .catch(() => {
+        console.log("failed to delete moved_employees");
+        dispatch(getWorkingEmployees(date));
+      });
   };
 }
 
-export function changeMovedEmployee(result, employees, moved_employees, date) {
+export function changeMovedEmployee(
+  result,
+  working_employees,
+  moved_employees,
+  date
+) {
   return dispatch => {
     const { destination, source, draggableId } = result;
+    const working_employee = working_employees.find(
+      employee => employee.employee_id === draggableId
+    );
 
     //Droppet utenfor baser
     if (!destination) {
-      const emp = employees.find(
-        employee => employee.id === draggableId && employee.position === 2
-      );
-      if (emp) {
-        dispatch(deleteMovedEmployee(emp.id, date));
+      if (working_employee.position === 2) {
+        dispatch(removeWorkingEmployee(draggableId));
+        dispatch(deleteMovedEmployee(working_employee.employee_id, date));
       }
-    }
-
-    //Droppet nedover i samme base
-    else if (
-      destination.droppableId === source.droppableId &&
-      destination.index !== source.index
-    ) {
-      return;
     }
 
     //Droppet i annen base
     else {
-      const name = employees.find(employee => employee.id === draggableId)
-        .first_name;
+      const working_employee_old = working_employees.find(
+        mov => mov.employee_id === draggableId
+      );
+      const working_employee_new = JSON.parse(
+        JSON.stringify(working_employee_old)
+      );
+      working_employee_new.base_id = destination.droppableId;
+      working_employee_new.index = destination.index;
+
       if (moved_employees.map(mov => mov.employee_id).includes(draggableId)) {
         dispatch(
-          updateMovedEmployee(draggableId, destination.droppableId, date, name)
+          updateMovedEmployee(draggableId, destination.droppableId, date)
+        );
+        dispatch(
+          updateSingleWorkingEmployee(
+            working_employee_old,
+            working_employee_new
+          )
         );
       } else {
+        dispatch(addMovedEmployee(draggableId, destination.droppableId, date));
         dispatch(
-          addMovedEmployee(draggableId, destination.droppableId, date, name)
+          updateSingleWorkingEmployee(
+            working_employee_old,
+            working_employee_new
+          )
         );
       }
     }

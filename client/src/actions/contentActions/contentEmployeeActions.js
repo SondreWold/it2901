@@ -66,6 +66,7 @@ export const updateWorkingEmployees = data => ({
 });
 
 export function getWorkingEmployees(date) {
+  console.log("getting work");
   return dispatch => {
     fetch("/api/employee/work/date/" + date)
       .then(response => response.json())
