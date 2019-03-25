@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { TiPlus } from "react-icons/ti";
 import Alert from "react-s-alert";
 import Colors from "../../constants/Colors";
+import { FaUserClock } from "react-icons/fa";
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -103,7 +104,7 @@ class EmployeeRegisterAbsence extends React.Component {
             {" "}
             Registrer fravær{" "}
           </DialogTitle>
-          <DialogContent>
+          <DialogContent className="dialogContent">
             <div className="absenceFormWrapper">
               <h4> Velg antall dager med fravær </h4>
               <form
@@ -111,44 +112,45 @@ class EmployeeRegisterAbsence extends React.Component {
                 noValidate
                 onSubmit={this.handleSubmit}
               >
-                <div className="dateHolder">
-                  <b> Fra og med </b>
-                  <DatePicker
-                    className="absenceFormDatePicker"
-                    onChange={this.handleChangeFrom}
-                    clearIcon={null}
-                    value={this.state.from}
-                    locale={"nb"}
-                    returnValue={"start"}
-                    showLeadingZeros={true}
-                    calendarIcon={this.calendarIcon}
-                    placeholderText={"Fra"}
-                    minDate={this.minDateObj}
-                  />
+                <div className="datePickers">
+                  <FaUserClock size="150px" style={{ marginLeft: "12%" }} />
+                  <div className="dateHolder">
+                    <b> Fra og med </b>
+                    <DatePicker
+                      onChange={this.handleChangeFrom}
+                      clearIcon={null}
+                      value={this.state.from}
+                      locale={"nb"}
+                      returnValue={"start"}
+                      showLeadingZeros={true}
+                      calendarIcon={this.calendarIcon}
+                      placeholderText={"Fra"}
+                      minDate={this.minDateObj}
+                    />
+                  </div>
+                  <div className="dateHolder">
+                    <b> Til og med </b>
+                    <DatePicker
+                      onChange={this.handleChangeTo}
+                      clearIcon={null}
+                      value={this.state.to}
+                      locale={"nb"}
+                      returnValue={"start"}
+                      showLeadingZeros={true}
+                      calendarIcon={this.calendarIcon}
+                      minDate={this.state.from}
+                    />
+                  </div>
+                  <Button
+                    style={style.submitButton}
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                  >
+                    {" "}
+                    REGISTRER
+                  </Button>
                 </div>
-                <div className="dateHolder">
-                  <b> Til og med </b>
-                  <DatePicker
-                    className="absenceFormDatePicker"
-                    onChange={this.handleChangeTo}
-                    clearIcon={null}
-                    value={this.state.to}
-                    locale={"nb"}
-                    returnValue={"start"}
-                    showLeadingZeros={true}
-                    calendarIcon={this.calendarIcon}
-                    minDate={this.state.from}
-                  />
-                </div>
-                <Button
-                  style={style.submitButton}
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                >
-                  {" "}
-                  REGISTRER
-                </Button>
               </form>
             </div>
           </DialogContent>

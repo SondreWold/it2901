@@ -32,19 +32,26 @@
   justify-content: space-evenly;
 }
 
-.dateHolder {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+.dialogContent {
+  overflow: auto;
 }
 
-.absenceFormDatePicker {
+.datePickers {
+  z-index: 2000;
   margin: auto;
-  margin-top: 5px;
-  margin-right: 25px;
-  margin-left: 25px;
+  margin-top: 0%;
 }
 
+.absenceIcon {
+  size: 50;
+}
+
+.dateHolder {
+  margin: auto;
+  display: flex;
+  padding: 8%;
+  flex-direction: column;
+}
 .registerAbsenceHeader {
   text-align: center;
   padding-top: 50px;
