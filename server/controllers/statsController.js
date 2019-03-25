@@ -19,6 +19,47 @@ const getAbsentEmployeesPerMonth = (request, response) => {
   );
 };
 
+const updateRatio = (request, response) => {
+	const date = request.params.date;
+	const baseId = parseInt(request.params.baseId);
+	const ratio = parseFloat(request.params.ratio);
+
+	db.query(`
+		UPDATE staff_ratio SET ratio=$3 WHERE date=$1 AND base_id=$2;`,
+		[date, baseId, ratio],
+		(error, results) => {
+			if (error) {
+        throw error
+      }
+      else {
+      	if (results.rowCount === 0){
+      		db.query(`
+						INSERT INTO staff_ratio (date, base_id, ratio)
+						VALUES ($1, $2, $3);`,
+						[date, baseId, ratio],
+						(error, results) => {
+							if (error) {
+								throw error;
+					    }
+					    else {
+					    	response
+					      .status(200)
+					      .send(`Inserted ratio ${ratio} on day ${date} in base ${baseId}`);	
+					    }
+					    
+						} 
+					);
+      	}
+      	else {
+      		response
+	        .status(200)
+	        .send(`Updated ratio ${ratio} on day ${date} in base ${baseId}`);		
+      	}
+      }
+      
+		} 
+	);
+};
 
 const getWorkingEmpsAbsChildren = (request, response) => {
   const date = request.params.date;
@@ -65,41 +106,9 @@ const getWorkingEmpsAbsChildren = (request, response) => {
     }
   );
 };
-/*
-SELECT res.base_id, count(res.employee_id), ac.children, base.ratio
-	FROM 
-		(
-		SELECT m.base_id, m.employee_id
-		FROM moved_employee m 
-		WHERE date = '2019-03-22'
-		AND m.employee_id NOT IN 
-		(	SELECT employee_id 
-			FROM absence_employee
-			WHERE date = '2019-03-22'
-		)
 
-		UNION
-			SELECT e2.base_id, e2.id
-		  FROM employee e2 
-		  WHERE e2.position = 1
-		  AND e2.id NOT IN 
-		  (	SELECT employee_id 
-		  	FROM moved_employee m
-		  	WHERE date = '2019-03-22'
-		    UNION 
-		    	SELECT employee_id
-		    	FROM absence_employee
-		    	WHERE date = '2019-03-22'
-			)
-		) res
-	INNER JOIN base
-	ON res.base_id = base.id
-	INNER JOIN absence_children ac
-	ON res.base_id = ac.base_id
-	WHERE ac.date = '2019-03-22'
-	GROUP BY res.base_id, ac.children, base.ratio;
-*/
 module.exports = {
   getAbsentEmployeesPerMonth,
-  getWorkingEmpsAbsChildren
+  getWorkingEmpsAbsChildren,
+  updateRatio
 };
