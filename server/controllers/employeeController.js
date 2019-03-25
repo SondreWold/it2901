@@ -23,7 +23,7 @@ const deleteEmployee = (request, response) => {
 const getEmployeesSearch = (request, response) => {
   let searchToken = request.params.name;
   db.query(
-    `	SELECT * FROM employee 
+    `	SELECT * FROM employee
     WHERE LOWER(employee.first_name) LIKE LOWER($1)
     OR LOWER(employee.last_name) LIKE LOWER($1)`,
     ["%" + searchToken + "%"],
@@ -70,12 +70,10 @@ const getWorkingEmployees = (request, response) => {
 };
 
 const insertNewEmployee = (request, response) => {
-  let { firstName, lastName, baseID, moveable, position } = request.body;
+  let { firstName, lastName, baseID, position } = request.body;
 
   db.query(
-    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, moveable, position) VALUES ($1, $2, $3, b'" +
-      moveable +
-      "', $4)",
+    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
     [firstName, lastName, baseID, position],
     (error, results) => {
       if (error) {
