@@ -8,7 +8,7 @@ router.route("/:id").delete(employeeController.deleteEmployee);
 router.route("/:name").get(employeeController.getEmployeesSearch);
 router
   .route("/addEmployee/")
-  .post(employeeController.insertNewEmployee)
+  .put(employeeController.insertNewEmployee)
   .get(employeeController.insertNewEmployee);
 router.route("/date/:date").get(employeeController.getFreeTemp);
 router.route("/work/date/:date").get(employeeController.getWorkingEmployees);

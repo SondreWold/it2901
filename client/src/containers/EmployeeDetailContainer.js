@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import EmployeeDetails from "../components/EmployeeDetails/EmployeeDetails";
 import EmployeeRegisterAbsence from "../components/EmployeeDetails/EmployeeRegisterAbsence";
 import DeleteEmployee from "../components/EmployeeDetails/DeleteEmployee";
+import AddEmployee from "../components/EmployeeList/AddEmployee";
 import EmployeeAbsenceList from "../components/EmployeeDetails/EmployeeAbsenceList";
 import "../components/EmployeeDetails/EmployeeDetails.css";
 
 class EmployeeDetailContainer extends Component {
   render() {
+    console.log(this.props.selectedEmployee);
     return (
       this.props.selectedEmployee && (
         <div className="detailsContainer">
@@ -21,7 +23,14 @@ class EmployeeDetailContainer extends Component {
           />
           <EmployeeAbsenceList />
           <div className="employeeButtonsHolder">
-            <DeleteEmployee /> {/* Endre til rediger-knapp */}
+            <AddEmployee
+              showEdit={true}
+              first_name={this.props.selectedEmployee.first_name}
+              last_name={this.props.selectedEmployee.last_name}
+              base_id={this.props.selectedEmployee.base_id.toString()}
+              position={this.props.selectedEmployee.position.toString()}
+              empId={this.props.selectedEmployee.id}
+            />
             <DeleteEmployee />
           </div>
         </div>

@@ -15,6 +15,7 @@ import {
   withStyles
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
 import moment from "moment";
 import Colors from "../../constants/Colors";
@@ -26,21 +27,22 @@ class AddEmployee extends Component {
     this.state = this.initialState;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  get initialState(){
+  get initialState() {
     return {
       open: false,
-      first_name: "",
-      last_name: "",
-      base_id: "1",
-      position: "2"
-    }
+      first_name: this.props.first_name,
+      last_name: this.props.last_name,
+      base_id: this.props.base_id,
+      position: this.props.position
+    };
   }
 
   resetBuilder = () => {
     this.setState(this.initialState);
-  }
+  };
 
   handleClickOpen = () => {
+    this.setState(this.initialState);
     this.setState({ open: true });
   };
 
@@ -60,9 +62,18 @@ class AddEmployee extends Component {
       this.state.last_name,
       this.state.base_id,
       this.state.position,
-      moment(this.props.date).format("YYYY-MM-DD")
+      moment(this.props.date).format("YYYY-MM-DD"),
+      this.props.empId
     );
-    Alert.success(this.state.position === "1" ? "Ansatt registrert" : "Vikar registrert" , {
+    let text;
+    if (this.props.showEdit) {
+      text = "Ansatt redigert";
+    } else {
+      this.state.position === "1"
+        ? (text = "Ansatt registrert")
+        : (text = "Vikar registrert");
+    }
+    Alert.success(text, {
       position: "bottom-right",
       effect: "jelly",
       timeout: 1500
@@ -72,8 +83,23 @@ class AddEmployee extends Component {
 
   render() {
     const { classes } = this.props;
-    return (
-      <div>
+    let button;
+    let buttonText;
+    let header;
+    let showEdit = this.props.showEdit;
+
+    if (showEdit) {
+      button = (
+        <Button onClick={this.handleClickOpen} style={style.editButton}>
+          <FaEdit />
+          Rediger ansatt
+        </Button>
+      );
+      header = "Rediger ";
+      buttonText = "Rediger";
+    }
+    if (!showEdit) {
+      button = (
         <Button
           variant="contained"
           onClick={this.handleClickOpen}
@@ -82,16 +108,25 @@ class AddEmployee extends Component {
         >
           <FaUserPlus color={Colors.EmployeeColors.moveableEmployee} />
         </Button>
+      );
+      header = "Registrer ny ";
+      buttonText = "Registrer";
+    }
+
+    return (
+      <div>
+        {button}
         <Dialog open={this.state.open} onClose={this.handleClickClose}>
           <DialogTitle>
             {" "}
-            Registrer ny {this.props.tempOnly ? "vikar" : "ansatt"}{" "}
+            {header} {this.props.tempOnly ? "vikar" : "ansatt"}{" "}
           </DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
               <TextField
                 required
                 margin="dense"
+                value={this.state.first_name}
                 id="firstName"
                 onChange={this.handleChange("first_name")}
                 label="Fornavn"
@@ -102,6 +137,7 @@ class AddEmployee extends Component {
                 required
                 margin="dense"
                 id="lastName"
+                value={this.state.last_name}
                 onChange={this.handleChange("last_name")}
                 label="Etternavn"
                 variant="outlined"
@@ -125,7 +161,7 @@ class AddEmployee extends Component {
                         label="Fast ansatt"
                       />
                     </RadioGroup>
-                    <FormLabel disabled={this.state.position === "2"}>
+                    <FormLabel disabled={this.props.position === "2"}>
                       {" "}
                       Avdeling{" "}
                     </FormLabel>
@@ -168,7 +204,7 @@ class AddEmployee extends Component {
                   variant="contained"
                   className={classes.textField}
                 >
-                  Registrer
+                  {buttonText}
                 </Button>
                 <Button variant="contained" onClick={this.handleClickClose}>
                   Avbryt
@@ -188,17 +224,22 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (
-      firstName,
-      lastName,
-      baseID,
-      position,
-      date
-    ) =>
+    insertNewEmployee: (firstName, lastName, baseID, position, date, empId) =>
       dispatch(
-        insertNewEmployee(firstName, lastName, baseID, position, date)
+        insertNewEmployee(firstName, lastName, baseID, position, date, empId)
       )
   };
+};
+
+const style = {
+  editButton: {
+    maxWidth: "200px",
+    minWidth: "150px",
+    margin: "20px auto",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.editEmployee,
+    color: Colors.EmployeeColors.editEmployee
+  }
 };
 
 const styles = theme => ({
