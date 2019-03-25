@@ -12,6 +12,11 @@ router
   .route("/workingEmpsAbsChildren/:date")
   .get(statsController.getWorkingEmpsAbsChildren);
 
+
+router
+	.route("/getRatio/:fromDate/:toDate")
+	.get(statsController.getRatio)
+
 router
 	.route("/updateRatio/:date/:baseId/:ratio")
 	.put(statsController.updateRatio);

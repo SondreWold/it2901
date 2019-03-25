@@ -4,9 +4,10 @@ var db = require("../db");
 const getKindergartenName = (request, response) => {
   db.query("SELECT name FROM kindergarten WHERE id = 1", (error, results) => {
     if (error) {
-      throw error;
+      response.status(404).send("Failed fetching kindergarten name");
+    } else {
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows);
   });
 };
 

@@ -13,6 +13,7 @@ import workingEmployees from "./workingEmployeesReducer";
 // stats
 import workingEmpsAbsChildren from "./statsReducers/workingEmpsAbsChildrenReducer";
 import absentEmpsPerMonth from "./statsReducers/absentEmpsPerMonthReducer";
+import ratio from "./statsReducers/getRatioReducer";
 
 export default combineReducers({
   //import in all reducers here
@@ -27,5 +28,6 @@ export default combineReducers({
   workingEmployees,
   insertAbsentEmployee,
   absentEmpsPerMonth,
-  workingEmpsAbsChildren
+  workingEmpsAbsChildren,
+  ratio
 });

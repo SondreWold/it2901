@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import moment from "moment";
 import {
   changeMovedEmployee,
-  addMovedEmployee
+  addMovedEmployee,
+  deleteMovedEmployee
 } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { updateRatio } from "../actions/statsActions/updateRatioAction";
@@ -96,6 +97,8 @@ class BaseCardContainer extends Component {
                     key={base.id}
                     base={base}
                     employeeListAtBase={employeeListAtBase}
+                    delete={this.props.deleteMovedEmployee}
+                    date={this.props.date}
                   />
                   <Adder
                     freeTemps={this.props.freeTemps}
@@ -122,8 +125,9 @@ const mapDispatchToProps = dispatch => {
     addMovedEmployee: (employeeId, baseId, date, name) =>
       dispatch(addMovedEmployee(employeeId, baseId, date, name)),
     updateRatio: (date, baseId, ratio) =>
-    	dispatch(updateRatio(date, baseId, ratio))
-
+    	dispatch(updateRatio(date, baseId, ratio)),
+    deleteMovedEmployee: (employeeId, date) =>
+      dispatch(deleteMovedEmployee(employeeId, date))
   };
 };
 

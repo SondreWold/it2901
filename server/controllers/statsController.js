@@ -12,9 +12,32 @@ const getAbsentEmployeesPerMonth = (request, response) => {
     [month],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching absent employee pr month");
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
+    }
+  );
+};
+
+const getRatio = (request, response) => {
+  const fromDate = request.params.fromDate;
+  const toDate = request.params.toDate;
+  db.query(
+    `
+		SELECT s.date, s.base_id, s.ratio, b.name
+		FROM staff_ratio s
+		INNER JOIN base b on s.base_id = b.id
+		WHERE s.date BETWEEN $1 and $2
+		ORDER BY s.date, s.base_id;
+		`,
+    [fromDate, toDate],
+    (error, results) => {
+      if (error) {
+        response.status(404).send("Failed fetching absent employee pr month");
+      } else {
+        response.status(200).json(results.rows);
+      }
     }
   );
 };
@@ -29,7 +52,7 @@ const updateRatio = (request, response) => {
 		[date, baseId, ratio],
 		(error, results) => {
 			if (error) {
-        throw error
+        response.status(404).send("Failed updating ratio");
       }
       else {
       	if (results.rowCount === 0){
@@ -39,7 +62,7 @@ const updateRatio = (request, response) => {
 						[date, baseId, ratio],
 						(error, results) => {
 							if (error) {
-								throw error;
+								response.status(404).send("Failed inserting ratio");
 					    }
 					    else {
 					    	response
@@ -100,7 +123,7 @@ const getWorkingEmpsAbsChildren = (request, response) => {
     [date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching absent employees and absent children");
       }
       response.status(200).json(results.rows);
     }
@@ -110,5 +133,6 @@ const getWorkingEmpsAbsChildren = (request, response) => {
 module.exports = {
   getAbsentEmployeesPerMonth,
   getWorkingEmpsAbsChildren,
-  updateRatio
+  updateRatio,
+  getRatio
 };

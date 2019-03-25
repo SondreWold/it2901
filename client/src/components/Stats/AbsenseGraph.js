@@ -3,6 +3,33 @@ import { Line } from "react-chartjs-2";
 import "./graph.css";
 
 class AbsenseGraph extends Component {
+
+	/*
+
+		let months = [
+      "Januar",
+      "Februar",
+      "Mars",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ];
+    
+    let monthBase1 = [2, 3, 1, 0.2, 3, 2, 4, 2, 1, 3];
+    let monthBase2 = [1, 3, 2, 1, 3, 4, 2, 2, 1, 3, 4, 6];
+    let monthBase3 = [1.3, 2, 3, 2.7, 1.7, 2.3, 1.5, 0.7, 3.9, 2.8, 2.3, 3.2];
+    let monthBase4 = [0.3, 1.7, 3.2, 2.1, 2.7, 3.2, 2.5, 0.9, 3.1, 2.2, 3.2, 3.2];
+
+
+  */
+
+
   render() {
     let chartData = {
       labels: this.props.labels,

@@ -18,20 +18,26 @@ import { FaUserPlus } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
 import moment from "moment";
 import Colors from "../../constants/Colors";
+import Alert from "react-s-alert";
 
 class AddEmployee extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this.initialState;
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  get initialState(){
+    return {
       open: false,
-      nameError: "",
       first_name: "",
       last_name: "",
       base_id: "1",
-      moveable: true,
       position: "2"
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    }
+  }
+
+  resetBuilder = () => {
+    this.setState(this.initialState);
   }
 
   handleClickOpen = () => {
@@ -39,19 +45,12 @@ class AddEmployee extends Component {
   };
 
   handleClickClose = () => {
-    this.setState({
-      open: false,
-      moveable: true
-    });
+    this.resetBuilder();
   };
 
   handleChange = name => event => {
     event.preventDefault();
-    if (name == "moveable") {
-      this.setState({ moveable: !this.state.moveable });
-    } else {
-      this.setState({ [name]: event.target.value });
-    }
+    this.setState({ [name]: event.target.value });
   };
 
   handleSubmit(event) {
@@ -60,10 +59,14 @@ class AddEmployee extends Component {
       this.state.first_name,
       this.state.last_name,
       this.state.base_id,
-      this.state.moveable,
       this.state.position,
       moment(this.props.date).format("YYYY-MM-DD")
     );
+    Alert.success(this.state.position === "1" ? "Ansatt registrert" : "Vikar registrert" , {
+      position: "bottom-right",
+      effect: "jelly",
+      timeout: 1500
+    });
     this.handleClickClose();
   }
 
@@ -122,21 +125,6 @@ class AddEmployee extends Component {
                         label="Fast ansatt"
                       />
                     </RadioGroup>
-                    <FormLabel disabled={this.state.position === "2"}>
-                      {" "}
-                      Skal ansatt være flyttbar?{" "}
-                    </FormLabel>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          color="primary"
-                          checked={this.state.moveable}
-                          onClick={this.handleChange("moveable")}
-                          disabled={this.state.position === "2"}
-                        />
-                      }
-                      label="Ja"
-                    />
                     <FormLabel disabled={this.state.position === "2"}>
                       {" "}
                       Avdeling{" "}
@@ -204,12 +192,11 @@ const mapDispatchToProps = dispatch => {
       firstName,
       lastName,
       baseID,
-      moveable,
       position,
       date
     ) =>
       dispatch(
-        insertNewEmployee(firstName, lastName, baseID, moveable, position, date)
+        insertNewEmployee(firstName, lastName, baseID, position, date)
       )
   };
 };

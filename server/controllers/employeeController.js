@@ -3,7 +3,7 @@ var db = require("../db");
 const getEmployees = (request, response) => {
   db.query("SELECT * FROM employee", (error, results) => {
     if (error) {
-      throw error;
+      response.status(404).send("Failed fetching employees from DB");
     }
     response.status(200).json(results.rows);
   });
@@ -14,7 +14,6 @@ const deleteEmployee = (request, response) => {
   db.query("DELETE FROM employee where id = $1", [id], (error, results) => {
     if (error) {
       response.status(200).send("0");
-      throw error;
     }
     response.status(200).send("1");
   });
@@ -23,13 +22,13 @@ const deleteEmployee = (request, response) => {
 const getEmployeesSearch = (request, response) => {
   let searchToken = request.params.name;
   db.query(
-    `	SELECT * FROM employee 
+    `	SELECT * FROM employee
     WHERE LOWER(employee.first_name) LIKE LOWER($1)
     OR LOWER(employee.last_name) LIKE LOWER($1)`,
     ["%" + searchToken + "%"],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Faield fetching employees from DB");
       }
       response.status(200).json(results.rows);
     }
@@ -43,7 +42,7 @@ const getFreeTemp = (request, response) => {
     [date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching available temps from DB ");
       }
       response.status(200).json(results.rows);
     }
@@ -62,28 +61,26 @@ const getWorkingEmployees = (request, response) => {
     [date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching working employees");
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
 
 const insertNewEmployee = (request, response) => {
-  let { firstName, lastName, baseID, moveable, position } = request.body;
+  let { firstName, lastName, baseID, position } = request.body;
 
   db.query(
-    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, moveable, position) VALUES ($1, $2, $3, b'" +
-      moveable +
-      "', $4)",
+    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
     [firstName, lastName, baseID, position],
     (error, results) => {
       if (error) {
         if (error.code === "23505") {
           response.status(202).send(`Already existing entry in the DB`);
         } else {
-          console.log(error);
-          throw error;
+          response.status(404).send("Failed inserting new employee to DB");
         }
       } else {
         response.status(200).send(`Inserted employee ${firstName}`);

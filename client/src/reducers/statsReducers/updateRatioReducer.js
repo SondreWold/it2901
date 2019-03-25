@@ -3,7 +3,7 @@ import {
   UPDATE_RATIO_SUCCESS,
   UPDATE_RATIO_EXISTING,
   UPDATE_RATIO_FAILURE
-} from "../actions/stats/updateRatioAction.js";
+} from "../../actions/statsActions/updateRatioAction.js";
 
 const initialState = {
 	status: "",
