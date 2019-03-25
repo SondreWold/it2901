@@ -29,7 +29,14 @@ class EmployeeList extends React.Component {
         <h2 className="employeesHeadline">Ansatte </h2>
         <div className="employeeListTop">
           <InputField getSearchEmployees={this.props.getSearchEmployees} />
-          <AddEmployee />
+          <AddEmployee
+            showEdit={false}
+            first_name={""}
+            last_name={""}
+            base_id={"1"}
+            position={"2"}
+            empId={null}
+          />
         </div>
         <List style={style.list} component="nav">
           {this.props.employees.map(employee => (

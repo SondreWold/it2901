@@ -33,11 +33,12 @@ export function insertNewEmployee(
   lastName,
   baseID,
   position,
-  date
+  date,
+  empId
 ) {
   return dispatch => {
     fetch("/api/employee/addEmployee/", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
@@ -45,7 +46,8 @@ export function insertNewEmployee(
         firstName: firstName,
         lastName: lastName,
         baseID: baseID,
-        position: position
+        position: position,
+        id: empId
       })
     })
       .then(response => {

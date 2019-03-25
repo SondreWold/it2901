@@ -70,23 +70,35 @@ const getWorkingEmployees = (request, response) => {
 };
 
 const insertNewEmployee = (request, response) => {
-  let { firstName, lastName, baseID, position } = request.body;
-
-  db.query(
-    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
-    [firstName, lastName, baseID, position],
-    (error, results) => {
-      if (error) {
-        if (error.code === "23505") {
-          response.status(202).send(`Already existing entry in the DB`);
-        } else {
-          response.status(404).send("Failed inserting new employee to DB");
+  let { firstName, lastName, baseID, position, id } = request.body;
+  //if id>0, it means that employee should be edited
+  if (id > 0) {
+    db.query(
+      "UPDATE EMPLOYEE SET first_name=$1, last_name=$2, base_id=$3, position=$4 WHERE id=$5",
+      [firstName, lastName, baseID, position, id],
+      (error, results) => {
+        if (error) {
+          console.log(error);
         }
-      } else {
-        response.status(200).send(`Inserted employee ${firstName}`);
       }
-    }
-  );
+    );
+  } else {
+    db.query(
+      "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
+      [firstName, lastName, baseID, position],
+      (error, results) => {
+        if (error) {
+          if (error.code === "23505") {
+            console.log("fillern");
+          } else {
+            response.status(404).send("Failed inserting new employee to DB");
+          }
+        } else {
+          response.status(200).send(`Inserted employee ${firstName}`);
+        }
+      }
+    );
+  }
 };
 
 module.exports = {
