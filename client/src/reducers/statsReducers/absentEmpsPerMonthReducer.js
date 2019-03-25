@@ -1,11 +1,11 @@
 import {
-	GET_ABSENT_EMPS_PER_MONTH_BEGIN,
-	GET_ABSENT_EMPS_PER_MONTH_SUCCESS,
-	GET_ABSENT_EMPS_PER_MONTH_FAILURE
+  GET_ABSENT_EMPS_PER_MONTH_BEGIN,
+  GET_ABSENT_EMPS_PER_MONTH_SUCCESS,
+  GET_ABSENT_EMPS_PER_MONTH_FAILURE
 } from "../../actions/statsActions/absentEmpsPerMonthAction";
 
 const initialState = {
-	data: [],
+  data: [],
   loading: false,
   error: []
 };

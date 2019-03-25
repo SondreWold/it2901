@@ -4,7 +4,9 @@ import * as statsController from "../server/controllers/statsController";
 // get an instance of express router, then redirect to correct controller
 const router = express.Router();
 
-router.route("/absentEmpsPerMonth/:month").get(statsController.getAbsentEmployeesPerMonth);
+router
+  .route("/absentEmpsPerMonth/:month")
+  .get(statsController.getAbsentEmployeesPerMonth);
 
 /*
 router.route("/").get(employeeController.getEmployees);
