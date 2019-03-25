@@ -16,7 +16,8 @@ const EmployeeColors = {
   tempEmployee: "#b6e0e2",
   moveableEmployee: "#207d92",
   unMoveableEmployee: "#000033",
-  selectedEmployee: "#E76F50"
+  selectedEmployee: "#E76F50",
+  editEmployee: "grey"
 };
 
 export default { EmployeeColors, BaseColors, paletteColors };
