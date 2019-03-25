@@ -12,9 +12,10 @@ const getAbsentEmployeesPerMonth = (request, response) => {
     [month],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching absent employee pr month");
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
