@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import {
   getEmployees,
-  getFreeTemps,
-  getWorkingEmployees
+  getFreeTemps
 } from "../actions/contentActions/contentEmployeeActions";
+import { getWorkingEmployees } from "../actions/workingEmployeesAction";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "../actions/dateAction";
 import { getMinDate } from "../actions/dateAction";
@@ -20,9 +20,11 @@ class contentContainer extends React.Component {
   componentDidMount() {
     this.fetchDataPoints();
     //DO NOT DELETE
-    /* this.interval = setInterval(() => {
-      this.fetchDataPoints();
-    }, 1000);*/
+    this.interval = setInterval(() => {
+      this.props.getWorkingEmployees(
+        moment(this.props.date).format("YYYY-MM-DD")
+      );
+    }, 1000);
   }
 
   componentWillUnmount() {

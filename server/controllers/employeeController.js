@@ -64,19 +64,16 @@ const getWorkingEmployees = (request, response) => {
       if (error) {
         throw error;
       }
-      let i = 0;
-      for (let a = 0; a < results.rows.length; a++) {
-        results.rows[a].index = i;
-        if (
-          a < results.rows.length - 1 &&
-          results.rows[a + 1].base_id !== results.rows[a].base_id
-        ) {
-          i = 0;
+      let workingEmployyes = {};
+      for (let i = 0; i < results.rows.length; i++) {
+        let key = results.rows[i].base_id;
+        if (workingEmployyes[key]) {
+          workingEmployyes[key].push(results.rows[i]);
         } else {
-          i++;
+          workingEmployyes[key] = [results.rows[i]];
         }
       }
-      response.status(200).json(results.rows);
+      response.status(200).json(workingEmployyes);
     }
   );
 };

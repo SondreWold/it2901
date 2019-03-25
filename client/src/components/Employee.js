@@ -11,7 +11,6 @@ const Container = styled.div`
   background-color: ${props =>
     props.isDragging ? Colors.EmployeeColors.selectedEmployee : "white"};
   display: flex;
-  transition: 0.15s;
 `;
 
 const HandleRegular = styled.div`
@@ -39,7 +38,6 @@ class Employee extends Component {
       >
         {(provided, snapshot) => (
           <Container
-            className="employeeCard"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -59,3 +57,5 @@ class Employee extends Component {
 }
 
 export default Employee;
+
+const style = {};

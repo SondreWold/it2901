@@ -1,8 +1,5 @@
 import { getSearchEmployees } from "./contentActions/contentEmployeeActions";
-import {
-  getEmployees,
-  getWorkingEmployees
-} from "./contentActions/contentEmployeeActions";
+import { getEmployees } from "./contentActions/contentEmployeeActions";
 
 export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
 
@@ -24,7 +21,6 @@ export function deleteEmployeeFromDb(id, date) {
       .then(() => {
         dispatch(getSearchEmployees());
         dispatch(getEmployees());
-        dispatch(getWorkingEmployees(date));
       });
   };
 }
