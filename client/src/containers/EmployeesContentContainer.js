@@ -13,6 +13,11 @@ class EmployeesContentContainer extends Component {
   componentDidMount() {
     this.props.getSearchEmployees();
   }
+
+  componentWillUnmount() {
+    this.props.updateSelectedEmployee("");
+  }
+
   render() {
     return (
       <div style={style.container}>
