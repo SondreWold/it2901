@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { TiPlus } from "react-icons/ti";
 import Alert from "react-s-alert";
 import Colors from "../../constants/Colors";
+import * as fn from "../../constants/Functions"
 import { FaUserClock } from "react-icons/fa";
 
 const calendar2 = require("../../images/calendar2.svg");
@@ -52,7 +53,7 @@ class EmployeeRegisterAbsence extends React.Component {
   handleSubmit(event) {
     // in case there is no selectedEmployee
     if (this.props.selectedEmployee) {
-      const diff = this.diffDates(this.state.from, this.state.to);
+      const diff = fn.diffDates(this.state.from, this.state.to);
       diff.forEach(date =>
         this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date)
       );
@@ -64,17 +65,6 @@ class EmployeeRegisterAbsence extends React.Component {
       effect: "jelly",
       timeout: 3000
     });
-  }
-
-  diffDates(date1, date2) {
-    const a = moment(date1).format("YYYY-MM-DD");
-    const b = moment(date2).format("YYYY-MM-DD");
-    const m = moment(a);
-    const dates = [];
-    for (m; m.diff(b, "days") <= 0; m.add(1, "days")) {
-      dates.push(m.format("YYYY-MM-DD"));
-    }
-    return dates;
   }
 
   render() {

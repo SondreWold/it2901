@@ -7,8 +7,9 @@ import {
   deleteMovedEmployee
 } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
-import { DragDropContext } from "react-beautiful-dnd";
+import { updateRatio } from "../actions/statsActions/updateRatioAction";
 
+import { DragDropContext } from "react-beautiful-dnd";
 import "../components/BaseCard/BaseCard.css";
 import BaseCard from "../components/BaseCard/BaseCard";
 import BaseCardList from "../components/BaseCard/BaseCardList";
@@ -31,7 +32,6 @@ class BaseCardContainer extends Component {
   };
 
   onDragEnd = result => {
-    console.log(result);
     this.props.changeMovedEmployee(
       result,
       this.props.employees,
@@ -63,11 +63,11 @@ class BaseCardContainer extends Component {
               const employeesPresent = employeeListAtBase.length;
               const childrenPresent =
                 absentChildren.total_children - absentChildren.children;
-              const neededEmployees = Number(
+              const ratio = Number(
                 (employeesPresent - childrenPresent * base.ratio).toFixed(2)
               );
               const baseEmployeeNumber = base.total_children * base.ratio;
-              const color = this.colorRendering(neededEmployees);
+              const color = this.colorRendering(ratio);
 
               return (
                 <BaseCard title={base.name} color={color}>
@@ -86,7 +86,12 @@ class BaseCardContainer extends Component {
                     employees={this.props.employees}
                     date={this.props.date}
                   />
-                  <EmployeesNeeded neededEmployees={neededEmployees} />
+                  <EmployeesNeeded 
+                  	ratio={ratio} 
+                  	baseId={base.id}
+                  	updateRatio={this.props.updateRatio}
+                  	date={this.props.date}
+                  />
 
                   <BaseCardList
                     key={base.id}
@@ -119,8 +124,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(changeMovedEmployee(result, employees, moved_employees, date)),
     addMovedEmployee: (employeeId, baseId, date, name) =>
       dispatch(addMovedEmployee(employeeId, baseId, date, name)),
+    updateRatio: (date, baseId, ratio) =>
+    	dispatch(updateRatio(date, baseId, ratio)),
     deleteMovedEmployee: (employeeId, date) =>
-      dispatch(deleteMovedEmployee(employeeId, date)),
+      dispatch(deleteMovedEmployee(employeeId, date))
   };
 };
 

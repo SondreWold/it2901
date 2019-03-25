@@ -8,15 +8,17 @@ router
   .route("/absentEmpsPerMonth/:month")
   .get(statsController.getAbsentEmployeesPerMonth);
 
-/*
-router.route("/").get(employeeController.getEmployees);
-router.route("/:id").delete(employeeController.deleteEmployee);
-router.route("/:name").get(employeeController.getEmployeesSearch);
 router
-  .route("/addEmployee/")
-  .post(employeeController.insertNewEmployee)
-  .get(employeeController.insertNewEmployee);
-router.route("/date/:date").get(employeeController.getFreeTemp);
-router.route("/work/date/:date").get(employeeController.getWorkingEmployees);
-*/
+  .route("/workingEmpsAbsChildren/:date")
+  .get(statsController.getWorkingEmpsAbsChildren);
+
+
+router
+	.route("/getRatio/:fromDate/:toDate")
+	.get(statsController.getRatio)
+
+router
+	.route("/updateRatio/:date/:baseId/:ratio")
+	.put(statsController.updateRatio);
+
 export default router;
