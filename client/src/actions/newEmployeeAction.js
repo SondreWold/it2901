@@ -32,18 +32,9 @@ export function insertNewEmployee(
   firstName,
   lastName,
   baseID,
-  moveable,
   position,
   date
 ) {
-  let moveableBit;
-  if (moveable) {
-    moveableBit = 1;
-  }
-  if (!moveable) {
-    moveableBit = 0;
-  }
-
   return dispatch => {
     fetch("/api/employee/addEmployee/", {
       method: "POST",
@@ -54,7 +45,6 @@ export function insertNewEmployee(
         firstName: firstName,
         lastName: lastName,
         baseID: baseID,
-        moveable: moveableBit,
         position: position
       })
     })

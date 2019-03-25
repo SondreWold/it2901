@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import moment from "moment";
 import {
   changeMovedEmployee,
-  addMovedEmployee
+  addMovedEmployee,
+  deleteMovedEmployee
 } from "../actions/movedEmployeeAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { DragDropContext } from "react-beautiful-dnd";
@@ -30,6 +31,7 @@ class BaseCardContainer extends Component {
   };
 
   onDragEnd = result => {
+    console.log(result);
     this.props.changeMovedEmployee(
       result,
       this.props.employees,
@@ -90,6 +92,8 @@ class BaseCardContainer extends Component {
                     key={base.id}
                     base={base}
                     employeeListAtBase={employeeListAtBase}
+                    delete={this.props.deleteMovedEmployee}
+                    date={this.props.date}
                   />
                   <Adder
                     freeTemps={this.props.freeTemps}
@@ -114,7 +118,9 @@ const mapDispatchToProps = dispatch => {
     changeMovedEmployee: (result, employees, moved_employees, date) =>
       dispatch(changeMovedEmployee(result, employees, moved_employees, date)),
     addMovedEmployee: (employeeId, baseId, date, name) =>
-      dispatch(addMovedEmployee(employeeId, baseId, date, name))
+      dispatch(addMovedEmployee(employeeId, baseId, date, name)),
+    deleteMovedEmployee: (employeeId, date) =>
+      dispatch(deleteMovedEmployee(employeeId, date)),
   };
 };
 
