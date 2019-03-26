@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import BaseCardHeader from "./BaseCardHeader";
-import { Divider } from "@material-ui/core";
 
 class BaseCard extends Component {
   render() {
@@ -17,7 +16,6 @@ class BaseCard extends Component {
           }}
         />
         {this.props.children}
-        <Divider />
       </div>
     );
   }
