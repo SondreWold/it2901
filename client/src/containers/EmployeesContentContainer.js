@@ -48,9 +48,10 @@ class EmployeesContentContainer extends Component {
 
 const style = {
   container: {
-    margin: "30px",
+    margin: "auto",
     display: "flex",
-    width: "90%"
+    width: "90%",
+    marginTop: "30px"
   },
   item: {
     flex: "1"

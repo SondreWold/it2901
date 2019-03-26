@@ -3,6 +3,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Colors from "../../constants/Colors";
+import "./EmployeeDetails.css";
 
 class EmployeeAbsenceList extends Component {
   componentDidMount() {
@@ -17,8 +18,8 @@ class EmployeeAbsenceList extends Component {
   render() {
     return (
       <div>
-        <h3>Tidligere fravær: </h3>
-        <List style={style.list} component="nav">
+        <h3>Fravær </h3>
+        <List style={style.list} className="absenceList" component="nav">
           {this.props.absence
             ? this.props.absence.map(absence => (
                 <ListItem key={absence.date} style={style.listItem}>
@@ -34,19 +35,16 @@ class EmployeeAbsenceList extends Component {
 
 const style = {
   list: {
-    width: "100%",
-    border: "5px",
-    minHeight: "150px",
-    maxHeight: "200px",
-    overflow: "auto"
+    margin: "auto"
   },
   listItem: {
     width: "99%",
     margin: "2px",
     border: "1px solid",
-    borderColor: Colors.EmployeeColors.moveableEmployee,
+    borderColor: Colors.EmployeeColors.borderColor,
     borderRadius: "10px",
-    padding: "10px"
+    padding: "10px",
+    textAlign: "center"
   }
 };
 
