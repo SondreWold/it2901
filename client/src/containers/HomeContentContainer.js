@@ -20,11 +20,9 @@ class contentContainer extends React.Component {
   componentDidMount() {
     this.fetchDataPoints();
     //DO NOT DELETE
-    this.interval = setInterval(() => {
-      this.props.getWorkingEmployees(
-        moment(this.props.date).format("YYYY-MM-DD")
-      );
-    }, 1000);
+    /* this.interval = setInterval(() => {
+      this.fetchDataPoints();
+    }, 1000);*/
   }
 
   componentWillUnmount() {
