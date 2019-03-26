@@ -26,7 +26,7 @@ class SettingsForm extends Component {
 
   handleChange = name => event => {
     event.preventDefault();
-    this.setState({ [name]: event.target.value, isChanged: true});
+  	this.setState({ [name]: event.target.value, isChanged: true});
   };
 
   handleSubmit = event => {
@@ -55,6 +55,8 @@ class SettingsForm extends Component {
 		          id="standard-name"
 		          label="Navn"
 		          className="textField"
+		          type="text"
+		          inputProps={{ pattern: "[A-Z][a-z]*"}}
 		          value={this.state.name}
 		          onChange={this.handleChange("name")}
 		          margin="normal"
@@ -63,6 +65,8 @@ class SettingsForm extends Component {
 		          id="standard-name"
 		          label="Antall barn"
 		          className="textField"
+		          type="number"
+		          inputProps={{ min: "0", max: "100", step: "1" }}
 		          value={this.state.total_children}
 		          onChange={this.handleChange("total_children")}
 		          margin="normal"
@@ -70,6 +74,8 @@ class SettingsForm extends Component {
 		        <TextField
 		          id="standard-name"
 		          label="Forholdstall"
+		          type="number"
+		          inputProps={{ min: "0", max: "10", step: "0.01" }}
 		          className="textField"
 		          value={this.state.ratio}
 		          onChange={this.handleChange("ratio")}
