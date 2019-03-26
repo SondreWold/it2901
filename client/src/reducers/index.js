@@ -14,6 +14,7 @@ import workingEmployees from "./workingEmployeesReducer";
 import workingEmpsAbsChildren from "./statsReducers/workingEmpsAbsChildrenReducer";
 import absentEmpsPerMonth from "./statsReducers/absentEmpsPerMonthReducer";
 import ratio from "./statsReducers/getRatioReducer";
+import selectedDropdown from "./statsReducers/dropdownReducer";
 
 export default combineReducers({
   //import in all reducers here
@@ -29,5 +30,6 @@ export default combineReducers({
   insertAbsentEmployee,
   absentEmpsPerMonth,
   workingEmpsAbsChildren,
-  ratio
+  ratio,
+  selectedDropdown
 });
