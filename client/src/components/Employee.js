@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import Colors from "../constants/Colors";
-import {withStyles} from "@material-ui/core";
-import {MdClose} from "react-icons/md";
+import { withStyles } from "@material-ui/core";
+import { MdClose } from "react-icons/md";
 import moment from "moment";
 
 const Container = styled.div`
@@ -14,7 +14,6 @@ const Container = styled.div`
   background-color: ${props =>
     props.isDragging ? Colors.EmployeeColors.selectedEmployee : "white"};
   display: flex;
-  transition: 0.15s;
 `;
 
 const HandleRegular = styled.div`
@@ -34,13 +33,27 @@ const HandleTemp = styled.div`
 `;
 
 class Employee extends Component {
-  componentDidMount(){}
+  constructor(props) {
+    super(props);
+    this.state = { showX: false };
+  }
+
+  employeeClicked = () => {
+    this.setState({ showX: true });
+    setTimeout(() => {
+      this.setState({ showX: false });
+    }, 5000);
+  };
+
+  componentDidMount() {}
   handleClick = () => {
     this.props.delete(
       this.props.employee.employee_id,
-      moment(this.props.date).format("YYYY-MM-DD")
+      moment(this.props.date).format("YYYY-MM-DD"),
+      this.props.baseId,
+      this.props.index
     );
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -51,11 +64,13 @@ class Employee extends Component {
       >
         {(provided, snapshot) => (
           <Container
-            className="employeeCard"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
+            onMouseOver={() => this.setState({ showX: true })}
+            onMouseLeave={() => this.setState({ showX: false })}
+            onClick={this.employeeClicked}
           >
             {this.props.employee.position === 2 ? (
               <HandleTemp />
@@ -65,15 +80,13 @@ class Employee extends Component {
             {this.props.employee.first_name}
             {this.props.employee.position === 2 && (
               <div className={classes.root}>
-                <button
-                className={classes.button}
-                onClick={this.handleClick}
-                  >
-                <MdClose />
-                </button>
+                {this.state.showX && (
+                  <button className={classes.button} onClick={this.handleClick}>
+                    <MdClose />
+                  </button>
+                )}
               </div>
-            )
-          }
+            )}
           </Container>
         )}
       </Draggable>
@@ -84,13 +97,13 @@ class Employee extends Component {
 const styles = theme => ({
   root: {
     textAlign: "right",
-    flex: 1,
+    flex: 1
   },
   button: {
-    color: '#696969',
-    cursor: 'pointer',
-    backgroundColor: 'Transparent',
-    border: 'none',
+    color: "#696969",
+    cursor: "pointer",
+    backgroundColor: "Transparent",
+    border: "none"
   }
 });
 

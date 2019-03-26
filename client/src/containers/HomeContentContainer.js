@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import {
   getEmployees,
-  getFreeTemps,
-  getWorkingEmployees
+  getFreeTemps
 } from "../actions/contentActions/contentEmployeeActions";
+import { getWorkingEmployees } from "../actions/workingEmployeesAction";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "../actions/dateAction";
 import { getMinDate } from "../actions/dateAction";
@@ -14,7 +14,6 @@ import moment from "moment";
 import BaseOverview from "../components/BaseCard/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import TotalOverview from "../components/TotalOverview/TotalOverview";
-import { Divider } from "@material-ui/core";
 
 class contentContainer extends React.Component {
   componentDidMount() {

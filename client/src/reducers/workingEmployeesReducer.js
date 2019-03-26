@@ -1,10 +1,13 @@
-import { UPDATE_WORKING_EMPLOYEES } from "../actions/contentActions/contentEmployeeActions";
+import update from "immutability-helper";
+
 import {
-  UPDATE_SINGLE_WORKING_EMPLOYEE,
-  REMOVE_WORKING_EMPLOYEE
-} from "../actions/movedEmployeeAction";
+  UPDATE_WORKING_EMPLOYEES,
+  UPDATE_WORKING_EMPLOYEES_ON_BASE,
+  REMOVE_WORKING_EMPLOYEE,
+  ADD_WORKING_EMPLOYEES_BASE
+} from "../actions/workingEmployeesAction";
 const initialState = {
-  data: []
+  data: null
 };
 
 export default function movedReducer(state = initialState, action) {
@@ -12,15 +15,16 @@ export default function movedReducer(state = initialState, action) {
     case UPDATE_WORKING_EMPLOYEES:
       return {
         ...state,
-        data: action.payload.data
+        data: action.payload
       };
-
-    case UPDATE_SINGLE_WORKING_EMPLOYEE:
+    case UPDATE_WORKING_EMPLOYEES_ON_BASE:
+      return update(state, {
+        data: { [action.base]: { $set: action.payload } }
+      });
+    case ADD_WORKING_EMPLOYEES_BASE:
       return {
         ...state,
-        data: state.data.map(emp =>
-          emp.employee_id === action.payload.employee_id ? action.payload : emp
-        )
+        data: { ...state.data, [action.payload]: [] }
       };
     case REMOVE_WORKING_EMPLOYEE:
       return {

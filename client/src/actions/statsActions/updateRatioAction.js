@@ -26,19 +26,19 @@ export function updateRatio(date, baseId, ratio) {
   return dispatch => {
     dispatch(updateRatioBegin());
     fetch("/api/stats/updateRatio/" + date + "/" + baseId + "/" + ratio, {
-    	method: "PUT",
-    	headers: {
-    		"Content-Type": "application/json"
-    	}
-  	})
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => response.json())
       .then(response => {
-	      if (response.status === 202) {
-	        dispatch(updateRatioExisting("existing"));
-	      } else {
-	        dispatch(updateRatioSuccess("inserted"));
-	      }
-	    })
+        if (response.status === 202) {
+          dispatch(updateRatioExisting("existing"));
+        } else {
+          dispatch(updateRatioSuccess("inserted"));
+        }
+      })
       .catch(error => dispatch(updateRatioFailure(error)));
   };
 }

@@ -5,25 +5,27 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Colors from "../../constants/Colors";
 
 class EmployeeAbsenceList extends Component {
+  componentDidMount() {
+    this.props.getAbsence(this.props.selectedEmployee.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.selectedEmployee !== this.props.selectedEmployee) {
+      this.props.getAbsence(this.props.selectedEmployee.id);
+    }
+  }
   render() {
     return (
       <div>
+        <h3>Tidligere fravær: </h3>
         <List style={style.list} component="nav">
-          <ListItem style={style.listItem}>
-            <ListItemText primary={"Her kommer det"} />
-          </ListItem>
-          <ListItem style={style.listItem}>
-            <ListItemText primary={"en liste"} />
-          </ListItem>
-          <ListItem style={style.listItem}>
-            <ListItemText primary={"Over fraværsdagene"} />
-          </ListItem>
-          <ListItem style={style.listItem}>
-            <ListItemText primary={"til den"} />
-          </ListItem>
-          <ListItem style={style.listItem}>
-            <ListItemText primary={"valgte ansatte"} />
-          </ListItem>
+          {this.props.absence
+            ? this.props.absence.map(absence => (
+                <ListItem key={absence.date} style={style.listItem}>
+                  <ListItemText primary={absence.date.split("T")[0]} />
+                </ListItem>
+              ))
+            : ""}
         </List>
       </div>
     );

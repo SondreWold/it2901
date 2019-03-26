@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import {
-  changeMovedEmployee,
   addMovedEmployee,
+  updateMovedEmployee,
   deleteMovedEmployee
 } from "../actions/movedEmployeeAction";
+import {
+  updateWorkingEmployeesBase,
+  addWorkingEmployeesBase
+} from "../actions/workingEmployeesAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { updateRatio } from "../actions/statsActions/updateRatioAction";
 
@@ -31,18 +35,82 @@ class BaseCardContainer extends Component {
     return color;
   };
 
+  deleteTemp = (id, date, baseId, index) => {
+    const changedBase = remove(this.props.working_employees[baseId], index);
+    this.props.updateWorkingEmployeesBase(changedBase, baseId);
+    this.props.deleteMovedEmployee(id, date);
+  };
+
   onDragEnd = result => {
-    this.props.changeMovedEmployee(
-      result,
-      this.props.employees,
-      this.props.moved_employees,
-      moment(this.props.date).format("YYYY-MM-DD")
-    );
+    const { source, destination, draggableId } = result;
+    const employee = this.props.employees.find(emp => emp.id === draggableId);
+    let sourceList = this.props.working_employees[source.droppableId];
+
+    // dropped outside the list
+    if (!destination) {
+      return;
+    }
+
+    // reorder inside list
+    else if (source.droppableId === destination.droppableId) {
+      const changedBase = reorder(sourceList, source.index, destination.index);
+      this.props.updateWorkingEmployeesBase(changedBase, source.droppableId);
+    }
+
+    // move to different list
+    else {
+      let destList = this.props.working_employees[destination.droppableId];
+      //if the destination list is empty
+      if (!destList) {
+        this.props.addWorkingEmployeesBase(String(destination.droppableId));
+        destList = [];
+      }
+      const changedBases = move(sourceList, destList, source, destination);
+      this.props.updateWorkingEmployeesBase(
+        changedBases[destination.droppableId],
+        destination.droppableId
+      );
+      this.props.updateWorkingEmployeesBase(
+        changedBases[source.droppableId],
+        source.droppableId
+      );
+      this.props.moved_employees.find(emp => emp.employee_id === draggableId);
+      if (
+        this.props.moved_employees.find(emp => emp.employee_id === draggableId)
+      ) {
+        if (
+          employee.position === 1 &&
+          employee.base_id === destination.droppableId
+        ) {
+          //moving full time employee back to its default base
+          this.props.deleteMovedEmployee(
+            draggableId,
+            moment(this.props.date).format("YYYY-MM-DD")
+          );
+        } else {
+          // moving a temp
+          this.props.updateMovedEmployee(
+            draggableId,
+            destination.droppableId,
+            moment(this.props.date).format("YYYY-MM-DD")
+          );
+        }
+      } else {
+        //moving a full time employee away from its default base
+        this.props.addMovedEmployee(
+          draggableId,
+          destination.droppableId,
+          moment(this.props.date).format("YYYY-MM-DD"),
+          false
+        );
+      }
+    }
   };
 
   render() {
     return (
-      this.props.absentChildren.length > 0 && (
+      this.props.absentChildren.length > 0 &&
+      this.props.working_employees && (
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="baseCardHolder">
             {/*mapper gjennom baser og lager basecards*/}
@@ -51,13 +119,11 @@ class BaseCardContainer extends Component {
                 absence => absence.base_id === base.id
               );
 
-              const employeeListAtBase = this.props.working_employees
-                .filter(employee => employee.base_id === base.id)
-                .sort(function(a, b) {
-                  return (
-                    a.position - b.position || a.employee_id - b.employee_id
-                  );
-                });
+              const employeeListAtBase = this.props.working_employees[
+                String(base.id)
+              ]
+                ? this.props.working_employees[String(base.id)]
+                : [];
 
               // calc of needed employees
               const employeesPresent = employeeListAtBase.length;
@@ -70,7 +136,7 @@ class BaseCardContainer extends Component {
               const color = this.colorRendering(ratio);
 
               return (
-                <BaseCard title={base.name} color={color}>
+                <BaseCard key={base.id} title={base.name} color={color}>
                   <ChildrenCounter
                     base={absentChildren.base_id}
                     absent={absentChildren.children}
@@ -86,18 +152,18 @@ class BaseCardContainer extends Component {
                     employees={this.props.employees}
                     date={this.props.date}
                   />
-                  <EmployeesNeeded 
-                  	ratio={ratio} 
-                  	baseId={base.id}
-                  	updateRatio={this.props.updateRatio}
-                  	date={this.props.date}
+                  <EmployeesNeeded
+                    ratio={ratio}
+                    baseId={base.id}
+                    updateRatio={this.props.updateRatio}
+                    date={this.props.date}
                   />
 
                   <BaseCardList
                     key={base.id}
                     base={base}
                     employeeListAtBase={employeeListAtBase}
-                    delete={this.props.deleteMovedEmployee}
+                    delete={this.deleteTemp}
                     date={this.props.date}
                   />
                   <Adder
@@ -116,18 +182,49 @@ class BaseCardContainer extends Component {
   }
 }
 
+const remove = (list, index) => {
+  const listClone = Array.from(list);
+  listClone.splice(index, 1);
+  return listClone;
+};
+
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const move = (source, destination, droppableSource, droppableDestination) => {
+  const sourceClone = Array.from(source);
+  const destClone = Array.from(destination);
+  const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+  destClone.splice(droppableDestination.index, 0, removed);
+
+  const result = {};
+  result[droppableSource.droppableId] = sourceClone;
+  result[droppableDestination.droppableId] = destClone;
+
+  return result;
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     updateAbsentChildren: (amount, baseId, date) =>
       dispatch(updateAbsentChildren(amount, baseId, date)),
-    changeMovedEmployee: (result, employees, moved_employees, date) =>
-      dispatch(changeMovedEmployee(result, employees, moved_employees, date)),
     addMovedEmployee: (employeeId, baseId, date, name) =>
       dispatch(addMovedEmployee(employeeId, baseId, date, name)),
+    updateWorkingEmployeesBase: (data, base) =>
+      dispatch(updateWorkingEmployeesBase(data, base)),
+    updateMovedEmployee: (employeeId, baseId, date) =>
+      dispatch(updateMovedEmployee(employeeId, baseId, date)),
     updateRatio: (date, baseId, ratio) =>
-    	dispatch(updateRatio(date, baseId, ratio)),
+      dispatch(updateRatio(date, baseId, ratio)),
     deleteMovedEmployee: (employeeId, date) =>
-      dispatch(deleteMovedEmployee(employeeId, date))
+      dispatch(deleteMovedEmployee(employeeId, date)),
+    addWorkingEmployeesBase: base => dispatch(addWorkingEmployeesBase(base))
   };
 };
 

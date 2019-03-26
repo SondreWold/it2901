@@ -8,7 +8,6 @@ import "../components/EmployeeDetails/EmployeeDetails.css";
 
 class EmployeeDetailContainer extends Component {
   render() {
-    console.log(this.props.selectedEmployee);
     return (
       this.props.selectedEmployee && (
         <div className="detailsContainer">
@@ -21,7 +20,11 @@ class EmployeeDetailContainer extends Component {
             selectedEmployee={this.props.selectedEmployee}
             insertAbsentEmployee={this.props.insertAbsentEmployee}
           />
-          <EmployeeAbsenceList />
+          <EmployeeAbsenceList
+            selectedEmployee={this.props.selectedEmployee}
+            getAbsence={this.props.getAbsence}
+            absence={this.props.absence}
+          />
           <div className="employeeButtonsHolder">
             <AddEmployee
               showEdit={true}

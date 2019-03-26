@@ -3,8 +3,7 @@ import { Line } from "react-chartjs-2";
 import "./graph.css";
 
 class AbsenseGraph extends Component {
-
-	/*
+  /*
 
 		let months = [
       "Januar",
@@ -28,7 +27,6 @@ class AbsenseGraph extends Component {
 
 
   */
-
 
   render() {
     let chartData = {

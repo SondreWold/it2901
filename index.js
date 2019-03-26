@@ -7,6 +7,7 @@ import movedRouter from "./routes/movedRouter.js";
 import navigationRouter from "./routes/navigationRouter.js";
 import dateRouter from "./routes/dateRouter.js";
 import statsRouter from "./routes/statsRouter.js";
+import settingsRouter from "./routes/settingsRouter.js";
 
 const express = require("express");
 const path = require("path");
@@ -38,6 +39,7 @@ app.use("/api/moved", movedRouter);
 app.use("/api/navigation", navigationRouter);
 app.use("/api/minDate", dateRouter);
 app.use("/api/stats", statsRouter);
+app.use("/api/settings", settingsRouter);
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

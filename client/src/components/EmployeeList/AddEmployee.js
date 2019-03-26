@@ -11,7 +11,6 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  Checkbox,
   withStyles
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
