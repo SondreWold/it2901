@@ -112,7 +112,6 @@ class BaseCardContainer extends Component {
       this.props.absentChildren.length > 0 &&
       this.props.working_employees && (
         <DragDropContext onDragEnd={this.onDragEnd}>
-          {console.log(this.props.working_employees)}
           <div className="baseCardHolder">
             {/*mapper gjennom baser og lager basecards*/}
             {this.props.bases.map(base => {
