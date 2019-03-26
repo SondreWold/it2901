@@ -79,8 +79,11 @@ const insertNewEmployee = (request, response) => {
       (error, results) => {
         if (error) {
           console.log(error);
-        }
+          response.status(404).send("Failed inserting new employee to DB");
+        } else {
+        response.status(200).send(`Inserted employee ${firstName}`);
       }
+    }
     );
   } else {
     db.query(

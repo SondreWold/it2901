@@ -57,13 +57,21 @@ class AddEmployee extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const updatedEmployee= {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      base_id: this.state.base_id,
+      position: this.state.position,
+      id: this.props.empId,
+    }
     this.props.insertNewEmployee(
       this.state.first_name,
       this.state.last_name,
       this.state.base_id,
       this.state.position,
       moment(this.props.date).format("YYYY-MM-DD"),
-      this.props.empId
+      this.props.empId,
+      updatedEmployee
     );
     let text;
     if (this.props.showEdit) {
@@ -224,9 +232,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (firstName, lastName, baseID, position, date, empId) =>
+    insertNewEmployee: (firstName, lastName, baseID, position, date, empId, employee) =>
       dispatch(
-        insertNewEmployee(firstName, lastName, baseID, position, date, empId)
+        insertNewEmployee(firstName, lastName, baseID, position, date, empId, employee)
       )
   };
 };

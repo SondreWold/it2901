@@ -36,6 +36,7 @@ export function getEmployees() {
 }
 
 export function getSearchEmployees(name) {
+  console.log(name);
   let fetchString = !name ? "/api/employee/" : "/api/employee/" + name;
   return dispatch => {
     dispatch(getEmployeesBegin());

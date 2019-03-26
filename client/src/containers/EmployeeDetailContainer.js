@@ -30,6 +30,7 @@ class EmployeeDetailContainer extends Component {
               base_id={this.props.selectedEmployee.base_id.toString()}
               position={this.props.selectedEmployee.position.toString()}
               empId={this.props.selectedEmployee.id}
+              employee={this.props.selectedEmployee}
             />
             <DeleteEmployee />
           </div>
