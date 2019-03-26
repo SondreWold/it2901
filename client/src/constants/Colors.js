@@ -17,7 +17,8 @@ const EmployeeColors = {
   moveableEmployee: "#207d92",
   unMoveableEmployee: "#000033",
   selectedEmployee: "#E76F50",
-  editEmployee: "grey"
+  editEmployee: "grey",
+  borderColor: "#c6c6cc"
 };
 
 const randomColor = () => {

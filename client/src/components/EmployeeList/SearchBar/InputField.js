@@ -1,24 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-const styles = theme => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap"
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200
-  },
-  dense: {
-    marginTop: 19
-  },
-  menu: {
-    width: 200
-  }
-});
-
 export class InputField extends React.Component {
   handleTextChange = event => {
     let text = event.target.value;
