@@ -40,6 +40,9 @@ class Employee extends Component {
 
   employeeClicked = () => {
     this.setState({ showX: true });
+    setTimeout(() => {
+      this.setState({ showX: false });
+    }, 5000);
   };
 
   componentDidMount() {}
@@ -67,6 +70,7 @@ class Employee extends Component {
             isDragging={snapshot.isDragging}
             onMouseOver={() => this.setState({ showX: true })}
             onMouseLeave={() => this.setState({ showX: false })}
+            onClick={this.employeeClicked}
           >
             {this.props.employee.position === 2 ? (
               <HandleTemp />
