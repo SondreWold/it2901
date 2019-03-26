@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import moment from "moment";
 import "./graph.css";
 import Colors from "../../constants/Colors.js";
 
@@ -37,16 +36,17 @@ class AbsencePerWeekGraph extends Component {
       datasets: []
     };
 
+    var i = 0;
     graphData.data.forEach(ds => {
-      const col = Colors.randomColor();
       chartData.datasets.push({
         label: ds.label,
         data: ds.data,
         fill: "false",
-        pointBackgroundColor: col,
-        borderColor: col,
-        backgroundColor: col
+        pointBackgroundColor: Colors.statColors[i],
+        borderColor: Colors.statColors[i],
+        backgroundColor: Colors.statColors[i]
       });
+      i += 1;
     });
 
     return (
