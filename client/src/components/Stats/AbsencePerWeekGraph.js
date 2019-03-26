@@ -37,16 +37,19 @@ class AbsencePerWeekGraph extends Component {
       datasets: []
     };
 
+    let colors = ["#3385ff", "#ffff33", "#39ac73", "#ff5050"];
+    var i = 0;
+
     graphData.data.forEach(ds => {
-      const col = Colors.randomColor();
       chartData.datasets.push({
         label: ds.label,
         data: ds.data,
         fill: "false",
-        pointBackgroundColor: col,
-        borderColor: col,
-        backgroundColor: col
+        pointBackgroundColor: colors[i],
+        borderColor: colors[i],
+        backgroundColor: colors[i]
       });
+      i += 1;
     });
 
     return (
