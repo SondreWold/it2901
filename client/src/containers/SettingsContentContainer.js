@@ -10,17 +10,19 @@ import Colors from "../constants/Colors.js"
 import "../components/Settings/Settings.css";
 
 class SettingsContentContainer extends Component {
+
 	componentDidMount(){
 		this.props.getBases();
 	}
 
   render() {
     return (
-      <div class="settingsCardHolder">
+      <div className="settingsCardHolder">
     	 	{this.props.bases.map(base => 
-    	 		<BaseCard title={base.name} color={Colors.paletteColors.primary}>
+    	 		<BaseCard title={base.name} color={Colors.paletteColors.primary} key={base.id}>
 	    	 		<SettingsForm
 	    	 			id={base.id}
+	    	 			key={base.id}
 	    	 			name={base.name}
 	    	 			total_children={base.total_children}
 	    	 			ratio={base.ratio}
