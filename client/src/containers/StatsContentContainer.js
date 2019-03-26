@@ -10,14 +10,23 @@ import AbsencePerWeekGraph from "./../components/Stats/AbsencePerWeekGraph";
 
 class StatsContentContainer extends Component {
   componentDidMount() {
+    let update = true;
     // checks last week
+    if (update) {
+      this.calculateGraphData("week");
+      update = !update;
+    }
+  }
+
+  //time = "week" || time = "month || time = "year"
+  calculateGraphData = time => {
     this.props.getRatio(
       moment()
-        .subtract(1, "week")
+        .subtract(1, time)
         .format("YYYY-MM-DD"),
       moment().format("YYYY-MM-DD")
     );
-  }
+  };
 
   render() {
     return (
@@ -25,6 +34,7 @@ class StatsContentContainer extends Component {
         <Dropdown
           changeSelected={this.props.changeSelectedDropdownOption}
           selected={this.props.selectedOption}
+          calculateGraphData={this.calculateGraphData}
         />
         <AbsencePerWeekGraph ratios={this.props.ratios} />
       </div>
