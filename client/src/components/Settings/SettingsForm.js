@@ -37,6 +37,7 @@ class SettingsForm extends Component {
   	event.preventDefault();
   	this.setState({ isChanged: false })
   	this.props.editBaseSettings(
+  		this.state.id,
       this.state.name,
       this.state.total_children,
       this.state.ratio
@@ -44,7 +45,6 @@ class SettingsForm extends Component {
   }
 
   render() {
-  	console.log("STATE", this.state)
     return (
       <div className="settingsForm">
       	<form onSubmit={this.handleSubmit}>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
-import { editBaseSettings } from "../actions/settingsActions/editBaseSettings"
+import { editBaseSettings } from "../actions/settingsActions/editBaseSettingsAction"
 
 import BaseCard from "../components/BaseCard/BaseCard";
 import SettingsForm from "../components/Settings/SettingsForm"
@@ -35,9 +35,9 @@ class SettingsContentContainer extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getBases: () => dispatch(getBases())
-    editBaseSettings: (name, total_children, ratio) => 
-    	dispatch(editBaseSettings(name, total_children, ratio))
+    getBases: () => dispatch(getBases()),
+    editBaseSettings: (id, name, total_children, ratio) => 
+    	dispatch(editBaseSettings(id, name, total_children, ratio))
   };
 };
 

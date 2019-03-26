@@ -1,6 +1,7 @@
 .settingsCardHolder {
   display: flex;
   justify-content: space-around;
+  margin-top: 10%;
 }
 
 .settingsForm {
@@ -11,20 +12,26 @@
   .baseCard {
     width: 100%;
   }
+
   .settingsCardHolder {
     display: inline-grid;
     grid-template-columns: 300px 300px;
     justify-content: space-evenly;
     grid-column-gap: 50px;
+    margin-top: 0;
   }
 }
 
 
 @media only screen and (max-width: 600px) {
+	.baseCard {
+		width: 80%;
+	}
   .settingsCardHolder {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 0;
   }
 }
