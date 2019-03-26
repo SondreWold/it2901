@@ -57,13 +57,23 @@ const getWorkingEmployees = (request, response) => {
       UNION \
         SELECT e2.base_id, e2.id, e2.first_name, e2.position FROM employee e2 WHERE e2.position = 1 AND e2.id \
         NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
-          UNION SELECT employee_id FROM absence_employee WHERE date = $1);",
+          UNION SELECT employee_id FROM absence_employee WHERE date = $1) ORDER BY base_id, position, first_name;",
     [date],
     (error, results) => {
       if (error) {
         response.status(404).send("Failed fetching working employees");
       } else {
-        response.status(200).json(results.rows);
+        let workingEmployyes = {};
+        for (let i = 0; i < results.rows.length; i++) {
+          let key = results.rows[i].base_id;
+          if (workingEmployyes[key]) {
+            workingEmployyes[key].push(results.rows[i]);
+          } else {
+            workingEmployyes[key] = [results.rows[i]];
+          }
+        }
+        console.log(workingEmployyes);
+        response.status(200).json(workingEmployyes);
       }
     }
   );
