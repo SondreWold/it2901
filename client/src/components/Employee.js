@@ -33,6 +33,15 @@ const HandleTemp = styled.div`
 `;
 
 class Employee extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { showX: false };
+  }
+
+  employeeClicked = () => {
+    this.setState({ showX: true });
+  };
+
   componentDidMount() {}
   handleClick = () => {
     this.props.delete(
@@ -56,6 +65,8 @@ class Employee extends Component {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
+            onMouseOver={() => this.setState({ showX: true })}
+            onMouseLeave={() => this.setState({ showX: false })}
           >
             {this.props.employee.position === 2 ? (
               <HandleTemp />
@@ -65,9 +76,11 @@ class Employee extends Component {
             {this.props.employee.first_name}
             {this.props.employee.position === 2 && (
               <div className={classes.root}>
-                <button className={classes.button} onClick={this.handleClick}>
-                  <MdClose />
-                </button>
+                {this.state.showX && (
+                  <button className={classes.button} onClick={this.handleClick}>
+                    <MdClose />
+                  </button>
+                )}
               </div>
             )}
           </Container>
