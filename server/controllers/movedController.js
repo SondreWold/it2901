@@ -7,9 +7,10 @@ const getMovedEmployee = (request, response) => {
     [date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching moved employee");
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
@@ -24,11 +25,12 @@ const updateMovedEmployee = (request, response) => {
     [baseId, employeeId, date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed updating moved employee");
+      } else {
+        response
+          .status(200)
+          .send(`Base ID of employee modified with baseId: ${baseId}`);
       }
-      response
-        .status(200)
-        .send(`Base ID of employee modified with baseId: ${baseId}`);
     }
   );
 };
@@ -41,11 +43,12 @@ const addMovedEmployee = (request, response) => {
     [date, employeeId, baseId],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed adding moved employee");
+      } else {
+        response
+          .status(200)
+          .send(`Inserted employee ${employeeId} on day ${date}`);
       }
-      response
-        .status(200)
-        .send(`Inserted employee ${employeeId} on day ${date}`);
     }
   );
 };
@@ -58,9 +61,10 @@ const deleteMovedEmployee = (request, response) => {
     [employeeId, date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed deleting moved employee");
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };

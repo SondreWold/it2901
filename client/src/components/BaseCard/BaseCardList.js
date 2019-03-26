@@ -18,7 +18,9 @@ class BaseCardList extends Component {
                   key={employee.employee_id}
                   employee={employee}
                   index={index}
-                  name={"123"}
+                  delete={this.props.delete}
+                  date={this.props.date}
+                  baseId={this.props.base.id}
                 />
               ))}
               {provided.placeholder}

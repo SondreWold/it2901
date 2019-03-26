@@ -3,7 +3,7 @@ var db = require("../db");
 const getEmployees = (request, response) => {
   db.query("SELECT * FROM employee", (error, results) => {
     if (error) {
-      throw error;
+      response.status(404).send("Failed fetching employees from DB");
     }
     response.status(200).json(results.rows);
   });
@@ -14,7 +14,6 @@ const deleteEmployee = (request, response) => {
   db.query("DELETE FROM employee where id = $1", [id], (error, results) => {
     if (error) {
       response.status(200).send("0");
-      throw error;
     }
     response.status(200).send("1");
   });
@@ -23,13 +22,13 @@ const deleteEmployee = (request, response) => {
 const getEmployeesSearch = (request, response) => {
   let searchToken = request.params.name;
   db.query(
-    `	SELECT * FROM employee 
+    `	SELECT * FROM employee
     WHERE LOWER(employee.first_name) LIKE LOWER($1)
     OR LOWER(employee.last_name) LIKE LOWER($1)`,
     ["%" + searchToken + "%"],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Faield fetching employees from DB");
       }
       response.status(200).json(results.rows);
     }
@@ -43,7 +42,7 @@ const getFreeTemp = (request, response) => {
     [date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching available temps from DB ");
       }
       response.status(200).json(results.rows);
     }
@@ -58,38 +57,58 @@ const getWorkingEmployees = (request, response) => {
       UNION \
         SELECT e2.base_id, e2.id, e2.first_name, e2.position FROM employee e2 WHERE e2.position = 1 AND e2.id \
         NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
-          UNION SELECT employee_id FROM absence_employee WHERE date = $1);",
+          UNION SELECT employee_id FROM absence_employee WHERE date = $1) ORDER BY base_id, position, first_name;",
     [date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching working employees");
+      } else {
+        let workingEmployyes = {};
+        for (let i = 0; i < results.rows.length; i++) {
+          let key = results.rows[i].base_id;
+          if (workingEmployyes[key]) {
+            workingEmployyes[key].push(results.rows[i]);
+          } else {
+            workingEmployyes[key] = [results.rows[i]];
+          }
+        }
+        console.log(workingEmployyes);
+        response.status(200).json(workingEmployyes);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
 
 const insertNewEmployee = (request, response) => {
-  let { firstName, lastName, baseID, moveable, position } = request.body;
-
-  db.query(
-    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, moveable, position) VALUES ($1, $2, $3, b'" +
-      moveable +
-      "', $4)",
-    [firstName, lastName, baseID, position],
-    (error, results) => {
-      if (error) {
-        if (error.code === "23505") {
-          response.status(202).send(`Already existing entry in the DB`);
-        } else {
+  let { firstName, lastName, baseID, position, id } = request.body;
+  //if id>0, it means that employee should be edited
+  if (id > 0) {
+    db.query(
+      "UPDATE EMPLOYEE SET first_name=$1, last_name=$2, base_id=$3, position=$4 WHERE id=$5",
+      [firstName, lastName, baseID, position, id],
+      (error, results) => {
+        if (error) {
           console.log(error);
-          throw error;
         }
-      } else {
-        response.status(200).send(`Inserted employee ${firstName}`);
       }
-    }
-  );
+    );
+  } else {
+    db.query(
+      "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
+      [firstName, lastName, baseID, position],
+      (error, results) => {
+        if (error) {
+          if (error.code === "23505") {
+            console.log("fillern");
+          } else {
+            response.status(404).send("Failed inserting new employee to DB");
+          }
+        } else {
+          response.status(200).send(`Inserted employee ${firstName}`);
+        }
+      }
+    );
+  }
 };
 
 module.exports = {

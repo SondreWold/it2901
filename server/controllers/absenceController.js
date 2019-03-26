@@ -10,13 +10,13 @@ const getAbsentChildren = (request, response) => {
     FROM absence_children \
     INNER JOIN base ON absence_children.base_id = base.id\
     WHERE absence_children.date = $1;",
-
     [request.params.date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed fetching all absent children");
+      } else {
+        response.status(200).json(results.rows);
       }
-      response.status(200).json(results.rows);
     }
   );
 };
@@ -41,16 +41,19 @@ const insertNewAbsentChildrenRow = (request, response) => {
         .send("Inserted 4 rows of 0-values for children_absence entities");
     })
     .catch(error => {
-      // error;
+      response
+        .status(404)
+        .send("Failed inserting empty row for absent children");
     });
 };
 
 const getAbsentEmployees = (request, response) => {
   db.query("SELECT * FROM absence_employee", (error, results) => {
     if (error) {
-      throw error;
+      response.status(404).send("Failed fetching absent employees");
+    } else {
+      response.status(200).json(results.rows);
     }
-    response.status(200).json(results.rows);
   });
 };
 
@@ -64,9 +67,12 @@ const updateAbsentChildren = (request, response) => {
     [amount, baseId, date],
     (error, results) => {
       if (error) {
-        throw error;
+        response.status(404).send("Failed updating absent children");
+      } else {
+        response
+          .status(200)
+          .send(`Absent children modified with ID: ${baseId}`);
       }
-      response.status(200).send(`Absent children modified with ID: ${baseId}`);
     }
   );
 };
@@ -74,7 +80,6 @@ const updateAbsentChildren = (request, response) => {
 const insertAbsentEmployee = (request, response) => {
   const empId = parseInt(request.params.empId);
   const date = request.params.date;
-
   db.query(
     "INSERT INTO absence_employee VALUES ($1, $2)",
     [date, empId],
@@ -83,7 +88,7 @@ const insertAbsentEmployee = (request, response) => {
         if (error.code === "23505") {
           response.status(202).send(`Already existing entry in the DB`);
         } else {
-          throw error;
+          response.status(404).send("Failed inserting absent employee to DB");
         }
       } else {
         response
@@ -94,10 +99,28 @@ const insertAbsentEmployee = (request, response) => {
   );
 };
 
+const getAbsenceForEmployee = (request, response) => {
+  let id = request.params.id;
+  db.query(
+    "SELECT * FROM absence_employee where employee_id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        response
+          .status(404)
+          .send("Failed fetching absence for employee: " + id);
+      } else {
+        response.status(200).json(results.rows);
+      }
+    }
+  );
+};
+
 module.exports = {
   getAbsentEmployees,
   getAbsentChildren,
   updateAbsentChildren,
   insertAbsentEmployee,
-  insertNewAbsentChildrenRow
+  insertNewAbsentChildrenRow,
+  getAbsenceForEmployee
 };
