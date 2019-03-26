@@ -15,8 +15,13 @@ class TotalOverview extends Component {
         totalAbsentChildren += child.children;
       });
     }
-    let totalAbsentEmployees =
-      totalEmployees - this.props.working_employees.length;
+    let workingEmployeesNumber = 0;
+    for (var key in this.props.working_employees) {
+      for (let i = 0; i < this.props.working_employees[key].length; i++) {
+        workingEmployeesNumber++;
+      }
+    }
+    let totalAbsentEmployees = totalEmployees - workingEmployeesNumber;
     result.push(
       totalChildren,
       totalAbsentChildren,

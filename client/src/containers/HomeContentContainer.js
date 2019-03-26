@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { getBases } from "../actions/contentActions/contentBaseActions";
 import {
   getEmployees,
-  getFreeTemps,
-  getWorkingEmployees
+  getFreeTemps
 } from "../actions/contentActions/contentEmployeeActions";
+import { getWorkingEmployees } from "../actions/workingEmployeesAction";
 import { getAbsentEmployees } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import { changeDate } from "../actions/dateAction";
 import { getMinDate } from "../actions/dateAction";

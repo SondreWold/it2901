@@ -14,5 +14,6 @@ router
 router
   .route("/employees/:empId/date/:date/")
   .put(absenceController.insertAbsentEmployee);
+router.route("/:id").get(absenceController.getAbsenceForEmployee);
 
 export default router;

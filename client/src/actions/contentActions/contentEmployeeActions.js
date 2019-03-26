@@ -4,6 +4,8 @@ export const GET_EMPLOYEES_FAILURE = "GET_EMPLOYEES_FAILURE";
 export const UPDATE_FREE_TEMPS = "GET_FREE_TEMPS";
 export const UPDATE_WORKING_EMPLOYEES = "UPDATE_WORKING_EMPLOYEES";
 export const GET_SEARCHED_EMPLOYEE_SUCCESS = "GET_SEARCHED_EMPLOYEE_SUCCESS";
+export const UPDATE_WORKING_EMPLOYEES_ON_BASE =
+  "UPDATE_WORKING_EMPLOYEES_ON_BASE";
 
 export const getEmployeesBegin = () => ({
   type: GET_EMPLOYEES_BEGIN
@@ -57,19 +59,5 @@ export function getFreeTemps(date) {
       .then(response => response.json())
       .then(temps => dispatch(updateFreeTemps(temps)))
       .catch(() => console.log("Failed retrieval of free temps"));
-  };
-}
-
-export const updateWorkingEmployees = data => ({
-  type: UPDATE_WORKING_EMPLOYEES,
-  payload: { data }
-});
-
-export function getWorkingEmployees(date) {
-  return dispatch => {
-    fetch("/api/employee/work/date/" + date)
-      .then(response => response.json())
-      .then(employees => dispatch(updateWorkingEmployees(employees)))
-      .catch(() => console.log("Failed retrieval of working employees"));
   };
 }
