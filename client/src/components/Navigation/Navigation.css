@@ -86,6 +86,9 @@
     flex-direction: column;
     margin-left: 0;
     margin-right: 0;
-    background-color: #207d92;
+    background-color: rgb(16, 62, 73);
+  }
+  .NavbarToggleShow:hover {
+    background-color: rgb(24, 63, 73);
   }
 }
