@@ -37,7 +37,9 @@ class Employee extends Component {
   handleClick = () => {
     this.props.delete(
       this.props.employee.employee_id,
-      moment(this.props.date).format("YYYY-MM-DD")
+      moment(this.props.date).format("YYYY-MM-DD"),
+      this.props.baseId,
+      this.props.index
     );
   };
 

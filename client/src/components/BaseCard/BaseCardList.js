@@ -20,6 +20,7 @@ class BaseCardList extends Component {
                   index={index}
                   delete={this.props.delete}
                   date={this.props.date}
+                  baseId={this.props.base.id}
                 />
               ))}
               {provided.placeholder}

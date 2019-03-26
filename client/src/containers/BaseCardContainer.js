@@ -6,7 +6,10 @@ import {
   updateMovedEmployee,
   deleteMovedEmployee
 } from "../actions/movedEmployeeAction";
-import { updateWorkingEmployeesBase } from "../actions/workingEmployeesAction";
+import {
+  updateWorkingEmployeesBase,
+  addWorkingEmployeesBase
+} from "../actions/workingEmployeesAction";
 import { updateAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import { updateRatio } from "../actions/statsActions/updateRatioAction";
 
@@ -32,42 +35,37 @@ class BaseCardContainer extends Component {
     return color;
   };
 
+  deleteTemp = (id, date, baseId, index) => {
+    const changedBase = remove(this.props.working_employees[baseId], index);
+    this.props.updateWorkingEmployeesBase(changedBase, baseId);
+    this.props.deleteMovedEmployee(id, date);
+  };
+
   onDragEnd = result => {
     const { source, destination, draggableId } = result;
     const employee = this.props.employees.find(emp => emp.id === draggableId);
+    let sourceList = this.props.working_employees[source.droppableId];
+
     // dropped outside the list
     if (!destination) {
-      if (employee.position === 2) {
-        const changedBase = remove(
-          this.props.working_employees[source.droppableId],
-          source.index
-        );
-        this.props.updateWorkingEmployeesBase(changedBase, source.droppableId);
-        this.props.deleteMovedEmployee(
-          draggableId,
-          moment(this.props.date).format("YYYY-MM-DD")
-        );
-      }
+      return;
     }
 
     // reorder inside list
     else if (source.droppableId === destination.droppableId) {
-      const changedBase = reorder(
-        this.props.working_employees[source.droppableId],
-        source.index,
-        destination.index
-      );
+      const changedBase = reorder(sourceList, source.index, destination.index);
       this.props.updateWorkingEmployeesBase(changedBase, source.droppableId);
     }
 
     // move to different list
     else {
-      const changedBases = move(
-        this.props.working_employees[source.droppableId],
-        this.props.working_employees[destination.droppableId],
-        source,
-        destination
-      );
+      let destList = this.props.working_employees[destination.droppableId];
+      //if the destination list is empty
+      if (!destList) {
+        this.props.addWorkingEmployeesBase(String(destination.droppableId));
+        destList = [];
+      }
+      const changedBases = move(sourceList, destList, source, destination);
       this.props.updateWorkingEmployeesBase(
         changedBases[destination.droppableId],
         destination.droppableId
@@ -114,6 +112,7 @@ class BaseCardContainer extends Component {
       this.props.absentChildren.length > 0 &&
       this.props.working_employees && (
         <DragDropContext onDragEnd={this.onDragEnd}>
+          {console.log(this.props.working_employees)}
           <div className="baseCardHolder">
             {/*mapper gjennom baser og lager basecards*/}
             {this.props.bases.map(base => {
@@ -126,7 +125,6 @@ class BaseCardContainer extends Component {
               ]
                 ? this.props.working_employees[String(base.id)]
                 : [];
-              console.log(employeeListAtBase);
 
               // calc of needed employees
               const employeesPresent = employeeListAtBase.length;
@@ -166,7 +164,7 @@ class BaseCardContainer extends Component {
                     key={base.id}
                     base={base}
                     employeeListAtBase={employeeListAtBase}
-                    delete={this.props.deleteMovedEmployee}
+                    delete={this.deleteTemp}
                     date={this.props.date}
                   />
                   <Adder
@@ -226,7 +224,8 @@ const mapDispatchToProps = dispatch => {
     updateRatio: (date, baseId, ratio) =>
       dispatch(updateRatio(date, baseId, ratio)),
     deleteMovedEmployee: (employeeId, date) =>
-      dispatch(deleteMovedEmployee(employeeId, date))
+      dispatch(deleteMovedEmployee(employeeId, date)),
+    addWorkingEmployeesBase: base => dispatch(addWorkingEmployeesBase(base))
   };
 };
 
