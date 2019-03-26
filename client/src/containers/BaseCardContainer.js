@@ -126,6 +126,7 @@ class BaseCardContainer extends Component {
               ]
                 ? this.props.working_employees[String(base.id)]
                 : [];
+              console.log(employeeListAtBase);
 
               // calc of needed employees
               const employeesPresent = employeeListAtBase.length;

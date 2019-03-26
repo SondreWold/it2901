@@ -63,18 +63,18 @@ const getWorkingEmployees = (request, response) => {
       if (error) {
         response.status(404).send("Failed fetching working employees");
       } else {
-        response.status(200).json(results.rows);
-      }
-      let workingEmployyes = {};
-      for (let i = 0; i < results.rows.length; i++) {
-        let key = results.rows[i].base_id;
-        if (workingEmployyes[key]) {
-          workingEmployyes[key].push(results.rows[i]);
-        } else {
-          workingEmployyes[key] = [results.rows[i]];
+        let workingEmployyes = {};
+        for (let i = 0; i < results.rows.length; i++) {
+          let key = results.rows[i].base_id;
+          if (workingEmployyes[key]) {
+            workingEmployyes[key].push(results.rows[i]);
+          } else {
+            workingEmployyes[key] = [results.rows[i]];
+          }
         }
+        console.log(workingEmployyes);
+        response.status(200).json(workingEmployyes);
       }
-      response.status(200).json(workingEmployyes);
     }
   );
 };
