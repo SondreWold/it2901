@@ -5,7 +5,8 @@ const connection = new Pool({
   database: "d41s9gog2gcj1l",
   password: "41beb6107ec8732b4fbfcc6ca411a353dc35c898c0f35ab93f2eefe260b2f5ab",
   port: 5432,
-  ssl: true
+  ssl: true,
+  multipleStatements: true
 });
 
 module.exports = connection;
