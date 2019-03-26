@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-
+import Alert from "react-s-alert";
 import {
   Button,
   TextField,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  RadioGroup,
-  Radio
+  FormControl
 } from "@material-ui/core";
 import "./Settings.css";
 
@@ -42,6 +38,12 @@ class SettingsForm extends Component {
       this.state.total_children,
       this.state.ratio
     );
+
+    Alert.success("Endringen er registrert", {
+      position: "bottom-right",
+      effect: "jelly",
+      timeout: 3000
+    });
   }
 
   render() {

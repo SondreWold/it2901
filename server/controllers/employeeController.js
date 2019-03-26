@@ -72,7 +72,6 @@ const getWorkingEmployees = (request, response) => {
             workingEmployyes[key] = [results.rows[i]];
           }
         }
-        console.log(workingEmployyes);
         response.status(200).json(workingEmployyes);
       }
     }
