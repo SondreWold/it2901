@@ -112,7 +112,6 @@ class BaseCardContainer extends Component {
       this.props.absentChildren.length > 0 &&
       this.props.working_employees && (
         <DragDropContext onDragEnd={this.onDragEnd}>
-          {console.log(this.props.working_employees)}
           <div className="baseCardHolder">
             {/*mapper gjennom baser og lager basecards*/}
             {this.props.bases.map(base => {
@@ -137,7 +136,7 @@ class BaseCardContainer extends Component {
               const color = this.colorRendering(ratio);
 
               return (
-                <BaseCard title={base.name} color={color}>
+                <BaseCard key={base.id} title={base.name} color={color}>
                   <ChildrenCounter
                     base={absentChildren.base_id}
                     absent={absentChildren.children}

@@ -8,7 +8,6 @@ import "../components/EmployeeDetails/EmployeeDetails.css";
 
 class EmployeeDetailContainer extends Component {
   render() {
-    console.log(this.props.selectedEmployee);
     return (
       this.props.selectedEmployee && (
         <div className="detailsContainer">

@@ -21,7 +21,7 @@ class EmployeeAbsenceList extends Component {
         <List style={style.list} component="nav">
           {this.props.absence
             ? this.props.absence.map(absence => (
-                <ListItem style={style.listItem}>
+                <ListItem key={absence.date} style={style.listItem}>
                   <ListItemText primary={absence.date.split("T")[0]} />
                 </ListItem>
               ))

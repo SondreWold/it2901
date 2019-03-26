@@ -5,11 +5,13 @@ import moment from "moment";
 class EmployeesAtBase extends Component {
   calcMissingResources = (absentEmployees, base, employees, date) => {
     const missingResources = absentEmployees
-      .map(ae => Object.assign(ae, employees.find(e => e.id == ae.employee_id)))
-      .filter(e => e.base_id == base.id)
+      .map(ae =>
+        Object.assign(ae, employees.find(e => e.id === ae.employee_id))
+      )
+      .filter(e => e.base_id === base.id)
       .filter(
         e =>
-          moment(e.date).format("YYYY-MM-DD") ==
+          moment(e.date).format("YYYY-MM-DD") ===
           moment(date).format("YYYY-MM-DD")
       );
 
