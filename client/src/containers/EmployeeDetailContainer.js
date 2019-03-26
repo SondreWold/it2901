@@ -21,7 +21,11 @@ class EmployeeDetailContainer extends Component {
             selectedEmployee={this.props.selectedEmployee}
             insertAbsentEmployee={this.props.insertAbsentEmployee}
           />
-          <EmployeeAbsenceList />
+          <EmployeeAbsenceList
+            selectedEmployee={this.props.selectedEmployee}
+            getAbsence={this.props.getAbsence}
+            absence={this.props.absence}
+          />
           <div className="employeeButtonsHolder">
             <AddEmployee
               showEdit={true}
