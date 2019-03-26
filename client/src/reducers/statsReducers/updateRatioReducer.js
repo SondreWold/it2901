@@ -6,15 +6,12 @@ import {
 } from "../../actions/statsActions/updateRatioAction.js";
 
 const initialState = {
-	status: "",
+  status: "",
   loading: false,
   error: null
 };
 
-export default function updateRatioReducer(
-  state = initialState,
-  action
-) {
+export default function updateRatioReducer(state = initialState, action) {
   switch (action.type) {
     case UPDATE_RATIO_BEGIN:
       return {

@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import DatePicker from "react-date-picker";
 import { Button } from "@material-ui/core";
 import "./EmployeeDetails.css";
@@ -9,7 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { TiPlus } from "react-icons/ti";
 import Alert from "react-s-alert";
 import Colors from "../../constants/Colors";
-import * as fn from "../../constants/Functions"
+import * as fn from "../../constants/Functions";
 import { FaUserClock } from "react-icons/fa";
 
 const calendar2 = require("../../images/calendar2.svg");

@@ -1,7 +1,3 @@
-const AlertColors = {
-  success: "#27AE60"
-};
-
 const BaseColors = {
   ok: "#ffe200",
   good: "#37df11",

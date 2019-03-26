@@ -6,7 +6,6 @@ import { InputField } from "./SearchBar/InputField";
 import AddEmployee from "./AddEmployee";
 import Colors from "../../constants/Colors";
 import "./EmployeeList.css";
-import { FaFileExcel } from "react-icons/fa";
 
 class EmployeeList extends React.Component {
   state = {
