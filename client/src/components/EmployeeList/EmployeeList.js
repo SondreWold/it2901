@@ -37,6 +37,16 @@ class EmployeeList extends React.Component {
             empId={null}
           />
         </div>
+        <div style={style.colorInfoComp}>
+          <div style={style.infos}>
+            <div style={style.detailsBoxRegular} />
+            <p>Fast ansatt</p>
+          </div>
+          <div style={style.infos}>
+            <div style={style.detailsBoxTemporary} />
+            <p> Vikar </p>
+          </div>
+        </div>
         <List style={style.list} component="nav">
           {this.props.employees.map(employee => (
             <ListItem
@@ -58,16 +68,6 @@ class EmployeeList extends React.Component {
             </ListItem>
           ))}
         </List>
-        <div style={style.colorInfoComp}>
-          <div style={style.infos}>
-            <div style={style.detailsBoxRegular} />
-            <p>Fast ansatt</p>
-          </div>
-          <div style={style.infos}>
-            <div style={style.detailsBoxTemporary} />
-            <p> Vikar </p>
-          </div>
-        </div>
       </div>
     );
   }
@@ -91,7 +91,7 @@ const style = {
   list: {
     width: "100%",
     border: "5px",
-    maxHeight: "260px",
+    maxHeight: "300px",
     overflow: "auto"
   },
   listItemRegular: {

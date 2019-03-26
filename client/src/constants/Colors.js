@@ -13,7 +13,8 @@ const EmployeeColors = {
   moveableEmployee: "#207d92",
   unMoveableEmployee: "#000033",
   selectedEmployee: "#E76F50",
-  editEmployee: "grey"
+  editEmployee: "grey",
+  borderColor: "#c6c6cc"
 };
 
 const statColors = ["#3385ff", "#ffff33", "#39ac73", "#ff5050"];
