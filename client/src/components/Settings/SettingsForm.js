@@ -3,11 +3,7 @@ import React, { Component } from "react";
 import {
   Button,
   TextField,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  RadioGroup,
-  Radio
+  FormControl
 } from "@material-ui/core";
 import "./Settings.css";
 
