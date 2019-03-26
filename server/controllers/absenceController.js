@@ -99,10 +99,28 @@ const insertAbsentEmployee = (request, response) => {
   );
 };
 
+const getAbsenceForEmployee = (request, response) => {
+  let id = request.params.id;
+  db.query(
+    "SELECT * FROM absence_employee where employee_id = $1",
+    [id],
+    (error, results) => {
+      if (error) {
+        response
+          .status(404)
+          .send("Failed fetching absence for employee: " + id);
+      } else {
+        response.status(200).json(results.rows);
+      }
+    }
+  );
+};
+
 module.exports = {
   getAbsentEmployees,
   getAbsentChildren,
   updateAbsentChildren,
   insertAbsentEmployee,
-  insertNewAbsentChildrenRow
+  insertNewAbsentChildrenRow,
+  getAbsenceForEmployee
 };

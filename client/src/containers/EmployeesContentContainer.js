@@ -8,6 +8,7 @@ import {
 import { getSearchEmployees } from "../actions/contentActions/contentEmployeeActions";
 import EmployeeListContainer from "./EmployeeListContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
+import { getAbsenceById } from "../actions/absenceAction";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -31,6 +32,8 @@ class EmployeesContentContainer extends Component {
         </div>
         <div style={style.item}>
           <EmployeeDetailContainer
+            getAbsence={this.props.getAbsence}
+            absence={this.props.absence}
             selectedEmployee={this.props.selectedEmployee}
             insertAbsentEmployee={this.props.insertAbsentEmployee}
             minDate={this.props.minDate}
@@ -61,7 +64,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateSelectedEmployee(employee)),
     insertAbsentEmployee: (empId, date) =>
       dispatch(insertAbsentEmployee(empId, date)),
-    getSelectedBase: id => dispatch(getSelectedBase(id))
+    getSelectedBase: id => dispatch(getSelectedBase(id)),
+    getAbsence: id => dispatch(getAbsenceById(id))
   };
 };
 
@@ -69,7 +73,8 @@ const mapStateToProps = state => ({
   listOfEmployees: state.contentEmployee.searchData,
   selectedEmployee: state.employeeList.selectedEmployee,
   minDate: state.date.minDate,
-  selectedBase: state.employeeList.selectedBase
+  selectedBase: state.employeeList.selectedBase,
+  absence: state.absence.data
 });
 
 export default connect(
