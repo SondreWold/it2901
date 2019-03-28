@@ -6,7 +6,7 @@ class BaseCardList extends Component {
   render() {
     return (
       <div className="baseCardList">
-        <Droppable droppableId={this.props.base.id}>
+        <Droppable droppableId={this.props.base.id.toString()}>
           {(provided, snapshot) => (
             <div
               className="employeeList"

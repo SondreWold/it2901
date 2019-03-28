@@ -1,7 +1,3 @@
-const AlertColors = {
-  success: "#27AE60"
-};
-
 const BaseColors = {
   ok: "#ffe200",
   good: "#37df11",
@@ -17,16 +13,25 @@ const EmployeeColors = {
   moveableEmployee: "#207d92",
   unMoveableEmployee: "#000033",
   selectedEmployee: "#E76F50",
-  editEmployee: "grey"
+  editEmployee: "grey",
+  borderColor: "#c6c6cc"
 };
 
+const statColors = ["#3385ff", "#ffff33", "#39ac73", "#ff5050"];
+
 const randomColor = () => {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
+  var letters = "0123456789ABCDEF";
+  var color = "#";
   for (var i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
-}
+};
 
-export default { EmployeeColors, BaseColors, paletteColors, randomColor };
+export default {
+  EmployeeColors,
+  BaseColors,
+  paletteColors,
+  randomColor,
+  statColors
+};

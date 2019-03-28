@@ -7,9 +7,10 @@ class DateNavigation extends React.Component {
     var date = this.props.date;
     let today = new Date();
     var yesterday;
-    moment(date).format("YYYY-MM-DD") === moment(this.props.minDate).format("YYYY-MM-DD")
-    ? yesterday = date
-    : yesterday = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+    moment(date).format("YYYY-MM-DD") ===
+    moment(this.props.minDate).format("YYYY-MM-DD")
+      ? (yesterday = date)
+      : (yesterday = new Date(date.getTime() - 24 * 60 * 60 * 1000));
     var tomorrow = new Date(date.getTime() + 24 * 60 * 60 * 1000);
 
     return (

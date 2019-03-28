@@ -1,5 +1,4 @@
 .detailsContainer {
-  border: 1px solid #207d92;
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 10px;
@@ -70,6 +69,14 @@
   border-radius: 7px;
 }
 
+.absenceList {
+  width: 65%; 
+  border: 5px;
+  min-height: 150px;
+  max-height: 200px;
+  overflow: auto;
+}
+
 @media only screen and (max-width: 1100px) {
   .absenceFormWrapper {
     width: 500px;
@@ -93,5 +100,9 @@
 
   .absenceForm {
     flex-direction: column;
+  }
+
+  .absenceList {
+    width: 100%;
   }
 }

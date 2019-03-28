@@ -17,7 +17,6 @@ export const getAbsenceFailure = error => ({
 });
 
 export function getAbsenceById(id) {
-  console.log("ABSENCE ACTION WITH ID: " + id);
   return dispatch => {
     dispatch(getAbsenceBegin());
     fetch("/api/absence/" + id)

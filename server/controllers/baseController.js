@@ -1,7 +1,7 @@
 var db = require("../db");
 
 const getBases = (request, response) => {
-  db.query("SELECT * FROM base", (error, results) => {
+  db.query("SELECT * FROM base ORDER BY name;", (error, results) => {
     if (error) {
       response.status(404).send("Failed fetching bases from DB");
     } else {
@@ -12,7 +12,7 @@ const getBases = (request, response) => {
 
 const getBaseById = (request, response) => {
   let id = request.params.id;
-  db.query("SELECT * FROM base where id=$1", [id], (error, results) => {
+  db.query("SELECT * FROM base where id=$1;", [id], (error, results) => {
     if (error) {
       response.status(404).send("Failed fetching base by id from DB");
     } else {

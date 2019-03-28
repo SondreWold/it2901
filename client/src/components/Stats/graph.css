@@ -1,4 +1,18 @@
 .graphContainer {
-	margin: auto;
+  margin: auto;
   width: 70%;
+  margin-bottom: 3%;
+}
+
+.dropdown {
+  width: 250px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2%;
+  margin-bottom: 4%;
 }

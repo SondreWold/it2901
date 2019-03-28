@@ -3,12 +3,15 @@ import moment from "moment";
 import "./BaseCard.css";
 
 class EmployeesNeeded extends Component {
-
-	componentDidUpdate(prevProps){
-		if (prevProps !== this.props){
-			this.props.updateRatio(moment(this.props.date).format("YYYY-MM-DD"), this.props.baseId, this.props.ratio);	
-		}
-	}
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.props.updateRatio(
+        moment(this.props.date).format("YYYY-MM-DD"),
+        this.props.baseId,
+        this.props.ratio
+      );
+    }
+  }
 
   render() {
     return (
