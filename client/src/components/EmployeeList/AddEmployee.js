@@ -11,14 +11,25 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  withStyles
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
+//import {updateSelectedEmployee} from "../../actions/EmployeeListActions/EmployeeListActions";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: Colors.EmployeeColors.moveableEmployee,
+        }
+      },
+});
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -56,13 +67,21 @@ class AddEmployee extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const updatedEmployee= {
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      base_id: this.state.base_id,
+      position: this.state.position,
+      id: this.props.empId,
+    }
     this.props.insertNewEmployee(
       this.state.first_name,
       this.state.last_name,
       this.state.base_id,
       this.state.position,
       moment(this.props.date).format("YYYY-MM-DD"),
-      this.props.empId
+      this.props.empId,
+      updatedEmployee
     );
     let text;
     if (this.props.showEdit) {
@@ -86,6 +105,7 @@ class AddEmployee extends Component {
     let buttonText;
     let header;
     let showEdit = this.props.showEdit;
+    const color= Colors.EmployeeColors.moveableEmployee;
 
     if (showEdit) {
       button = (
@@ -105,7 +125,7 @@ class AddEmployee extends Component {
           size="large"
           style={styles.addButton}
         >
-          <FaUserPlus color={Colors.EmployeeColors.moveableEmployee} />
+          <FaUserPlus color={color} />
         </Button>
       );
       header = "Registrer ny ";
@@ -122,6 +142,7 @@ class AddEmployee extends Component {
           </DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
+            <MuiThemeProvider theme={theme}>
               <TextField
                 required
                 margin="dense"
@@ -200,15 +221,16 @@ class AddEmployee extends Component {
                 <Button
                   type="submit"
                   value="Submit"
-                  variant="contained"
                   className={classes.textField}
+                  style={style.editButton}
                 >
                   {buttonText}
                 </Button>
-                <Button variant="contained" onClick={this.handleClickClose}>
+                <Button onClick={this.handleClickClose} style={style.editButton} color="primary">
                   Avbryt
                 </Button>
               </div>
+              </MuiThemeProvider>
             </form>
           </DialogContent>
         </Dialog>
@@ -223,9 +245,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (firstName, lastName, baseID, position, date, empId) =>
+    insertNewEmployee: (firstName, lastName, baseID, position, date, empId, employee) =>
       dispatch(
-        insertNewEmployee(firstName, lastName, baseID, position, date, empId)
+        insertNewEmployee(firstName, lastName, baseID, position, date, empId, employee)
       )
   };
 };
@@ -235,9 +257,10 @@ const style = {
     maxWidth: "200px",
     minWidth: "150px",
     margin: "20px auto",
+    marginTop: "5px",
     border: "1px solid",
-    borderColor: Colors.EmployeeColors.editEmployee,
-    color: Colors.EmployeeColors.editEmployee
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
   }
 };
 
