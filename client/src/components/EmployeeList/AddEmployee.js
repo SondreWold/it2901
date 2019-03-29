@@ -11,7 +11,9 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  withStyles
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
@@ -20,6 +22,14 @@ import { insertNewEmployee } from "../../actions/newEmployeeAction";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: Colors.EmployeeColors.moveableEmployee,
+        }
+      },
+});
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -95,6 +105,7 @@ class AddEmployee extends Component {
     let buttonText;
     let header;
     let showEdit = this.props.showEdit;
+    const color= Colors.EmployeeColors.moveableEmployee;
 
     if (showEdit) {
       button = (
@@ -114,7 +125,7 @@ class AddEmployee extends Component {
           size="large"
           style={styles.addButton}
         >
-          <FaUserPlus color={Colors.EmployeeColors.moveableEmployee} />
+          <FaUserPlus color={color} />
         </Button>
       );
       header = "Registrer ny ";
@@ -131,6 +142,7 @@ class AddEmployee extends Component {
           </DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
+            <MuiThemeProvider theme={theme}>
               <TextField
                 required
                 margin="dense"
@@ -197,7 +209,7 @@ class AddEmployee extends Component {
                       />
                       <FormControlLabel
                         value="4"
-                        control={<Radio color="primary" />}
+                        control={<Radio ccolor="primary" />}
                         label="Gårdsbruket"
                         disabled={this.state.position === "2"}
                       />
@@ -209,15 +221,16 @@ class AddEmployee extends Component {
                 <Button
                   type="submit"
                   value="Submit"
-                  variant="contained"
                   className={classes.textField}
+                  style={style.editButton}
                 >
                   {buttonText}
                 </Button>
-                <Button variant="contained" onClick={this.handleClickClose}>
+                <Button onClick={this.handleClickClose} style={style.editButton} color="primary">
                   Avbryt
                 </Button>
               </div>
+              </MuiThemeProvider>
             </form>
           </DialogContent>
         </Dialog>
@@ -244,9 +257,10 @@ const style = {
     maxWidth: "200px",
     minWidth: "150px",
     margin: "20px auto",
+    marginTop: "5px",
     border: "1px solid",
-    borderColor: Colors.EmployeeColors.editEmployee,
-    color: Colors.EmployeeColors.editEmployee
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
   }
 };
 
