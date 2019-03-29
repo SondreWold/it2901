@@ -1,8 +1,11 @@
 import {
   getEmployees,
   getSearchEmployees,
-  getFreeTemps
+  getFreeTemps,
 } from "./contentActions/contentEmployeeActions";
+import {updateSelectedEmployee,
+      getSelectedBase
+} from "./EmployeeListActions/EmployeeListActions";
 
 export const INSERT_EMPLOYEE_BEGIN = "INSERT_EMPLOYEE_BEGIN";
 export const INSERT_EMPLOYEE_SUCCESS = "INSERT_EMPLOYEE_SUCCESS";
@@ -34,7 +37,8 @@ export function insertNewEmployee(
   baseID,
   position,
   date,
-  empId
+  empId,
+  updatedEmployee
 ) {
   return dispatch => {
     fetch("/api/employee/addEmployee/", {
@@ -50,12 +54,15 @@ export function insertNewEmployee(
         id: empId
       })
     })
-      .then(response => {
+      .then(() => {
         dispatch(insertEmployeeSuccess("inserted"));
-        dispatch(getEmployees());
         dispatch(getSearchEmployees());
         dispatch(getFreeTemps(date));
+        dispatch(getSelectedBase(baseID));
+        dispatch(getEmployees());
+        dispatch(updateSelectedEmployee(updatedEmployee));
+        console.log("Excecuted");
       })
-      .catch(() => console.log("Insertion of new employee failed"));
+      .catch((error) => console.log("Insertion of new employee failed " + error));
   };
 }

@@ -7,8 +7,9 @@ class EmployeeDetails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.selectedEmployee !== this.props.selectedEmployee)
+    if (prevProps.selectedEmployee !== this.props.selectedEmployee){
       this.props.getSelectedBase(this.props.selectedEmployee.base_id);
+    }
   }
 
   render() {
