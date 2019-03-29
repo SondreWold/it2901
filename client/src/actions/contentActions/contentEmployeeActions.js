@@ -27,7 +27,6 @@ export const getSearchedEmployeeSuccess = data => ({
 });
 
 export function getEmployees() {
-  console.log("INSIDE GETEMPL");
   let fetchString = "/api/employee/";
   return dispatch => {
     dispatch(getEmployeesBegin());
@@ -39,7 +38,6 @@ export function getEmployees() {
 }
 
 export function getSearchEmployees(name) {
-  console.log(name);
   let fetchString = !name ? "/api/employee/" : "/api/employee/" + name;
   return dispatch => {
     dispatch(getEmployeesBegin());
