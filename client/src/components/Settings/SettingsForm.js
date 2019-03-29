@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-
+import Alert from "react-s-alert";
 import {
   Button,
   TextField,
-  FormControl,
-  FormLabel,
-  FormControlLabel,
-  RadioGroup,
-  Radio
+  FormControl
 } from "@material-ui/core";
 import "./Settings.css";
 
@@ -15,6 +11,7 @@ class SettingsForm extends Component {
 	constructor(props) {
     super(props);
 		this.state = this.initialState;
+		this.originalState = Object.assign(this.state)
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,13 +25,23 @@ class SettingsForm extends Component {
     };
   }
 
+  
+  hasStateChanged = (newState) => {
+  	if (
+  		newState.name === this.originalState.name
+  		&& newState.total_children === this.originalState.total_children
+  		&& newState.ratio === this.originalState.ratio){
+  		return true
+  	}
+  	return false
+  }
+
   handleChange = name => event => {
     event.preventDefault();
     this.setState({ [name]: event.target.value, isChanged: true});
   };
 
   handleSubmit = event => {
-  	event.preventDefault();
   	this.setState({ isChanged: false })
   	this.props.editBaseSettings(
   		this.state.id,
@@ -42,6 +49,12 @@ class SettingsForm extends Component {
       this.state.total_children,
       this.state.ratio
     );
+
+    Alert.success("Endringen er registrert", {
+      position: "bottom-right",
+      effect: "jelly",
+      timeout: 3000
+    });
   }
 
   render() {
@@ -53,6 +66,8 @@ class SettingsForm extends Component {
 		          id="standard-name"
 		          label="Navn"
 		          className="textField"
+		          type="text"
+		          inputProps={{ pattern: "[A-ÅÆØÅ][a-åA-ÅæøåÆØÅ]*[^#&<>\"~;$^%{}?]"}}
 		          value={this.state.name}
 		          onChange={this.handleChange("name")}
 		          margin="normal"
@@ -61,6 +76,8 @@ class SettingsForm extends Component {
 		          id="standard-name"
 		          label="Antall barn"
 		          className="textField"
+		          type="number"
+		          inputProps={{ min: "0", max: "100", step: "1" }}
 		          value={this.state.total_children}
 		          onChange={this.handleChange("total_children")}
 		          margin="normal"
@@ -68,6 +85,8 @@ class SettingsForm extends Component {
 		        <TextField
 		          id="standard-name"
 		          label="Forholdstall"
+		          type="number"
+		          inputProps={{ min: "0", max: "10", step: "0.01" }}
 		          className="textField"
 		          value={this.state.ratio}
 		          onChange={this.handleChange("ratio")}

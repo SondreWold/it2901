@@ -56,7 +56,25 @@ class AbsencePerWeekGraph extends Component {
             data={chartData}
             height={400}
             options={{
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              scales: {
+                yAxes: [
+                  {
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Over- og underbemanning"
+                    }
+                  }
+                ],
+                xAxes: [
+                  {
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Dato"
+                    }
+                  }
+                ]
+              }
             }}
           />
         </div>

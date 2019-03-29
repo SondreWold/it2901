@@ -7,6 +7,7 @@ import { getWorkingEmpsAbsChildren } from "../actions/statsActions/workingEmpsAb
 import { getRatio } from "../actions/statsActions/getRatioAction";
 import Dropdown from "./../components/Stats/Dropdown";
 import AbsencePerWeekGraph from "./../components/Stats/AbsencePerWeekGraph";
+import "./../components/Stats/graph.css";
 
 class StatsContentContainer extends Component {
   componentDidMount() {
@@ -31,12 +32,16 @@ class StatsContentContainer extends Component {
   render() {
     return (
       <div>
-        <Dropdown
-          changeSelected={this.props.changeSelectedDropdownOption}
-          selected={this.props.selectedOption}
-          calculateGraphData={this.calculateGraphData}
-        />
-        <AbsencePerWeekGraph ratios={this.props.ratios} />
+        <div className="headerContainer">
+          <h2>Overbemanning og underbemanning</h2>
+          <Dropdown
+            className="dropdown"
+            changeSelected={this.props.changeSelectedDropdownOption}
+            selected={this.props.selectedOption}
+            calculateGraphData={this.calculateGraphData}
+          />
+        </div>
+        <AbsencePerWeekGraph type={"Line"} ratios={this.props.ratios} />
       </div>
     );
   }
