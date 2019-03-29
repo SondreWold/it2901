@@ -37,8 +37,13 @@ const getEmployeesSearch = (request, response) => {
 
 const getFreeTemp = (request, response) => {
   let date = request.params.date;
-  db.query(
-    "SELECT * FROM employee e LEFT JOIN moved_employee m ON m.employee_id = e.id AND m.date = $1 WHERE m.employee_id IS NULL AND e.position = 2 ORDER BY e.first_name ASC",
+  db.query(`
+    SELECT * FROM employee e 
+    LEFT JOIN moved_employee m ON m.employee_id = e.id 
+    AND m.date = $1 
+    WHERE m.employee_id IS NULL AND e.position = 2
+    AND e.id NOT IN (SELECT a.employee_id FROM absence_employee a WHERE date=$1)
+    ORDER BY e.first_name ASC`,
     [date],
     (error, results) => {
       if (error) {
