@@ -16,6 +16,7 @@ import {
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { insertNewEmployee } from "../../actions/newEmployeeAction";
+//import {updateSelectedEmployee} from "../../actions/EmployeeListActions/EmployeeListActions";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";

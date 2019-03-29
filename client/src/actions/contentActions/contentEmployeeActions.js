@@ -27,6 +27,7 @@ export const getSearchedEmployeeSuccess = data => ({
 });
 
 export function getEmployees() {
+  console.log("INSIDE GETEMPL");
   let fetchString = "/api/employee/";
   return dispatch => {
     dispatch(getEmployeesBegin());
