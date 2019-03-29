@@ -209,7 +209,7 @@ class AddEmployee extends Component {
                       />
                       <FormControlLabel
                         value="4"
-                        control={<Radio ccolor="primary" />}
+                        control={<Radio color="primary" />}
                         label="Gårdsbruket"
                         disabled={this.state.position === "2"}
                       />
