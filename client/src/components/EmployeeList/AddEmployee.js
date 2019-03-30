@@ -27,8 +27,14 @@ const theme = createMuiTheme({
     palette: {
         primary: {
             main: Colors.EmployeeColors.moveableEmployee,
+        },
+        secondary: {
+        		main: Colors.EmployeeColors.moveableEmployeeSecondary
         }
-      },
+    },
+    typography: {
+	    useNextVariants: true,
+	  },
 });
 
 class AddEmployee extends Component {

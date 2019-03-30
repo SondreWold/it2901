@@ -8,6 +8,11 @@
 	margin: 5% 0;
 }
 
+.settingsButtons {
+	display: flex;
+	flex-direction: row;
+}
+
 @media only screen and (max-width: 1100px) {
   .baseCard {
     width: 100%;
