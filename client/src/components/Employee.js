@@ -17,19 +17,21 @@ const Container = styled.div`
 `;
 
 const HandleRegular = styled.div`
+  min-width: 20px;
   width: 20px;
   height: 20px;
   background-color: ${Colors.EmployeeColors.moveableEmployee};
   border-radius: 10px;
-  margin-right: 8px;
+  margin-right: 15px;
 `;
 
 const HandleTemp = styled.div`
+  min-width: 20px;
   width: 20px;
   height: 20px;
   background-color: ${Colors.EmployeeColors.tempEmployee};
   border-radius: 10px;
-  margin-right: 8px;
+  margin-right: 15px;
 `;
 
 class Employee extends Component {
@@ -57,6 +59,8 @@ class Employee extends Component {
 
   render() {
     const { classes } = this.props;
+    let fullName = this.props.employee.first_name + " " + this.props.employee.last_name
+    if (fullName.length > 20) { fullName = fullName.substr(0, 17) + "..."}
     return (
       <Draggable
         draggableId={this.props.employee.employee_id}
@@ -77,7 +81,7 @@ class Employee extends Component {
             ) : (
               <HandleRegular />
             )}
-            {this.props.employee.first_name}
+          	{fullName}
             {this.props.employee.position === 2 && (
               <div className={classes.root}>
                 {this.state.showX && (
