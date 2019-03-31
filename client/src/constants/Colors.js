@@ -11,6 +11,7 @@ const paletteColors = {
 const EmployeeColors = {
   tempEmployee: "#b6e0e2",
   moveableEmployee: "#207d92",
+  moveableEmployeeSecondary: "#f50057",
   unMoveableEmployee: "#000033",
   selectedEmployee: "#E76F50",
   editEmployee: "grey",

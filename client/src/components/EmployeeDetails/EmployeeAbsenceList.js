@@ -4,6 +4,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Colors from "../../constants/Colors";
 import "./EmployeeDetails.css";
+import moment from "moment";
+import localization from "moment/locale/nb";
 
 class EmployeeAbsenceList extends Component {
   componentDidMount() {
@@ -14,7 +16,16 @@ class EmployeeAbsenceList extends Component {
     if (prevProps.selectedEmployee !== this.props.selectedEmployee) {
       this.props.getAbsence(this.props.selectedEmployee.id);
     }
+    if (prevProps.absence !== this.props.absence) {
+      this.props.getAbsence(this.props.selectedEmployee.id);
+    }
   }
+
+  formatDate = date => {
+    return moment(date.split("T")[0])
+      .locale("nb", localization)
+      .format("Do MMMM YYYY");
+  };
   render() {
     return (
       <div>
@@ -23,7 +34,7 @@ class EmployeeAbsenceList extends Component {
           {this.props.absence
             ? this.props.absence.map(absence => (
                 <ListItem key={absence.date} style={style.listItem}>
-                  <ListItemText primary={absence.date.split("T")[0]} />
+                  <ListItemText primary={this.formatDate(absence.date)} />
                 </ListItem>
               ))
             : ""}

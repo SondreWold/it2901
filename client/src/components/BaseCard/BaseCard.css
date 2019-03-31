@@ -104,7 +104,12 @@
 
 .employeeCountHolder {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
+}
+
+.employeeCountHolder:hover {
+	opacity: 0.7;
+	cursor: pointer;
 }
 
 .employeesAtBase {

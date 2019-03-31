@@ -1,4 +1,5 @@
 import {
+  UPDATE_SELECTED_EDITED_EMPLOYEE,
   UPDATE_SELECTED_EMPLOYEE,
   UPDATE_SELECTED_BASE
 } from "../../actions/EmployeeListActions/EmployeeListActions";
@@ -28,6 +29,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selectedBase: action.payload
+      };
+    case UPDATE_SELECTED_EDITED_EMPLOYEE:
+      return {
+        ...state,
+        selectedEmployee: action.payload
       };
     default:
       return state;

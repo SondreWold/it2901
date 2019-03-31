@@ -5,6 +5,7 @@ import {
   TextField,
   FormControl
 } from "@material-ui/core";
+import Colors from "../../constants/Colors"
 import "./Settings.css";
 
 class SettingsForm extends Component {
@@ -25,6 +26,9 @@ class SettingsForm extends Component {
     };
   }
 
+  reset = () => {
+  	this.setState(this.initialState)
+  }
   
   hasStateChanged = (newState) => {
   	if (
@@ -92,21 +96,44 @@ class SettingsForm extends Component {
 		          onChange={this.handleChange("ratio")}
 		          margin="normal"
 		        />
+		        <div className="settingsButtons">
+			        <Button
+		            type="submit"
+		            value="Submit"
+		            variant="outlined"
+		            size="small"
+		            color="primary"
+		            style={style.editButton}
+		          >
+		            {"Registrer"}
+		          </Button>
+			        <Button
+		            variant="outlined"
+		            size="small"
+		            color="secondary"
+		            style={style.editButton}
+		            onClick={this.reset}
+		          >
+		            {"Tilbakestill"}
+		          </Button>
+	          </div>
 
-		        <Button
-	            type="submit"
-	            value="Submit"
-	            variant={this.state.isChanged ? "contained" : "outlined"}
-	            size="small"
-	            color="primary"
-	          >
-	            {"Registrer endring"}
-	          </Button>
 	        </FormControl>
         </form>
       </div>
     );
   }
 }
+
+const style = {
+  editButton: {
+    maxWidth: "130px",
+    minWidth: "100px",
+    margin: "5px auto",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
+  }
+};
 
 export default SettingsForm;

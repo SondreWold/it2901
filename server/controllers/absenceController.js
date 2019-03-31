@@ -101,8 +101,10 @@ const insertAbsentEmployee = (request, response) => {
 
 const getAbsenceForEmployee = (request, response) => {
   let id = request.params.id;
-  db.query(
-    "SELECT * FROM absence_employee where employee_id = $1",
+  db.query(`
+  	SELECT * FROM absence_employee 
+    WHERE employee_id = $1
+    ORDER BY date DESC`,
     [id],
     (error, results) => {
       if (error) {
