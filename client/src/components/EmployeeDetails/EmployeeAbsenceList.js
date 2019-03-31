@@ -16,11 +16,16 @@ class EmployeeAbsenceList extends Component {
     if (prevProps.selectedEmployee !== this.props.selectedEmployee) {
       this.props.getAbsence(this.props.selectedEmployee.id);
     }
+    if (prevProps.absence !== this.props.absence) {
+      this.props.getAbsence(this.props.selectedEmployee.id);
+    }
   }
 
-  formatDate = (date) => {
-		return moment(date.split("T")[0]).locale('nb', localization).format('Do MMMM YYYY')
-  }
+  formatDate = date => {
+    return moment(date.split("T")[0])
+      .locale("nb", localization)
+      .format("Do MMMM YYYY");
+  };
   render() {
     return (
       <div>
