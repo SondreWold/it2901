@@ -79,7 +79,7 @@ class Adder extends Component {
             <div style={style.window}>
               <div style={style.doubleItem}>
                 <div>Legg til ny: </div>
-                <AddEmployee tempOnly />
+                <AddEmployee position="2" base_id="1" tempOnly />
               </div>
               <List style={style.list} component="nav">
                 {this.props.freeTemps.map(employee => (

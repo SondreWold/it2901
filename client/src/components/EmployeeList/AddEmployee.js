@@ -23,7 +23,6 @@ import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";
 
-
 class AddEmployee extends Component {
   constructor(props) {
     super(props);
