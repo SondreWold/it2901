@@ -27,7 +27,6 @@ class EmployeeAbsenceList extends Component {
       .format("Do MMMM YYYY");
   };
   render() {
-    console.log("DATE", this.props.absence);
     return (
       <div>
         <h3>Fravær </h3>
