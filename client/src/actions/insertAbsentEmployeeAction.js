@@ -1,3 +1,5 @@
+import { getAbsenceById } from "./absenceAction";
+
 export const INSERT_ABSENT_EMPLOYEE_BEGIN = "INSERT_ABSENT_EMPLOYEE_BEGIN";
 export const INSERT_ABSENT_EMPLOYEE_SUCCESS = "INSERT_ABSENT_EMPLOYEE_SUCCESS";
 export const INSERT_ABSENT_EMPLOYEE_EXISTING = "INSERT_ABSENT_EMPLOYEE_SUCCESS";
@@ -36,6 +38,7 @@ export function insertAbsentEmployee(empId, date) {
           dispatch(insertAbsentEmployeeExisting("existing"));
         } else {
           dispatch(insertAbsentEmployeeSuccess("inserted"));
+          dispatch(getAbsenceById(empId));
         }
       })
       .catch(error => dispatch(insertAbsentEmployeeFailure(error)));
