@@ -11,9 +11,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  withStyles,
-  MuiThemeProvider,
-  createMuiTheme
+  withStyles
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";

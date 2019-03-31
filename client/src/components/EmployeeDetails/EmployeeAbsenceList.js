@@ -22,7 +22,6 @@ class EmployeeAbsenceList extends Component {
 		return moment(date.split("T")[0]).locale('nb', localization).format('Do MMMM YYYY')
   }
   render() {
-  	console.log("DATE", this.props.absence)
     return (
       <div>
         <h3>Fravær </h3>
