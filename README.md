@@ -1,6 +1,6 @@
 # IT2901, Administrasjonsverktøy for Barnehagesektoren
 
-Denne applikasjonen er utviklet i forbindelse med faget IT2901 ved NTNU. Utviklingsarbeidet hare foregått i samarbeid med Brøset barnehage i Trondheim kommune, og konsulentselskapet Bouvet.  besøk https://gruppe23-it2901.herokuapp.com/
+Denne applikasjonen er utviklet i forbindelse med faget IT2901 ved NTNU. Utviklingsarbeidet hare foregått i samarbeid med Brøset barnehage i Trondheim kommune, og konsulentselskapet Bouvet. For en livedemonstrasjon, besøk: https://gruppe23-it2901.herokuapp.com/
 
 
 ### Applikasjonen, den dag i dag
