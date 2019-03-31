@@ -23,13 +23,6 @@ import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: Colors.EmployeeColors.moveableEmployee,
-        }
-      },
-});
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -142,7 +135,6 @@ class AddEmployee extends Component {
           </DialogTitle>
           <DialogContent>
             <form onSubmit={this.handleSubmit}>
-            <MuiThemeProvider theme={theme}>
               <TextField
                 required
                 margin="dense"
@@ -221,7 +213,6 @@ class AddEmployee extends Component {
                 <Button
                   type="submit"
                   value="Submit"
-                  className={classes.textField}
                   style={style.editButton}
                 >
                   {buttonText}
@@ -230,7 +221,6 @@ class AddEmployee extends Component {
                   Avbryt
                 </Button>
               </div>
-              </MuiThemeProvider>
             </form>
           </DialogContent>
         </Dialog>
@@ -257,7 +247,6 @@ const style = {
     maxWidth: "200px",
     minWidth: "150px",
     margin: "20px auto",
-    marginTop: "5px",
     border: "1px solid",
     borderColor: Colors.EmployeeColors.moveableEmployee,
     color: Colors.EmployeeColors.moveableEmployee
@@ -278,7 +267,8 @@ const styles = theme => ({
     marginRight: 10
   },
   buttons: {
-    "text-align": "center"
+    "text-align": "center",
+    "justify-content": "space-evenly",
   },
   addButton: {
     marginBottom: "10px"
