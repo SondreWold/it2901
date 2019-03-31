@@ -13,6 +13,7 @@
 
 .employeeButtonsHolder {
   display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
 }
 
@@ -70,7 +71,7 @@
 }
 
 .absenceList {
-  width: 65%; 
+  width: 65%;
   border: 5px;
   min-height: 150px;
   max-height: 200px;
