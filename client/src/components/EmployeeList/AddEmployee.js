@@ -214,7 +214,7 @@ class AddEmployee extends Component {
                 >
                   {buttonText}
                 </Button>
-                <Button onClick={this.handleClickClose} style={style.editButton} color="primary">
+                <Button onClick={this.handleClickClose} style={style.editButton} color="secondary">
                   Avbryt
                 </Button>
               </div>
