@@ -14,6 +14,9 @@ const theme = createMuiTheme({
             main: Colors.EmployeeColors.moveableEmployee,
         }
       },
+    typography: {
+	    useNextVariants: true,
+	  }
 });
 
 class App extends Component {

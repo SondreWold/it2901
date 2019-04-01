@@ -76,7 +76,7 @@ class EmployeeRegisterAbsence extends React.Component {
         this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date)
       );
     }
-    this.setState({ open: false });
+    this.handleClose();
     event.preventDefault();
     Alert.success("Fravær registrert", {
       position: "bottom-right",
