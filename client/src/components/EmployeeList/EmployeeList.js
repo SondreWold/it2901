@@ -8,14 +8,16 @@ import Colors from "../../constants/Colors";
 import "./EmployeeList.css";
 
 class EmployeeList extends React.Component {
-  state = {
-    selectedIndex: 0
-  };
-
-  handleClick(employee) {
-    console.log(employee);
-    this.setState({ selectedIndex: employee.id });
+ 
+  updateSelectedEmployee(employee) {
     this.props.updateSelectedEmployee(employee);
+  }
+
+  componentDidUpdate() {
+  	// select the first employee by default if none are selected
+    if (!this.props.selectedEmployee && this.props.employees.length > 0){
+    	this.updateSelectedEmployee(this.props.employees[0])
+    }
   }
 
   render() {
@@ -24,6 +26,7 @@ class EmployeeList extends React.Component {
         - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
         - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
       */
+
     return (
       <div>
         <h2 className="employeesHeadline">Ansatte </h2>
@@ -52,7 +55,7 @@ class EmployeeList extends React.Component {
           {this.props.employees.map(employee => (
             <ListItem
               style={
-                employee.id === this.state.selectedIndex
+                employee.id === this.props.selectedEmployee.id
                   ? style.listItemSelected
                   : employee.position === 1
                   ? style.listItemRegular
@@ -60,11 +63,10 @@ class EmployeeList extends React.Component {
               }
               button
               key={employee.id}
-              onClick={() => this.handleClick(employee)}
+              onClick={() => this.updateSelectedEmployee(employee)}
             >
               <ListItemText
                 primary={employee.first_name + " " + employee.last_name}
-                secondary={"Klikk for mer informasjon"}
               />
             </ListItem>
           ))}

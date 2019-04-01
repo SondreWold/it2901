@@ -11,9 +11,7 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  withStyles,
-  MuiThemeProvider,
-  createMuiTheme
+  withStyles
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
@@ -216,7 +214,7 @@ class AddEmployee extends Component {
                 >
                   {buttonText}
                 </Button>
-                <Button onClick={this.handleClickClose} style={style.editButton} color="primary">
+                <Button onClick={this.handleClickClose} style={style.editButton} color="secondary">
                   Avbryt
                 </Button>
               </div>
