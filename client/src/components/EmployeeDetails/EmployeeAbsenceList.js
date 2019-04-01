@@ -97,7 +97,7 @@ class EmployeeAbsenceList extends Component {
           <div>
             <h3>Fravær </h3>
             <List style={style.list} className="absenceList" component="nav">
-              {absenceList !== 0
+              {absenceList.length !== 0
                 ? absenceList.map((absence, index) => (
                     <ListItem key={index} style={style.listItem}>
                       <ListItemText primary={absence} />
