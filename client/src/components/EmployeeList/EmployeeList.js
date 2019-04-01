@@ -13,7 +13,6 @@ class EmployeeList extends React.Component {
   };
 
   handleClick(employee) {
-    console.log(employee);
     this.setState({ selectedIndex: employee.id });
     this.props.updateSelectedEmployee(employee);
   }
