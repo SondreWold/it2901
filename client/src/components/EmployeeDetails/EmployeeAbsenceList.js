@@ -16,26 +16,74 @@ class EmployeeAbsenceList extends Component {
     if (prevProps.selectedEmployee !== this.props.selectedEmployee) {
       this.props.getAbsence(this.props.selectedEmployee.id);
     }
-    if (prevProps.absence !== this.props.absence) {
-      this.props.getAbsence(this.props.selectedEmployee.id);
-    }
   }
 
   formatDate = date => {
-    return moment(date.split("T")[0])
+    return moment(date)
       .locale("nb", localization)
       .format("Do MMMM YYYY");
   };
+
+  formatList = absenceList => {
+    let abs = [];
+    absenceList.map(absence => {
+      let last = abs[abs.length - 1];
+
+      absence.date = moment(absence.date).set({
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0
+      })._i;
+
+      if (last) {
+        if (last[1]) {
+          last = last[1];
+        }
+        if (
+          (moment(last.date).valueOf() - moment(absence.date).valueOf()) /
+            1000 /
+            60 /
+            60 <=
+          25
+        ) {
+          if (!abs[abs.length - 1][1]) {
+            abs[abs.length - 1] = [abs[abs.length - 1]];
+            abs[abs.length - 1].push(absence);
+          } else {
+            abs[abs.length - 1][1] = absence;
+          }
+        } else {
+          abs.push(absence);
+        }
+      } else {
+        abs.push(absence);
+      }
+    });
+    for (let i = 0; i < abs.length; i++) {
+      if (abs[i][1]) {
+        abs[i] =
+          this.formatDate(abs[i][1].date) +
+          " - " +
+          this.formatDate(abs[i][0].date);
+      } else {
+        abs[i] = this.formatDate(abs[i].date);
+      }
+    }
+    return abs;
+  };
+
   render() {
-    console.log("DATE", this.props.absence);
+    const absenceList = this.formatList(this.props.absence);
+
     return (
       <div>
         <h3>Fravær </h3>
         <List style={style.list} className="absenceList" component="nav">
-          {this.props.absence
-            ? this.props.absence.map(absence => (
-                <ListItem key={absence.date} style={style.listItem}>
-                  <ListItemText primary={this.formatDate(absence.date)} />
+          {absenceList
+            ? absenceList.map((absence, i) => (
+                <ListItem key={i} style={style.listItem}>
+                  <ListItemText primary={absence} />
                 </ListItem>
               ))
             : ""}
