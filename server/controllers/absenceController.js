@@ -100,22 +100,27 @@ const insertAbsentEmployee = (request, response) => {
 };
 
 const getAbsenceForEmployee = (request, response) => {
-  let id = request.params.id;
-  db.query(`
-  	SELECT * FROM absence_employee 
-    WHERE employee_id = $1
-    ORDER BY date DESC`,
-    [id],
-    (error, results) => {
-      if (error) {
-        response
-          .status(404)
-          .send("Failed fetching absence for employee: " + id);
-      } else {
-        response.status(200).json(results.rows);
-      }
-    }
-  );
+  if (request.params.id !== 'null') {
+  	const id = request.params.id;
+	  db.query(`
+	  	SELECT * FROM absence_employee 
+	    WHERE employee_id = $1
+	    ORDER BY date DESC`,
+	    [id],
+	    (error, results) => {
+	      if (error) {
+	        response
+	          .status(404)
+	          .send("Failed fetching absence for employee: " + id);
+	      } else {
+	        response.status(200).json(results.rows	);
+	      }
+	    }
+	  );
+  }
+	else {
+		response.status(202).json([])
+	}
 };
 
 module.exports = {

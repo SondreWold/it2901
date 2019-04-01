@@ -26,7 +26,6 @@ class EmployeeList extends React.Component {
         - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
         - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
       */
-
     return (
       <div>
         <h2 className="employeesHeadline">Ansatte </h2>
