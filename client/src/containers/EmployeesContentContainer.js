@@ -32,6 +32,7 @@ class EmployeesContentContainer extends Component {
         </div>
         <div style={style.item}>
           <EmployeeDetailContainer
+            loading={this.props.loading}
             getAbsence={this.props.getAbsence}
             absence={this.props.absence}
             selectedEmployee={this.props.selectedEmployee}
@@ -75,7 +76,8 @@ const mapStateToProps = state => ({
   selectedEmployee: state.employeeList.selectedEmployee,
   minDate: state.date.minDate,
   selectedBase: state.employeeList.selectedBase,
-  absence: state.absence.data
+  absence: state.absence.data,
+  loading: state.absence.loading
 });
 
 export default connect(

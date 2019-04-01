@@ -14,6 +14,13 @@ import moment from "moment";
 import BaseOverview from "../components/BaseCard/BaseOverview";
 import { getAbsentChildren } from "../actions/contentActions/contentAbsenceChildrenActions";
 import TotalOverview from "../components/TotalOverview/TotalOverview";
+import { css } from "@emotion/core";
+import { ClipLoader } from "react-spinners";
+
+const override = css`
+  margin-top: 20%;
+  display: block;
+`;
 
 class contentContainer extends React.Component {
   componentDidMount() {
@@ -58,16 +65,29 @@ class contentContainer extends React.Component {
   render() {
     return (
       <div>
-        <TotalOverview
-          date={this.props.date}
-          changeDate={this.props.changeDate}
-          minDate={this.props.minDate}
-          children={this.props.absentChildren}
-          employees={this.props.employees}
-          absentEmployees={this.props.absentEmployees}
-          working_employees={this.props.working_employees}
-        />
-        <BaseOverview />
+        {this.props.loading ? (
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={50}
+            color={"#123abc"}
+            loading={this.props.loading}
+          />
+        ) : (
+          <div>
+            <TotalOverview
+              date={this.props.date}
+              changeDate={this.props.changeDate}
+              minDate={this.props.minDate}
+              children={this.props.absentChildren}
+              employees={this.props.employees}
+              absentEmployees={this.props.absentEmployees}
+              working_employees={this.props.working_employees}
+            />
+
+            <BaseOverview />
+          </div>
+        )}
       </div>
     );
   }
