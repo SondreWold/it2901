@@ -8,15 +8,14 @@ import Colors from "../../constants/Colors";
 import "./EmployeeList.css";
 
 class EmployeeList extends React.Component {
- 
   updateSelectedEmployee(employee) {
     this.props.updateSelectedEmployee(employee);
   }
 
   componentDidUpdate() {
-  	// select the first employee by default if none are selected
-    if (!this.props.selectedEmployee && this.props.employees.length > 0){
-    	this.updateSelectedEmployee(this.props.employees[0])
+    // select the first employee by default if none are selected
+    if (!this.props.selectedEmployee && this.props.employees.length > 0) {
+      this.updateSelectedEmployee(this.props.employees[0]);
     }
   }
 

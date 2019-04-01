@@ -10,6 +10,7 @@ import Alert from "react-s-alert";
 import Colors from "../../constants/Colors";
 import * as fn from "../../constants/Functions";
 import { FaUserClock } from "react-icons/fa";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const calendar2 = require("../../images/calendar2.svg");
 
@@ -25,7 +26,8 @@ class EmployeeRegisterAbsence extends React.Component {
     this.state = {
       from: new Date(),
       to: new Date(tmp.setDate(tmp.getDate() + 1)),
-      open: false
+      open: false,
+      severalDays: false
     };
 
     this.handleChangeFrom = this.handleChangeFrom.bind(this);
@@ -37,9 +39,23 @@ class EmployeeRegisterAbsence extends React.Component {
     this.setState({ open: true });
   };
 
+  handleClose = () => {
+    const tmp = new Date();
+    this.setState({
+      from: new Date(),
+      to: new Date(tmp.setDate(tmp.getDate() + 1)),
+      open: false,
+      severalDays: false
+    });
+  };
+
   handleChangeFrom(date) {
+    let date2 = new Date(date.getTime());
     date > this.state.to
-      ? this.setState({ from: date, to: date })
+      ? this.setState({
+          from: date,
+          to: new Date(date2.setDate(date2.getDate() + 1))
+        })
       : this.setState({ from: date });
   }
 
@@ -52,12 +68,15 @@ class EmployeeRegisterAbsence extends React.Component {
   handleSubmit(event) {
     // in case there is no selectedEmployee
     if (this.props.selectedEmployee) {
-      const diff = fn.diffDates(this.state.from, this.state.to);
+      const diff = fn.diffDates(
+        this.state.from,
+        this.state.severalDays ? this.state.to : this.state.from
+      );
       diff.forEach(date =>
         this.props.insertAbsentEmployee(this.props.selectedEmployee.id, date)
       );
     }
-    this.setState({ open: false });
+    this.handleClose();
     event.preventDefault();
     Alert.success("Fravær registrert", {
       position: "bottom-right",
@@ -86,8 +105,8 @@ class EmployeeRegisterAbsence extends React.Component {
               REGISTRER
             </Button>
           ]}
-          onEscapeKeyDown={() => this.setState({ open: false })}
-          onBackdropClick={() => this.setState({ open: false })}
+          onEscapeKeyDown={this.handleClose}
+          onBackdropClick={this.handleClose}
         >
           <DialogTitle className="registerAbsenceHeader">
             {" "}
@@ -104,7 +123,7 @@ class EmployeeRegisterAbsence extends React.Component {
                 <div className="datePickers">
                   <FaUserClock size="150px" style={{ marginLeft: "12%" }} />
                   <div className="dateHolder">
-                    <b> Fra og med </b>
+                    <b> {this.state.severalDays ? "Fra og med" : <br />} </b>
                     <DatePicker
                       onChange={this.handleChangeFrom}
                       clearIcon={null}
@@ -117,19 +136,32 @@ class EmployeeRegisterAbsence extends React.Component {
                       minDate={this.minDateObj}
                     />
                   </div>
-                  <div className="dateHolder">
-                    <b> Til og med </b>
-                    <DatePicker
-                      onChange={this.handleChangeTo}
-                      clearIcon={null}
-                      value={this.state.to}
-                      locale={"nb"}
-                      returnValue={"start"}
-                      showLeadingZeros={true}
-                      calendarIcon={this.calendarIcon}
-                      minDate={this.state.from}
+                  <div>
+                    Flere dager:
+                    <Checkbox
+                      checked={this.state.severalDays}
+                      onChange={() =>
+                        this.setState({ severalDays: !this.state.severalDays })
+                      }
+                      value="checkedB"
+                      color="primary"
                     />
                   </div>
+                  {this.state.severalDays && (
+                    <div className="dateHolder">
+                      <b> Til og med </b>
+                      <DatePicker
+                        onChange={this.handleChangeTo}
+                        clearIcon={null}
+                        value={this.state.to}
+                        locale={"nb"}
+                        returnValue={"start"}
+                        showLeadingZeros={true}
+                        calendarIcon={this.calendarIcon}
+                        minDate={this.state.from}
+                      />
+                    </div>
+                  )}
                   <Button
                     style={style.submitButton}
                     type="submit"
