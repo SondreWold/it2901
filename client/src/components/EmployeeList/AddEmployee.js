@@ -57,20 +57,20 @@ class AddEmployee extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const updatedEmployee= {
+    const updatedEmployee = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
-      base_id: this.state.base_id,
-      position: this.state.position,
-      id: this.props.empId,
+      base_id: parseInt(this.state.base_id),
+      position: parseInt(this.state.position),
+      id: this.props.empId ? parseInt(this.props.empId) : null,
     }
     this.props.insertNewEmployee(
       this.state.first_name,
       this.state.last_name,
-      this.state.base_id,
-      this.state.position,
+      parseInt(this.state.base_id),
+      parseInt(this.state.position),
       moment(this.props.date).format("YYYY-MM-DD"),
-      this.props.empId,
+      this.props.empId ? parseInt(this.props.empId) : null,
       updatedEmployee
     );
     let text;

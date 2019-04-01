@@ -1,8 +1,7 @@
 export const UPDATE_SELECTED_EMPLOYEE = "UPDATE_SELECTED_EMPLOYEE";
+export const UPDATE_SELECTED_EMPLOYEE_LATEST_INSERT = "UPDATE_SELECTED_EMPLOYEE_LATEST_INSERT";
 export const UPDATE_SELECTED_BASE = "UPDATE_SELECTED_BASE";
 export const UPDATE_SELECTED_EDITED_EMPLOYEE = "UPDATE_SELECTED_EDITED_EMPLOYEE";
-
-//export const updateSelectedEditedEmployee
 
 export const updateSelectedEmployee = employee => ({
   type: UPDATE_SELECTED_EMPLOYEE,
@@ -25,16 +24,7 @@ export function getSelectedBase(id) {
   };
 }
 
-/*
-export function updateProduct(product) {
-  return (dispatch, getState) => {
-    const { accountDetails } = getState();
-
-    dispatch({
-      type: UPDATE_PRODUCT,
-      stateOfResidenceId: accountDetails.stateOfResidenceId,
-      product,
-    });
-  };
-}
-*/
+export const updateSelectedEmployeeLatestInsert = employee => ({
+	type: UPDATE_SELECTED_EMPLOYEE_LATEST_INSERT,
+	payload: employee
+});
