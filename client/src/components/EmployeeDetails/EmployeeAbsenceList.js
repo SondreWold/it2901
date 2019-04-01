@@ -6,6 +6,13 @@ import Colors from "../../constants/Colors";
 import "./EmployeeDetails.css";
 import moment from "moment";
 import localization from "moment/locale/nb";
+import { css } from "@emotion/core";
+import { ClipLoader } from "react-spinners";
+
+const override = css`
+  margin-top: 10%;
+  display: block;
+`;
 
 class EmployeeAbsenceList extends Component {
   componentDidMount() {
@@ -26,16 +33,28 @@ class EmployeeAbsenceList extends Component {
   render() {
     return (
       <div>
-        <h3>Fravær </h3>
-        <List style={style.list} className="absenceList" component="nav">
-          {this.props.absence
-            ? this.props.absence.map(absence => (
-                <ListItem key={absence.date} style={style.listItem}>
-                  <ListItemText primary={this.formatDate(absence.date)} />
-                </ListItem>
-              ))
-            : ""}
-        </List>
+        {this.props.loading ? (
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={50}
+            color={"#123abc"}
+            loading={this.props.loading}
+          />
+        ) : (
+          <div>
+            <h3>Fravær </h3>
+            <List style={style.list} className="absenceList" component="nav">
+              {this.props.absence.length !== 0
+                ? this.props.absence.map(absence => (
+                    <ListItem key={absence.date} style={style.listItem}>
+                      <ListItemText primary={this.formatDate(absence.date)} />
+                    </ListItem>
+                  ))
+                : "Ingen fraværshistorikk å vise..."}
+            </List>
+          </div>
+        )}
       </div>
     );
   }

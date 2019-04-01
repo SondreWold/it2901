@@ -21,6 +21,7 @@ class EmployeeDetailContainer extends Component {
             insertAbsentEmployee={this.props.insertAbsentEmployee}
           />
           <EmployeeAbsenceList
+            loading={this.props.loading}
             selectedEmployee={this.props.selectedEmployee}
             getAbsence={this.props.getAbsence}
             absence={this.props.absence}
