@@ -22,7 +22,9 @@ class SettingsForm extends Component {
   		name: this.props.name,
   		total_children: this.props.total_children,
   		ratio: this.props.ratio,
-  		isChanged: false
+			isChanged: false,
+			isVisible : false,
+			isEditable: true
     };
   }
 
@@ -38,7 +40,12 @@ class SettingsForm extends Component {
   		return true
   	}
   	return false
-  }
+	}
+	
+	openEditing = () => {
+		this.setState( { isVisible:true, isEditable: false } )
+
+	}
 
   handleChange = name => event => {
     event.preventDefault();
@@ -58,7 +65,7 @@ class SettingsForm extends Component {
       position: "bottom-right",
       effect: "jelly",
       timeout: 3000
-    });
+		});
   }
 
   render() {
@@ -74,7 +81,8 @@ class SettingsForm extends Component {
 		          inputProps={{ pattern: "[A-ÅÆØÅ][a-åA-ÅæøåÆØÅ]*[^#&<>\"~;$^%{}?]"}}
 		          value={this.state.name}
 		          onChange={this.handleChange("name")}
-		          margin="normal"
+							margin="normal"
+							disabled={this.state.isEditable}
 		        />
 		        <TextField
 		          id="standard-name"
@@ -84,7 +92,8 @@ class SettingsForm extends Component {
 		          inputProps={{ min: "0", max: "100", step: "1" }}
 		          value={this.state.total_children}
 		          onChange={this.handleChange("total_children")}
-		          margin="normal"
+							margin="normal"
+							disabled={this.state.isEditable}
 		        />
 		        <TextField
 		          id="standard-name"
@@ -94,28 +103,38 @@ class SettingsForm extends Component {
 		          className="textField"
 		          value={this.state.ratio}
 		          onChange={this.handleChange("ratio")}
-		          margin="normal"
+							margin="normal"
+							disabled={this.state.isEditable}
 		        />
 		        <div className="settingsButtons">
-			        <Button
+			        {this.state.isVisible && <Button
 		            type="submit"
 		            value="Submit"
 		            variant="outlined"
 		            size="small"
-		            color="primary"
-		            style={style.editButton}
+								color="primary"
+								style={style.editedButtons}
 		          >
-		            {"Registrer"}
-		          </Button>
-			        <Button
+		            {"Lagre"}
+							</Button> }
+			        {this.state.isVisible && <Button
 		            variant="outlined"
 		            size="small"
 		            color="secondary"
-		            style={style.editButton}
+		            style={style.editedButtons}
 		            onClick={this.reset}
 		          >
-		            {"Tilbakestill"}
-		          </Button>
+		            {"Angre"}
+							</Button> }
+							{ !this.state.isVisible && <Button
+								variant="outlined"
+								size="small"
+								color="primary"
+								style={style.editButton}
+								onClick={this.openEditing}
+								>
+								Rediger
+							</Button>}
 	          </div>
 
 	        </FormControl>
@@ -129,11 +148,20 @@ const style = {
   editButton: {
     maxWidth: "130px",
     minWidth: "100px",
-    margin: "5px auto",
+		margin: "5px auto",
     border: "1px solid",
     borderColor: Colors.EmployeeColors.moveableEmployee,
-    color: Colors.EmployeeColors.moveableEmployee
-  }
+		color: Colors.EmployeeColors.moveableEmployee
+	},
+	editedButtons : {
+		maxWidth: "130px",
+		minWidth: "100px",
+		marginTop: "5px",
+		margin: "3px",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+		color: Colors.EmployeeColors.moveableEmployee
+	}
 };
 
 export default SettingsForm;
