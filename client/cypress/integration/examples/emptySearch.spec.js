@@ -7,12 +7,12 @@ Tests that a search for "aksdjladjlajsd" returns an empty result
 2. Search for "aksdjladjlajsd"
 3. Control that an empty result set is returned from db
 
-Expected behaviour: "No movies found" should be rendered 
+Expected behaviour: "Fant ingen ansatte..." should be rendered 
 
 */
 
 describe("bogus search test", () => {
-  it("Force no result search", () => {
+  it("Force a no-result search", () => {
     cy.visit("localhost:3000/employees");
     cy.get("#outlined-full-width")
       .type("aksdjladjlajsd")

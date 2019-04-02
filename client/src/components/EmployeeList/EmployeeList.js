@@ -71,6 +71,7 @@ class EmployeeList extends React.Component {
                   onClick={() => this.updateSelectedEmployee(employee)}
                 >
                   <ListItemText
+                    id={"empText"}
                     primary={employee.first_name + " " + employee.last_name}
                   />
                 </ListItem>
