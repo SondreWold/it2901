@@ -56,6 +56,10 @@
     margin-right: 0;
   }
 
+  .dateIcon:hover {
+	  color: black;
+	}
+
   .dateIcon {
     border: 1px solid rgb(58, 58, 58);
     border-radius: 5px;
