@@ -35,15 +35,9 @@ export const insertEmployeeFailure = error => ({
 });
 
 export function insertNewEmployee(
-  firstName,
-  lastName,
-  baseID,
-  position,
   date,
-  empId,
   updatedEmployee
 ) {
-	console.log("empID", updatedEmployee.id);
   return dispatch => {
     fetch("/api/employee/addEmployee/", {
       method: "PUT",
@@ -60,7 +54,6 @@ export function insertNewEmployee(
     })
       .then(() => {
    			if (updatedEmployee.id !== null){
-   				console.log("UPDATING");
    				dispatch(getSearchEmployees());
 	        dispatch(getSelectedBase(updatedEmployee.base_id));
 	        dispatch(getEmployees());
@@ -69,7 +62,6 @@ export function insertNewEmployee(
 	        dispatch(insertEmployeeSuccess("updated"));
    			}
    			else {
-	   			console.log("INSERTING");
 	      	fetch("/api/employee/latest")
 			      .then(res => res.json())
 			      .then((res) => {
