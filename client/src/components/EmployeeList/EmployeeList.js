@@ -29,7 +29,10 @@ class EmployeeList extends React.Component {
       <div>
         <h2 className="employeesHeadline">Ansatte </h2>
         <div className="employeeListTop">
-          <InputField getSearchEmployees={this.props.getSearchEmployees} />
+          <InputField
+            id="searchField"
+            getSearchEmployees={this.props.getSearchEmployees}
+          />
           <AddEmployee
             showEdit={false}
             first_name={""}
@@ -50,24 +53,30 @@ class EmployeeList extends React.Component {
           </div>
         </div>
         <List style={style.list} component="nav">
-          {this.props.employees.map(employee => (
-            <ListItem
-              style={
-                employee.id === this.props.selectedEmployee.id
-                  ? style.listItemSelected
-                  : employee.position === 1
-                  ? style.listItemRegular
-                  : style.listItemTemporary
-              }
-              button
-              key={employee.id}
-              onClick={() => this.updateSelectedEmployee(employee)}
-            >
-              <ListItemText
-                primary={employee.first_name + " " + employee.last_name}
-              />
-            </ListItem>
-          ))}
+          {this.props.employees.length === 0 ? (
+            "Fant ingen ansatte..."
+          ) : (
+            <div>
+              {this.props.employees.map(employee => (
+                <ListItem
+                  style={
+                    employee.id === this.props.selectedEmployee.id
+                      ? style.listItemSelected
+                      : employee.position === 1
+                      ? style.listItemRegular
+                      : style.listItemTemporary
+                  }
+                  button
+                  key={employee.id}
+                  onClick={() => this.updateSelectedEmployee(employee)}
+                >
+                  <ListItemText
+                    primary={employee.first_name + " " + employee.last_name}
+                  />
+                </ListItem>
+              ))}
+            </div>
+          )}
         </List>
       </div>
     );
