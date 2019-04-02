@@ -1,11 +1,20 @@
 import React, { Component } from "react";
+import moment from "moment";
 import { Line } from "react-chartjs-2";
 import "./graph.css";
 import Colors from "../../constants/Colors.js";
 
 class AbsencePerWeekGraph extends Component {
-  formatRatioData = ratios => {
+
+  formatRatioData = (ratios, skipWeekend = true) => {
     const graphData = { names: [], labels: [], data: [] };
+
+    // strips of saturdays and sundays
+    if (skipWeekend){
+    	ratios = ratios.filter(
+  			r => [6, 0].indexOf(moment(r.date).day()) === -1
+			)
+    }
 
     for (let i = 0; i < ratios.length; i++) {
       if (!graphData.names.includes(ratios[i].name)) {
@@ -30,7 +39,7 @@ class AbsencePerWeekGraph extends Component {
   };
 
   render() {
-    const graphData = this.formatRatioData(this.props.ratios);
+    const graphData = this.formatRatioData(this.props.ratios, this.props.skipWeekend);
     const chartData = {
       labels: graphData.labels,
       datasets: []
