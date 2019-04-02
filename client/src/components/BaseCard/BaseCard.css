@@ -102,17 +102,17 @@
   margin-bottom: 15px;
 }
 
-.employeeCountHolder {
+.employeeCountHolder, .employeeAbsentCountHolder {
   display: flex;
   flex-direction: column; 
 }
 
-.employeeCountHolder:hover {
+.employeeAbsentCountHolder:hover {
 	opacity: 0.7;
 	cursor: pointer;
-}
+} 
 
-.employeesAtBase {
+.employeesAtBase, .employeesAbsentAtBase {
   display: flex;
   justify-content: center;
   align-items: center;
