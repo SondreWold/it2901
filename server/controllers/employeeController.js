@@ -31,9 +31,9 @@ const deleteEmployee = (request, response) => {
 const getEmployeesSearch = (request, response) => {
   let searchToken = request.params.name;
   db.query(
-    `	SELECT * FROM employee
-    WHERE LOWER(employee.first_name) LIKE LOWER($1)
-    OR LOWER(employee.last_name) LIKE LOWER($1)`,
+    "SELECT * FROM employee \
+    WHERE LOWER(employee.first_name) LIKE LOWER($1) \
+    OR LOWER(employee.last_name) LIKE LOWER($1) OR LOWER(CONCAT(employee.first_name, ' ', employee.last_name)) LIKE LOWER($1)",
     ["%" + searchToken + "%"],
     (error, results) => {
       if (error) {
@@ -46,7 +46,8 @@ const getEmployeesSearch = (request, response) => {
 
 const getFreeTemp = (request, response) => {
   let date = request.params.date;
-  db.query(`
+  db.query(
+    `
     SELECT * FROM employee e 
     LEFT JOIN moved_employee m ON m.employee_id = e.id 
     AND m.date = $1 
@@ -104,9 +105,9 @@ const insertNewEmployee = (request, response) => {
           console.log(error);
           response.status(404).send("Failed inserting new employee to DB");
         } else {
-        response.status(200).send(`Inserted employee ${firstName}`);
+          response.status(200).send(`Inserted employee ${firstName}`);
+        }
       }
-    }
     );
   } else {
     db.query(
