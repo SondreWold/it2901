@@ -18,6 +18,10 @@ const EmployeeColors = {
   borderColor: "#c6c6cc"
 };
 
+const NavbarColors = {
+	navbar : "rgb(225, 225, 225)"
+}
+
 const statColors = ["#3385ff", "#ffff33", "#39ac73", "#ff5050"];
 
 const randomColor = () => {
@@ -34,5 +38,6 @@ export default {
   BaseColors,
   paletteColors,
   randomColor,
+  NavbarColors,
   statColors
 };
