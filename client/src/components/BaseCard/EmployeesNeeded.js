@@ -25,7 +25,7 @@ class EmployeesNeeded extends Component {
 
           <i
             style={{
-              color: this.props.color,
+              color: this.props.color[1],
               fontWeight: "bold"
             }}
           >
