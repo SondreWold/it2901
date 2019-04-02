@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
+import localization from "moment/locale/nb";
 import { Line } from "react-chartjs-2";
 import "./graph.css";
 import Colors from "../../constants/Colors.js";
@@ -21,8 +22,14 @@ class AbsencePerWeekGraph extends Component {
         graphData.names.push(ratios[i].name);
       }
 
-      if (!graphData.labels.includes(ratios[i].date)) {
-        graphData.labels.push(ratios[i].date);
+      const formattedDate = moment(ratios[i].date)
+			      .locale("nb", localization)
+			      .format("Do MMMM")
+
+      if (!graphData.labels.includes(formattedDate)) {
+        
+        graphData.labels.push(formattedDate);
+      	
       }
     }
 
