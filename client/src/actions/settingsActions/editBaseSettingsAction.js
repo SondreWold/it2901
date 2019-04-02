@@ -33,7 +33,7 @@ export function editBaseSettings(id, name, total_children, ratio) {
   	})
       .then(response => response.json())
       .then(response => {
-	      if (response.status === 202) {
+	      if (response.status === 200) {
 	        dispatch(editBaseSettingsExisting("existing"));
 	      } else {
 	        dispatch(editBaseSettingsSuccess("inserted"));

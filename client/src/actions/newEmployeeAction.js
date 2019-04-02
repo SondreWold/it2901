@@ -3,9 +3,12 @@ import {
   getSearchEmployees,
   getFreeTemps,
 } from "./contentActions/contentEmployeeActions";
-import {updateSelectedEmployee,
-      getSelectedBase
+import {
+	updateSelectedEmployee,
+  getSelectedBase
 } from "./EmployeeListActions/EmployeeListActions";
+
+import { getAbsenceById } from "./absenceAction";
 
 export const INSERT_EMPLOYEE_BEGIN = "INSERT_EMPLOYEE_BEGIN";
 export const INSERT_EMPLOYEE_SUCCESS = "INSERT_EMPLOYEE_SUCCESS";
@@ -47,21 +50,26 @@ export function insertNewEmployee(
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        baseID: baseID,
-        position: position,
-        id: empId
+        firstName: updatedEmployee.first_name,
+        lastName: updatedEmployee.last_name,
+        baseID: updatedEmployee.base_id,
+        position: updatedEmployee.position,
+        id: updatedEmployee.id
       })
     })
       .then(() => {
-        dispatch(insertEmployeeSuccess("inserted"));
-        dispatch(getSearchEmployees());
-        dispatch(getFreeTemps(date));
-        dispatch(getSelectedBase(baseID));
-        dispatch(getEmployees());
-        dispatch(updateSelectedEmployee(updatedEmployee));
-        console.log("Excecuted");
+      	fetch("/api/employee/latest")
+		      .then(res => res.json())
+		      .then((res) => {
+		      	updatedEmployee.id = res[0].max;
+		        dispatch(getSearchEmployees());
+		        dispatch(getFreeTemps(date));
+		        dispatch(getSelectedBase(updatedEmployee.base_id));
+		        dispatch(getEmployees());
+		        dispatch(updateSelectedEmployee(updatedEmployee));
+		        dispatch(getAbsenceById(updatedEmployee.id));
+		        dispatch(insertEmployeeSuccess("inserted"));
+        })
       })
       .catch((error) => console.log("Insertion of new employee failed " + error));
   };

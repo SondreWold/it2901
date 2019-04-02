@@ -9,6 +9,15 @@ const getEmployees = (request, response) => {
   });
 };
 
+const getLatestInsertedEmployee = (request, response) => {
+  db.query("SELECT MAX(id) FROM employee", (error, results) => {
+    if (error) {
+      response.status(404).send("Failed fetching latest employee");
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const deleteEmployee = (request, response) => {
   let id = request.params.id;
   db.query("DELETE FROM employee where id = $1", [id], (error, results) => {
@@ -125,5 +134,6 @@ module.exports = {
   deleteEmployee,
   getEmployeesSearch,
   getFreeTemp,
-  getWorkingEmployees
+  getWorkingEmployees,
+  getLatestInsertedEmployee
 };

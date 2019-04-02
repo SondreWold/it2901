@@ -8,15 +8,14 @@ import Colors from "../../constants/Colors";
 import "./EmployeeList.css";
 
 class EmployeeList extends React.Component {
- 
   updateSelectedEmployee(employee) {
     this.props.updateSelectedEmployee(employee);
   }
 
   componentDidUpdate() {
-  	// select the first employee by default if none are selected
-    if (!this.props.selectedEmployee && this.props.employees.length > 0){
-    	this.updateSelectedEmployee(this.props.employees[0])
+    // select the first employee by default if none are selected
+    if (!this.props.selectedEmployee && this.props.employees.length > 0) {
+      this.updateSelectedEmployee(this.props.employees[0]);
     }
   }
 
@@ -26,7 +25,6 @@ class EmployeeList extends React.Component {
         - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
         - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
       */
-
     return (
       <div>
         <h2 className="employeesHeadline">Ansatte </h2>
