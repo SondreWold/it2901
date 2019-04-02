@@ -1,5 +1,5 @@
 const BaseColors = {
-  ok: "#ffe200",
+  ok: "#e8cd00",
   good: "#37df11",
   bad: "#ff3b3b"
 };

@@ -157,6 +157,7 @@ class BaseCardContainer extends Component {
                     baseId={base.id}
                     updateRatio={this.props.updateRatio}
                     date={this.props.date}
+                    color={color}
                   />
 
                   <BaseCardList
