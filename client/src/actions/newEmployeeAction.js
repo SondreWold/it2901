@@ -43,6 +43,7 @@ export function insertNewEmployee(
   empId,
   updatedEmployee
 ) {
+	console.log("empID", updatedEmployee.id);
   return dispatch => {
     fetch("/api/employee/addEmployee/", {
       method: "PUT",
@@ -58,18 +59,29 @@ export function insertNewEmployee(
       })
     })
       .then(() => {
-      	fetch("/api/employee/latest")
-		      .then(res => res.json())
-		      .then((res) => {
-		      	updatedEmployee.id = res[0].max;
-		        dispatch(getSearchEmployees());
-		        dispatch(getFreeTemps(date));
-		        dispatch(getSelectedBase(updatedEmployee.base_id));
-		        dispatch(getEmployees());
-		        dispatch(updateSelectedEmployee(updatedEmployee));
-		        dispatch(getAbsenceById(updatedEmployee.id));
-		        dispatch(insertEmployeeSuccess("inserted"));
-        })
+   			if (updatedEmployee.id !== null){
+   				console.log("UPDATING");
+   				dispatch(getSearchEmployees());
+	        dispatch(getSelectedBase(updatedEmployee.base_id));
+	        dispatch(getEmployees());
+	        dispatch(updateSelectedEmployee(updatedEmployee));
+	        dispatch(getAbsenceById(updatedEmployee.id));
+	        dispatch(insertEmployeeSuccess("updated"));
+   			}
+   			else {
+	   			console.log("INSERTING");
+	      	fetch("/api/employee/latest")
+			      .then(res => res.json())
+			      .then((res) => {
+			      	updatedEmployee.id = res[0].max;
+			        dispatch(getSearchEmployees());
+			        dispatch(getSelectedBase(updatedEmployee.base_id));
+			        dispatch(getEmployees());
+			        dispatch(updateSelectedEmployee(updatedEmployee));
+			        dispatch(getAbsenceById(updatedEmployee.id));
+			        dispatch(insertEmployeeSuccess("inserted"));
+	        })
+      	}
       })
       .catch((error) => console.log("Insertion of new employee failed " + error));
   };
