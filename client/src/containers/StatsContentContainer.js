@@ -11,12 +11,7 @@ import "./../components/Stats/graph.css";
 
 class StatsContentContainer extends Component {
   componentDidMount() {
-    let update = true;
-    // checks last week
-    if (update) {
-      this.calculateGraphData("week");
-      update = !update;
-    }
+   	this.calculateGraphData("week");
   }
 
   //time = "week" || time = "month || time = "year"
@@ -41,7 +36,7 @@ class StatsContentContainer extends Component {
             calculateGraphData={this.calculateGraphData}
           />
         </div>
-        <AbsencePerWeekGraph type={"Line"} ratios={this.props.ratios} />
+        <AbsencePerWeekGraph type={"Line"} ratios={this.props.ratios} skipWeekend={true}/>
       </div>
     );
   }
