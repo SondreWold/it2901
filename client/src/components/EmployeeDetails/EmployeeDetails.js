@@ -7,7 +7,7 @@ class EmployeeDetails extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.selectedEmployee !== this.props.selectedEmployee){
+    if (prevProps.selectedEmployee !== this.props.selectedEmployee) {
       this.props.getSelectedBase(this.props.selectedEmployee.base_id);
     }
   }
@@ -15,7 +15,7 @@ class EmployeeDetails extends React.Component {
   render() {
     return (
       <div className="detailsInfoContainer">
-        <h2 className="employeesHeadline">
+        <h2 id={"empTitle"} className="employeesHeadline">
           {this.props.selectedEmployee.first_name +
             " " +
             this.props.selectedEmployee.last_name}

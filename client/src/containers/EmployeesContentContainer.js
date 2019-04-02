@@ -9,6 +9,7 @@ import { getSearchEmployees } from "../actions/contentActions/contentEmployeeAct
 import EmployeeListContainer from "./EmployeeListContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
 import { getAbsenceById } from "../actions/absenceAction";
+import "./employeesContentContainer.css";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -21,8 +22,8 @@ class EmployeesContentContainer extends Component {
 
   render() {
     return (
-      <div style={style.container}>
-        <div style={style.item}>
+      <div className="container">
+        <div className="item">
           <EmployeeListContainer
             employees={this.props.listOfEmployees}
             getSearchEmployees={this.props.getSearchEmployees}
@@ -30,7 +31,7 @@ class EmployeesContentContainer extends Component {
             updateSelectedEmployee={this.props.updateSelectedEmployee}
           />
         </div>
-        <div style={style.item}>
+        <div className="item">
           <EmployeeDetailContainer
             loading={this.props.loading}
             getAbsence={this.props.getAbsence}
@@ -46,18 +47,6 @@ class EmployeesContentContainer extends Component {
     );
   }
 }
-
-const style = {
-  container: {
-    margin: "auto",
-    display: "flex",
-    width: "90%",
-    marginTop: "30px"
-  },
-  item: {
-    flex: "1"
-  }
-};
 
 const mapDispatchToProps = dispatch => {
   return {

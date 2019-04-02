@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px !important;
+  margin: auto;
+  width: 90%;
+}
+
+.item {
+  flex: 1;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    flex-direction: column !important;
+    margin-top: 10px;
+  }
+}
