@@ -69,6 +69,7 @@ export function insertNewEmployee(
 			        dispatch(getSearchEmployees());
 			        dispatch(getSelectedBase(updatedEmployee.base_id));
 			        dispatch(getEmployees());
+			        dispatch(getFreeTemps(date));
 			        dispatch(updateSelectedEmployee(updatedEmployee));
 			        dispatch(getAbsenceById(updatedEmployee.id));
 			        dispatch(insertEmployeeSuccess("inserted"));
