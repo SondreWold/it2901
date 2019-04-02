@@ -93,7 +93,7 @@ const getWorkingEmployees = (request, response) => {
 };
 
 const insertNewEmployee = (request, response) => {
-  let { firstName, lastName, baseID, position, id } = request.body;
+  let { firstName, lastName, baseID, position, id, startDate } = request.body;
   //if id>0, it means that employee should be edited
   if (id > 0) {
     db.query(
@@ -110,8 +110,8 @@ const insertNewEmployee = (request, response) => {
     );
   } else {
     db.query(
-      "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
-      [firstName, lastName, baseID, position],
+      "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position, start_date) VALUES ($1, $2, $3, $4, $5)",
+      [firstName, lastName, baseID, position, startDate],
       (error, results) => {
         if (error) {
           if (error.code === "23505") {

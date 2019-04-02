@@ -34,6 +34,7 @@ class AddEmployee extends Component {
     this.calendarIcon = (
       <img style={{ width: 20 }} src={calendar2} alt="calendar" />
     );
+    this.handleDatePick = this.handleDatePick.bind(this);
   }
   get initialState() {
     return {
@@ -42,7 +43,7 @@ class AddEmployee extends Component {
       last_name: this.props.last_name,
       base_id: this.props.base_id,
       position: this.props.position,
-      date: new Date()
+      startDate: this.props.startDate ? this.props.startDate : new Date()
     };
   }
 
@@ -64,9 +65,9 @@ class AddEmployee extends Component {
     this.setState({ [name]: event.target.value });
   };
 
-  handleChangeFrom(date) {
+  handleDatePick(date) {
     this.setState({
-      date: date
+      startDate: date
     });
   }
 
@@ -77,7 +78,8 @@ class AddEmployee extends Component {
       last_name: this.state.last_name,
       base_id: parseInt(this.state.base_id),
       position: parseInt(this.state.position),
-      id: this.props.empId ? parseInt(this.props.empId) : null
+      id: this.props.empId ? parseInt(this.props.empId) : null,
+      startDate: this.state.position === 1 && this.state.startDate
     };
     this.props.insertNewEmployee(
       moment(this.props.date).format("YYYY-MM-DD"),
@@ -221,7 +223,7 @@ class AddEmployee extends Component {
                     <DatePicker
                       onChange={this.handleDatePick}
                       clearIcon={null}
-                      value={this.state.date}
+                      value={this.state.startDate}
                       locale={"nb"}
                       returnValue={"pickedDate"}
                       showLeadingZeros={true}
