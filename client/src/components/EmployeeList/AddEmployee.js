@@ -65,12 +65,7 @@ class AddEmployee extends Component {
       id: this.props.empId ? parseInt(this.props.empId) : null,
     }
     this.props.insertNewEmployee(
-      this.state.first_name,
-      this.state.last_name,
-      parseInt(this.state.base_id),
-      parseInt(this.state.position),
       moment(this.props.date).format("YYYY-MM-DD"),
-      this.props.empId ? parseInt(this.props.empId) : null,
       updatedEmployee
     );
     let text;
