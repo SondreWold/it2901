@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "chart.js": "^2.8.0",
+    "cypress": "^3.2.0",
     "immutability-helper": "^3.0.0",
     "material-icons-react": "^1.0.4",
     "moment": "^2.24.0",
@@ -43,5 +44,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-plugin-cypress": "^2.2.1"
+  }
 }

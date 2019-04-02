@@ -35,12 +35,7 @@ export const insertEmployeeFailure = error => ({
 });
 
 export function insertNewEmployee(
-  firstName,
-  lastName,
-  baseID,
-  position,
   date,
-  empId,
   updatedEmployee
 ) {
   return dispatch => {
@@ -58,18 +53,28 @@ export function insertNewEmployee(
       })
     })
       .then(() => {
-      	fetch("/api/employee/latest")
-		      .then(res => res.json())
-		      .then((res) => {
-		      	updatedEmployee.id = res[0].max;
-		        dispatch(getSearchEmployees());
-		        dispatch(getFreeTemps(date));
-		        dispatch(getSelectedBase(updatedEmployee.base_id));
-		        dispatch(getEmployees());
-		        dispatch(updateSelectedEmployee(updatedEmployee));
-		        dispatch(getAbsenceById(updatedEmployee.id));
-		        dispatch(insertEmployeeSuccess("inserted"));
-        })
+   			if (updatedEmployee.id !== null){
+   				dispatch(getSearchEmployees());
+	        dispatch(getSelectedBase(updatedEmployee.base_id));
+	        dispatch(getEmployees());
+	        dispatch(updateSelectedEmployee(updatedEmployee));
+	        dispatch(getAbsenceById(updatedEmployee.id));
+	        dispatch(insertEmployeeSuccess("updated"));
+   			}
+   			else {
+	      	fetch("/api/employee/latest")
+			      .then(res => res.json())
+			      .then((res) => {
+			      	updatedEmployee.id = res[0].max;
+			        dispatch(getSearchEmployees());
+			        dispatch(getSelectedBase(updatedEmployee.base_id));
+			        dispatch(getEmployees());
+			        dispatch(getFreeTemps(date));
+			        dispatch(updateSelectedEmployee(updatedEmployee));
+			        dispatch(getAbsenceById(updatedEmployee.id));
+			        dispatch(insertEmployeeSuccess("inserted"));
+	        })
+      	}
       })
       .catch((error) => console.log("Insertion of new employee failed " + error));
   };

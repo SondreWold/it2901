@@ -2,14 +2,10 @@ import React from "react";
 import DatePicker from "react-date-picker";
 import { Button } from "@material-ui/core";
 import "./EmployeeDetails.css";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import { TiPlus } from "react-icons/ti";
 import Alert from "react-s-alert";
 import Colors from "../../constants/Colors";
 import * as fn from "../../constants/Functions";
-import { FaUserClock } from "react-icons/fa";
 import Checkbox from "@material-ui/core/Checkbox";
 
 const calendar2 = require("../../images/calendar2.svg");
@@ -88,94 +84,77 @@ class EmployeeRegisterAbsence extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen} style={style.addAbsenceButton}>
+        { !this.state.open && <Button onClick={this.handleClickOpen} style={style.addAbsenceButton}>
           <TiPlus />
           Legg til fravær
-        </Button>
-        <Dialog
-          open={this.state.open}
-          actions={[
-            <Button
-              style={style.submitButton}
-              type="submit"
-              variant="contained"
-              color="primary"
+        </Button>}
+          { this.state.open && <div className="absenceFormWrapper">
+            <h4 className="numberOfDatesHeadline"> Velg antall dager med fravær </h4>
+            <form
+              className="absenceForm"
+              noValidate
+              onSubmit={this.handleSubmit}
             >
-              {" "}
-              REGISTRER
-            </Button>
-          ]}
-          onEscapeKeyDown={this.handleClose}
-          onBackdropClick={this.handleClose}
-        >
-          <DialogTitle className="registerAbsenceHeader">
-            {" "}
-            Registrer fravær{" "}
-          </DialogTitle>
-          <DialogContent className="dialogContent">
-            <div className="absenceFormWrapper">
-              <h4> Velg antall dager med fravær </h4>
-              <form
-                className="absenceForm"
-                noValidate
-                onSubmit={this.handleSubmit}
-              >
-                <div className="datePickers">
-                  <FaUserClock size="150px" style={{ marginLeft: "12%" }} />
+              <div className="datePickers">
+                <div className="dateHolder">
+                  <b className="dateHeadline"> {this.state.severalDays ? "Fra og med" : <br />} </b>
+                  <DatePicker
+                    onChange={this.handleChangeFrom}
+                    clearIcon={null}
+                    value={this.state.from}
+                    locale={"nb"}
+                    returnValue={"start"}
+                    showLeadingZeros={true}
+                    calendarIcon={this.calendarIcon}
+                    placeholderText={"Fra"}
+                    minDate={this.minDateObj}
+                  />
+                </div>
+                <div>
+                  Flere dager:
+                  <Checkbox
+                    checked={this.state.severalDays}
+                    onChange={() =>
+                      this.setState({ severalDays: !this.state.severalDays })
+                    }
+                    value="checkedB"
+                    color="primary"
+                  />
+                </div>
+                {this.state.severalDays && (
                   <div className="dateHolder">
-                    <b> {this.state.severalDays ? "Fra og med" : <br />} </b>
+                    <b className="dateHeadline"> Til og med </b>
                     <DatePicker
-                      onChange={this.handleChangeFrom}
+                      onChange={this.handleChangeTo}
                       clearIcon={null}
-                      value={this.state.from}
+                      value={this.state.to}
                       locale={"nb"}
                       returnValue={"start"}
                       showLeadingZeros={true}
                       calendarIcon={this.calendarIcon}
-                      placeholderText={"Fra"}
-                      minDate={this.minDateObj}
+                      minDate={this.state.from}
                     />
                   </div>
-                  <div>
-                    Flere dager:
-                    <Checkbox
-                      checked={this.state.severalDays}
-                      onChange={() =>
-                        this.setState({ severalDays: !this.state.severalDays })
-                      }
-                      value="checkedB"
-                      color="primary"
-                    />
-                  </div>
-                  {this.state.severalDays && (
-                    <div className="dateHolder">
-                      <b> Til og med </b>
-                      <DatePicker
-                        onChange={this.handleChangeTo}
-                        clearIcon={null}
-                        value={this.state.to}
-                        locale={"nb"}
-                        returnValue={"start"}
-                        showLeadingZeros={true}
-                        calendarIcon={this.calendarIcon}
-                        minDate={this.state.from}
-                      />
-                    </div>
-                  )}
+                )}
+                <div className="registerAbsenceButtons">
                   <Button
                     style={style.submitButton}
                     type="submit"
-                    variant="contained"
                     color="primary"
                   >
                     {" "}
                     REGISTRER
                   </Button>
+                  <Button
+                    style={style.submitButton}
+                    color="secondary"
+                    onClick={this.handleClose}>
+                    Avbryt
+                  </Button>
                 </div>
-              </form>
-            </div>
-          </DialogContent>
-        </Dialog>
+              </div>
+            </form>
+          </div>}
       </div>
     );
   }
@@ -184,9 +163,14 @@ class EmployeeRegisterAbsence extends React.Component {
 const style = {
   // MUI Button doesn't support styling by className
   submitButton: {
-    maxWidth: "200px",
+    minWidth: "150px",
+    maxWidth: "150px",
     margin: "20px auto",
-    marginTop: "45px"
+    marginRight: "10px",
+    border: " 1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+		color: Colors.EmployeeColors.moveableEmployee
+
   },
   addAbsenceButton: {
     maxWidth: "200px",

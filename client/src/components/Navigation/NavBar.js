@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Navigation.css";
+import Colors from "../../constants/Colors"
 import { FaBars } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
 import { MdHome, MdSettings } from "react-icons/md";
@@ -28,54 +29,57 @@ class NavBar extends Component {
     return (
       <div>
         <h3 className="NavToggle">
-          <FaBars className="NavToggle" onClick={this.toggle} size={28} />
+          <FaBars className="NavToggle" color={Colors.NavbarColors.navbar} onClick={this.toggle} size={28} />
         </h3>
         <div className="Navbar">
           <nav className={className}>
-            <div className="NavButtons">
-              <NavLink
+          	<NavLink
                 className="NavbarLink"
                 exact
                 to="/"
                 onClick={this.toggle}
-              >
-                <MdHome size={24} />
-                <p>Hjem</p>
-              </NavLink>
-            </div>
-            <div className="NavButtons">
-              <NavLink
-                className="NavbarLink"
-                exact
-                to="/employees"
-                onClick={this.toggle}
-              >
+            >
+	            <div className="NavButtons">
+	             	  <MdHome size={24} />
+	                <p>Hjem</p>
+	            </div>
+            </NavLink>
+            
+            <NavLink
+              className="NavbarLink"
+              exact
+              to="/employees"
+              onClick={this.toggle}
+            >
+              <div className="NavButtons">
                 <FaUserFriends size={24} />
                 <p>Ansatte</p>
-              </NavLink>
-            </div>
-            <div className="NavButtons">
-              <NavLink
-                className="NavbarLink"
-                exact
-                to="/stats"
-                onClick={this.toggle}
-              >
+            	</div>
+            </NavLink>
+            
+            <NavLink
+              className="NavbarLink"
+              exact
+              to="/stats"
+              onClick={this.toggle}
+            >
+              <div className="NavButtons">
                 <IoIosStats size={24} />
                 <p>Statistikk</p>
-              </NavLink>
-            </div>
-            <div className="NavButtons">
-              <NavLink
-                className="NavbarLink"
-                exact
-                to="/settings"
-                onClick={this.toggle}
-              >
+            	</div>
+					  </NavLink>
+            
+            <NavLink
+              className="NavbarLink"
+              exact
+              to="/settings"
+              onClick={this.toggle}
+            >
+            	<div className="NavButtons">
                 <MdSettings size={24} />
                 <p>Innstillinger</p>
-              </NavLink>
-            </div>
+            	</div>
+          	</NavLink>
           </nav>
         </div>
       </div>
