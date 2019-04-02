@@ -69,7 +69,7 @@ const getWorkingEmployees = (request, response) => {
     "SELECT m.base_id, e1.id AS employee_id, e1.first_name, e1.last_name, e1.position FROM moved_employee m INNER JOIN employee e1 ON m.employee_id = e1.id WHERE date=$1 \
     AND m.employee_id NOT IN (SELECT employee_id FROM absence_employee WHERE date=$1) \
       UNION \
-        SELECT e2.base_id, e2.id, e2.first_name, e2.last_name, e2.position FROM employee e2 WHERE e2.position = 1 AND e2.id \
+        SELECT e2.base_id, e2.id, e2.first_name, e2.last_name, e2.position FROM employee e2 WHERE e2.position = 1 AND (e2.start_date <=$1 OR e2.start_date IS NULL) AND e2.id \
         NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
           UNION SELECT employee_id FROM absence_employee WHERE date = $1) ORDER BY base_id, position, first_name;",
     [date],

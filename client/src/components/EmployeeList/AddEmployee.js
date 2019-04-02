@@ -20,12 +20,20 @@ import { insertNewEmployee } from "../../actions/newEmployeeAction";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";
+import DatePicker from "react-date-picker";
+
+const calendar2 = require("../../images/calendar2.svg");
+
+//moment(this.props.date).format("YYYY-MM-DD")
 
 class AddEmployee extends Component {
   constructor(props) {
     super(props);
     this.state = this.initialState;
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.calendarIcon = (
+      <img style={{ width: 20 }} src={calendar2} alt="calendar" />
+    );
   }
   get initialState() {
     return {
@@ -33,7 +41,8 @@ class AddEmployee extends Component {
       first_name: this.props.first_name,
       last_name: this.props.last_name,
       base_id: this.props.base_id,
-      position: this.props.position
+      position: this.props.position,
+      date: new Date()
     };
   }
 
@@ -55,6 +64,12 @@ class AddEmployee extends Component {
     this.setState({ [name]: event.target.value });
   };
 
+  handleChangeFrom(date) {
+    this.setState({
+      date: date
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const updatedEmployee = {
@@ -62,8 +77,8 @@ class AddEmployee extends Component {
       last_name: this.state.last_name,
       base_id: parseInt(this.state.base_id),
       position: parseInt(this.state.position),
-      id: this.props.empId ? parseInt(this.props.empId) : null,
-    }
+      id: this.props.empId ? parseInt(this.props.empId) : null
+    };
     this.props.insertNewEmployee(
       this.state.first_name,
       this.state.last_name,
@@ -95,7 +110,7 @@ class AddEmployee extends Component {
     let buttonText;
     let header;
     let showEdit = this.props.showEdit;
-    const color= Colors.EmployeeColors.moveableEmployee;
+    const color = Colors.EmployeeColors.moveableEmployee;
 
     if (showEdit) {
       button = (
@@ -152,8 +167,8 @@ class AddEmployee extends Component {
                 variant="outlined"
               />
               {!this.props.tempOnly && (
-                <div>
-                  <FormControl className={classes.formControl}>
+                <div className={classes.formControl}>
+                  <FormControl>
                     <FormLabel> Ansettelsesform </FormLabel>
                     <RadioGroup
                       value={this.state.position}
@@ -203,18 +218,34 @@ class AddEmployee extends Component {
                         disabled={this.state.position === "2"}
                       />
                     </RadioGroup>
+                    <FormLabel disabled={this.props.position === "2"}>
+                      Startdato
+                    </FormLabel>
                   </FormControl>
+                  <div style={{ marginTop: "5px" }}>
+                    <DatePicker
+                      onChange={this.handleDatePick}
+                      clearIcon={null}
+                      value={this.state.date}
+                      locale={"nb"}
+                      returnValue={"pickedDate"}
+                      showLeadingZeros={true}
+                      calendarIcon={this.calendarIcon}
+                      placeholderText={"Fra"}
+                      disabled={this.state.position === "2"}
+                    />
+                  </div>
                 </div>
               )}
               <div className={classes.buttons}>
-                <Button
-                  type="submit"
-                  value="Submit"
-                  style={style.editButton}
-                >
+                <Button type="submit" value="Submit" style={style.editButton}>
                   {buttonText}
                 </Button>
-                <Button onClick={this.handleClickClose} style={style.editButton} color="secondary">
+                <Button
+                  onClick={this.handleClickClose}
+                  style={style.editButton}
+                  color="secondary"
+                >
                   Avbryt
                 </Button>
               </div>
@@ -232,9 +263,25 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (firstName, lastName, baseID, position, date, empId, employee) =>
+    insertNewEmployee: (
+      firstName,
+      lastName,
+      baseID,
+      position,
+      date,
+      empId,
+      employee
+    ) =>
       dispatch(
-        insertNewEmployee(firstName, lastName, baseID, position, date, empId, employee)
+        insertNewEmployee(
+          firstName,
+          lastName,
+          baseID,
+          position,
+          date,
+          empId,
+          employee
+        )
       )
   };
 };
@@ -265,7 +312,7 @@ const styles = theme => ({
   },
   buttons: {
     "text-align": "center",
-    "justify-content": "space-evenly",
+    "justify-content": "space-evenly"
   },
   addButton: {
     marginBottom: "10px"
