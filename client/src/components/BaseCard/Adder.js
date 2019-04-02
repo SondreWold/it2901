@@ -143,15 +143,18 @@ const style = {
   },
   listItemRegular: {
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.moveableEmployee
+    backgroundColor: Colors.EmployeeColors.moveableEmployee,
+    borderRadius: "10px"
   },
   listItemTemporary: {
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.tempEmployee
+    backgroundColor: Colors.EmployeeColors.tempEmployee,
+    borderRadius: "10px"
   },
   listItemSelected: {
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.selectedEmployee
+    backgroundColor: Colors.EmployeeColors.selectedEmployee,
+    borderRadius: "10px"
   },
   new: {
     display: "flex",
