@@ -118,10 +118,8 @@ const style = {
   },
   listItem: {
     width: "99%",
-    margin: "2px",
-    border: "1px solid",
+    borderBottom: "1px solid",
     borderColor: Colors.EmployeeColors.borderColor,
-    borderRadius: "10px",
     padding: "10px",
     textAlign: "center"
   }
