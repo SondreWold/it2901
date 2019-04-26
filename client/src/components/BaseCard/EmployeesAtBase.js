@@ -9,6 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { Button } from "@material-ui/core";
 
 class EmployeesAtBase extends Component {
 	constructor(props) {
@@ -62,8 +63,8 @@ class EmployeesAtBase extends Component {
             Voksne <br /> tilstede
           </p>
         </div>
-        <div onClick={this.open} className="employeeCountHolder">
-          <div className="employeesAtBase">
+        <div onClick={this.open} className="employeeAbsentCountHolder">
+          <div className="employeesAbsentAtBase">
             <FaRegUser size="15px" />
             <p className="employeesAtBaseNumber">
               {" " + missingResources.length + " "}
@@ -96,6 +97,12 @@ class EmployeesAtBase extends Component {
                 : (<p> Det er ingen fraværende her i dag </p>)
                 }
               </List>
+              <Button
+                onClick={this.close}
+                style={style.closeButton}
+                color="primary">
+                  Lukk
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -106,18 +113,31 @@ class EmployeesAtBase extends Component {
 
 const style = {
   window: {
-    padding: "5%"
+    display: "flex",
+    flexDirection: "column",
+    padding: "5%", 
+    margin: "auto"
   },
   list: {
     width: "100%",
     border: "5px",
     maxHeight: "300px",
     overflow: "auto",
-    margin: "10px"
+    margin: "auto"
   },
   listItemRegular: {
     margin: "auto",
+    borderRadius: "10px",
+    marginBottom: "2px",
     backgroundColor: Colors.EmployeeColors.moveableEmployee
+  }, 
+  closeButton : {
+    maxWidth: "100px",
+    minWidth: "100px",
+    margin: "auto",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
   }
 };
 

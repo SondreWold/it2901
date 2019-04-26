@@ -103,16 +103,20 @@ class Adder extends Component {
               </List>
               <div style={style.doubleItem}>
                 <Button
-                  variant="contained"
-                  color="inherit"
+                	style={style.editbutton}
+                	variant="outlined"
+									size="small"
+									color="primary"
                   onClick={this.addTemp}
                   disabled={this.state.selectedIndex.length === 0}
                 >
                   Legg til
                 </Button>
                 <Button
-                  variant="contained"
-                  color="inherit"
+                	style={style.editbutton}
+                	variant="outlined"
+									size="small"
+									color="primary"
                   onClick={this.close}
                 >
                   Avbryt
@@ -127,6 +131,14 @@ class Adder extends Component {
 }
 
 const style = {
+	editButton: {
+    maxWidth: "200px",
+    minWidth: "150px",
+    margin: "20px auto",
+    border: "1px solid",
+    borderColor: Colors.EmployeeColors.moveableEmployee,
+    color: Colors.EmployeeColors.moveableEmployee
+  },
   doubleItem: {
     display: "flex",
     justifyContent: "space-around"
@@ -143,15 +155,18 @@ const style = {
   },
   listItemRegular: {
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.moveableEmployee
+    backgroundColor: Colors.EmployeeColors.moveableEmployee,
+    borderRadius: "10px"
   },
   listItemTemporary: {
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.tempEmployee
+    backgroundColor: Colors.EmployeeColors.tempEmployee,
+    borderRadius: "10px"
   },
   listItemSelected: {
     margin: "2px",
-    backgroundColor: Colors.EmployeeColors.selectedEmployee
+    backgroundColor: Colors.EmployeeColors.selectedEmployee,
+    borderRadius: "10px"
   },
   new: {
     display: "flex",

@@ -33,7 +33,7 @@ class EmployeeAbsenceList extends Component {
 
   formatList = absenceList => {
     let abs = [];
-    absenceList.map(absence => {
+    absenceList.forEach(absence => {
       let last = abs[abs.length - 1];
 
       absence.date = moment(absence.date).set({
@@ -118,10 +118,8 @@ const style = {
   },
   listItem: {
     width: "99%",
-    margin: "2px",
-    border: "1px solid",
+    borderBottom: "1px solid",
     borderColor: Colors.EmployeeColors.borderColor,
-    borderRadius: "10px",
     padding: "10px",
     textAlign: "center"
   }

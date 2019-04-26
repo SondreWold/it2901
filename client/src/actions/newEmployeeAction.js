@@ -51,27 +51,28 @@ export function insertNewEmployee(date, updatedEmployee) {
       })
     })
       .then(() => {
-        if (updatedEmployee.id !== null) {
-          dispatch(getSearchEmployees());
-          dispatch(getSelectedBase(updatedEmployee.base_id));
-          dispatch(getEmployees());
-          dispatch(updateSelectedEmployee(updatedEmployee));
-          dispatch(getAbsenceById(updatedEmployee.id));
-          dispatch(insertEmployeeSuccess("updated"));
-        } else {
-          fetch("/api/employee/latest")
-            .then(res => res.json())
-            .then(res => {
-              updatedEmployee.id = res[0].max;
-              dispatch(getSearchEmployees());
-              dispatch(getSelectedBase(updatedEmployee.base_id));
-              dispatch(getEmployees());
-              dispatch(updateSelectedEmployee(updatedEmployee));
-              dispatch(getAbsenceById(updatedEmployee.id));
-              dispatch(insertEmployeeSuccess("inserted"));
-              dispatch(getFreeTemps(date));
-            });
-        }
+   			if (updatedEmployee.id !== null){
+   				dispatch(getSearchEmployees());
+	        dispatch(getSelectedBase(updatedEmployee.base_id));
+	        dispatch(getEmployees());
+	        dispatch(updateSelectedEmployee(updatedEmployee));
+	        dispatch(getAbsenceById(updatedEmployee.id));
+	        dispatch(insertEmployeeSuccess("updated"));
+   			}
+   			else {
+	      	fetch("/api/employee/latest")
+			      .then(res => res.json())
+			      .then((res) => {
+			      	updatedEmployee.id = res[0].max;
+			        dispatch(getSearchEmployees());
+			        dispatch(getSelectedBase(updatedEmployee.base_id));
+			        dispatch(getEmployees());
+			        dispatch(getFreeTemps(date));
+			        dispatch(updateSelectedEmployee(updatedEmployee));
+			        dispatch(getAbsenceById(updatedEmployee.id));
+			        dispatch(insertEmployeeSuccess("inserted"));
+	        })
+      	}
       })
       .catch(error => console.log("Insertion of new employee failed " + error));
   };

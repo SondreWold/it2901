@@ -20,12 +20,20 @@ class EmployeesNeeded extends Component {
           {this.props.ratio === 0
             ? "OK"
             : this.props.ratio >= 0
-            ? "Overbemanning: " + this.props.ratio
-            : "Underbemanning: " + -1 * this.props.ratio}
+            ? "Overbemanning: "
+            : "Underbemanning: "}
+
+          <i
+            style={{
+              color: this.props.color.secondary,
+              fontWeight: "bold"
+            }}
+          >
+            {this.props.ratio >= 0 ? this.props.ratio : -1 * this.props.ratio}
+          </i>
         </i>
       </div>
     );
   }
 }
-
 export default EmployeesNeeded;

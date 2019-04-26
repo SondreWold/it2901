@@ -1,7 +1,7 @@
 const BaseColors = {
-  ok: "#ffe200",
-  good: "#37df11",
-  bad: "#ff3b3b"
+  ok: { primary: "#ffe200", secondary: "#e8cd00" },
+  good: { primary: "#37df11", secondary: "#29a70d" },
+  bad: { primary: "#ff3b3b", secondary: "red" }
 };
 
 const paletteColors = {
@@ -16,6 +16,10 @@ const EmployeeColors = {
   selectedEmployee: "#E76F50",
   editEmployee: "grey",
   borderColor: "#c6c6cc"
+};
+
+const NavbarColors = {
+  navbar: "rgb(225, 225, 225)"
 };
 
 const statColors = ["#3385ff", "#ffff33", "#39ac73", "#ff5050"];
@@ -34,5 +38,6 @@ export default {
   BaseColors,
   paletteColors,
   randomColor,
+  NavbarColors,
   statColors
 };
