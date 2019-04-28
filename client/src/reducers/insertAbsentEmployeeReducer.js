@@ -3,7 +3,7 @@ import {
   INSERT_ABSENT_EMPLOYEE_SUCCESS,
   INSERT_ABSENT_EMPLOYEE_EXISTING,
   INSERT_ABSENT_EMPLOYEE_FAILURE
-} from "../actions/insertAbsentEmployeeAction";
+} from "../actions/contentActions/contentAbsenceEmployeeActions";
 
 const initialState = {
   data: [],

@@ -9,6 +9,16 @@ const getEmployees = (request, response) => {
   });
 };
 
+const getEmployee = (request, response) => {
+  let id = request.params.id;
+  db.query("SELECT * FROM employee where id = $1", [id], (error, results) => {
+    if (error) {
+      response.status(404).send("error getting employee");
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
 const getLatestInsertedEmployee = (request, response) => {
   db.query("SELECT MAX(id) FROM employee", (error, results) => {
     if (error) {
@@ -94,37 +104,39 @@ const getWorkingEmployees = (request, response) => {
 
 const insertNewEmployee = (request, response) => {
   let { firstName, lastName, baseID, position, id, startDate } = request.body;
-  //if id>0, it means that employee should be edited
-  if (id > 0) {
-    db.query(
-      "UPDATE EMPLOYEE SET first_name=$1, last_name=$2, base_id=$3, position=$4 WHERE id=$5",
-      [firstName, lastName, baseID, position, id],
-      (error, results) => {
-        if (error) {
-          console.log(error);
+
+  db.query(
+    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position, start_date) VALUES ($1, $2, $3, $4, $5)",
+    [firstName, lastName, baseID, position, startDate],
+    (error, results) => {
+      if (error) {
+        if (error.code === "23505") {
+          console.log("fillern");
+        } else {
           response.status(404).send("Failed inserting new employee to DB");
-        } else {
-          response.status(200).send(`Inserted employee ${firstName}`);
         }
+      } else {
+        response.status(200).send(`Inserted employee ${firstName}`);
       }
-    );
-  } else {
-    db.query(
-      "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position, start_date) VALUES ($1, $2, $3, $4, $5)",
-      [firstName, lastName, baseID, position, startDate],
-      (error, results) => {
-        if (error) {
-          if (error.code === "23505") {
-            console.log("fillern");
-          } else {
-            response.status(404).send("Failed inserting new employee to DB");
-          }
-        } else {
-          response.status(200).send(`Inserted employee ${firstName}`);
-        }
+    }
+  );
+};
+
+const editEmployee = (request, response) => {
+  let { firstName, lastName, baseID, position, startDate } = request.body;
+  let id = request.params.id;
+  db.query(
+    "UPDATE EMPLOYEE SET first_name=$1, last_name=$2, base_id=$3, position=$4, start_date=$5 WHERE id=$6",
+    [firstName, lastName, baseID, position, startDate, id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        response.status(404).send("Failed editing employee in DB");
+      } else {
+        response.status(200).send(`Inserted employee ${firstName}`);
       }
-    );
-  }
+    }
+  );
 };
 
 module.exports = {
@@ -135,5 +147,7 @@ module.exports = {
   getEmployeesSearch,
   getFreeTemp,
   getWorkingEmployees,
-  getLatestInsertedEmployee
+  getLatestInsertedEmployee,
+  getEmployee,
+  editEmployee
 };

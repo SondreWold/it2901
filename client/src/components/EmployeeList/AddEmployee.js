@@ -15,7 +15,10 @@ import {
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { insertNewEmployee } from "../../actions/newEmployeeAction";
+import {
+  insertNewEmployee,
+  editEmployee
+} from "../../actions/contentActions/contentEmployeeActions";
 //import {updateSelectedEmployee} from "../../actions/EmployeeListActions/EmployeeListActions";
 import moment from "moment";
 import Colors from "../../constants/Colors";
@@ -82,19 +85,22 @@ class AddEmployee extends Component {
     } else {
       startDate = null;
     }
-    const updatedEmployee = {
+    const employeeData = {
       first_name: this.capitalizeFirstLetter(this.state.first_name),
       last_name: this.capitalizeFirstLetter(this.state.last_name),
       base_id: parseInt(this.state.base_id),
       position: parseInt(this.state.position),
-      id: this.props.empId ? parseInt(this.props.empId) : null,
+      id: this.props.empId,
       startDate: startDate
     };
-    console.log(updatedEmployee);
-    this.props.insertNewEmployee(
-      moment(this.props.date).format("YYYY-MM-DD"),
-      updatedEmployee
-    );
+    if (this.props.empId) {
+      this.props.editEmployee(this.props.empId, employeeData);
+    } else {
+      this.props.insertNewEmployee(
+        moment(this.props.date).format("YYYY-MM-DD"),
+        employeeData
+      );
+    }
     let text;
     if (this.props.showEdit) {
       text = "Ansatt redigert";
@@ -269,26 +275,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (
-      firstName,
-      lastName,
-      baseID,
-      position,
-      date,
-      empId,
-      employee
-    ) =>
-      dispatch(
-        insertNewEmployee(
-          firstName,
-          lastName,
-          baseID,
-          position,
-          date,
-          empId,
-          employee
-        )
-      )
+    insertNewEmployee: (date, newEmployee) =>
+      dispatch(insertNewEmployee(date, newEmployee)),
+    editEmployee: (id, updatedEmployee) =>
+      dispatch(editEmployee(id, updatedEmployee))
   };
 };
 
