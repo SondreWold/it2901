@@ -1,5 +1,5 @@
-import express from "express";
-import * as statsController from "../server/controllers/statsController";
+const express = require("express");
+const statsController = require("../server/controllers/statsController");
 
 // get an instance of express router, then redirect to correct controller
 const router = express.Router();
@@ -12,13 +12,10 @@ router
   .route("/workingEmpsAbsChildren/:date")
   .get(statsController.getWorkingEmpsAbsChildren);
 
+router.route("/getRatio/:fromDate/:toDate").get(statsController.getRatio);
 
 router
-	.route("/getRatio/:fromDate/:toDate")
-	.get(statsController.getRatio)
+  .route("/updateRatio/:date/:baseId/:ratio")
+  .put(statsController.updateRatio);
 
-router
-	.route("/updateRatio/:date/:baseId/:ratio")
-	.put(statsController.updateRatio);
-
-export default router;
+module.exports = router;

@@ -35,6 +35,7 @@ class EmployeeDetailContainer extends Component {
               position={this.props.selectedEmployee.position.toString()}
               empId={this.props.selectedEmployee.id}
               employee={this.props.selectedEmployee}
+              startDate={this.props.selectedEmployee.start_date}
             />
             <DeleteEmployee />
           </div>

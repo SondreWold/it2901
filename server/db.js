@@ -1,4 +1,5 @@
 const Pool = require("pg").Pool;
+
 const connection = new Pool({
   user: "yowijmaweckjjw",
   host: "ec2-54-228-224-37.eu-west-1.compute.amazonaws.com",

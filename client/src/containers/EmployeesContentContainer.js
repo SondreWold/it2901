@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { insertAbsentEmployee } from "../actions/insertAbsentEmployeeAction";
+import { insertAbsentEmployee } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import {
   updateSelectedEmployee,
   getSelectedBase
@@ -8,7 +8,7 @@ import {
 import { getSearchEmployees } from "../actions/contentActions/contentEmployeeActions";
 import EmployeeListContainer from "./EmployeeListContainer";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
-import { getAbsenceById } from "../actions/absenceAction";
+import { getAbsenceById } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import "./employeesContentContainer.css";
 
 class EmployeesContentContainer extends Component {
