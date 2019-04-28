@@ -8,7 +8,8 @@ class TotalOverview extends Component {
     var result = [];
     let totalChildren = 0;
     let totalAbsentChildren = 0;
-    let totalEmployees = this.props.employees.length;
+    let totalEmployees = this.props.employees.filter(emp => emp.position === 1)
+      .length;
     if (this.props.children.length > 0) {
       this.props.children.forEach(child => {
         totalChildren += child.total_children;
