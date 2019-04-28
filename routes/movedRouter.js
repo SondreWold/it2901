@@ -1,5 +1,5 @@
-import express from "express";
-import * as movedController from "../server/controllers/movedController";
+const express = require("express");
+const movedController = require("../server/controllers/movedController");
 
 // get an instance of express router, then redirect to correct controller
 const router = express.Router();
@@ -11,4 +11,5 @@ router
 router
   .route("/employeeId/:employeeId/date/:date")
   .delete(movedController.deleteMovedEmployee);
-export default router;
+
+module.exports = router;

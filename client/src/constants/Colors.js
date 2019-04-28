@@ -1,7 +1,7 @@
 const BaseColors = {
-  ok: ["#ffe200", "#e8cd00"],
-  good: ["#37df11", "#29a70d"],
-  bad: ["#ff3b3b", "red"]
+  ok: { primary: "#ffe200", secondary: "#e8cd00" },
+  good: { primary: "#37df11", secondary: "#29a70d" },
+  bad: { primary: "#ff3b3b", secondary: "red" }
 };
 
 const paletteColors = {
@@ -19,8 +19,8 @@ const EmployeeColors = {
 };
 
 const NavbarColors = {
-	navbar : "rgb(225, 225, 225)"
-}
+  navbar: "rgb(225, 225, 225)"
+};
 
 const statColors = ["#3385ff", "#ffff33", "#39ac73", "#ff5050"];
 

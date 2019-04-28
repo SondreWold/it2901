@@ -2,7 +2,7 @@ import {
   GET_ABSENCE_BEGIN,
   GET_ABSENCE_SUCCESS,
   GET_ABSENCE_FAILURE
-} from "./../actions/absenceAction";
+} from "./../actions/contentActions/contentAbsenceEmployeeActions";
 
 const initialState = {
   data: [],

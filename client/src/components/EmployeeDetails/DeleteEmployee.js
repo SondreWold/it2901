@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
-import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
+import { deleteEmployeeFromDb } from "../../actions/contentActions/contentEmployeeActions";
 import { FaTrash } from "react-icons/fa";
 import Alert from "react-s-alert";
 import moment from "moment";

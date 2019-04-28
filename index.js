@@ -1,13 +1,13 @@
-import employeeRouter from "./routes/employeeRouter.js";
-import baseRouter from "./routes/baseRouter.js";
-import houseRouter from "./routes/houseRouter.js";
-import unitRouter from "./routes/unitRouter.js";
-import absenceRouter from "./routes/absenceRouter.js";
-import movedRouter from "./routes/movedRouter.js";
-import navigationRouter from "./routes/navigationRouter.js";
-import dateRouter from "./routes/dateRouter.js";
-import statsRouter from "./routes/statsRouter.js";
-import settingsRouter from "./routes/settingsRouter.js";
+var employeeRouter = require("./routes/employeeRouter");
+var baseRouter = require("./routes/baseRouter");
+var houseRouter = require("./routes/houseRouter");
+var unitRouter = require("./routes/unitRouter");
+var absenceRouter = require("./routes/absenceRouter");
+var movedRouter = require("./routes/movedRouter");
+var navigationRouter = require("./routes/navigationRouter");
+var dateRouter = require("./routes/dateRouter");
+var statsRouter = require("./routes/statsRouter");
+var settingsRouter = require("./routes/settingsRouter");
 
 const express = require("express");
 const path = require("path");
@@ -48,6 +48,8 @@ app.get("*", (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
-app.listen(port);
+var server = app.listen(port);
 
 console.log(`Express listening on port ${port}`);
+
+module.exports = server;

@@ -3,7 +3,7 @@ import {
   UPDATE_SELECTED_EMPLOYEE,
   UPDATE_SELECTED_BASE
 } from "../../actions/EmployeeListActions/EmployeeListActions";
-import { DELETE_EMPLOYEE } from "../../actions/deleteEmployeeAction";
+import { DELETE_EMPLOYEE } from "../../actions/contentActions/contentEmployeeActions";
 
 const initialState = {
   selectedEmployee: "",
