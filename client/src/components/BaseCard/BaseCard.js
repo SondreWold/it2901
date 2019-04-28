@@ -10,7 +10,7 @@ class BaseCard extends Component {
           style={{
             margin: "auto",
             borderRadius: "2px",
-            backgroundColor: this.props.color,
+            backgroundColor: this.props.color[0],
             width: "100%",
             height: "10px"
           }}

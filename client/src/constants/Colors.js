@@ -1,7 +1,7 @@
 const BaseColors = {
-  ok: "#ffe200",
-  good: "#37df11",
-  bad: "#ff3b3b"
+  ok: ["#ffe200", "#e8cd00"],
+  good: ["#37df11", "#29a70d"],
+  bad: ["#ff3b3b", "red"]
 };
 
 const paletteColors = {
