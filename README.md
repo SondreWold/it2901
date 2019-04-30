@@ -14,6 +14,29 @@ Bruken av webappen er ment å være intuitiv, og det meste av brukerinteraksjone
 To be continued....
 
 
+### Testing
+
+Vi har skrevet to typer tester i dette prosjektet: end-to-end tester (e2e) med Cypress og back-end tester med Mocha og Chai. Under følger en oppskrift for hvordan man kjører de to forskjellige typene av tester i dette prosjektet. Begge oppskriftene antar at brukeren er i den øverste mappen i prosjektet, e.g. kommandoen ```pwd``` gir noe à la ```.../it2901```.
+
+#### Cypress
+Før Cypress-testene skal kjøres, må applikasjonen være satt opp. Derfor: dobbelsjekk at både server og klient kjører på hhv. port 5000 og 3000.
+
+```bash
+cd client/
+npm i # or verify that cypress is installed in node_modules/
+npm run cyp --browser chrome
+```
+
+Når Cypress har åpnet seg, trykk på **Run all specs** i vinduet som åpnes. Nå skal testene kjøres. Testene er skrevet for Chrome, så hvis denne nettleseren ikke er installert kan det være grunnen.
+
+#### Mocha / Chai
+For at Mocha/Chai-testene kjøres kan ikke serveren allerede kjøres. Derfor: stop serveren (på port 5000) hvis denne kjører.
+
+```bash
+npm i # or verify that mocha / chai is installed in node_modules/
+npm test
+```
+
 ### Teknologistack
 
 - Material Design
