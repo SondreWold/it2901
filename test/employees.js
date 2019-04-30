@@ -2,6 +2,7 @@ let chai = require("chai");
 let chaiHttp = require("chai-http");
 let server = require("../index");
 let should = chai.should();
+let moment = require("moment");
 
 chai.use(chaiHttp);
 
@@ -16,11 +17,13 @@ const employee = {
   lastName: "test_lastname" + ran(10),
   baseId: ran(4),
   position: ran(2),
-  startDate: "20" + ran(99) + "-0" + ran(9) + "-0" + ran(9)
+  startDate: moment(
+    new Date(parseInt("20" + ran(99)), ran(12), ran(30))
+  ).format("YYYY-MM-DD")
 };
 
 describe("/POST employee", () => {
-  it("it should not add an employee without first name", done => {
+  it("should not add an employee without first name", done => {
     let emp_no_fn = JSON.parse(JSON.stringify(employee));
     delete emp_no_fn["firstName"];
     chai
@@ -35,7 +38,7 @@ describe("/POST employee", () => {
         done();
       });
   });
-  it("it should add a new employee", done => {
+  it("should add a new employee", done => {
     chai
       .request(server)
       .post("/api/employee/")
@@ -57,7 +60,7 @@ describe("/POST employee", () => {
 });
 
 describe("/GET employees", () => {
-  it("it should GET all employees", done => {
+  it("should GET all employees", done => {
     chai
       .request(server)
       .get("/api/employee/")
@@ -68,7 +71,7 @@ describe("/GET employees", () => {
         done();
       });
   });
-  it("it should GET latest inserted employee id", done => {
+  it("should GET latest inserted employee id", done => {
     chai
       .request(server)
       .get("/api/employee/latest/")
@@ -80,7 +83,7 @@ describe("/GET employees", () => {
         done();
       });
   });
-  it("it should GET inserted employee", done => {
+  it("should GET inserted employee", done => {
     chai
       .request(server)
       .get("/api/employee/id/" + maxId)
@@ -91,14 +94,13 @@ describe("/GET employees", () => {
         res.body[0].should.have.property("last_name").eql(employee.lastName);
         res.body[0].should.have.property("base_id").eql(employee.baseId);
         res.body[0].should.have.property("position").eql(employee.position);
-        //res.body[0].should.have.property("start_date").eql("2019-01-01");
         done();
       });
   });
 });
 
 describe("/PUT employee", () => {
-  it("it should UPDATE an employee", done => {
+  it("should UPDATE an employee", done => {
     let editedEmployee = {
       firstName: employee.firstName + "edit",
       lastName: employee.lastName + "edit",
@@ -126,16 +128,13 @@ describe("/PUT employee", () => {
         res.body.employee.should.have
           .property("baseId")
           .eql(editedEmployee.baseId);
-        /*res.body.employee.should.have
-          .property("startDate")
-          .eql(employee.startDate);*/
         done();
       });
   });
 });
 
 describe("/DELETE employee", () => {
-  it("it should DELETE an employee", done => {
+  it("should DELETE an employee", done => {
     chai
       .request(server)
       .delete("/api/employee/id/" + maxId)

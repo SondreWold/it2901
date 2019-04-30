@@ -33,14 +33,17 @@ class EmployeeList extends React.Component {
             id="searchField"
             getSearchEmployees={this.props.getSearchEmployees}
           />
-          <AddEmployee
-            showEdit={false}
-            first_name={""}
-            last_name={""}
-            base_id={"1"}
-            position={"2"}
-            empId={null}
-          />
+          {this.props.bases.length > 0 && (
+            <AddEmployee
+              showEdit={false}
+              first_name={""}
+              last_name={""}
+              base_id={String(this.props.bases[0].id)}
+              position={"2"}
+              bases={this.props.bases}
+              empId={null}
+            />
+          )}
         </div>
         <div style={style.colorInfoComp}>
           <div style={style.infos}>
