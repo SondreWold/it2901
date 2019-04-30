@@ -56,7 +56,6 @@ export function getEmployees() {
 
 export function insertNewEmployee(date, newEmployee) {
   return dispatch => {
-    console.log(newEmployee.base_id);
     fetch("/api/employee/", {
       method: "POST",
       headers: {
