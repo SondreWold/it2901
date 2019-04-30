@@ -49,22 +49,19 @@ describe("Register children absence", function(){
   it("decrement the number of children updates the ratio", function(){		
   	decrement()
   	getRatio()
-			.should('not.contain', this.initialRatio)
+			.should('not.eq', this.initialRatio)
   });
 
   it("increment the number of children reverts the ratio", function(){		
   	increment()
   	getRatio()
-			.should('contain', this.initialRatio)
+			.should('eq', this.initialRatio)
   });
 
-  // HOW TO FORCE AN UPDATE?
+  // this test fails if counter is at 0
   it("increment / decrement updates total counter", function() {
-  	// getTotalRatio().then($ratio) => () { }
-		
-		increment()
   	decrement()
   	getTotalRatio()
-  		.should('not.contain', this.totalRatio)
+  		.should('not.eq', this.totalRatio)
   });
 });
