@@ -30,7 +30,6 @@ const getLatestInsertedEmployee = (request, response) => {
 
 const insertNewEmployee = (request, response) => {
   let { firstName, lastName, baseId, position, startDate } = request.body;
-
   db.query(
     "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position, start_date) VALUES ($1, $2, $3, $4, $5)",
     [firstName, lastName, baseId, position, startDate],
