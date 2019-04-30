@@ -6,7 +6,8 @@ import {
   getSelectedBase
 } from "../actions/EmployeeListActions/EmployeeListActions";
 import { getSearchEmployees } from "../actions/contentActions/contentEmployeeActions";
-import EmployeeListContainer from "./EmployeeListContainer";
+import { getBases } from "../actions/contentActions/contentBaseActions";
+import EmployeeList from "../components/EmployeeList/EmployeeList";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
 import { getAbsenceById } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import "./employeesContentContainer.css";
@@ -14,6 +15,7 @@ import "./employeesContentContainer.css";
 class EmployeesContentContainer extends Component {
   componentDidMount() {
     this.props.getSearchEmployees();
+    this.props.getBases();
   }
 
   componentWillUnmount() {
@@ -24,11 +26,12 @@ class EmployeesContentContainer extends Component {
     return (
       <div className="container">
         <div className="item">
-          <EmployeeListContainer
+          <EmployeeList
             employees={this.props.listOfEmployees}
             getSearchEmployees={this.props.getSearchEmployees}
             selectedEmployee={this.props.selectedEmployee}
             updateSelectedEmployee={this.props.updateSelectedEmployee}
+            bases={this.props.bases}
           />
         </div>
         <div className="item">
@@ -41,6 +44,7 @@ class EmployeesContentContainer extends Component {
             minDate={this.props.minDate}
             getSelectedBase={this.props.getSelectedBase}
             selectedBase={this.props.selectedBase}
+            bases={this.props.bases}
           />
         </div>
       </div>
@@ -56,7 +60,8 @@ const mapDispatchToProps = dispatch => {
     insertAbsentEmployee: (empId, date) =>
       dispatch(insertAbsentEmployee(empId, date)),
     getSelectedBase: id => dispatch(getSelectedBase(id)),
-    getAbsence: id => dispatch(getAbsenceById(id))
+    getAbsence: id => dispatch(getAbsenceById(id)),
+    getBases: url => dispatch(getBases())
   };
 };
 
@@ -66,7 +71,8 @@ const mapStateToProps = state => ({
   minDate: state.date.minDate,
   selectedBase: state.employeeList.selectedBase,
   absence: state.absence.data,
-  loading: state.absence.loading
+  loading: state.absence.loading,
+  bases: state.contentBase.bases
 });
 
 export default connect(

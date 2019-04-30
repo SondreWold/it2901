@@ -1,6 +1,6 @@
 const Pool = require("pg").Pool;
 
-/*const connection = new Pool({
+const connection = new Pool({
   user: "yowijmaweckjjw",
   host: "ec2-54-228-224-37.eu-west-1.compute.amazonaws.com",
   database: "d41s9gog2gcj1l",
@@ -8,10 +8,10 @@ const Pool = require("pg").Pool;
   port: 5432,
   ssl: true,
   multipleStatements: true
-});*/
+});
 
 //test
-const connection = new Pool({
+/*const connection = new Pool({
   user: "uctaqzsivbfvuo",
   host: "ec2-54-246-92-116.eu-west-1.compute.amazonaws.com",
   database: "dcbvh9m94rcn",
@@ -19,6 +19,6 @@ const connection = new Pool({
   port: 5432,
   ssl: true,
   multipleStatements: true
-});
+});*/
 
 module.exports = connection;

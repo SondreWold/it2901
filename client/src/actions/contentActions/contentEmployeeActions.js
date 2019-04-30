@@ -56,6 +56,7 @@ export function getEmployees() {
 
 export function insertNewEmployee(date, newEmployee) {
   return dispatch => {
+    console.log(newEmployee.base_id);
     fetch("/api/employee/", {
       method: "POST",
       headers: {
@@ -64,7 +65,7 @@ export function insertNewEmployee(date, newEmployee) {
       body: JSON.stringify({
         firstName: newEmployee.first_name,
         lastName: newEmployee.last_name,
-        baseID: newEmployee.base_id,
+        baseId: newEmployee.base_id,
         position: newEmployee.position,
         startDate: newEmployee.startDate
       })
@@ -96,7 +97,7 @@ export function editEmployee(id, updatedEmployee) {
       body: JSON.stringify({
         firstName: updatedEmployee.first_name,
         lastName: updatedEmployee.last_name,
-        baseID: updatedEmployee.base_id,
+        baseId: updatedEmployee.base_id,
         position: updatedEmployee.position,
         startDate: updatedEmployee.startDate
       })

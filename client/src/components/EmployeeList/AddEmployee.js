@@ -206,30 +206,16 @@ class AddEmployee extends Component {
                       value={this.state.position === "1" && this.state.base_id}
                       onChange={this.handleChange("base_id")}
                     >
-                      <FormControlLabel
-                        value="1"
-                        control={<Radio color="primary" />}
-                        label="Gåsedammen"
-                        disabled={this.state.position === "2"}
-                      />
-                      <FormControlLabel
-                        value="2"
-                        control={<Radio color="primary" />}
-                        label="Bekkdalen"
-                        disabled={this.state.position === "2"}
-                      />
-                      <FormControlLabel
-                        value="3"
-                        control={<Radio color="primary" />}
-                        label="Steinbruddet"
-                        disabled={this.state.position === "2"}
-                      />
-                      <FormControlLabel
-                        value="4"
-                        control={<Radio color="primary" />}
-                        label="Gårdsbruket"
-                        disabled={this.state.position === "2"}
-                      />
+                      {this.props.bases.map(base => {
+                        return (
+                          <FormControlLabel
+                            value={String(base.id)}
+                            control={<Radio color="primary" />}
+                            label={base.name}
+                            disabled={this.state.position === "2"}
+                          />
+                        );
+                      })}
                     </RadioGroup>
                     <FormLabel disabled={this.props.position === "2"}>
                       Startdato
