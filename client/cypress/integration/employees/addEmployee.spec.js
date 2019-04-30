@@ -16,7 +16,7 @@ describe("Register new employee", () => {
 	const lastName = "Ress" + Math.round(Math.random(10)*10000);
 	const fullName = firstName + " " + lastName;
 	const dialog = "div[role='dialog']";
-	const employeeList = ".detailsContainer nav";
+	const employeeList = ".employeeList";
   
 	function search(input) {
 		cy.get("#outlined-full-width")
@@ -24,8 +24,11 @@ describe("Register new employee", () => {
       .type("{enter}");
 	}
 
+	function clearSearch() {
+		cy.get("#outlined-full-width").clear()
+	}
+
 	before( function () {
-		cy.viewport(1400, 1000)
 		cy.visit("localhost:3000/employees")
 	});
 
@@ -41,7 +44,6 @@ describe("Register new employee", () => {
 
 
   it("registers a temp employee", () => {
-
   	cy.get("#firstName")
       .type(firstName)
     cy.get("#lastName")
@@ -49,18 +51,23 @@ describe("Register new employee", () => {
   	cy.get(dialog + " form")
   		.submit()
   	cy.get(employeeList)
-  		.first()
   		.should("contain", fullName)
+		cy.get('#empTitle')
+			.should("contain", fullName)
   });
 
-  it("deletes an employee", () => {
+  it("searches for the registered employee", () => {
+  	search(fullName)
   	cy.get(employeeList)
-  		.first()
   		.contains(fullName)
-  		.click()
-		cy.get(".employeeButtonsHolder button")
+  	clearSearch()
+  });
+
+  it("deletes the same employee that was registered", () => {
+  	cy.get(".employeeButtonsHolder button")
 			.last()
 			.click()
+			.wait(500)
 		cy.get(employeeList)
 			.should("not.contain", fullName)
   });

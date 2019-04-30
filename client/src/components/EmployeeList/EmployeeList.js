@@ -26,7 +26,7 @@ class EmployeeList extends React.Component {
         - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
       */
     return (
-      <div>
+      <div className="employeeList">
         <h2 className="employeesHeadline">Ansatte </h2>
         <div className="employeeListTop">
           <InputField

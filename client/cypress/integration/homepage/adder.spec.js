@@ -41,7 +41,6 @@ describe("Register children absence", function(){
 	})
 
 	beforeEach( function (){
-    cy.viewport(1400, 1000)
     cy.visit('localhost:3000/')
     getTotalRatio().as('totalRatio')
 	})

@@ -23,7 +23,6 @@ describe("Drag and drop employees", function(){
 	const droppable = '[data-react-beautiful-dnd-droppable]';
 
   beforeEach(function(){
-      cy.viewport(1400, 1000)
       cy.visit('localhost:3000/')
       cy.get(draggable).first().invoke('text').as('firstEmp')
       cy.get(draggable).last().invoke('text').as('lastEmp')
