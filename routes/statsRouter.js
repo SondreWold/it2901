@@ -1,7 +1,6 @@
 const express = require("express");
 const statsController = require("../server/controllers/statsController");
 
-// get an instance of express router, then redirect to correct controller
 const router = express.Router();
 
 router

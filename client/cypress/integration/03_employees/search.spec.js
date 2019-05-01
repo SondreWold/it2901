@@ -11,8 +11,9 @@ Expected behaviour: "Fant ingen ansatte..." should be rendered
 
 */
 
-describe("bogus search test", () => {
-  it("Force a no-result search", () => {
+describe("Search test", () => {
+	
+  it("force a no-result search", () => {
     cy.visit("localhost:3000/employees");
     cy.get("#outlined-full-width")
       .type("aksdjladjlajsd")

@@ -1,6 +1,6 @@
 var db = require("../db");
 
-// TODO  send id from settings page instead of brute typing id = 1
+// there is only one kindergarten at time of delivery
 const getKindergartenName = (request, response) => {
   db.query("SELECT name FROM kindergarten WHERE id = 1", (error, results) => {
     if (error) {

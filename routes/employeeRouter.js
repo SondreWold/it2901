@@ -1,7 +1,6 @@
 const express = require("express");
 const employeeController = require("../server/controllers/employeeController");
 
-// get an instance of express router, then redirect to correct controller
 const router = express.Router();
 router.route("/").get(employeeController.getEmployees);
 router.route("/id/:id").get(employeeController.getEmployee);

@@ -17,8 +17,9 @@ import absentEmpsPerMonth from "./statsReducers/absentEmpsPerMonthReducer";
 import ratio from "./statsReducers/getRatioReducer";
 import selectedDropdown from "./statsReducers/dropdownReducer";
 
+// all reducers are combined below
+// ./contentReducers/contentBaseReducer.js is well documented, and most reducers follow that pattern
 export default combineReducers({
-  //import in all reducers here
   contentBase,
   contentEmployee,
   contentAbsentEmployees,

@@ -25,10 +25,6 @@ const override = css`
 class contentContainer extends React.Component {
   componentDidMount() {
     this.fetchDataPoints();
-    //DO NOT DELETE
-    /* this.interval = setInterval(() => {
-      this.fetchDataPoints();
-    }, 1000);*/
   }
 
   componentWillUnmount() {
@@ -48,7 +44,7 @@ class contentContainer extends React.Component {
     );
   }
 
-  //Rerenders the page when new date is selected
+  // rerenders the page when new date is selected
   componentDidUpdate(prevProps) {
     if (prevProps.date !== this.props.date) {
       this.props.getAbsentChildren(
