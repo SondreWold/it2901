@@ -1,6 +1,5 @@
 var db = require("../db");
 const pgp = require("pg-promise")({
-  /* initialization options */
   capSQL: true // capitalize all generated SQL
 });
 
@@ -21,7 +20,7 @@ const getAbsentChildren = (request, response) => {
   );
 };
 
-//If there is no absent children for that day, insert a row with 0 values
+// if there is no absent children for that day, insert a row with 0 values
 const insertNewAbsentChildrenRow = (request, response) => {
   let date = request.params.date;
   const cs = new pgp.helpers.ColumnSet(["date", "children", "base_id"], {

@@ -1,7 +1,6 @@
 const express = require("express");
 const absenceController = require("../server/controllers/absenceController");
 
-// get an instance of express router, then redirect to correct controller
 const router = express.Router();
 router.route("/employees").get(absenceController.getAbsentEmployees);
 router.route("/children/date/:date").get(absenceController.getAbsentChildren);

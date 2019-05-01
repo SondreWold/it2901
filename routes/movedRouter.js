@@ -1,7 +1,6 @@
 const express = require("express");
 const movedController = require("../server/controllers/movedController");
 
-// get an instance of express router, then redirect to correct controller
 const router = express.Router();
 router.route("/:date").get(movedController.getMovedEmployee);
 router.route("/").post(movedController.addMovedEmployee);
