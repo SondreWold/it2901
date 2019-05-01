@@ -21,9 +21,9 @@ class EmployeeList extends React.Component {
 
   render() {
     /*
-       - Renders a ListItem pr employee
-        - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
-        - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
+      renders a ListItem pr employee
+     	- if employee.position = 1 (not a temp worker), assign one colour, else => assign the other
+      - if employee is selected, assign "selected colour" and set currentSelectedIndex to the id of that employee
       */
     return (
       <div className="employeeList">

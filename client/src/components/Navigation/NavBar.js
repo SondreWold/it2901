@@ -17,7 +17,7 @@ class NavBar extends Component {
     };
   }
 
-  //Opens and closes the navbar in mobile devices
+  // opens and closes the navbar in mobile devices
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen

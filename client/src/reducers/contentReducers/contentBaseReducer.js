@@ -13,8 +13,8 @@ const initialState = {
 export default function contentReducer(state = initialState, action) {
   switch (action.type) {
     case GET_BASES_BEGIN:
-      // Mark the state as "loading" so we can show a spinner or something
-      // Also, reset any errors. We're starting fresh.
+      // mark the state as "loading" so we can use this to show a loading icon for example
+      // also, reset any errors. we're starting fresh.
       return {
         ...state,
         loading: true,
@@ -22,8 +22,8 @@ export default function contentReducer(state = initialState, action) {
       };
 
     case GET_BASES_SUCCESS:
-      // All done: set loading "false".
-      // Also, replace the items with the ones from the server
+      // all done: set loading "false".
+      // also, replace the items with the ones from the server
       return {
         ...state,
         loading: false,
@@ -31,13 +31,9 @@ export default function contentReducer(state = initialState, action) {
       };
 
     case GET_BASES_FAILURE:
-      // The request failed. It's done. So set loading to "false".
-      // Save the error, so we can display it somewhere.
-      // Since it failed, we don't have items to display anymore, so set `items` empty.
-      //
-      // This is all up to you and your app though:
-      // maybe you want to keep the items around!
-      // Do whatever seems right for your use case.
+      // the request failed. It's done. So set loading to "false".
+      // save the error, so we can display it somewhere.
+      // since it failed, we don't have items to display anymore, so set `items` empty.
       return {
         ...state,
         loading: false,
@@ -46,7 +42,6 @@ export default function contentReducer(state = initialState, action) {
       };
 
     default:
-      // ALWAYS have a default case in a reducer
       return state;
   }
 }

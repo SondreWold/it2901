@@ -113,7 +113,9 @@ class BaseCardContainer extends Component {
       this.props.working_employees && (
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div className="baseCardHolder">
-            {/*mapper gjennom baser og lager basecards*/}
+            
+            {/* maps through the fetched bases to create instances of BaseCard */}
+            
             {this.props.bases.map(base => {
               const absentChildren = this.props.absentChildren.find(
                 absence => absence.base_id === base.id

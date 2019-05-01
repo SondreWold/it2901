@@ -7,10 +7,11 @@ import Colors from "../../constants/Colors.js";
 
 class AbsencePerWeekGraph extends Component {
 
+	// formats the raw data for the Chart.js lib
   formatRatioData = (ratios, skipWeekend = true) => {
     const graphData = { names: [], labels: [], data: [] };
 
-    // strips of saturdays and sundays
+    // strips of saturdays and sundays if skipWeekend = true
     if (skipWeekend){
     	ratios = ratios.filter(
   			r => [6, 0].indexOf(moment(r.date).day()) === -1
