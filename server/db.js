@@ -1,6 +1,5 @@
 const Pool = require("pg").Pool;
 
-/*
 const connection = new Pool({
   user: "yowijmaweckjjw",
   host: "ec2-54-228-224-37.eu-west-1.compute.amazonaws.com",
@@ -11,8 +10,9 @@ const connection = new Pool({
   multipleStatements: true
 });
 
-*/
-//	use these credentials when testing
+/*
+
+//	FOR TESTING PURPOSES, USE THE CREDENTIALS BELOW
 	const connection = new Pool({
   user: "uctaqzsivbfvuo",
   host: "ec2-54-246-92-116.eu-west-1.compute.amazonaws.com",
@@ -22,5 +22,7 @@ const connection = new Pool({
   ssl: true,
   multipleStatements: true
 });
+
+*/
 
 module.exports = connection;
