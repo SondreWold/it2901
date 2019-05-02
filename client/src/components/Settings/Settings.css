@@ -1,11 +1,14 @@
 .settingsCardHolder {
   display: flex;
   justify-content: space-around;
-  margin-top: 10%;
 }
 
 .settingsForm {
 	margin: 5% 0;
+}
+
+.settingsTitle {
+	margin: 5% auto;
 }
 
 .settingsButtons {
