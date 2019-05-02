@@ -43,11 +43,12 @@ const addMovedEmployee = (request, response) => {
     [date, employeeId, baseId],
     (error, results) => {
       if (error) {
-        response.status(404).send("Failed adding moved employee");
+        response.status(404).send(error);
       } else {
-        response
-          .status(200)
-          .send(`Inserted employee ${employeeId} on day ${date}`);
+        response.status(200).json({
+          message: `Inserted moved employee ${employeeId}`,
+          movedEmployee: { date, employeeId, baseId }
+        });
       }
     }
   );

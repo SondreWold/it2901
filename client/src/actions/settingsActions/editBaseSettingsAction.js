@@ -25,20 +25,25 @@ export const editBaseSettingsExisting = status => ({
 export function editBaseSettings(id, name, total_children, ratio) {
   return dispatch => {
     dispatch(editBaseSettingsBegin());
-    fetch("/api/settings/base/" + id + "/" + name + "/" + total_children + "/" + ratio, {
-    	method: "PUT",
-    	headers: {
-    		"Content-Type": "application/json"
-    	}
-  	})
+    fetch("/api/settings/base/" + id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        total_children: total_children,
+        ratio: ratio
+      })
+    })
       .then(response => response.json())
       .then(response => {
-	      if (response.status === 200) {
-	        dispatch(editBaseSettingsExisting("existing"));
-	      } else {
-	        dispatch(editBaseSettingsSuccess("inserted"));
-	      }
-	    })
+        if (response.status === 200) {
+          dispatch(editBaseSettingsExisting("existing"));
+        } else {
+          dispatch(editBaseSettingsSuccess("inserted"));
+        }
+      })
       .catch(error => dispatch(editBaseSettingsFailure(error)));
   };
 }

@@ -4,7 +4,7 @@ const getAbsentEmployeesPerMonth = (request, response) => {
   const month = parseInt(request.params.month);
   db.query(
     `
-		SELECT date, COUNT(employee_id)
+		SELECT date, CAST(COUNT(employee_id) as INT)
 		FROM absence_employee
 		WHERE DATE_PART('month', date) = $1
 		GROUP BY date;
@@ -43,45 +43,44 @@ const getRatio = (request, response) => {
 };
 
 const updateRatio = (request, response) => {
-	const date = request.params.date;
-	const baseId = parseInt(request.params.baseId);
-	const ratio = parseFloat(request.params.ratio);
+  const date = request.params.date;
+  const baseId = parseInt(request.params.baseId);
+  const ratio = parseFloat(request.params.ratio);
 
-	db.query(`
+  db.query(
+    `
 		UPDATE staff_ratio SET ratio=$3 WHERE date=$1 AND base_id=$2;`,
-		[date, baseId, ratio],
-		(error, results) => {
-			if (error) {
+    [date, baseId, ratio],
+    (error, results) => {
+      if (error) {
         response.status(404).send("Failed updating ratio");
-      }
-      else {
-      	if (results.rowCount === 0){
-      		db.query(`
+      } else {
+        if (results.rowCount === 0) {
+          db.query(
+            `
 						INSERT INTO staff_ratio (date, base_id, ratio)
 						VALUES ($1, $2, $3);`,
-						[date, baseId, ratio],
-						(error, results) => {
-							if (error) {
-								response.status(404).send("Failed inserting ratio");
-					    }
-					    else {
-					    	response
-					      .status(200)
-					      .send(`Inserted ratio ${ratio} on day ${date} in base ${baseId}`);	
-					    }
-					    
-						} 
-					);
-      	}
-      	else {
-      		response
-	        .status(200)
-	        .send(`Updated ratio ${ratio} on day ${date} in base ${baseId}`);		
-      	}
+            [date, baseId, ratio],
+            (error, results) => {
+              if (error) {
+                response.status(404).send("Failed inserting ratio");
+              } else {
+                response
+                  .status(200)
+                  .send(
+                    `Inserted ratio ${ratio} on day ${date} in base ${baseId}`
+                  );
+              }
+            }
+          );
+        } else {
+          response
+            .status(200)
+            .send(`Updated ratio ${ratio} on day ${date} in base ${baseId}`);
+        }
       }
-      
-		} 
-	);
+    }
+  );
 };
 
 const getWorkingEmpsAbsChildren = (request, response) => {
@@ -123,7 +122,9 @@ const getWorkingEmpsAbsChildren = (request, response) => {
     [date],
     (error, results) => {
       if (error) {
-        response.status(404).send("Failed fetching absent employees and absent children");
+        response
+          .status(404)
+          .send("Failed fetching absent employees and absent children");
       }
       response.status(200).json(results.rows);
     }
