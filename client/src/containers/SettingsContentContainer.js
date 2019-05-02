@@ -17,19 +17,22 @@ class SettingsContentContainer extends Component {
 
   render() {
     return (
-      <div className="settingsCardHolder">
-    	 	{this.props.bases.map(base => 
-    	 		<BaseCard title={base.name} color={Colors.paletteColors.primary} key={base.id}>
-	    	 		<SettingsForm
-	    	 			id={base.id}
-	    	 			key={base.id}
-	    	 			name={base.name}
-	    	 			total_children={base.total_children}
-	    	 			ratio={base.ratio}
-	    	 			editBaseSettings={this.props.editBaseSettings}
-	    	 		/>
-    	 		</BaseCard>
-    	 	)}
+    	<div>
+  	  	<h2 className="settingsTitle">Innstillinger</h2>
+	      <div className="settingsCardHolder">
+	    	 	{this.props.bases.map(base => 
+	    	 		<BaseCard title={base.name} color={Colors.paletteColors.primary} key={base.id}>
+		    	 		<SettingsForm
+		    	 			id={base.id}
+		    	 			key={base.id}
+		    	 			name={base.name}
+		    	 			total_children={base.total_children}
+		    	 			ratio={base.ratio}
+		    	 			editBaseSettings={this.props.editBaseSettings}
+		    	 		/>
+	    	 		</BaseCard>
+	    	 	)}
+	      </div>
       </div>
     );
   }

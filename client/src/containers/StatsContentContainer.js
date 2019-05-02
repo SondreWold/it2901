@@ -27,8 +27,8 @@ class StatsContentContainer extends Component {
   render() {
     return (
       <div>
+      	<h2>Overbemanning og underbemanning</h2>
         <div className="headerContainer">
-          <h2>Overbemanning og underbemanning</h2>
           <Dropdown
             className="dropdown"
             changeSelected={this.props.changeSelectedDropdownOption}

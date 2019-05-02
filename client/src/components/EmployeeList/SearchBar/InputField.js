@@ -13,7 +13,7 @@ export class InputField extends React.Component {
         id="outlined-full-width"
         label="Søk i ansatte"
         style={{ margin: 8 }}
-        placeholder="Feks: Børge Brende"
+        placeholder="Feks: Kari Nordmann"
         helperText=""
         fullWidth
         onChange={this.handleTextChange}

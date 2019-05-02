@@ -272,7 +272,7 @@ const style = {
   editButton: {
     maxWidth: "200px",
     minWidth: "150px",
-    margin: "20px auto",
+    margin: "20px 3px",
     border: "1px solid",
     borderColor: Colors.EmployeeColors.moveableEmployee,
     color: Colors.EmployeeColors.moveableEmployee
@@ -294,7 +294,7 @@ const styles = theme => ({
   },
   buttons: {
     "text-align": "center",
-    "justify-content": "space-evenly"
+    "justify-content": "space-evenly",
   },
   addButton: {
     marginBottom: "10px"
