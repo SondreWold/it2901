@@ -13,8 +13,8 @@ ran = max => {
 let maxId;
 
 const employee = {
-  firstName: "test_firstname" + ran(10),
-  lastName: "test_lastname" + ran(10),
+  firstName: "test_firstname" + ran(1000),
+  lastName: "test_lastname" + ran(1000),
   baseId: ran(4),
   position: ran(2),
   startDate: moment(
@@ -83,7 +83,7 @@ describe("/GET employees", () => {
         done();
       });
   });
-  it("should GET inserted employee", done => {
+  it("should GET specific employee", done => {
     chai
       .request(server)
       .get("/api/employee/id/" + maxId)
@@ -94,6 +94,41 @@ describe("/GET employees", () => {
         res.body[0].should.have.property("last_name").eql(employee.lastName);
         res.body[0].should.have.property("base_id").eql(employee.baseId);
         res.body[0].should.have.property("position").eql(employee.position);
+        done();
+      });
+  });
+  it("should GET working employees", done => {
+    chai
+      .request(server)
+      .get("/api/employee/work/date/" + employee.startDate)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+        done();
+      });
+  });
+  it("should GET free temps", done => {
+    chai
+      .request(server)
+      .get("/api/employee/date/" + employee.startDate)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("array");
+        done();
+      });
+  });
+  it("should GET employee from search", done => {
+    chai
+      .request(server)
+      .get("/api/employee/" + employee.firstName + " " + employee.lastName)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a("array");
+        res.body.length.should.be.eql(1);
+        res.body[0].should.have.property("first_name").eql(employee.firstName);
+        res.body[0].should.have.property("last_name").eql(employee.lastName);
+        res.body[0].should.have.property("id").eql(maxId);
+
         done();
       });
   });

@@ -100,6 +100,7 @@ export function deleteMovedEmployee(employeeId, date) {
     })
       .then(() => {
         dispatch(getMovedEmployee(date));
+        dispatch(getFreeTemps(date));
       })
       .catch(() => {
         console.log("failed to delete moved_employees");
