@@ -112,8 +112,8 @@ export function editEmployee(id, updatedEmployee) {
   };
 }
 
-export function deleteEmployeeFromDb(id) {
-  return dispatch => {
+export function deleteEmployeeFromDb(id, employees=[]) {
+	return dispatch => {
     fetch("api/employee/id/" + id, {
       method: "DELETE",
       headers: {
@@ -125,6 +125,9 @@ export function deleteEmployeeFromDb(id) {
       .then(() => {
         dispatch(getSearchEmployees());
         dispatch(getEmployees());
+        if (employees.length != 0){
+        	dispatch(updateSelectedEmployee(employees[0]));
+        }
       });
   };
 }
