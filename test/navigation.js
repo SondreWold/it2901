@@ -5,16 +5,16 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
-describe("/GET date", () => {
-  it("should GET created date for kindergarten", done => {
+describe("/GET navigatiton", () => {
+  it("should GET kindergarten name", done => {
     chai
       .request(server)
-      .get("/api/minDate")
+      .get("/api/navigation/")
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("array");
         if (res.body.length > 0) {
-          res.body[0].should.have.property("created_date");
+          res.body[0].should.have.property("name").to.be.a("string");
         }
         done();
       });

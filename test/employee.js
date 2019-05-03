@@ -1,8 +1,8 @@
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = require("../index");
-let should = chai.should();
+let server = require("..");
 let moment = require("moment");
+let should = chai.should();
 
 chai.use(chaiHttp);
 
@@ -34,7 +34,6 @@ describe("/POST employee", () => {
         res.should.have.status(404);
         res.body.should.be.a("object");
         res.body.should.have.property("name").eql("error");
-        res.body.should.have.property("column").eql("first_name");
         done();
       });
   });
@@ -49,11 +48,27 @@ describe("/POST employee", () => {
         res.body.should.have
           .property("message")
           .eql(`Inserted employee ` + employee.firstName);
-        res.body.employee.should.have.property("firstName");
-        res.body.employee.should.have.property("lastName");
-        res.body.employee.should.have.property("baseId");
-        res.body.employee.should.have.property("position");
-        res.body.employee.should.have.property("startDate");
+        res.body.should.have.property("employee").to.be.a("object");
+        res.body.employee.should.have
+          .property("firstName")
+          .to.be.a("string")
+          .eql(employee.firstName);
+        res.body.employee.should.have
+          .property("lastName")
+          .to.be.a("string")
+          .eql(employee.lastName);
+        res.body.employee.should.have
+          .property("baseId")
+          .to.be.a("number")
+          .eql(employee.baseId);
+        res.body.employee.should.have
+          .property("position")
+          .to.be.a("number")
+          .eql(employee.position);
+        res.body.employee.should.have
+          .property("startDate")
+          .to.be.a("string")
+          .eql(employee.startDate);
         done();
       });
   });
@@ -68,6 +83,10 @@ describe("/GET employees", () => {
         res.should.have.status(200);
         res.body.should.be.a("array");
         res.body.length.should.be.above(0);
+        res.body[0].should.have.property("first_name").to.be.a("string");
+        res.body[0].should.have.property("last_name").to.be.a("string");
+        res.body[0].should.have.property("base_id").to.be.a("number");
+        res.body[0].should.have.property("position").to.be.a("number");
         done();
       });
   });
@@ -88,12 +107,27 @@ describe("/GET employees", () => {
       .request(server)
       .get("/api/employee/id/" + maxId)
       .end((err, res) => {
+        if (res.body.first_name !== employee.firstName) {
+          maxId = null;
+        }
         res.should.have.status(200);
-        res.body.should.be.a("array");
-        res.body[0].should.have.property("first_name").eql(employee.firstName);
-        res.body[0].should.have.property("last_name").eql(employee.lastName);
-        res.body[0].should.have.property("base_id").eql(employee.baseId);
-        res.body[0].should.have.property("position").eql(employee.position);
+        res.body.should.be.a("object");
+        res.body.should.have
+          .property("first_name")
+          .to.be.a("string")
+          .eql(employee.firstName);
+        res.body.should.have
+          .property("last_name")
+          .to.be.a("string")
+          .eql(employee.lastName);
+        res.body.should.have
+          .property("base_id")
+          .to.be.a("number")
+          .eql(employee.baseId);
+        res.body.should.have
+          .property("position")
+          .to.be.a("number")
+          .eql(employee.position);
         done();
       });
   });
@@ -114,6 +148,14 @@ describe("/GET employees", () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("array");
+        if (res.body.length > 0) {
+          res.body[0].should.have.property("first_name").to.be.a("string");
+          res.body[0].should.have.property("last_name").to.be.a("string");
+          res.body[0].should.have
+            .property("position")
+            .to.be.a("number")
+            .eql(2);
+        }
         done();
       });
   });
@@ -125,9 +167,18 @@ describe("/GET employees", () => {
         res.should.have.status(200);
         res.body.should.be.a("array");
         res.body.length.should.be.eql(1);
-        res.body[0].should.have.property("first_name").eql(employee.firstName);
-        res.body[0].should.have.property("last_name").eql(employee.lastName);
-        res.body[0].should.have.property("id").eql(maxId);
+        res.body[0].should.have
+          .property("first_name")
+          .to.be.a("string")
+          .eql(employee.firstName);
+        res.body[0].should.have
+          .property("last_name")
+          .to.be.a("string")
+          .eql(employee.lastName);
+        res.body[0].should.have
+          .property("id")
+          .to.be.a("number")
+          .eql(maxId);
 
         done();
       });
@@ -153,15 +204,19 @@ describe("/PUT employee", () => {
         res.body.should.have.property("employee");
         res.body.employee.should.have
           .property("firstName")
+          .to.be.a("string")
           .eql(editedEmployee.firstName);
         res.body.employee.should.have
           .property("lastName")
+          .to.be.a("string")
           .eql(editedEmployee.lastName);
         res.body.employee.should.have
           .property("position")
+          .to.be.a("number")
           .eql(editedEmployee.position);
         res.body.employee.should.have
           .property("baseId")
+          .to.be.a("number")
           .eql(editedEmployee.baseId);
         done();
       });

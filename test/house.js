@@ -13,9 +13,12 @@ describe("/GET house", () => {
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a("array");
-        res.body[0].should.have.property("id");
-        res.body[0].should.have.property("unit_id");
-        res.body[0].should.have.property("name");
+        if (res.body.length > 0) {
+          res.body[0].should.have.property("id").to.be.a("number");
+          res.body[0].should.have.property("unit_id").to.be.a("number");
+          res.body[0].should.have.property("name").to.be.a("string");
+        }
+
         done();
       });
   });

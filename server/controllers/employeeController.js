@@ -15,7 +15,7 @@ const getEmployee = (request, response) => {
     if (error) {
       response.status(404).send("error getting employee");
     }
-    response.status(200).json(results.rows);
+    response.status(200).json(results.rows[0]);
   });
 };
 
