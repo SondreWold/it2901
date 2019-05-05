@@ -25,6 +25,7 @@ class EmployeeDetailContainer extends Component {
             selectedEmployee={this.props.selectedEmployee}
             getAbsence={this.props.getAbsence}
             absence={this.props.absence}
+            removeAbsence={this.props.removeAbsence}
           />
           <div className="employeeButtonsHolder">
             <AddEmployee

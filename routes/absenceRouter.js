@@ -13,6 +13,9 @@ router
 router
   .route("/employees/:empId/date/:date/")
   .put(absenceController.insertAbsentEmployee);
+router
+  .route("/employees/id/:id/date/:date1/:date2*?")
+  .delete(absenceController.removeEmployeeAbsence);
 router.route("/:id").get(absenceController.getAbsenceForEmployee);
 
 module.exports = router;

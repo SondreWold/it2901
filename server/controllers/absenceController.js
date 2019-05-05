@@ -99,27 +99,51 @@ const insertAbsentEmployee = (request, response) => {
 };
 
 const getAbsenceForEmployee = (request, response) => {
-  if (request.params.id !== 'null') {
-  	const id = request.params.id;
-	  db.query(`
+  if (request.params.id !== "null") {
+    const id = request.params.id;
+    db.query(
+      `
 	  	SELECT * FROM absence_employee 
 	    WHERE employee_id = $1
 	    ORDER BY date DESC`,
-	    [id],
-	    (error, results) => {
-	      if (error) {
-	        response
-	          .status(404)
-	          .send("Failed fetching absence for employee: " + id);
-	      } else {
-	        response.status(200).json(results.rows	);
-	      }
-	    }
-	  );
+      [id],
+      (error, results) => {
+        if (error) {
+          response
+            .status(404)
+            .send("Failed fetching absence for employee: " + id);
+        } else {
+          response.status(200).json(results.rows);
+        }
+      }
+    );
+  } else {
+    response.status(202).json([]);
   }
-	else {
-		response.status(202).json([])
-	}
+};
+
+const removeEmployeeAbsence = (request, response) => {
+  console.log("delete");
+  let id = request.params.id;
+  let date1 = request.params.date1;
+  let date2;
+  if (request.params.date2) {
+    date2 = request.params.date2;
+  } else {
+    date2 = date1;
+  }
+  db.query(
+    "DELETE FROM absence_employee where employee_id = $1 AND date >= $2 AND date <= $3",
+    [id, date1, date2],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        response.status(200).send("0");
+      } else {
+        response.status(200).send("1");
+      }
+    }
+  );
 };
 
 module.exports = {
@@ -128,5 +152,6 @@ module.exports = {
   updateAbsentChildren,
   insertAbsentEmployee,
   insertNewAbsentChildrenRow,
-  getAbsenceForEmployee
+  getAbsenceForEmployee,
+  removeEmployeeAbsence
 };

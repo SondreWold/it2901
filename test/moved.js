@@ -101,7 +101,7 @@ describe("/GET moved employees", () => {
   });
 });
 
-describe("/PUT employee", () => {
+describe("/PUT moved employee", () => {
   it("should UPDATE a moved employee", done => {
     chai
       .request(server)

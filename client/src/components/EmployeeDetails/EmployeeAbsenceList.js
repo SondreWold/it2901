@@ -8,6 +8,7 @@ import moment from "moment";
 import localization from "moment/locale/nb";
 import { css } from "@emotion/core";
 import { ClipLoader } from "react-spinners";
+import { MdClose, MdStayCurrentPortrait } from "react-icons/md";
 
 const override = css`
   margin-top: 10%;
@@ -24,6 +25,35 @@ class EmployeeAbsenceList extends Component {
       this.props.getAbsence(this.props.selectedEmployee.id);
     }
   }
+
+  handleClick = absence => {
+    if (absence[1]) {
+      this.props.removeAbsence(
+        this.props.selectedEmployee.id,
+        moment(absence[1].date).format("YYYY-MM-DD"),
+        moment(absence[0].date).format("YYYY-MM-DD")
+      );
+    } else {
+      this.props.removeAbsence(
+        this.props.selectedEmployee.id,
+        moment(absence.date).format("YYYY-MM-DD")
+      );
+    }
+  };
+
+  createDateList = (startDate, endDate) => {
+    let dateList = [];
+    startDate = moment(startDate).valueOf();
+    endDate = moment(endDate).valueOf();
+    console.log(endDate - startDate);
+
+    while (startDate <= endDate) {
+      console.log("lol");
+      dateList.push(moment(startDate).format("YYYY-MM-DD"));
+      startDate += 1000 * 60 * 60 * 24;
+    }
+    return dateList;
+  };
 
   formatDate = date => {
     return moment(date)
@@ -67,16 +97,6 @@ class EmployeeAbsenceList extends Component {
         abs.push(absence);
       }
     });
-    for (let i = 0; i < abs.length; i++) {
-      if (abs[i][1]) {
-        abs[i] =
-          this.formatDate(abs[i][1].date) +
-          " - " +
-          this.formatDate(abs[i][0].date);
-      } else {
-        abs[i] = this.formatDate(abs[i].date);
-      }
-    }
     return abs;
   };
 
@@ -98,11 +118,28 @@ class EmployeeAbsenceList extends Component {
             <h3>Fravær </h3>
             <List style={style.list} className="absenceList" component="nav">
               {absenceList.length !== 0
-                ? absenceList.map((absence, index) => (
-                    <ListItem key={index} style={style.listItem}>
-                      <ListItemText primary={absence} />
-                    </ListItem>
-                  ))
+                ? absenceList.map((absence, index) => {
+                    let text;
+                    if (absence[1]) {
+                      text =
+                        this.formatDate(absence[1].date) +
+                        " - " +
+                        this.formatDate(absence[0].date);
+                    } else {
+                      text = this.formatDate(absence.date);
+                    }
+                    return (
+                      <ListItem key={index} style={style.listItem}>
+                        <ListItemText primary={text} />
+                        <button
+                          style={style.button}
+                          onClick={() => this.handleClick(absence)}
+                        >
+                          <MdClose />
+                        </button>
+                      </ListItem>
+                    );
+                  })
                 : "Ingen fraværshistorikk å vise..."}
             </List>
           </div>
@@ -122,6 +159,12 @@ const style = {
     borderColor: Colors.EmployeeColors.borderColor,
     padding: "10px",
     textAlign: "center"
+  },
+  button: {
+    paddingTop: 5,
+    cursor: "pointer",
+    backgroundColor: "Transparent",
+    border: "none"
   }
 };
 
