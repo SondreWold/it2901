@@ -123,7 +123,6 @@ const getAbsenceForEmployee = (request, response) => {
 };
 
 const removeEmployeeAbsence = (request, response) => {
-  console.log("delete");
   let id = request.params.id;
   let date1 = request.params.date1;
   let date2;

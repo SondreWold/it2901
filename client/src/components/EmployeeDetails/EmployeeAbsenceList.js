@@ -41,20 +41,6 @@ class EmployeeAbsenceList extends Component {
     }
   };
 
-  createDateList = (startDate, endDate) => {
-    let dateList = [];
-    startDate = moment(startDate).valueOf();
-    endDate = moment(endDate).valueOf();
-    console.log(endDate - startDate);
-
-    while (startDate <= endDate) {
-      console.log("lol");
-      dateList.push(moment(startDate).format("YYYY-MM-DD"));
-      startDate += 1000 * 60 * 60 * 24;
-    }
-    return dateList;
-  };
-
   formatDate = date => {
     return moment(date)
       .locale("nb", localization)
