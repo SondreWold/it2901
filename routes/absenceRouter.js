@@ -1,7 +1,6 @@
-import express from "express";
-import * as absenceController from "../server/controllers/absenceController";
+const express = require("express");
+const absenceController = require("../server/controllers/absenceController");
 
-// get an instance of express router, then redirect to correct controller
 const router = express.Router();
 router.route("/employees").get(absenceController.getAbsentEmployees);
 router.route("/children/date/:date").get(absenceController.getAbsentChildren);
@@ -15,8 +14,8 @@ router
   .route("/employees/:empId/date/:date/")
   .put(absenceController.insertAbsentEmployee);
 router
-	.route("/:id")
-	.get(absenceController.getAbsenceForEmployee);
+  .route("/employees/id/:id/date/:date1/:date2*?")
+  .delete(absenceController.removeEmployeeAbsence);
+router.route("/:id").get(absenceController.getAbsenceForEmployee);
 
-export default router;
- 
+module.exports = router;

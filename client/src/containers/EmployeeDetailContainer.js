@@ -25,6 +25,7 @@ class EmployeeDetailContainer extends Component {
             selectedEmployee={this.props.selectedEmployee}
             getAbsence={this.props.getAbsence}
             absence={this.props.absence}
+            removeAbsence={this.props.removeAbsence}
           />
           <div className="employeeButtonsHolder">
             <AddEmployee
@@ -35,6 +36,8 @@ class EmployeeDetailContainer extends Component {
               position={this.props.selectedEmployee.position.toString()}
               empId={this.props.selectedEmployee.id}
               employee={this.props.selectedEmployee}
+              startDate={this.props.selectedEmployee.start_date}
+              bases={this.props.bases}
             />
             <DeleteEmployee />
           </div>

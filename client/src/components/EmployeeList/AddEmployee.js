@@ -15,17 +15,28 @@ import {
 } from "@material-ui/core";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { insertNewEmployee } from "../../actions/newEmployeeAction";
+import {
+  insertNewEmployee,
+  editEmployee
+} from "../../actions/contentActions/contentEmployeeActions";
 //import {updateSelectedEmployee} from "../../actions/EmployeeListActions/EmployeeListActions";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 import Alert from "react-s-alert";
+import DatePicker from "react-date-picker";
+
+const calendar2 = require("../../images/calendar2.svg");
+
+//moment(this.props.date).format("YYYY-MM-DD")
 
 class AddEmployee extends Component {
   constructor(props) {
     super(props);
     this.state = this.initialState;
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.calendarIcon = (
+      <img style={{ width: 20 }} src={calendar2} alt="calendar" />
+    );
   }
   get initialState() {
     return {
@@ -33,7 +44,8 @@ class AddEmployee extends Component {
       first_name: this.props.first_name,
       last_name: this.props.last_name,
       base_id: this.props.base_id,
-      position: this.props.position
+      position: this.props.position,
+      startDate: new Date()
     };
   }
 
@@ -55,19 +67,40 @@ class AddEmployee extends Component {
     this.setState({ [name]: event.target.value });
   };
 
+  handleDatePick = date => {
+    this.setState({
+      startDate: date
+    });
+  };
+
+  capitalizeFirstLetter = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+
   handleSubmit(event) {
     event.preventDefault();
-    const updatedEmployee = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+    let startDate;
+    if (parseInt(this.state.position) === 1) {
+      startDate = moment(this.state.startDate).format("YYYY-MM-DD");
+    } else {
+      startDate = null;
+    }
+    const employeeData = {
+      first_name: this.capitalizeFirstLetter(this.state.first_name),
+      last_name: this.capitalizeFirstLetter(this.state.last_name),
       base_id: parseInt(this.state.base_id),
       position: parseInt(this.state.position),
-      id: this.props.empId ? parseInt(this.props.empId) : null,
+      id: this.props.empId,
+      startDate: startDate
+    };
+    if (this.props.empId) {
+      this.props.editEmployee(this.props.empId, employeeData);
+    } else {
+      this.props.insertNewEmployee(
+        moment(this.props.date).format("YYYY-MM-DD"),
+        employeeData
+      );
     }
-    this.props.insertNewEmployee(
-      moment(this.props.date).format("YYYY-MM-DD"),
-      updatedEmployee
-    );
     let text;
     if (this.props.showEdit) {
       text = "Ansatt redigert";
@@ -90,7 +123,7 @@ class AddEmployee extends Component {
     let buttonText;
     let header;
     let showEdit = this.props.showEdit;
-    const color= Colors.EmployeeColors.moveableEmployee;
+    const color = Colors.EmployeeColors.moveableEmployee;
 
     if (showEdit) {
       button = (
@@ -147,8 +180,8 @@ class AddEmployee extends Component {
                 variant="outlined"
               />
               {!this.props.tempOnly && (
-                <div>
-                  <FormControl className={classes.formControl}>
+                <div className={classes.formControl}>
+                  <FormControl>
                     <FormLabel> Ansettelsesform </FormLabel>
                     <RadioGroup
                       value={this.state.position}
@@ -173,43 +206,44 @@ class AddEmployee extends Component {
                       value={this.state.position === "1" && this.state.base_id}
                       onChange={this.handleChange("base_id")}
                     >
-                      <FormControlLabel
-                        value="1"
-                        control={<Radio color="primary" />}
-                        label="Gåsedammen"
-                        disabled={this.state.position === "2"}
-                      />
-                      <FormControlLabel
-                        value="2"
-                        control={<Radio color="primary" />}
-                        label="Bekkdalen"
-                        disabled={this.state.position === "2"}
-                      />
-                      <FormControlLabel
-                        value="3"
-                        control={<Radio color="primary" />}
-                        label="Steinbruddet"
-                        disabled={this.state.position === "2"}
-                      />
-                      <FormControlLabel
-                        value="4"
-                        control={<Radio color="primary" />}
-                        label="Gårdsbruket"
-                        disabled={this.state.position === "2"}
-                      />
+                      {this.props.bases.map(base => {
+                        return (
+                          <FormControlLabel
+                            value={String(base.id)}
+                            control={<Radio color="primary" />}
+                            label={base.name}
+                            disabled={this.state.position === "2"}
+                          />
+                        );
+                      })}
                     </RadioGroup>
+                    <FormLabel disabled={this.props.position === "2"}>
+                      Startdato
+                    </FormLabel>
                   </FormControl>
+                  <div style={{ marginTop: "5px" }}>
+                    <DatePicker
+                      onChange={this.handleDatePick}
+                      clearIcon={null}
+                      value={this.state.startDate}
+                      locale={"nb"}
+                      showLeadingZeros={true}
+                      calendarIcon={this.calendarIcon}
+                      placeholderText={"Fra"}
+                      disabled={this.state.position === "2"}
+                    />
+                  </div>
                 </div>
               )}
               <div className={classes.buttons}>
-                <Button
-                  type="submit"
-                  value="Submit"
-                  style={style.editButton}
-                >
+                <Button type="submit" value="Submit" style={style.editButton}>
                   {buttonText}
                 </Button>
-                <Button onClick={this.handleClickClose} style={style.editButton} color="secondary">
+                <Button
+                  onClick={this.handleClickClose}
+                  style={style.editButton}
+                  color="secondary"
+                >
                   Avbryt
                 </Button>
               </div>
@@ -227,10 +261,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    insertNewEmployee: (firstName, lastName, baseID, position, date, empId, employee) =>
-      dispatch(
-        insertNewEmployee(firstName, lastName, baseID, position, date, empId, employee)
-      )
+    insertNewEmployee: (date, newEmployee) =>
+      dispatch(insertNewEmployee(date, newEmployee)),
+    editEmployee: (id, updatedEmployee) =>
+      dispatch(editEmployee(id, updatedEmployee))
   };
 };
 
@@ -238,7 +272,7 @@ const style = {
   editButton: {
     maxWidth: "200px",
     minWidth: "150px",
-    margin: "20px auto",
+    margin: "20px 3px",
     border: "1px solid",
     borderColor: Colors.EmployeeColors.moveableEmployee,
     color: Colors.EmployeeColors.moveableEmployee

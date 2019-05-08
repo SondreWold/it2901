@@ -1,18 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button } from "@material-ui/core";
-import { deleteEmployeeFromDb } from "../../actions/deleteEmployeeAction";
+import { deleteEmployeeFromDb } from "../../actions/contentActions/contentEmployeeActions";
+import { updateSelectedEmployee } from "../../actions/EmployeeListActions/EmployeeListActions";
 import { FaTrash } from "react-icons/fa";
 import Alert from "react-s-alert";
 import moment from "moment";
 import Colors from "../../constants/Colors";
 
 class DeleteEmployee extends React.Component {
+
   handleClick = () => {
     this.props.deleteEmployee(
-      this.props.selectedEmployee.id,
-      moment(this.props.date).format("YYYY-MM-DD")
-    );
+    	this.props.selectedEmployee.id,
+    	this.props.listOfEmployees.filter(
+    		e => e.id !== this.props.selectedEmployee.id
+    		)
+  	);
     Alert.error("Ansatt slettet", {
       position: "bottom-right",
       effect: "jelly",
@@ -49,12 +53,13 @@ const style = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteEmployee: (id, date) => dispatch(deleteEmployeeFromDb(id, date))
+    deleteEmployee: (id, employees) => dispatch(deleteEmployeeFromDb(id, employees))
   };
 };
 
 const mapStateToProps = state => ({
   selectedEmployee: state.employeeList.selectedEmployee,
+  listOfEmployees: state.contentEmployee.searchData,
   date: state.date.selectedDate
 });
 

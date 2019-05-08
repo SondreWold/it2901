@@ -21,12 +21,12 @@ class EmployeeList extends React.Component {
 
   render() {
     /*
-       - Renders a ListItem pr employee
-        - If employee.position = 1 (not a temp worker), asign one colour, else => asign the other
-        - If employee is selected, asign "selected colour" and set currentSelectedIndex to the id of that employee
+      renders a ListItem pr employee
+     	- if employee.position = 1 (not a temp worker), assign one colour, else => assign the other
+      - if employee is selected, assign "selected colour" and set currentSelectedIndex to the id of that employee
       */
     return (
-      <div>
+      <div className="employeeList">
         <h2 className="employeesHeadline">Ansatte </h2>
         <div className="employeeListTop">
           <InputField
@@ -37,8 +37,11 @@ class EmployeeList extends React.Component {
             showEdit={false}
             first_name={""}
             last_name={""}
-            base_id={"1"}
+            base_id={
+              this.props.bases.length > 0 ? String(this.props.bases[0].id) : "1"
+            }
             position={"2"}
+            bases={this.props.bases}
             empId={null}
           />
         </div>

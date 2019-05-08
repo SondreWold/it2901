@@ -1,9 +1,8 @@
-import express from "express";
-import * as baseController from "../server/controllers/baseController";
+const express = require("express");
+const baseController = require("../server/controllers/baseController");
 
-// get an instance of express router, then redirect to correct controller
 const router = express.Router();
 router.route("/").get(baseController.getBases);
 router.route("/:id").get(baseController.getBaseById);
 
-export default router;
+module.exports = router;

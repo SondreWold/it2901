@@ -9,6 +9,16 @@ const getEmployees = (request, response) => {
   });
 };
 
+const getEmployee = (request, response) => {
+  let id = request.params.id;
+  db.query("SELECT * FROM employee where id = $1", [id], (error, results) => {
+    if (error) {
+      response.status(404).send("error getting employee");
+    }
+    response.status(200).json(results.rows[0]);
+  });
+};
+
 const getLatestInsertedEmployee = (request, response) => {
   db.query("SELECT MAX(id) FROM employee", (error, results) => {
     if (error) {
@@ -16,6 +26,44 @@ const getLatestInsertedEmployee = (request, response) => {
     }
     response.status(200).json(results.rows);
   });
+};
+
+const insertNewEmployee = (request, response) => {
+  let { firstName, lastName, baseId, position, startDate } = request.body;
+  db.query(
+    "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position, start_date) VALUES ($1, $2, $3, $4, $5)",
+    [firstName, lastName, baseId, position, startDate],
+    (error, results) => {
+      if (error) {
+        response.status(404).send(error);
+      } else {
+        response.status(200).json({
+          message: `Inserted employee ${firstName}`,
+          employee: { firstName, lastName, baseId, position, startDate }
+        });
+      }
+    }
+  );
+};
+
+const editEmployee = (request, response) => {
+  let { firstName, lastName, baseId, position, startDate } = request.body;
+  let id = request.params.id;
+  db.query(
+    "UPDATE EMPLOYEE SET first_name=$1, last_name=$2, base_id=$3, position=$4, start_date=$5 WHERE id=$6",
+    [firstName, lastName, baseId, position, startDate, id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        response.status(404).send("Failed editing employee in DB");
+      } else {
+        response.status(200).json({
+          message: "Edited employee",
+          employee: { firstName, lastName, baseId, position, startDate, id }
+        });
+      }
+    }
+  );
 };
 
 const deleteEmployee = (request, response) => {
@@ -69,7 +117,7 @@ const getWorkingEmployees = (request, response) => {
     "SELECT m.base_id, e1.id AS employee_id, e1.first_name, e1.last_name, e1.position FROM moved_employee m INNER JOIN employee e1 ON m.employee_id = e1.id WHERE date=$1 \
     AND m.employee_id NOT IN (SELECT employee_id FROM absence_employee WHERE date=$1) \
       UNION \
-        SELECT e2.base_id, e2.id, e2.first_name, e2.last_name, e2.position FROM employee e2 WHERE e2.position = 1 AND e2.id \
+        SELECT e2.base_id, e2.id, e2.first_name, e2.last_name, e2.position FROM employee e2 WHERE e2.position = 1 AND (e2.start_date <=$1 OR e2.start_date IS NULL) AND e2.id \
         NOT IN (SELECT employee_id FROM moved_employee WHERE date = $1 \
           UNION SELECT employee_id FROM absence_employee WHERE date = $1) ORDER BY base_id, position, first_name;",
     [date],
@@ -92,41 +140,6 @@ const getWorkingEmployees = (request, response) => {
   );
 };
 
-const insertNewEmployee = (request, response) => {
-  let { firstName, lastName, baseID, position, id } = request.body;
-  //if id>0, it means that employee should be edited
-  if (id > 0) {
-    db.query(
-      "UPDATE EMPLOYEE SET first_name=$1, last_name=$2, base_id=$3, position=$4 WHERE id=$5",
-      [firstName, lastName, baseID, position, id],
-      (error, results) => {
-        if (error) {
-          console.log(error);
-          response.status(404).send("Failed inserting new employee to DB");
-        } else {
-          response.status(200).send(`Inserted employee ${firstName}`);
-        }
-      }
-    );
-  } else {
-    db.query(
-      "INSERT INTO EMPLOYEE (first_name, last_name, base_id, position) VALUES ($1, $2, $3, $4)",
-      [firstName, lastName, baseID, position],
-      (error, results) => {
-        if (error) {
-          if (error.code === "23505") {
-            console.log("fillern");
-          } else {
-            response.status(404).send("Failed inserting new employee to DB");
-          }
-        } else {
-          response.status(200).send(`Inserted employee ${firstName}`);
-        }
-      }
-    );
-  }
-};
-
 module.exports = {
   getEmployees,
   getEmployeesSearch,
@@ -135,5 +148,7 @@ module.exports = {
   getEmployeesSearch,
   getFreeTemp,
   getWorkingEmployees,
-  getLatestInsertedEmployee
+  getLatestInsertedEmployee,
+  getEmployee,
+  editEmployee
 };
