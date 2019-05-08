@@ -71,6 +71,25 @@ export function getAbsenceById(id) {
   };
 }
 
+export function removeAbsence(id, date, endDate) {
+  let query;
+  if (endDate === undefined) {
+    query = "api/absence/employees/id/" + id + "/date/" + date;
+  } else {
+    query = "api/absence/employees/id/" + id + "/date/" + date + "/" + endDate;
+  }
+  return dispatch => {
+    fetch(query, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => {
+      dispatch(dispatch(getAbsenceById(id)));
+    });
+  };
+}
+
 export function insertAbsentEmployee(empId, date) {
   return dispatch => {
     fetch("/api/absence/employees/" + empId + "/date/" + date, {

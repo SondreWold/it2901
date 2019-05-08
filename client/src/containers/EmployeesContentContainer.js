@@ -11,6 +11,7 @@ import EmployeeList from "../components/EmployeeList/EmployeeList";
 import EmployeeDetailContainer from "./EmployeeDetailContainer";
 import { getAbsenceById } from "../actions/contentActions/contentAbsenceEmployeeActions";
 import "./employeesContentContainer.css";
+import { removeAbsence } from "../actions/contentActions/contentAbsenceEmployeeActions";
 
 class EmployeesContentContainer extends Component {
   componentDidMount() {
@@ -45,6 +46,7 @@ class EmployeesContentContainer extends Component {
             getSelectedBase={this.props.getSelectedBase}
             selectedBase={this.props.selectedBase}
             bases={this.props.bases}
+            removeAbsence={this.props.removeAbsence}
           />
         </div>
       </div>
@@ -61,7 +63,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(insertAbsentEmployee(empId, date)),
     getSelectedBase: id => dispatch(getSelectedBase(id)),
     getAbsence: id => dispatch(getAbsenceById(id)),
-    getBases: url => dispatch(getBases())
+    getBases: url => dispatch(getBases()),
+    removeAbsence: (id, date, endDate) =>
+      dispatch(removeAbsence(id, date, endDate))
   };
 };
 
